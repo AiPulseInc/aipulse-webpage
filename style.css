@@ -1,0 +1,326 @@
+/* Global Reset & Base */
+:root {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --spacing-xs: 0.5rem;
+  --spacing-s: 1rem;
+  --spacing-m: 2rem;
+  --spacing-l: 4rem;
+  --spacing-xl: 8rem;
+
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+
+  /* OBSIDIAN FLUID THEME (Default / Dark) */
+  --bg-surface: #000000;
+  --bg-card: #0A0A0A;
+  --bg-card-hover: #111111;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #666666;
+
+  --brand-primary: #FFFFFF;
+  --brand-secondary: #333333;
+  --brand-accent: #FFFFFF;
+
+  --border-color: #333333;
+
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  color-scheme: dark;
+}
+
+/* Light Theme Variables (Scoped) */
+.section-white {
+  --bg-surface: #FFFFFF;
+  --bg-card: #F9F9F9;
+  --bg-card-hover: #F0F0F0;
+
+  --text-primary: #000000;
+  --text-secondary: #666666;
+
+  --brand-primary: #000000;
+  --border-color: #E5E5E5;
+
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  /* Tech Grid Overlay */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  line-height: 1.1;
+  margin-top: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Layout Containers */
+.container-fluid {
+  width: 100%;
+  padding: 0 var(--spacing-m);
+  max-width: 1920px;
+  /* Sensible cap for ultrawides */
+  margin: 0 auto;
+}
+
+.section {
+  padding: var(--spacing-l) 0;
+  border-bottom: none;
+}
+
+/* FLUID 12-COLUMN GRID ENGINE */
+.grid-fluid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+  /* 10px Gap for separation */
+  background: transparent;
+  border: none;
+}
+
+.grid-fluid>* {
+  background: var(--bg-card);
+  /* Use card bg variable */
+}
+
+/* Utilities */
+.text-xs {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.text-xl {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 300;
+}
+
+.text-mono {
+  font-family: 'Space Grotesk', monospace;
+}
+
+/* Components */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  background: var(--brand-primary);
+  color: var(--bg-surface);
+  /* Context aware contrast */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.btn:hover {
+  background: transparent;
+  color: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.card {
+  padding: var(--spacing-m);
+  height: 100%;
+  border-radius: 0;
+  /* Removing glass blur for cleaner solid look in mixed themes, or keep it? 
+     Obsidian usually implies dark mode. For white section, solid is safer. 
+  */
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s;
+  border: 1px solid transparent;
+  /* Align with layout */
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Trust Core Scroller */
+.scroller-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.scroller-content {
+  display: inline-flex;
+  gap: var(--spacing-l);
+  animation: scroll 30s linear infinite;
+  padding-left: var(--spacing-l);
+  /* Initial offset */
+}
+
+.scroller-content:hover {
+  animation-play-state: paused;
+}
+
+.logo-item {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.logo-item:hover {
+  opacity: 1;
+  color: var(--text-primary);
+}
+
+/* Protocol / Process Steps */
+.protocol-step {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border-color);
+  padding-left: var(--spacing-m);
+  position: relative;
+}
+
+.protocol-step::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  background: var(--brand-primary);
+  border-radius: 50%;
+}
+
+.protocol-step-number {
+  font-family: monospace;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Terminal Interface */
+.terminal-window {
+  background: #0A0A0A;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Space Grotesk', monospace;
+}
+
+.terminal-header {
+  background: #111;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #222;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red {
+  background: #FF5F56;
+}
+
+.dot-yellow {
+  background: #FFBD2E;
+}
+
+.dot-green {
+  background: #27C93F;
+}
+
+.terminal-body {
+  padding: 2rem;
+  color: #CCC;
+  font-size: 0.9rem;
+}
+
+.typing-cursor::after {
+  content: '▋';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .grid-fluid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
