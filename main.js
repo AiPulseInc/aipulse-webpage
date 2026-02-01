@@ -484,14 +484,14 @@ window.closeAcademyModal = () => {
   }
 };
 window.goToSlide = (section, index) => {
-  const track = document.getElementById(`track - ${section} `);
+  const track = document.getElementById(`track-${section}`);
   if (!track) return;
 
   // Slide transforms
-  track.style.transform = `translateX(-${index * 100} %)`;
+  track.style.transform = `translateX(-${index * 100}%)`;
 
   // Update Nav Active State
-  const nav = document.getElementById(`nav - ${section} `);
+  const nav = document.getElementById(`nav-${section}`);
   if (nav) {
     const items = nav.querySelectorAll('.nav-item');
     items.forEach((item, i) => {
