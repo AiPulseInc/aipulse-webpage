@@ -296,7 +296,7 @@ document.querySelector('#app').innerHTML = `
   </div>
 
   <!-- THE PROTOCOL (Process) -->
-  <section class="section" style="background: #000; padding: 10rem 0; min-height: 800px; display: flex; flex-direction: column; justify-content: center;">
+  <section class="section" style="background: #000; padding: 6rem 0; min-height: 600px; display: flex; flex-direction: column; justify-content: center;">
     <div class="container-fluid">
       <div style="margin-bottom: 4rem; padding: 0 2rem;">
         <h2 style="font-size: 1.5rem;">The Protocol</h2>
@@ -306,17 +306,23 @@ document.querySelector('#app').innerHTML = `
          <div style="grid-column: span 4;" class="protocol-step">
             <div class="protocol-step-number">PHASE_01</div>
             <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Audit & Architect</h3>
-            <p style="color: var(--text-secondary);">We map your existing workflows to identify friction points. Then we design the neural architecture.</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">We map your operational topography. Analysts identify friction points, latency, and redundant dependencies that slow velocity.</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Next, we architect the neural layer. This cognitive blueprint defines agent personas, permission scopes, and execution decision trees.</p>
+            <p style="color: var(--text-secondary);">The result is a Schematic Design: a visual guide for your new autonomous infrastructure.</p>
          </div>
          <div style="grid-column: span 4;" class="protocol-step">
             <div class="protocol-step-number">PHASE_02</div>
             <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Develop & Train</h3>
-            <p style="color: var(--text-secondary);">Custom agents are built and trained on your proprietary data. RAG pipelines are established.</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">We build your custom agent swarm on proprietary silicon, fine-tuning foundational models for your specific enterprise context.</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Simultaneously, we establish RAG pipelines for zero-latency, hallucination-free access to your internal knowledge base.</p>
+            <p style="color: var(--text-secondary);">We red-team every agent, ensuring bulletproof reliability and compliance before production deployment.</p>
          </div>
          <div style="grid-column: span 4;" class="protocol-step">
             <div class="protocol-step-number">PHASE_03</div>
             <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Deploy & Autonomy</h3>
-            <p style="color: var(--text-secondary);">Systems go live. We monitor drift and optimize for complete operational autonomy.</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">We execute a phased rollout, starting with shadow modes to verify decision logic against human benchmarks.</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Upon validation, agents take over. Your dashboard tracks real-time efficiency and completed tasks 24/7.</p>
+            <p style="color: var(--text-secondary);">We continuously monitor for drift and optimize prompt weights, ensuring your workforce evolves with every interaction.</p>
          </div>
       </div>
       
