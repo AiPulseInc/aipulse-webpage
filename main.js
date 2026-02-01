@@ -2,7 +2,7 @@
 import './style.css'
 
 document.querySelector('#app').innerHTML = `
-  <nav style="border-bottom: 1px solid var(--border-color); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;">
+  <nav style="border-bottom: 1px solid var(--border-color); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; background: #000; position: sticky; top: 0; z-index: 100;">
     <div style="font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Antigravity AI</div>
     <div style="display: flex; gap: 2rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary);">
       <a href="#" class="hover-white">Services</a>
