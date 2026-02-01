@@ -257,19 +257,19 @@ document.querySelector('#app').innerHTML = `
            <div style="background: #f9f9f9; padding: 4rem; border: 1px solid #eee;">
               
               <!-- Item 1 -->
-              <div style="border-bottom: 1px solid #e5e5e5; padding-bottom: 2rem; margin-bottom: 2rem;">
+              <div class="academy-item" onclick="openAcademyModal(1)" style="border-bottom: 1px solid #e5e5e5; padding-bottom: 2rem; margin-bottom: 2rem;">
                   <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_01</div>
                   <h4 style="font-size: 1.5rem; color: #000; font-weight: 600;">PROMPT ENGINEERING</h4>
               </div>
 
               <!-- Item 2 -->
-              <div style="border-bottom: 1px solid #e5e5e5; padding-bottom: 2rem; margin-bottom: 2rem;">
+              <div class="academy-item" onclick="openAcademyModal(2)" style="border-bottom: 1px solid #e5e5e5; padding-bottom: 2rem; margin-bottom: 2rem;">
                   <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_02</div>
                   <h4 style="font-size: 1.5rem; color: #000; font-weight: 600;">AGENTIC WORKFLOW DESIGN</h4>
               </div>
 
               <!-- Item 3 -->
-              <div>
+              <div class="academy-item" onclick="openAcademyModal(3)">
                   <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_03</div>
                   <h4 style="font-size: 1.5rem; color: #000; font-weight: 600;">SYSTEMS GOVERNANCE</h4>
               </div>
@@ -280,6 +280,20 @@ document.querySelector('#app').innerHTML = `
       </div>
     </div>
   </section>
+
+  <!-- ACADEMY MODAL (Brutalist) -->
+  <div id="academy-modal" class="academy-modal-backdrop">
+     <div class="academy-modal-content">
+        <button class="academy-modal-close" onclick="closeAcademyModal()">
+           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2"/>
+           </svg>
+        </button>
+        <div id="modal-body">
+           <!-- Dynamic Content -->
+        </div>
+     </div>
+  </div>
 
   <!-- THE PROTOCOL (Process) -->
   <section class="section" style="background: #000; padding: 10rem 0; min-height: 800px; display: flex; flex-direction: column; justify-content: center;">
@@ -410,7 +424,65 @@ document.querySelector('#app').innerHTML = `
 
 // --- GLOBAL LOGIC ---
 
-// Attach to window so inline click handlers work
+// Academy Data
+const academyData = {
+  1: {
+    title: "Prompt Engineering",
+    desc: "Achieve deterministic outputs from non-deterministic models. This comprehensive certification covers the physics of latent space navigation, enabling you to construct prompts that function as executable code. You will master the art of context window optimization, few-shot chain-of-thought protocols, and adversarial robustness testing to prevent prompt injection. By the end of this track, you will be able to engineer prompts that are statistically guaranteed to perform within strict business parameters.",
+    modules: ["Syntax & Structure", "Context Windows", "Zero-shot vs Few-shot", "Anti-Hallucination"]
+  },
+  2: {
+    title: "Agentic Workflow Design",
+    desc: "Transition from static chatbots to autonomous agent swarms. This advanced track focuses on the architecture of cognitive architectures—designing systems that can plan, reason, and execute complex multi-step tasks without human intervention. You will learn to implement recursive self-correction loops, manage long-term memory states using vector databases, and orchestrate asynchronous tool-calling across distributed environments. This is the blueprint for the autonomous enterprise.",
+    modules: ["Agent Architecture", "Tool Calling", "Memory & State", "Swarm Coordination"]
+  },
+  3: {
+    title: "Systems Governance",
+    desc: "Control the ghost in the machine. As AI systems become more autonomous, governance becomes the critical safety layer. This certification teaches you how to implement rigorous observablity pipelines, drift detection algorithms, and human-in-the-loop verification gates. You will design compliance frameworks that satisfy GDPR/EU AI Act requirements while maintaining operational velocity. We define the boundary conditions under which your synthetic workforce operates.",
+    modules: ["Ethical AI Guardrails", "Drift Detection", "Audit Logs", "Compliance Standards"]
+  }
+};
+
+window.openAcademyModal = (id) => {
+  const modal = document.getElementById('academy-modal');
+  const body = document.getElementById('modal-body');
+  const data = academyData[id];
+
+  if (modal && body && data) {
+    body.innerHTML = `
+      <div class="grid-fluid" style="gap: 4rem;">
+         <!-- Left: Header & Desc -->
+         <div style="grid-column: span 7; background: transparent;">
+            <div class="text-xs" style="color: var(--brand-primary); margin-bottom: 2rem;">ACADEMY_CERTIFICATION_LEVEL_${id.toString().padStart(2, '0')}</div>
+            <h3 style="font-size: 3.5rem; line-height: 1; margin-bottom: 2rem; color: #FFF; text-transform: uppercase;">${data.title}</h3>
+            <p style="color: #999; font-size: 1.25rem; line-height: 1.6;">${data.desc}</p>
+         </div>
+
+         <!-- Right: Curriculum -->
+         <div style="grid-column: span 5; border-left: 1px solid #333; padding-left: 3rem; display: flex; flex-direction: column; justify-content: center; background: transparent;">
+            <div class="text-xs" style="color: #666; margin-bottom: 2rem;">CURRICULUM_TRACKS</div>
+            <div style="display: grid; gap: 1.5rem;">
+               ${data.modules.map(m => `
+                 <div style="display: flex; align-items: center; gap: 1rem; color: #FFF; font-size: 1.1rem;">
+                    <span style="color: #444;">></span> ${m}
+                 </div>
+               `).join('')}
+            </div>
+         </div>
+      </div>
+    `;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+window.closeAcademyModal = () => {
+  const modal = document.getElementById('academy-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+};
 window.goToSlide = (section, index) => {
   const track = document.getElementById(`track - ${section} `);
   if (!track) return;
