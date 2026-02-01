@@ -1,4 +1,8 @@
 /* Global Reset & Base */
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.5;
@@ -97,8 +101,15 @@ a {
 }
 
 .section {
-  padding: var(--spacing-l) 0;
-  border-bottom: none;
+  padding: var(--spacing-xl) 0;
+  border-bottom: 1px solid var(--border-color);
+  min-height: 100vh;
+  display: flex;
+  /* Usually sections need flex for vertical centering */
+  flex-direction: column;
+  justify-content: center;
+  scroll-margin-top: 70px;
+  /* Offset for sticky header */
 }
 
 .section-full-height {
@@ -218,11 +229,12 @@ a {
 }
 
 /* Why Us Section Styles */
+/* Why Us Section Styles */
 .kp-container {
   display: flex;
   justify-content: space-between;
-  gap: 4rem;
-  margin-top: 4rem;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .kpi-card {
@@ -235,25 +247,54 @@ a {
 
 .kpi-number {
   font-family: 'Space Grotesk', monospace;
-  font-size: 5rem;
+  font-size: 3.75rem;
   font-weight: 600;
   color: #000;
   line-height: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .kpi-label {
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   color: #000;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-weight: 500;
 }
 
-.kpi-desc {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-width: 30ch;
+font-size: 0.8rem;
+color: var(--text-secondary);
+line-height: 1.6;
+max-width: 30ch;
+}
+
+/* Testimonial Marquee */
+.testimonial-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  padding: 2rem 0;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+  /* Pause on hover */
+}
+
+.testimonial-track:hover {
+  animation-play-state: paused;
+}
+
+.testimonial-card-item {
+  width: 400px;
+  flex: 0 0 auto;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 4px;
 }
 
 
@@ -590,6 +631,17 @@ a {
   /* Hide the contextual bar on mobile */
   .context-nav-bar {
     display: none !important;
+  }
+
+  /* Generic Grid Stack */
+  .grid-fluid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .grid-fluid>* {
+    width: 100%;
   }
 
   /* Ensure modal is scrollable on mobile if needed */
