@@ -11,33 +11,38 @@ document.querySelector('#app').innerHTML = `
     </div>
   </nav>
 
-  <header class="section" style="padding-top: 8rem; padding-bottom: 8rem;">
-    <div class="container-fluid">
-      <div class="grid-fluid">
-        <div style="grid-column: span 8; padding: 4rem;">
-          <div class="text-xs" style="margin-bottom: 1rem;">// SYSTEM_ONLINE</div>
-          <h1 class="text-xl" style="margin-bottom: 2rem;">
-            INTELLIGENCE<br>
-            AS ARCHITECTURE.
-          </h1>
-          <p style="color: var(--text-secondary); max-width: 60ch; font-size: 1.25rem; margin-bottom: 3rem;">
-            We engineer the autonomous layer of your business. 
-            Replacing friction with fluid, self-optimizing agentic workflows.
-          </p>
-          <a href="#" class="btn">Initialize Project</a>
-        </div>
-        <div style="grid-column: span 4; background: #050505; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-           <!-- Abstract Visualization -->
-           <div style="width: 100%; height: 100%; position: absolute; opacity: 0.2; background: repeating-linear-gradient(45deg, #222 0px, #222 1px, transparent 1px, transparent 10px);"></div>
-           <div style="width: 150px; height: 150px; border: 1px solid #333; display: flex; align-items: center; justify-content: center;">
-              <div style="width: 10px; height: 10px; background: white;" class="animate-pulse"></div>
-           </div>
+  <!-- SCROLL-DRIVEN HERO -->
+  <!-- Container height controls animation duration (400vh = 4 screens of scrolling) -->
+  <div class="scroll-hero-track" style="height: 400vh; position: relative; background: #000;">
+    <div class="scroll-hero-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: flex-end;">
+      <div class="container-fluid" style="width: 100%; padding-bottom: 2rem;">
+        <div class="grid-fluid" style="height: 100%; align-items: flex-end;">
+          
+          <!-- LEFT: Text Content -->
+          <div style="grid-column: span 5; display: flex; flex-direction: column; justify-content: center; height: 100vh; z-index: 10; padding-bottom: 10vh; background: transparent;">
+             <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-primary);">// SYSTEM_ONLINE</div>
+             <h1 style="font-size: clamp(3.3rem, 6.6vw, 5.5rem); line-height: 1; margin-bottom: 2rem; letter-spacing: -0.02em;">
+               INTELLIGENCE<br>
+               <span style="white-space: nowrap;">AS ARCHITECTURE.</span>
+             </h1>
+             <p style="color: var(--text-secondary); font-size: 1.25rem; max-width: 40ch; line-height: 1.6;">
+               We engineer the autonomous layer of your business. 
+               Replacing friction with fluid, self-optimizing agentic workflows.
+             </p>
+             <div style="margin-top: 3rem;">
+                <a href="#" class="btn" style="border: 1px solid #333;">Initialize Project</a>
+             </div>
+          </div>
+
+          <!-- RIGHT: Abstract Canvas Animation -->
+          <div style="grid-column: span 7; height: 100vh; position: relative; display: flex; align-items: flex-end; justify-content: center; background: transparent; padding-bottom: 50px;">
+             <canvas id="hero-canvas" width="1000" height="1000" style="width: 85%; height: auto; max-height: 70vh; object-fit: contain;"></canvas>
+          </div>
+          
         </div>
       </div>
     </div>
-  </header>
-
-
+  </div>
 
   <section class="section section-white">
     <div class="container-fluid">
@@ -47,34 +52,34 @@ document.querySelector('#app').innerHTML = `
       
       <div class="grid-fluid">
         <!-- Automation - Full Width -->
-        <div class="card" style="grid-column: span 12; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 2rem; min-height: 290px;">
+        <div style="grid-column: span 12; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 2rem; min-height: 290px; padding: 2rem; border-bottom: 1px solid var(--border-color);">
            <div style="flex: 1;">
              <div class="text-xs">01</div>
              <h3 style="font-size: 2.5rem; margin: 1rem 0;">Automation Architecture</h3>
              <p style="color: var(--text-secondary); max-width: 60ch;">Complete autonomous workflow integration. From sales pipelines to internal CRM updates, we build the invisible layer that powers your business logic.</p>
            </div>
-           <div style="border-left: 1px solid #222; padding-left: 2rem; display: flex; flex-direction: column; align-items: flex-end;">
+           <div style="border-left: 1px solid var(--border-color); padding-left: 2rem; display: flex; flex-direction: column; align-items: flex-end;">
              <span class="text-xs">+ VIEW SCHEMATICS</span>
              <div style="margin-top: 1rem; font-family: monospace; color: var(--brand-primary);">STATUS: ACTIVE</div>
            </div>
         </div>
 
         <!-- Voice - Half Width -->
-        <div class="card" style="grid-column: span 6;">
+        <div style="grid-column: span 6; padding: 2rem; border-right: 1px solid var(--border-color);">
            <div class="text-xs" style="margin-bottom: auto;">02</div>
            <h3 style="font-size: 2rem; margin: 1rem 0;">Voice Agents</h3>
            <p style="color: var(--text-secondary);">Latency-optimized conversational models.</p>
-           <div style="margin-top: 2rem; border-top: 1px solid #222; padding-top: 1rem;">
+           <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
              <span class="text-xs">+ HEAR SAMPLES</span>
            </div>
         </div>
 
         <!-- Academy - Half Width -->
-        <div class="card" style="grid-column: span 6;">
+        <div style="grid-column: span 6; padding: 2rem;">
            <div class="text-xs" style="margin-bottom: auto;">03</div>
            <h3 style="font-size: 2rem; margin: 1rem 0;">Academy</h3>
            <p style="color: var(--text-secondary);">Corporate training and certification.</p>
-           <div style="margin-top: 2rem; border-top: 1px solid #222; padding-top: 1rem;">
+           <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
              <span class="text-xs">+ ACCESS CURRICULUM</span>
            </div>
         </div>
@@ -234,4 +239,68 @@ document.querySelector('#app').innerHTML = `
        </div>
     </div>
   </footer>
-`
+`;
+
+// Logic for hero animation
+(function () {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return; // Guard clause
+
+  const ctx = canvas.getContext('2d');
+  const track = document.querySelector('.scroll-hero-track');
+
+  // Load images using Vite glob import
+  // This imports all .jpg files from existing ./images/ directory
+  const modules = import.meta.glob('./images/*.jpg', { eager: true });
+
+  // Extract URLs and sort them by filename index (frame_000, frame_001, etc.)
+  // Handles variable suffixes like delay-0.042s
+  const imagesSrcs = Object.values(modules).map(mod => mod.default).sort((a, b) => {
+    // Extract first number sequence after 'frame_'
+    const numA = parseInt(a.match(/frame_(\d+)/)?.[1] || '0', 10);
+    const numB = parseInt(b.match(/frame_(\d+)/)?.[1] || '0', 10);
+    return numA - numB;
+  });
+
+  const images = [];
+  let loadedCount = 0;
+
+  imagesSrcs.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      loadedCount++;
+      // Draw first frame immediately when ready
+      if (loadedCount === 1) {
+        canvas.width = images[0].naturalWidth;
+        canvas.height = images[0].naturalHeight;
+        ctx.drawImage(images[0], 0, 0, canvas.width, canvas.height);
+      }
+    };
+    images.push(img);
+  });
+
+  // Scroll Logic
+  window.addEventListener('scroll', () => {
+    if (!track || images.length === 0) return;
+
+    const rect = track.getBoundingClientRect();
+    const end = rect.height - window.innerHeight;
+    // rect.top is 0 when sticky starts. 
+    // We want progress 0 when rect.top is 0.
+    const scrollTop = -rect.top;
+
+    let progress = scrollTop / end;
+    progress = Math.max(0, Math.min(1, progress)); // Clamp 0-1
+
+    const frameIndex = Math.min(
+      images.length - 1,
+      Math.floor(progress * (images.length - 1))
+    );
+
+    if (images[frameIndex] && images[frameIndex].complete) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(images[frameIndex], 0, 0, canvas.width, canvas.height);
+    }
+  });
+})();
