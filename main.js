@@ -184,71 +184,44 @@ document.querySelector('#app').innerHTML = `
     </div>
   </section>
 
-  <section class="section section-white" style="min-height: 1000px; padding: 8rem 0; display: flex; flex-direction: column; justify-content: center;">
+  <section class="section section-white" style="min-height: 800px; padding: 8rem 0; display: flex; flex-direction: column; justify-content: center;">
      <div class="container-fluid">
-        <div class="grid-fluid">
-           <div style="grid-column: span 4; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 4rem;">
-              <div class="text-xs" style="color: #666; margin-bottom: 1rem;">// NEURAL_INTERFACE_V2</div>
-              <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1;">Live<br>Intelligence.</h2>
-              <p style="color: var(--text-secondary); margin-bottom: 3rem; max-width: 30ch; font-size: 1.1rem;">
-                 Interact with your data. Our RAG pipelines turn static documentation into active, conversational knowledge bases. 
-                 <br><br>
-                 Watch the system think, retrieve, and generate in real-time.
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div class="text-xs" style="color: #666; margin-bottom: 1rem;">// PERFORMANCE_METRICS</div>
+            <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1;">Why Us?</h2>
+            <p style="color: var(--text-secondary); max-width: 60ch; margin: 0 auto; font-size: 1.1rem; line-height: 1.6;">
+               We don't just build software; we engineer outcomes. Our autonomous agents are designed to drastically reduce operational friction and amplify human potential.
+            </p>
+        </div>
+
+        <!-- KPI Cards Container -->
+        <div class="kp-container">
+           <!-- KPI 1 -->
+           <div class="kpi-card">
+              <div class="kpi-number">94%</div>
+              <div class="kpi-label">Faster Execution</div>
+              <p class="kpi-desc">
+                 Tasks that took days now take minutes. Our agents operate asynchronously, clearing backlogs while you sleep.
               </p>
-              <div>
-                 <a href="#" class="btn" style="background: #000; color: #fff;">Initialize Demo</a>
-              </div>
            </div>
            
-           <!-- Complex Dashboard Visual -->
-           <div style="grid-column: span 8;">
-              <div class="dashboard-grid">
-                 <!-- Main Chat / Terminal Window -->
-                 <div class="terminal-window" style="grid-column: span 2;">
-                     <div class="terminal-header" style="justify-content: space-between;">
-                        <div style="display: flex; gap: 0.5rem;">
-                           <div class="dot dot-red"></div>
-                           <div class="dot dot-yellow"></div>
-                           <div class="dot dot-green"></div>
-                        </div>
-                        <div style="font-size: 0.7rem; color: #555;">agent_core_alpha.exe</div>
-                     </div>
-                     <div class="terminal-body">
-                        <div style="margin-bottom: 1rem; color: #666;">> connecting to vector_db... <span style="color: #27C93F;">SUCCESS</span></div>
-                        <div style="margin-bottom: 1rem;">
-                           <span style="color: #27C93F;">USER:</span> Analyze Q3 revenue against projected hiring costs.
-                        </div>
-                         <div style="margin-bottom: 1rem; padding: 1rem; background: #111; border-left: 2px solid #27C93F; font-size: 0.8rem; color: #888;">
-                           > [THOUGHT CHAIN]
-                           <br>> Retrieving Q3_Financials.pdf (Confidence: 0.98)
-                           <br>> Retrieving HR_Budget_2026.xlsx (Confidence: 0.92)
-                           <br>> Cross-referencing entities...
-                        </div>
-                        <div>
-                           <span style="color: var(--brand-primary); opacity: 0.8;">AGENT:</span> Based on the analysis, Q3 revenue ($2.4M) supports the expansion of the engineering team by 4 headcount. However, Marketing budget should be constrained to maintain the <span style="color:#FFF; font-weight:bold;">22% net margin target</span>.<span class="typing-cursor"></span>
-                        </div>
-                     </div>
-                 </div>
-                 
-                 <!-- Metric Card 1 -->
-                 <div class="stat-card">
-                    <div class="text-xs" style="color: #999; margin-bottom: 0.5rem;">VECTOR RETRIEVAL</div>
-                    <div style="font-size: 2.5rem; font-weight: 700; color: #000;">14ms</div>
-                    <div style="height: 4px; width: 100%; background: #EEE; margin-top: 1rem; border-radius: 2px;">
-                       <div style="height: 100%; width: 85%; background: #000; border-radius: 2px;"></div>
-                    </div>
-                 </div>
+           <!-- KPI 2 -->
+           <div class="kpi-card">
+              <div class="kpi-number">85%</div>
+              <div class="kpi-label">Cost Reduction</div>
+              <p class="kpi-desc">
+                 Minimizing overhead by automating repetitive, high-volume workflows, allowing capital reallocation to growth.
+              </p>
+           </div>
 
-                 <!-- Metric Card 2 -->
-                 <div class="stat-card" style="background: #111; border: 1px solid #333; color: #FFF;">
-                    <div class="text-xs" style="color: #666; margin-bottom: 0.5rem;">SYSTEM LOAD</div>
-                    <div style="font-size: 2.5rem; font-weight: 700;">800t/s</div>
-                    <div class="log-stream" style="margin-top: 1rem; color: #444;">
-                       > node_1: active<br>
-                       > node_2: standby
-                    </div>
-                 </div>
-              </div>
+           <!-- KPI 3 -->
+           <div class="kpi-card">
+              <div class="kpi-number">0%</div>
+              <div class="kpi-label">Hallucination Rate</div>
+              <p class="kpi-desc">
+                 Our proprietary RAG pipelines ensures strict adherence to your ground-truth data, eliminating creative drift.
+              </p>
            </div>
         </div>
      </div>
