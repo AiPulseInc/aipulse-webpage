@@ -474,3 +474,196 @@ a {
     gap: 3rem;
   }
 }
+
+/* --- APPLE-STYLE CONTEXTUAL NAVIGATION & SLIDERS --- */
+
+/* Utility: Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Slider Track Container */
+.slider-viewport {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.slider-track {
+  display: flex;
+  width: 100%;
+  /* Will be multiplied by N slides via JS or inline style if needed, but flex row handles naturally */
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Apple-like smooth ease */
+}
+
+.slider-slide {
+  min-width: 100%;
+  flex: 0 0 100%;
+}
+
+/* Bottom Contextual Bar */
+.context-nav-bar {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(150%);
+  /* Hidden by default */
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 999px;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1000;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.context-nav-bar.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-item {
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #999;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  color: #FFF;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+  background: #FFF;
+  color: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Light Theme overrides for Context Bar */
+.section-white .context-nav-bar {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section-white .nav-item {
+  color: #666;
+}
+
+.section-white .nav-item:hover {
+  color: #000;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.section-white .nav-item.active {
+  background: #000;
+  color: #FFF;
+}
+
+
+/* Academy Modal Overlay */
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blur-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: #111;
+  border: 1px solid #333;
+  width: 90%;
+  max-width: 1000px;
+  border-radius: 24px;
+  padding: 4rem;
+  transform: scale(0.95);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+.blur-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #222;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #333;
+  transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: #FFF;
+  color: #000;
+}
+
+/* Mobile Overrides for Contextual Nav */
+@media (max-width: 768px) {
+  .slider-track {
+    flex-direction: column;
+    /* Stack vertically on mobile */
+  }
+
+  .slider-slide {
+    margin-bottom: 4rem;
+    /* Spacing between stacked items */
+    min-width: auto;
+    flex: auto;
+  }
+
+  /* Hide the contextual bar on mobile */
+  .context-nav-bar {
+    display: none !important;
+  }
+
+  /* Ensure modal is scrollable on mobile if needed */
+  .blur-overlay {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    padding: 2rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}

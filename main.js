@@ -45,65 +45,195 @@ document.querySelector('#app').innerHTML = `
   </div>
 
   <!-- CORE MODULE 01: AUTOMATION (White) -->
-  <section class="section section-white section-full-height">
+  <section id="section-automation" class="section section-white section-full-height" style="position: relative;">
     <div class="container-fluid">
-      <div class="grid-fluid" style="align-items: center;">
-        <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
-          <div class="text-xs module-label">CORE_MODULE_01</div>
-          <h2 class="module-title">Automation<br>Architecture</h2>
-          <p class="module-desc">
-            Complete autonomous workflow integration. From sales pipelines to internal CRM updates, we build the invisible layer that powers your business logic.
-          </p>
-          <div>
-            <a href="#" class="btn btn-outline">+ View Schematics</a>
-          </div>
-        </div>
-        <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
-          <!-- Visual Placeholder or Schematic Rep -->
-           <div class="module-visual-container">
-              <div style="text-align: center;">
-                 <div class="text-xs" style="margin-bottom: 1rem;">SYSTEM STATUS</div>
-                 <div style="font-family: monospace; font-size: 1.5rem; color: #000;">ACTIVE</div>
+      
+      <!-- SLIDER VIEWPORT -->
+      <div class="slider-viewport">
+        <div class="slider-track" id="track-automation">
+            
+            <!-- SLIDE 1: Orchestration -->
+            <div class="slider-slide">
+              <div class="grid-fluid" style="align-items: center;">
+                <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+                  <div class="text-xs module-label">CORE_MODULE_01 // ORCHESTRATION</div>
+                  <h2 class="module-title">Automation<br>Architecture</h2>
+                  <p class="module-desc">
+                    Complete autonomous workflow integration. From sales pipelines to internal CRM updates, we build the invisible layer that powers your business logic.
+                  </p>
+                  <div>
+                    <a href="#" class="btn btn-outline">+ View Schematics</a>
+                  </div>
+                </div>
+                <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
+                   <div class="module-visual-container">
+                      <div style="text-align: center;">
+                         <div class="text-xs" style="margin-bottom: 1rem;">SYSTEM STATUS</div>
+                         <div style="font-family: monospace; font-size: 1.5rem; color: #000;">ACTIVE</div>
+                      </div>
+                   </div>
+                </div>
               </div>
-           </div>
+            </div>
+
+            <!-- SLIDE 2: Sales AI -->
+            <div class="slider-slide">
+              <div class="grid-fluid" style="align-items: center;">
+                <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+                  <div class="text-xs module-label">CORE_MODULE_01 // SALES_AI</div>
+                  <h2 class="module-title">Intelligent<br>Outreach</h2>
+                  <p class="module-desc">
+                    Automated prospecting and lead qualification. Our agents engage stakeholders with hyper-personalized communication at scale.
+                  </p>
+                  <div>
+                    <a href="#" class="btn btn-outline">+ View Performance</a>
+                  </div>
+                </div>
+                <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
+                   <div class="module-visual-container">
+                      <div class="text-xl" style="color: #000;">+400% Lead G.</div>
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 3: Support AI -->
+            <div class="slider-slide">
+                <div class="grid-fluid" style="align-items: center;">
+                  <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+                    <div class="text-xs module-label">CORE_MODULE_01 // SUPPORT_AI</div>
+                    <h2 class="module-title">Ticket<br>Resolution</h2>
+                    <p class="module-desc">
+                      L1 and L2 support handled instantly. 24/7 resolution of common issues without human intervention.
+                    </p>
+                  </div>
+                  <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
+                     <div class="module-visual-container">
+                        <div class="text-xl" style="color: #000;">0s Wait Time</div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- SLIDE 4: Ops AI -->
+            <div class="slider-slide">
+                <div class="grid-fluid" style="align-items: center;">
+                  <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+                    <div class="text-xs module-label">CORE_MODULE_01 // OPS_AI</div>
+                    <h2 class="module-title">Internal<br>Operations</h2>
+                    <p class="module-desc">
+                      Self-healing operational workflows. Automated reporting, invoicing, and compliance checks.
+                    </p>
+                  </div>
+                  <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
+                     <div class="module-visual-container">
+                        <div class="text-xl" style="color: #000;">100% Uptime</div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
         </div>
       </div>
+
+      <!-- Contextual Bottom Bar (Fixed relative to screen via JS toggle, but markup here) -->
+      <div id="nav-automation" class="context-nav-bar">
+          <div class="nav-item active" onclick="goToSlide('automation', 0)">Orchestration</div>
+          <div class="nav-item" onclick="goToSlide('automation', 1)">Sales</div>
+          <div class="nav-item" onclick="goToSlide('automation', 2)">Support</div>
+          <div class="nav-item" onclick="goToSlide('automation', 3)">Ops</div>
+      </div>
+
     </div>
   </section>
 
   <!-- CORE MODULE 02: VOICE AGENTS (Black) -->
-  <section class="section section-full-height section-black-border" style="background: #000;">
+  <section id="section-voice" class="section section-full-height section-black-border" style="background: #000; position: relative;">
     <div class="container-fluid">
-      <div class="grid-fluid" style="align-items: center;">
-         <!-- Visual Left -->
-         <div class="layout-col" style="grid-column: span 7; padding: 2rem;">
-            <div class="module-visual-container visual-dark-bg" style="position: relative; overflow: hidden;">
-               <!-- Sound Wave Viz -->
-               <div style="display: flex; gap: 4px; align-items: center; height: 100px;">
-                  <div class="viz-bar viz-bar-1 animate-pulse"></div>
-                  <div class="viz-bar viz-bar-2 animate-pulse"></div>
-                  <div class="viz-bar viz-bar-3 animate-pulse"></div>
-                  <div class="viz-bar viz-bar-4 animate-pulse"></div>
-                  <div class="viz-bar viz-bar-5 animate-pulse"></div>
-               </div>
+        
+      <div class="slider-viewport">
+        <div class="slider-track" id="track-voice">
+            
+            <!-- SLIDE 1: Inbound -->
+            <div class="slider-slide">
+                <div class="grid-fluid" style="align-items: center;">
+                    <!-- Visual Left -->
+                    <div class="layout-col" style="grid-column: span 7; padding: 2rem;">
+                    <div class="module-visual-container visual-dark-bg" style="position: relative; overflow: hidden;">
+                        <!-- Sound Wave Viz -->
+                        <div style="display: flex; gap: 4px; align-items: center; height: 100px;">
+                            <div class="viz-bar viz-bar-1 animate-pulse"></div>
+                            <div class="viz-bar viz-bar-2 animate-pulse"></div>
+                            <div class="viz-bar viz-bar-3 animate-pulse"></div>
+                            <div class="viz-bar viz-bar-4 animate-pulse"></div>
+                            <div class="viz-bar viz-bar-5 animate-pulse"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+                    <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02 // INBOUND</div>
+                    <h2 class="module-title">Voice<br>Agents</h2>
+                    <p class="module-desc">
+                        Latency-optimized conversational models that speak your brand's language with human-like nuance.
+                    </p>
+                    <div>
+                        <a href="#" class="btn btn-white">+ Hear Samples</a>
+                    </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
-          <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02</div>
-          <h2 class="module-title">Voice<br>Agents</h2>
-          <p class="module-desc">
-            Latency-optimized conversational models that speak your brand's language with human-like nuance.
-          </p>
-          <div>
-            <a href="#" class="btn btn-white">+ Hear Samples</a>
-          </div>
+
+            <!-- SLIDE 2: Outbound -->
+            <div class="slider-slide">
+                <div class="grid-fluid" style="align-items: center;">
+                    <div class="layout-col" style="grid-column: span 7; padding: 2rem;">
+                    <div class="module-visual-container visual-dark-bg">
+                        <div style="color: #FFF; font-size: 1.2rem; font-family: monospace;">> Dialing...</div>
+                    </div>
+                    </div>
+                    <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+                    <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02 // OUTBOUND</div>
+                    <h2 class="module-title">Active<br>Recall</h2>
+                    <p class="module-desc">
+                        Proactive customer engagement. Surveys, appointment confirmations, and reactivation campaigns.
+                    </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: Auth -->
+            <div class="slider-slide">
+                <div class="grid-fluid" style="align-items: center;">
+                    <div class="layout-col" style="grid-column: span 7; padding: 2rem;">
+                    <div class="module-visual-container visual-dark-bg">
+                         <div style="border: 1px solid #27C93F; color: #27C93F; padding: 0.5rem 1rem; border-radius: 4px;">VERIFIED</div>
+                    </div>
+                    </div>
+                    <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+                    <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02 // SECURITY</div>
+                    <h2 class="module-title">Voice<br>ID</h2>
+                    <p class="module-desc">
+                        Biometric voice authentication for secure, password-less customer verification.
+                    </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
       </div>
+
+       <!-- Contextual Bottom Bar -->
+       <div id="nav-voice" class="context-nav-bar">
+        <div class="nav-item active" onclick="goToSlide('voice', 0)">Inbound</div>
+        <div class="nav-item" onclick="goToSlide('voice', 1)">Outbound</div>
+        <div class="nav-item" onclick="goToSlide('voice', 2)">Security</div>
+      </div>
+
     </div>
   </section>
 
   <!-- CORE MODULE 03: ACADEMY (White) -->
-  <section class="section section-white section-full-height">
+  <section class="section section-white section-full-height" style="position: relative;">
     <div class="container-fluid">
       <div class="grid-fluid" style="align-items: center;">
         <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
@@ -112,8 +242,12 @@ document.querySelector('#app').innerHTML = `
           <p class="module-desc">
             Corporate training and certification. We empower your workforce to govern the AI systems we build.
           </p>
-          <div>
-            <a href="#" class="btn btn-outline">+ Access Curriculum</a>
+          <!-- Trigger for Modal -->
+          <div style="margin-top: 2rem;">
+             <button onclick="openAcademyModal()" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #000; background: transparent; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                +
+             </button>
+             <span class="text-xs" style="margin-left: 1rem; vertical-align: middle;">EXPLORE CURRICULUM</span>
           </div>
         </div>
         <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
@@ -135,6 +269,30 @@ document.querySelector('#app').innerHTML = `
       </div>
     </div>
   </section>
+
+  <!-- ACADEMY MODAL OVERLAY (Detached from flow) -->
+  <div id="academy-modal" class="blur-overlay">
+      <div class="modal-content">
+          <div class="modal-close-btn" onclick="closeAcademyModal()">✕</div>
+          <div class="text-xs" style="color: #666; margin-bottom: 2rem;">THE_ACADEMY_PROGRAM</div>
+          <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Curriculum Levels</h2>
+          
+          <div class="grid-fluid" style="gap: 2rem;">
+              <div style="grid-column: span 4; background: #1a1a1a; padding: 2rem; border-radius: 12px;">
+                  <h4 style="color: #FFF; margin-bottom: 1rem;">L1: Prompt Engineering</h4>
+                  <p style="color: #888; font-size: 0.9rem;">Mastering the art of communication with LLMs. Zero-shot, few-shot, and chain-of-thought methodologies.</p>
+              </div>
+              <div style="grid-column: span 4; background: #1a1a1a; padding: 2rem; border-radius: 12px;">
+                  <h4 style="color: #FFF; margin-bottom: 1rem;">L2: Workflow Design</h4>
+                  <p style="color: #888; font-size: 0.9rem;">Architecting multi-agent systems. Defining tools, permissions, and handover protocols.</p>
+              </div>
+              <div style="grid-column: span 4; background: #1a1a1a; padding: 2rem; border-radius: 12px;">
+                  <h4 style="color: #FFF; margin-bottom: 1rem;">L3: Governance</h4>
+                  <p style="color: #888; font-size: 0.9rem;">Ethics, security, and human-in-the-loop oversight for autonomous enterprise systems.</p>
+              </div>
+          </div>
+      </div>
+  </div>
 
   <!-- THE PROTOCOL (Process) -->
   <section class="section" style="background: #000; padding: 10rem 0; min-height: 800px; display: flex; flex-direction: column; justify-content: center;">
@@ -262,6 +420,74 @@ document.querySelector('#app').innerHTML = `
     </div>
   </footer>
 `;
+
+// --- GLOBAL LOGIC ---
+
+// Attach to window so inline click handlers work
+window.goToSlide = (section, index) => {
+  const track = document.getElementById(`track-${section}`);
+  if (!track) return;
+
+  // Slide transforms
+  track.style.transform = `translateX(-${index * 100}%)`;
+
+  // Update Nav Active State
+  const nav = document.getElementById(`nav-${section}`);
+  if (nav) {
+    const items = nav.querySelectorAll('.nav-item');
+    items.forEach((item, i) => {
+      if (i === index) item.classList.add('active');
+      else item.classList.remove('active');
+    });
+  }
+};
+
+window.openAcademyModal = () => {
+  const modal = document.getElementById('academy-modal');
+  if (modal) modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  const app = document.getElementById('app');
+  if (app) app.style.filter = 'blur(10px)';
+};
+
+window.closeAcademyModal = () => {
+  const modal = document.getElementById('academy-modal');
+  if (modal) modal.classList.remove('active');
+  document.body.style.overflow = '';
+  const app = document.getElementById('app');
+  if (app) app.style.filter = 'none';
+};
+
+// Initialize Observers
+// Using setTimeout to ensure DOM is rendered since we are injecting innerHTML
+setTimeout(() => {
+  const observerOptions = {
+    root: null,
+    threshold: 0.4
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const sectionId = entry.target.id;
+      // Map section IDs to Nav IDs
+      let navId = '';
+      if (sectionId === 'section-automation') navId = 'nav-automation';
+      if (sectionId === 'section-voice') navId = 'nav-voice';
+
+      const nav = document.getElementById(navId);
+      if (nav) {
+        if (entry.isIntersecting) {
+          nav.classList.add('visible');
+        } else {
+          nav.classList.remove('visible');
+        }
+      }
+    });
+  }, observerOptions);
+
+  const sections = document.querySelectorAll('#section-automation, #section-voice');
+  sections.forEach(s => observer.observe(s));
+}, 100);
 
 // Logic for hero animation
 (function () {
