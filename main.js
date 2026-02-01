@@ -461,9 +461,10 @@ window.closeAcademyModal = () => {
 // Initialize Observers
 // Using setTimeout to ensure DOM is rendered since we are injecting innerHTML
 setTimeout(() => {
+  // We observe multiple thresholds to handle the specific entry/exit requirements
   const observerOptions = {
     root: null,
-    threshold: 0.4
+    threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -476,9 +477,25 @@ setTimeout(() => {
 
       const nav = document.getElementById(navId);
       if (nav) {
-        if (entry.isIntersecting) {
+        const rect = entry.boundingClientRect;
+        const sectionHeight = rect.height;
+
+        // 1. ENTRY CONDITION: "visible after over 50% of the section is scrolled by user" (SCROLLED INTO VIEW)
+        // We check if the section covers the viewport center OR is substantially overlapping.
+        // intersectionRatio > 0.5 is a good proxy for "50% visible".
+
+        // 2. EXIT CONDITION: "disappear when 20% of the section is over the top of the page" 
+        // This means rect.top is negative (past top) and its magnitude is > 20% of height.
+        const percentScrolledPastTop = (rect.top * -1) / sectionHeight;
+
+        // Logic:
+        // Show if: Intersection > 0.5 AND We haven't scrolled past 20%
+
+        if (entry.intersectionRatio > 0.5 && percentScrolledPastTop < 0.20) {
           nav.classList.add('visible');
         } else {
+          // Hide if less than 50% visible (entering/leaving bottom)
+          // OR if we have scrolled past the top by more than 20%
           nav.classList.remove('visible');
         }
       }
