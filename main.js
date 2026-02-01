@@ -44,43 +44,92 @@ document.querySelector('#app').innerHTML = `
     </div>
   </div>
 
-  <section class="section section-white">
+  <!-- CORE MODULE 01: AUTOMATION (White) -->
+  <section class="section section-white section-full-height">
     <div class="container-fluid">
-      <div style="margin-bottom: 2rem; padding: 0 2rem;">
-        <h2 style="font-size: 1.5rem;">Core Modules</h2>
+      <div class="grid-fluid" style="align-items: center;">
+        <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+          <div class="text-xs module-label">CORE_MODULE_01</div>
+          <h2 class="module-title">Automation<br>Architecture</h2>
+          <p class="module-desc">
+            Complete autonomous workflow integration. From sales pipelines to internal CRM updates, we build the invisible layer that powers your business logic.
+          </p>
+          <div>
+            <a href="#" class="btn btn-outline">+ View Schematics</a>
+          </div>
+        </div>
+        <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
+          <!-- Visual Placeholder or Schematic Rep -->
+           <div class="module-visual-container">
+              <div style="text-align: center;">
+                 <div class="text-xs" style="margin-bottom: 1rem;">SYSTEM STATUS</div>
+                 <div style="font-family: monospace; font-size: 1.5rem; color: #000;">ACTIVE</div>
+              </div>
+           </div>
+        </div>
       </div>
-      
-      <div class="grid-fluid">
-        <!-- Automation - Full Width -->
-        <div style="grid-column: span 12; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 2rem; min-height: 290px; padding: 2rem; border-bottom: 1px solid var(--border-color);">
-           <div style="flex: 1;">
-             <div class="text-xs">01</div>
-             <h3 style="font-size: 2.5rem; margin: 1rem 0;">Automation Architecture</h3>
-             <p style="color: var(--text-secondary); max-width: 60ch;">Complete autonomous workflow integration. From sales pipelines to internal CRM updates, we build the invisible layer that powers your business logic.</p>
-           </div>
-           <div style="border-left: 1px solid var(--border-color); padding-left: 2rem; display: flex; flex-direction: column; align-items: flex-end;">
-             <span class="text-xs">+ VIEW SCHEMATICS</span>
-             <div style="margin-top: 1rem; font-family: monospace; color: var(--brand-primary);">STATUS: ACTIVE</div>
-           </div>
-        </div>
+    </div>
+  </section>
 
-        <!-- Voice - Half Width -->
-        <div style="grid-column: span 6; padding: 2rem; border-right: 1px solid var(--border-color);">
-           <div class="text-xs" style="margin-bottom: auto;">02</div>
-           <h3 style="font-size: 2rem; margin: 1rem 0;">Voice Agents</h3>
-           <p style="color: var(--text-secondary);">Latency-optimized conversational models.</p>
-           <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-             <span class="text-xs">+ HEAR SAMPLES</span>
-           </div>
+  <!-- CORE MODULE 02: VOICE AGENTS (Black) -->
+  <section class="section section-full-height section-black-border" style="background: #000;">
+    <div class="container-fluid">
+      <div class="grid-fluid" style="align-items: center;">
+         <!-- Visual Left -->
+         <div class="layout-col" style="grid-column: span 7; padding: 2rem;">
+            <div class="module-visual-container visual-dark-bg" style="position: relative; overflow: hidden;">
+               <!-- Sound Wave Viz -->
+               <div style="display: flex; gap: 4px; align-items: center; height: 100px;">
+                  <div class="viz-bar viz-bar-1 animate-pulse"></div>
+                  <div class="viz-bar viz-bar-2 animate-pulse"></div>
+                  <div class="viz-bar viz-bar-3 animate-pulse"></div>
+                  <div class="viz-bar viz-bar-4 animate-pulse"></div>
+                  <div class="viz-bar viz-bar-5 animate-pulse"></div>
+               </div>
+            </div>
+         </div>
+         <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+          <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02</div>
+          <h2 class="module-title">Voice<br>Agents</h2>
+          <p class="module-desc">
+            Latency-optimized conversational models that speak your brand's language with human-like nuance.
+          </p>
+          <div>
+            <a href="#" class="btn btn-white">+ Hear Samples</a>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Academy - Half Width -->
-        <div style="grid-column: span 6; padding: 2rem;">
-           <div class="text-xs" style="margin-bottom: auto;">03</div>
-           <h3 style="font-size: 2rem; margin: 1rem 0;">Academy</h3>
-           <p style="color: var(--text-secondary);">Corporate training and certification.</p>
-           <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-             <span class="text-xs">+ ACCESS CURRICULUM</span>
+  <!-- CORE MODULE 03: ACADEMY (White) -->
+  <section class="section section-white section-full-height">
+    <div class="container-fluid">
+      <div class="grid-fluid" style="align-items: center;">
+        <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
+          <div class="text-xs module-label">CORE_MODULE_03</div>
+          <h2 class="module-title">The<br>Academy</h2>
+          <p class="module-desc">
+            Corporate training and certification. We empower your workforce to govern the AI systems we build.
+          </p>
+          <div>
+            <a href="#" class="btn btn-outline">+ Access Curriculum</a>
+          </div>
+        </div>
+        <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
+           <div class="module-visual-container" style="flex-direction: column; padding: 3rem; align-items: flex-start;">
+              <div style="border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 1rem; width: 100%;">
+                 <div class="text-xs" style="color: #999;">CERTIFICATION_LEVEL_01</div>
+                 <h4 style="font-size: 1.2rem; margin-top: 0.5rem; color: #000;">Prompt Engineering</h4>
+              </div>
+              <div style="border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 1rem; width: 100%;">
+                 <div class="text-xs" style="color: #999;">CERTIFICATION_LEVEL_02</div>
+                 <h4 style="font-size: 1.2rem; margin-top: 0.5rem; color: #000;">Agentic Workflow Design</h4>
+              </div>
+              <div style="width: 100%;">
+                 <div class="text-xs" style="color: #999;">CERTIFICATION_LEVEL_03</div>
+                 <h4 style="font-size: 1.2rem; margin-top: 0.5rem; color: #000;">Systems Governance</h4>
+              </div>
            </div>
         </div>
       </div>
