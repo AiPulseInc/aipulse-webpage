@@ -233,66 +233,53 @@ document.querySelector('#app').innerHTML = `
   </section>
 
   <!-- CORE MODULE 03: ACADEMY (White) -->
-  <section class="section section-white section-full-height" style="position: relative;">
+  <section class="section section-white" style="position: relative; padding: 6rem 0;">
     <div class="container-fluid">
-      <div class="grid-fluid" style="align-items: center;">
-        <div class="layout-col" style="grid-column: span 5; padding: 2rem;">
-          <div class="text-xs module-label">CORE_MODULE_03</div>
-          <h2 class="module-title">The<br>Academy</h2>
-          <p class="module-desc">
+      <div class="grid-fluid">
+        
+        <!-- Left Col: Header & Action -->
+        <div class="layout-col" style="grid-column: span 5; display: flex; flex-direction: column; justify-content: center;">
+          <div class="text-xs" style="color: #999; margin-bottom: 1rem; letter-spacing: 0.1em;">CORE_MODULE_03</div>
+          <h2 style="font-size: 4rem; line-height: 1; color: #000; margin-bottom: 2rem; font-weight: 700;">
+            THE<br>ACADEMY
+          </h2>
+          <p style="font-size: 1.1rem; line-height: 1.6; color: #666; max-width: 40ch; margin-bottom: 4rem;">
             Corporate training and certification. We empower your workforce to govern the AI systems we build.
           </p>
-          <!-- Trigger for Modal -->
-          <div style="margin-top: 2rem;">
-             <button onclick="openAcademyModal()" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid #000; background: transparent; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
-                +
-             </button>
-             <span class="text-xs" style="margin-left: 1rem; vertical-align: middle;">EXPLORE CURRICULUM</span>
+
+          <div>
+             <a href="#" class="btn btn-outline" style="color: #000; border-color: #000;">+ JOIN ACADEMY</a>
           </div>
         </div>
-        <div class="layout-col" style="grid-column: span 7; display: flex; justify-content: flex-end; padding: 2rem;">
-           <div class="module-visual-container" style="flex-direction: column; padding: 3rem; align-items: flex-start;">
-              <div style="border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 1rem; width: 100%;">
-                 <div class="text-xs" style="color: #999;">CERTIFICATION_LEVEL_01</div>
-                 <h4 style="font-size: 1.2rem; margin-top: 0.5rem; color: #000;">Prompt Engineering</h4>
+
+        <!-- Right Col: Curriculum List -->
+        <div class="layout-col" style="grid-column: span 7; padding-left: 4rem;">
+           <div style="background: #f9f9f9; padding: 4rem; border: 1px solid #eee;">
+              
+              <!-- Item 1 -->
+              <div style="border-bottom: 1px solid #e5e5e5; padding-bottom: 2rem; margin-bottom: 2rem;">
+                  <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_01</div>
+                  <h4 style="font-size: 1.5rem; color: #000; font-weight: 600;">PROMPT ENGINEERING</h4>
               </div>
-              <div style="border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 1rem; width: 100%;">
-                 <div class="text-xs" style="color: #999;">CERTIFICATION_LEVEL_02</div>
-                 <h4 style="font-size: 1.2rem; margin-top: 0.5rem; color: #000;">Agentic Workflow Design</h4>
+
+              <!-- Item 2 -->
+              <div style="border-bottom: 1px solid #e5e5e5; padding-bottom: 2rem; margin-bottom: 2rem;">
+                  <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_02</div>
+                  <h4 style="font-size: 1.5rem; color: #000; font-weight: 600;">AGENTIC WORKFLOW DESIGN</h4>
               </div>
-              <div style="width: 100%;">
-                 <div class="text-xs" style="color: #999;">CERTIFICATION_LEVEL_03</div>
-                 <h4 style="font-size: 1.2rem; margin-top: 0.5rem; color: #000;">Systems Governance</h4>
+
+              <!-- Item 3 -->
+              <div>
+                  <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_03</div>
+                  <h4 style="font-size: 1.5rem; color: #000; font-weight: 600;">SYSTEMS GOVERNANCE</h4>
               </div>
+
            </div>
         </div>
+
       </div>
     </div>
   </section>
-
-  <!-- ACADEMY MODAL OVERLAY (Detached from flow) -->
-  <div id="academy-modal" class="blur-overlay">
-      <div class="modal-content">
-          <div class="modal-close-btn" onclick="closeAcademyModal()">✕</div>
-          <div class="text-xs" style="color: #666; margin-bottom: 2rem;">THE_ACADEMY_PROGRAM</div>
-          <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Curriculum Levels</h2>
-          
-          <div class="grid-fluid" style="gap: 2rem;">
-              <div style="grid-column: span 4; background: #1a1a1a; padding: 2rem; border-radius: 12px;">
-                  <h4 style="color: #FFF; margin-bottom: 1rem;">L1: Prompt Engineering</h4>
-                  <p style="color: #888; font-size: 0.9rem;">Mastering the art of communication with LLMs. Zero-shot, few-shot, and chain-of-thought methodologies.</p>
-              </div>
-              <div style="grid-column: span 4; background: #1a1a1a; padding: 2rem; border-radius: 12px;">
-                  <h4 style="color: #FFF; margin-bottom: 1rem;">L2: Workflow Design</h4>
-                  <p style="color: #888; font-size: 0.9rem;">Architecting multi-agent systems. Defining tools, permissions, and handover protocols.</p>
-              </div>
-              <div style="grid-column: span 4; background: #1a1a1a; padding: 2rem; border-radius: 12px;">
-                  <h4 style="color: #FFF; margin-bottom: 1rem;">L3: Governance</h4>
-                  <p style="color: #888; font-size: 0.9rem;">Ethics, security, and human-in-the-loop oversight for autonomous enterprise systems.</p>
-              </div>
-          </div>
-      </div>
-  </div>
 
   <!-- THE PROTOCOL (Process) -->
   <section class="section" style="background: #000; padding: 10rem 0; min-height: 800px; display: flex; flex-direction: column; justify-content: center;">
@@ -425,14 +412,14 @@ document.querySelector('#app').innerHTML = `
 
 // Attach to window so inline click handlers work
 window.goToSlide = (section, index) => {
-  const track = document.getElementById(`track-${section}`);
+  const track = document.getElementById(`track - ${section} `);
   if (!track) return;
 
   // Slide transforms
-  track.style.transform = `translateX(-${index * 100}%)`;
+  track.style.transform = `translateX(-${index * 100} %)`;
 
   // Update Nav Active State
-  const nav = document.getElementById(`nav-${section}`);
+  const nav = document.getElementById(`nav - ${section} `);
   if (nav) {
     const items = nav.querySelectorAll('.nav-item');
     items.forEach((item, i) => {
@@ -442,21 +429,7 @@ window.goToSlide = (section, index) => {
   }
 };
 
-window.openAcademyModal = () => {
-  const modal = document.getElementById('academy-modal');
-  if (modal) modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-  const app = document.getElementById('app');
-  if (app) app.style.filter = 'blur(10px)';
-};
 
-window.closeAcademyModal = () => {
-  const modal = document.getElementById('academy-modal');
-  if (modal) modal.classList.remove('active');
-  document.body.style.overflow = '';
-  const app = document.getElementById('app');
-  if (app) app.style.filter = 'none';
-};
 
 // Initialize Observers
 // Using setTimeout to ensure DOM is rendered since we are injecting innerHTML
