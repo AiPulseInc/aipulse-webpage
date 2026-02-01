@@ -234,7 +234,7 @@ a {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .kpi-card {
@@ -261,10 +261,11 @@ a {
   font-weight: 500;
 }
 
-font-size: 0.8rem;
-color: var(--text-secondary);
-line-height: 1.6;
-max-width: 30ch;
+.kpi-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 30ch;
 }
 
 /* Testimonial Marquee */
@@ -272,8 +273,8 @@ max-width: 30ch;
   position: relative;
   width: 100%;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   padding: 2rem 0;
 }
 
@@ -292,7 +293,7 @@ max-width: 30ch;
 .testimonial-card-item {
   width: 400px;
   flex: 0 0 auto;
-  padding: 1.5rem;
+  padding: 1.25rem;
   background: #f9f9f9;
   border-radius: 4px;
 }
@@ -374,7 +375,7 @@ max-width: 30ch;
   }
 
   to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 

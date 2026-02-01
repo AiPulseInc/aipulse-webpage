@@ -354,10 +354,10 @@ document.querySelector('#app').innerHTML = `
     </div>
   </section>
 
-  <section id="section-why-us" class="section section-white" style="min-height: auto; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center;">
+  <section id="section-why-us" class="section section-white" style="min-height: auto; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center; padding-bottom: 2rem;">
      <div class="container-fluid">
         <!-- Header -->
-        <div style="text-align: center; margin-bottom: 4rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
             <div class="text-xs" style="color: #666; margin-bottom: 1rem;">// PERFORMANCE_METRICS</div>
             <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1;">Why Us?</h2>
             <p style="color: var(--text-secondary); max-width: 60ch; margin: 0 auto; font-size: 1.1rem; line-height: 1.6;">
@@ -396,10 +396,11 @@ document.querySelector('#app').innerHTML = `
         </div>
 
         <!-- Testimonials -->
-        <div style="margin-top: 1rem; padding-top: 1rem;">
+        <div style="margin-top: 0.5rem; padding-top: 0.5rem;">
            <div class="testimonial-marquee">
               <div class="testimonial-track">
-                 <!-- 1. Fintech [Existing] -->
+                 <!-- SET 1 (ORIGINALS) -->
+                 <!-- 1. Fintech -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "Antigravity didn't just automate our support; they restructured our entire customer logic. We're seeing 10x throughput with zero headcount increase."
@@ -410,7 +411,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 2. Voice [Existing] -->
+                 <!-- 2. Voice -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "The voice agents are indistinguishable from human operators. Our outbound conversion rates doubled in the first week of deployment."
@@ -421,7 +422,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 3. Governance [Existing] -->
+                 <!-- 3. Governance -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "We were skeptical about autonomous workflows, but the governance protocols gave us the confidence to scale. It's the most robust system we've ever audited."
@@ -432,7 +433,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 4. Latency [New] -->
+                 <!-- 4. Latency -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "Reduced latency by 40% across our entire high-frequency trading pipeline. The architecture is simply superior."
@@ -443,7 +444,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 5. Builder [New] -->
+                 <!-- 5. Builder -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "The best visual builder I've used. We prototyped complex agent behaviors in hours instead of weeks."
@@ -454,7 +455,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 6. Security [New] -->
+                 <!-- 6. Security -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "Security compliance out of the box was the selling point for us. It passed our internal red-team audit on day one."
@@ -465,7 +466,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 7. Support [New] -->
+                 <!-- 7. Support -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "Replaced our entire L1 support tier with Antigravity agents. CSAT scores actually went up by 15 points."
@@ -476,7 +477,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 8. Integration [New] -->
+                 <!-- 8. Integration -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "Seamless integration with legacy mainframes. It bridged a 30-year technology gap for us overnight."
@@ -487,7 +488,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 9. ROI [New] -->
+                 <!-- 9. ROI -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "The ROI was visible in 3 days. We paid for the annual license within the first month of operation."
@@ -498,7 +499,7 @@ document.querySelector('#app').innerHTML = `
                     </div>
                  </div>
 
-                 <!-- 10. Scale [New] -->
+                 <!-- 10. Scale -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "Scales infinitely without hallucination. It's the stable foundation we needed for our AI strategy."
@@ -508,8 +509,9 @@ document.querySelector('#app').innerHTML = `
                        <div class="text-xs" style="color: #666; font-size: 0.7rem;">AI LEAD, FUTURE_CORP</div>
                     </div>
                  </div>
-                 
-                 <!-- Duplicates for seamless loop (Partial set) -->
+
+                 <!-- SET 2 (DUPLICATES FOR LOOP) -->
+                 <!-- 1. Fintech -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "Antigravity didn't just automate our support; they restructured our entire customer logic. We're seeing 10x throughput with zero headcount increase."
@@ -519,6 +521,8 @@ document.querySelector('#app').innerHTML = `
                        <div class="text-xs" style="color: #666; font-size: 0.7rem;">CTO, FINTECH_CORP</div>
                     </div>
                  </div>
+
+                 <!-- 2. Voice -->
                  <div class="testimonial-card-item">
                     <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
                        "The voice agents are indistinguishable from human operators. Our outbound conversion rates doubled in the first week of deployment."
@@ -528,6 +532,94 @@ document.querySelector('#app').innerHTML = `
                        <div class="text-xs" style="color: #666; font-size: 0.7rem;">VP OPERATIONS, HEALTH_SYSTEMS</div>
                     </div>
                  </div>
+
+                 <!-- 3. Governance -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "We were skeptical about autonomous workflows, but the governance protocols gave us the confidence to scale. It's the most robust system we've ever audited."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">Elena Rodriguez</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">DIRECTOR, GLOBAL_LOGISTICS</div>
+                    </div>
+                 </div>
+
+                 <!-- 4. Latency -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "Reduced latency by 40% across our entire high-frequency trading pipeline. The architecture is simply superior."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">James Thorne</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">LEAD ARCHITECT, QUANTUM_FIN</div>
+                    </div>
+                 </div>
+
+                 <!-- 5. Builder -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "The best visual builder I've used. We prototyped complex agent behaviors in hours instead of weeks."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">Marcus V.</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">FOUNDER, NEURAL_NET</div>
+                    </div>
+                 </div>
+
+                 <!-- 6. Security -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "Security compliance out of the box was the selling point for us. It passed our internal red-team audit on day one."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">Sarah L.</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">CISO, BANK_OLD</div>
+                    </div>
+                 </div>
+
+                 <!-- 7. Support -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "Replaced our entire L1 support tier with Antigravity agents. CSAT scores actually went up by 15 points."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">Tom B.</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">VP SUPPORT, TELCO_GIANT</div>
+                    </div>
+                 </div>
+
+                 <!-- 8. Integration -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "Seamless integration with legacy mainframes. It bridged a 30-year technology gap for us overnight."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">Dr. Ray</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">CIO, HEALTH_PLUS</div>
+                    </div>
+                 </div>
+
+                 <!-- 9. ROI -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "The ROI was visible in 3 days. We paid for the annual license within the first month of operation."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">Linda K.</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">CFO, LOGISTICS_X</div>
+                    </div>
+                 </div>
+
+                 <!-- 10. Scale -->
+                 <div class="testimonial-card-item">
+                    <p style="font-size: 0.95rem; line-height: 1.4; color: #333; margin-bottom: 1rem;">
+                       "Scales infinitely without hallucination. It's the stable foundation we needed for our AI strategy."
+                    </p>
+                    <div>
+                       <div style="font-weight: 700; color: #000; font-size: 0.9rem;">P. J.</div>
+                       <div class="text-xs" style="color: #666; font-size: 0.7rem;">AI LEAD, FUTURE_CORP</div>
+                    </div>
+                 </div>
               </div>
            </div>
         </div>
@@ -535,17 +627,17 @@ document.querySelector('#app').innerHTML = `
      </div>
   </section>
 
-  <section id="contact" class="section" style="border-bottom: none; background: #000;">
+  <section id="contact" class="section" style="border-bottom: none; background: #000; padding-top: 2rem; min-height: auto;">
     <div class="container-fluid">
       <div class="grid-fluid">
-        <div style="grid-column: span 6; padding: 4rem; display: flex; flex-direction: column; justify-content: center;">
+        <div style="grid-column: span 6; padding: 1rem 4rem; display: flex; flex-direction: column; justify-content: center;">
            <h2 style="font-size: 3rem;">Ready to Deploy?</h2>
            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Schedule a technical consultation to map your automation strategy.</p>
            <div>
              <a href="#" class="btn" style="background: transparent; color: white; border: 1px solid white;">Contact Engineering</a>
            </div>
         </div>
-        <div style="grid-column: span 6; padding: 4rem; background: #050505; min-height: 510px; position: relative;">
+        <div style="grid-column: span 6; padding: 1rem 4rem; background: #050505; min-height: 460px; position: relative;">
            <div style="position: absolute; bottom: 2rem; left: 2rem; font-family: monospace; color: #444;">
              > _init protocol<br>
              > _loading modules...<br>
