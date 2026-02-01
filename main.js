@@ -329,7 +329,7 @@ document.querySelector('#app').innerHTML = `
     </div>
   </section>
 
-  <section class="section section-white" style="min-height: 800px; padding: 8rem 0; display: flex; flex-direction: column; justify-content: center;">
+  <section class="section section-white" style="min-height: auto; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center;">
      <div class="container-fluid">
         <!-- Header -->
         <div style="text-align: center; margin-bottom: 4rem;">
