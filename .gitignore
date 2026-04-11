@@ -1,3 +1,13 @@
+# Media files (design artifacts, not web assets)
+*.mov
+*.mp4
+assets/animations/
+assets/duplicated frames/
+
+# Design reference screenshots (not site assets)
+image.png
+image copy*.png
+
 # Logs
 logs
 *.log
