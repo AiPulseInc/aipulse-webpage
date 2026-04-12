@@ -1020,7 +1020,7 @@ body.theme-business {
   background: #000;
   padding-top: 4rem;
   padding-bottom: 4rem;
-  min-height: 90vh;
+  min-height: 65vh; /* was 90vh — contact + footer now fit in one viewport */
   display: flex;
   align-items: center;
 }
@@ -1150,7 +1150,7 @@ body.theme-business {
 .pricing-card {
   background: #FAFAFA;
   border: 1px solid #E5E5E5;
-  padding: 2rem 1.75rem;
+  padding: 1.65rem 1.45rem; /* was 2rem 1.75rem — 17% smaller for page lightness */
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 5;
@@ -1185,19 +1185,19 @@ body.theme-business {
 
 .pricing-card-label {
   font-family: 'Space Grotesk', monospace;
-  font-size: 0.7rem;
+  font-size: 0.6rem; /* was 0.7rem */
   letter-spacing: 0.15em;
   color: var(--brand-accent);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem; /* was 0.5rem */
 }
 
 .pricing-card-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.15rem; /* was 1.4rem */
   color: #000;
   line-height: 1.1;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem; /* was 1.25rem */
   letter-spacing: -0.01em;
 }
 
@@ -1243,29 +1243,29 @@ body.theme-business {
 }
 
 .pricing-card-desc {
-  font-size: 0.85rem;
+  font-size: 0.72rem; /* was 0.85rem */
   line-height: 1.5;
   color: #555;
-  margin-bottom: 1.5rem;
-  min-height: 4rem;
+  margin-bottom: 1.25rem; /* was 1.5rem */
+  min-height: 3.4rem; /* was 4rem */
 }
 
 .pricing-card-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.85rem 1rem;
+  padding: 0.7rem 0.85rem; /* was 0.85rem 1rem */
   background: var(--brand-accent);
   color: #FFF;
   font-family: 'Space Grotesk', monospace;
-  font-size: 0.75rem;
+  font-size: 0.65rem; /* was 0.75rem */
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 600;
   text-decoration: none;
   border: 1px solid var(--brand-accent);
   transition: all 0.2s;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem; /* was 1.5rem */
   cursor: pointer;
 }
 
@@ -1288,17 +1288,17 @@ body.theme-business {
 
 .pricing-card-features {
   border-top: 1px solid #E5E5E5;
-  padding-top: 1.25rem;
+  padding-top: 1rem; /* was 1.25rem */
   margin-top: auto;
 }
 
 .pricing-card-features-label {
   font-family: 'Space Grotesk', monospace;
-  font-size: 0.7rem;
+  font-size: 0.6rem; /* was 0.7rem */
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #888;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.7rem; /* was 0.85rem */
 }
 
 .pricing-card-features ul {
@@ -1307,14 +1307,14 @@ body.theme-business {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem; /* was 0.6rem */
 }
 
 .pricing-card-features li {
-  font-size: 0.82rem;
+  font-size: 0.7rem; /* was 0.82rem */
   line-height: 1.4;
   color: #333;
-  padding-left: 1.4rem;
+  padding-left: 1.2rem; /* was 1.4rem */
   position: relative;
 }
 
@@ -1462,6 +1462,11 @@ body.theme-business {
 
 .section-szkolenia-compact .module-visual-container {
   height: 360px; /* was 400px */
+}
+
+.section-szkolenia-compact .training-image-container {
+  aspect-ratio: auto;
+  height: 360px; /* match module-visual-container in dev for consistent sizing */
 }
 
 .section-szkolenia-compact .slider-col-text {
@@ -1612,7 +1617,7 @@ body.theme-business {
 
 /* --- Training slider section header --- */
 .section-szkolenia-header {
-  margin-bottom: 3rem;
+  margin-bottom: 0.75rem; /* was 3rem — reduced by ~36px per user request */
   padding: 0 2rem;
 }
 

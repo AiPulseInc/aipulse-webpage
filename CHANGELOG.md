@@ -2,6 +2,37 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.492] — 2026-04-12
+
+Content density pass: compact training cards, tighter pricing, shorter contact.
+
+### Changed
+- **Business szkolenia (zespoly + dev)** — dodana klasa `.section-szkolenia-compact` (był sam dev). Typography −10%, module-visual 400→360px, slider-col-text padding 2→1.5rem.
+- **Training-image-container** w compact: `aspect-ratio: 16/9` → fixed `height: 360px` (zespoly używa `training-image-container`, nie `module-visual-container` — bez override skalował się do ~450px na szerokim ekranie).
+- **section-szkolenia-header margin-bottom**: 3rem → 0.75rem (oszczędność ~36px, podnosi slider do góry).
+- **Security szkolenia** — title podniesiony do góry: `justify-content: flex-start` override na section. Header margin-bottom: 2rem → 0 (slider +32px w górę).
+- **Security szkolenia subtitle** — dodany 2-zdaniowy opis: "Lepiej zapobiegać niż później ratować. Godzina szkolenia kosztuje mniej niż jeden incydent — a blokuje ich dziesiątki."
+- **Pricing cards (security oferta)** — ~17% redukcja wielkości:
+  - padding 2rem 1.75rem → 1.65rem 1.45rem
+  - name 1.4rem → 1.15rem
+  - desc 0.85rem → 0.72rem (min-height 4rem → 3.4rem)
+  - CTA font 0.75rem → 0.65rem, padding 0.85rem 1rem → 0.7rem 0.85rem
+  - labels 0.7rem → 0.6rem
+  - features li 0.82rem → 0.7rem
+- **Section-contact min-height**: 90vh → 65vh (kontakt + footer mieszczą się w jednym viewporcie, oba pages).
+
+### Fixed
+- **Scroll-to-anchor** — usunięty duplikat: `scroll-padding-top` (html) sumował się ze `scroll-margin-top` (section). Teraz tylko `scroll-margin-top: 78px` (108 nav - 30 bonus content-reveal).
+
+### Why
+- User: "obie sekcje szkolenia mają duży gap pomiędzy nagłówkiem a opisem — podnieś do góry 30-40px"
+- User: "zmniejsz wielkość kontentu do wartości jak w security — tam mamy dobry setup"
+- User: "podnieś tytuł sekcji do góry, pod tytułem dodaj 2-3 zdaniowy opis że lepiej zapobiegać niż ratować"
+- User: "zmniejsz wielkość kart o 15-20% — lekkości na stronie teraz bardzo wypełnionej"
+- User: "sekcja kontakt jest za wysoka — zmniejszmy do 60-70vh żeby mieściła się razem ze stopką"
+
+---
+
 ## [0.491] — 2026-04-12
 
 UX polish: nav active indicator, 90vh sections, business standardization, Toolbox CTA, scroll-to-anchor fix, nav order fix.
