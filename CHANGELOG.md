@@ -2,6 +2,50 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.7] — 2026-04-12
+
+Security review + language cleanup. Naprawy merytoryczne, uproszczenie żargonu, uspójnienie brandu.
+
+### Fixed (merytoryczne)
+- **UODO/PUODO**: "Obowiązek zgłoszenia do UODO (72h) i PUODO" — błąd merytoryczny (UODO i PUODO to ta sama instytucja). Zmienione na "Prezesa UODO i CERT Polska".
+- **DPO + Inspektorzy Ochrony Danych** — redundancja (DPO = IOD). Zostawione "IOD".
+- **Nav spójność**: "Proces" → "Jak pracujemy" (pasuje do nagłówka sekcji).
+- **Brand**: "AI Pulse" → "Ai Puls" w business/index.html (5 miejsc — title, meta, alt, footer).
+- **Hardcoded version v0.2.0** w HTML → pusty placeholder (JS nadpisuje z aktualnej wartości).
+
+### Fixed (język korzyści)
+- **"big four"** → "wielkich firm konsultingowych" (user z MŚP nie zna żargonu finansowego).
+- **"kontrakty obronne" / US DoD** → "klienci enterprise, instytucje finansowe i ubezpieczyciele" (istotne dla target grupy).
+- **"Bezpieczne używanie AI" desc**: "Shadow AI, prompt injection, data leakage przez ChatGPT" → "Twój zespół już używa ChatGPT? Upewnij się, że nie wyciekają przez to firmowe dane."
+- **"Rozpocznij samoocenę"** (kłamliwe CTA → #contact) → "Zapytaj o samoocenę" + dopisek "Narzędzie wkrótce dostępne online".
+- **Polityka prywatności** `href="#"` → `/privacy/` (przekieruje 404, ale nie skacze do góry strony).
+
+### Spolszczenie (MŚP-friendly)
+- "gap analysis" / "gap assessment" → "analiza luk"
+- "checklist" → "lista kontrolna"
+- "benchmark" → "średnia branżowa"
+- "Score 0-100" → "Wynik 0-100"
+- "Shadow AI" → "nieautoryzowane AI w firmie"
+- "prompt injection i data leakage" → "ochrona danych firmowych przed wyciekiem do narzędzi AI"
+- "supply chain attack" → "atak na jedną firmę IT dotyka setek jej klientów"
+- "real-world examples" → "prawdziwe przykłady"
+- "password managery" → "menedżery haseł"
+- "social engineering" → "manipulacja socjotechniczna"
+- "incident reporting" → "zgłaszanie incydentów"
+- "BYOD" → "prywatne urządzenia"
+- "click-rate" → "skuteczność kliknięć w phishingu"
+- "tabletop exercise" → "ćwiczenie praktyczne"
+- "weak passwords" → "słabe hasła"
+- "incident response playbook" → "plan reakcji na incydent"
+
+### Why
+- Jargon utrudnia zrozumienie dla target grupy (właściciele firm 10-50 osób, nie zawsze z tłem IT)
+- Błędy merytoryczne (UODO/PUODO) obniżają wiarygodność
+- Niespójny branding ("AI Pulse" vs "Ai Puls") łamie profesjonalizm
+- Honest CTA = mniej frustracji usera
+
+---
+
 ## [0.4.6] — 2026-04-12
 
 ### Added
