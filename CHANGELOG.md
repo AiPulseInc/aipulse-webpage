@@ -2,6 +2,25 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.9] — 2026-04-12
+
+Hero polish — uczciwy headline + wyrównanie certyfikatów.
+
+### Changed
+- **Hero headline**: "BEZPIECZEŃSTWO GOTOWE W TYDZIEŃ" (niedokładne — audyt w tydzień, ale wdrożenie miesiąc) → **"CYBER-AUDYT W 7 DNI"** (uczciwe, dotyczy faktycznie audytu). Accent "W 7 DNI" w violet.
+- **Hero subtitle**: "Audyty... w 3-7 dni" → "Audyty cyberbezpieczeństwa dla MŚP. Zgodność z KSC/NIS2 i wymaganiami ubezpieczycieli. Wiesz gdzie jesteś — wiesz co zrobić." (bardziej benefit-oriented, odnosi się do outcome audytu).
+- **Hero padding-bottom content**: 10rem → 13rem (content +50px wyżej, więcej space pod nawigacją).
+- **Certyfikaty w hero**: 260px → **390px** (+50% rozmiaru).
+- **Certyfikaty Y-center**: bottom 2.5rem → 10.75rem — teraz idealnie wycentrowane w pionie z przyciskami CTA (diff < 0.1px). Obliczenie: `cert_bottom = cta_padding - (cert_half - cta_half)`.
+
+### Added
+- **Certyfikaty klikalne**: wrapper `<a href="#section-proces">` → scroll do sekcji "Jak pracujemy" (gdzie są pełne opisy). Hover: `scale(1.02) + violet drop-shadow`.
+
+### Fixed
+- **`.hero-static` bug**: brak `position: relative` → `.hero-certificates-link` pozycjonowało się względem body zamiast hero-static. Dodany `position: relative`.
+
+---
+
 ## [0.4.8] — 2026-04-12
 
 Security — copy polish + pricing cards alignment.

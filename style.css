@@ -1650,6 +1650,7 @@ body.theme-business {
   align-items: flex-end;
   padding: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .hero-static .grid-fluid {
@@ -1677,7 +1678,11 @@ body.theme-business {
 /* Trust badges — bottom-right of hero section (security page) */
 .hero-certificates-link {
   position: absolute;
-  bottom: 13rem;
+  /* Align cert vertical center with CTA buttons center.
+     CTA sits at padding-bottom 13rem with height ~58px (1.8rem half).
+     Cert image height ~8.1rem (half 4rem).
+     cert_bottom = cta_bottom - (cert_half - cta_half) = 13rem - 2.25rem */
+  bottom: 10.75rem;
   right: 3rem;
   z-index: 3;
   display: block;
