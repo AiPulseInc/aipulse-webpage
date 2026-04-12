@@ -2,6 +2,43 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.0] — 2026-04-12
+
+Rozszerzenie firmy o drugą linię biznesową: **Ai Puls Cyber Security**. Pełna restrukturyzacja na multi-page app z chooser landing i dwoma osobnymi podstronami (`/business`, `/security`).
+
+### Added
+- **Landing chooser** na `/` — split-screen hover effect (Demo B), dwa logo obok siebie z różnymi kolorami kropki (amber vs violet)
+- **Nowa linia biznesowa: Security** (`/security/index.html`):
+  - 3 pakiety audytów (Basic 3.5-5k / Standard 7-10k / Premium 12-18k PLN)
+  - SelfCheck — samoocena online jako lead magnet
+  - 5 branż docelowych (kancelarie, biura rach., medycyna, e-commerce, IT)
+  - 3-krokowy proces (Rozmowa → Audyt → Raport)
+  - Sekcja Compliance: NIS2/KSC + Ubezpieczenie Cyber + Security Awareness (z modalami)
+  - Formularz kontaktowy z RODO
+- **Tagline pod logo** w navbarze (DORADZTWO BIZNESOWE / CYBER SECURITY)
+- **Violet accent color** `#7E22CE` dla security (vs amber `#F5A623` dla business)
+- Theme switching via body class: `.theme-business` vs `.theme-security`
+- `src/security-data.js` — modal data dla audytów i compliance
+- `scripts/generate-security-images.mjs` — dedicated security image generation
+- 4 nowe AI images dla security: audyt-basic/standard/premium + selfcheck
+
+### Changed
+- **Multi-page Vite setup** (`vite.config.js` z 3 entry points: landing, business, security)
+- Business content przeniesiony z `/` do `/business/`
+- MK photos (MK_3.0, MK_3.1) przeniesione do `public/` dla ścieżek absolutnych
+- `main.js` generalizowany — obsługuje 4 typy modali (auto, szkolenia, audyty, compliance) i dynamiczny IntersectionObserver (business + security section IDs)
+- Bump wersji: 0.3.0 → 0.4.0
+
+### Removed
+- Demo files (`demo-a.html`, `demo-b.html`) — temporary dla oceny landing layouts
+
+### Technical
+- 3 osobne entry points w Vite rollup config
+- Shared styles via theme variants (jeden `style.css` dla wszystkich stron)
+- Shared modal system: 4 content types, 2 renderers (auto-style, training-style)
+
+---
+
 ## [0.3.0] — 2026-04-12
 
 Major content expansion + AI-generated visuals. Rozbudowa oferty szkoleniowej z 4 do 7 pozycji podzielonych na 2 slidery. 22 unikalne obrazy wygenerowane przez Gemini 3.1.

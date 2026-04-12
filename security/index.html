@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ai Puls Security — Audyty bezpieczeństwa dla MŚP</title>
+  <meta name="description" content="Ai Puls Security — audyty cyberbezpieczeństwa dla MŚP. Compliance NIS2/KSC, ubezpieczenie cyber, praktyczne rekomendacje. Bezpłatna samoocena online." />
+  <meta property="og:title" content="Ai Puls Security — Audyty bezpieczeństwa dla MŚP" />
+  <meta property="og:description" content="Szybka ocena luk bezpieczeństwa, compliance z NIS2/KSC i wymagań ubezpieczycieli. 3-7 dni roboczych." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="theme-neon-nexus theme-security">
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="site-nav-brand-wrap">
+      <div class="site-nav-brand-inner">
+        <div class="site-nav-brand">A<span class="brand-i">i</span> Puls</div>
+        <div class="site-nav-tagline">Cyber Security</div>
+      </div>
+      <span id="app-version" class="site-nav-version">v0.2.0</span>
+    </a>
+    <div class="site-nav-links">
+      <a href="#section-audyty" class="hover-white">Audyty</a>
+      <a href="#section-selfcheck" class="hover-white">Samoocena</a>
+      <a href="#section-branze" class="hover-white">Dla kogo</a>
+      <a href="#section-proces" class="hover-white">Proces</a>
+      <a href="#section-compliance" class="hover-white">NIS2 / KSC</a>
+      <a href="#contact" class="hover-white">Kontakt</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-static">
+    <div class="container-fluid">
+      <div class="grid-fluid grid-align-center">
+
+        <div class="layout-col col-7 flex-center-v">
+          <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">// CYBERBEZPIECZEŃSTWO DLA MŚP</div>
+          <h1 class="hero-headline">
+            BEZPIECZEŃSTWO <span style="color: var(--brand-accent);">BEZ</span> KORPO-BUDŻETÓW.
+          </h1>
+          <p class="hero-subtitle" style="margin-top: 1.5rem;">
+            Audyty cyberbezpieczeństwa dla MŚP w 3-7 dni. Zgodność z NIS2/KSC i wymaganiami ubezpieczycieli.<br>
+            Bez 45 000 PLN za raport od big four.
+          </p>
+          <div style="margin-top: 3rem; display: flex; gap: 1rem;">
+            <a href="#contact" class="btn btn-accent">Bezpłatna konsultacja</a>
+            <a href="#section-selfcheck" class="btn btn-outline">Samoocena online</a>
+          </div>
+        </div>
+
+        <div class="layout-col col-5 hero-photo-wrap">
+          <img src="/MK_3.1.png" alt="Maciej Konieczny — Ai Puls Security" class="hero-photo" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDYTY (3 pakiety + slider) -->
+  <section id="section-audyty" class="section section-white section-full-height" style="position: relative;">
+    <div class="container-fluid">
+
+      <div class="section-szkolenia-header">
+        <div class="section-szkolenia-label">AUDYTY BEZPIECZEŃSTWA</div>
+        <h2 class="section-szkolenia-title">Trzy pakiety dopasowane do Twojej firmy</h2>
+        <p class="section-szkolenia-subtitle">Od szybkiego skanu po kompleksową ocenę z wdrożeniem. Wszystko z raportem zrozumiałym nie tylko dla IT.</p>
+      </div>
+
+      <div class="slider-viewport">
+        <div class="slider-track" id="track-audyty">
+
+            <!-- SLIDE 01: BASIC -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs module-label">_01 // BASIC</div>
+                  <h2 class="module-title">Audyt<br>Podstawowy</h2>
+                  <p class="module-desc">
+                    Szybki przegląd bezpieczeństwa — skan podatności, przegląd polityk, raport z rekomendacjami.
+                    2-3 dni robocze. Idealne jeśli zaczynasz lub potrzebujesz wstępnej diagnozy.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zamów audyt</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="audyty" data-modal="1">Więcej &rarr;</a>
+                  </div>
+                  <div class="price-tag">3 500 – 5 000 PLN netto</div>
+                </div>
+                <div class="layout-col col-7 slider-col-visual">
+                  <div class="training-image-container">
+                    <img src="/generated/security/audyt-basic.jpg" alt="Audyt Podstawowy — szybki skan bezpieczeństwa" class="training-image" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 02: STANDARD -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs module-label">_02 // STANDARD · NAJCZĘŚCIEJ WYBIERANY</div>
+                  <h2 class="module-title">Audyt<br>Standardowy</h2>
+                  <p class="module-desc">
+                    Kompleksowa ocena ryzyka NIS2/KSC, testy konfiguracji, plan działań naprawczych, gap analysis.
+                    5-7 dni roboczych. Spełnia 80% wymagań ubezpieczycieli cyber.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zamów audyt</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="audyty" data-modal="2">Więcej &rarr;</a>
+                  </div>
+                  <div class="price-tag">7 000 – 10 000 PLN netto</div>
+                </div>
+                <div class="layout-col col-7 slider-col-visual">
+                  <div class="training-image-container">
+                    <img src="/generated/security/audyt-standard.jpg" alt="Audyt Standardowy — ocena ryzyka NIS2/KSC" class="training-image" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 03: PREMIUM -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs module-label">_03 // PREMIUM</div>
+                  <h2 class="module-title">Audyt<br>Premium</h2>
+                  <p class="module-desc">
+                    Wszystko ze Standardu + wsparcie we wdrożeniu rekomendacji + re-audyt po 6 miesiącach.
+                    Dla firm, które chcą nie tylko wiedzieć — ale naprawić i udowodnić to ubezpieczycielowi.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zamów audyt</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="audyty" data-modal="3">Więcej &rarr;</a>
+                  </div>
+                  <div class="price-tag">12 000 – 18 000 PLN netto</div>
+                </div>
+                <div class="layout-col col-7 slider-col-visual">
+                  <div class="training-image-container">
+                    <img src="/generated/security/audyt-premium.jpg" alt="Audyt Premium — wdrożenie i re-audyt" class="training-image" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+
+      <div id="nav-audyty" class="context-nav-bar">
+        <div class="nav-item active" data-slider="audyty" data-slide="0">Basic</div>
+        <div class="nav-item" data-slider="audyty" data-slide="1">Standard</div>
+        <div class="nav-item" data-slider="audyty" data-slide="2">Premium</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SELFCHECK — Lead magnet -->
+  <section id="section-selfcheck" class="section" style="background: #000; padding: 6rem 0;">
+    <div class="container-fluid">
+      <div class="grid-fluid grid-align-center">
+
+        <div class="layout-col col-6 flex-center-v">
+          <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// SAMOOCENA ONLINE · BEZPŁATNIE</div>
+          <h2 style="font-size: 3rem; line-height: 1; margin-bottom: 2rem;">Sprawdź poziom bezpieczeństwa<br>swojej firmy w 10 minut</h2>
+          <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; max-width: 52ch; margin-bottom: 2rem;">
+            Kwestionariusz 40-50 pytań obejmujących kluczowe obszary: tożsamość i dostęp, ochrona danych, backup, incident response, compliance.
+            Wynik natychmiastowy — szczegółowy raport PDF za 99 PLN.
+          </p>
+          <ul class="selfcheck-bullets">
+            <li>Ocena w 5 kategoriach (score 0-100)</li>
+            <li>Porównanie z benchmarkami branży</li>
+            <li>3 najważniejsze rekomendacje działań</li>
+            <li>Szacowany koszt wdrożenia dla Twojej firmy</li>
+          </ul>
+          <div style="margin-top: 2.5rem;">
+            <a href="#contact" class="btn btn-accent">Rozpocznij samoocenę</a>
+          </div>
+        </div>
+
+        <div class="layout-col col-6" style="padding-left: 2rem;">
+          <div class="training-image-container">
+            <img src="/generated/security/selfcheck.jpg" alt="Samoocena bezpieczeństwa online" class="training-image" loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANŻE DOCELOWE -->
+  <section id="section-branze" class="section section-white" style="position: relative; padding: 6rem 0;">
+    <div class="container-fluid">
+      <div style="margin-bottom: 3rem;">
+        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">DLA KOGO</div>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: #000;">Branże, które obsługujemy</h2>
+        <p style="color: #666; max-width: 60ch; font-size: 1.1rem; line-height: 1.6;">
+          Specjalizujemy się w firmach 10-50 osób, gdzie bezpieczeństwo danych jest kluczowe, ale budżety enterprise są poza zasięgiem.
+        </p>
+      </div>
+
+      <div class="branze-grid">
+        <div class="branza-card">
+          <div class="branza-card-label">#01</div>
+          <div class="branza-card-name">Kancelarie prawne</div>
+          <div class="branza-card-desc">Dane klientów, tajemnica zawodowa, RODO. Wymagania bardzo restrykcyjne.</div>
+        </div>
+        <div class="branza-card">
+          <div class="branza-card-label">#02</div>
+          <div class="branza-card-name">Biura rachunkowe</div>
+          <div class="branza-card-desc">Dane finansowe firm klientów. Cel #1 dla ransomware w sektorze MŚP.</div>
+        </div>
+        <div class="branza-card">
+          <div class="branza-card-label">#03</div>
+          <div class="branza-card-name">Praktyki medyczne</div>
+          <div class="branza-card-desc">Dane pacjentów, obowiązek RODO + szczególnie chronione kategorie danych.</div>
+        </div>
+        <div class="branza-card">
+          <div class="branza-card-label">#04</div>
+          <div class="branza-card-name">E-commerce</div>
+          <div class="branza-card-desc">Dane kart, stocki, operacyjna ciągłość biznesu. Ataki skierowane na sklepy online rosną.</div>
+        </div>
+        <div class="branza-card">
+          <div class="branza-card-label">#05</div>
+          <div class="branza-card-name">Firmy IT / Consulting</div>
+          <div class="branza-card-desc">High-value target — kompromis jednej firmy może dotknąć setek klientów (supply chain).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCES AUDYTU -->
+  <section id="section-proces" class="section" style="background: #000; padding: 6rem 0;">
+    <div class="container-fluid">
+      <div style="margin-bottom: 4rem; padding: 0 2rem;">
+        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// PROCES</div>
+        <h2 style="font-size: 2.5rem; line-height: 1;">Jak pracujemy</h2>
+      </div>
+
+      <div class="grid-fluid" style="border: none; background: transparent; gap: 2rem;">
+         <div class="col-4 protocol-step">
+            <div class="protocol-step-number">KROK_01</div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Rozmowa wstępna</h3>
+            <p style="color: var(--text-secondary);">30-minutowa bezpłatna konsultacja. Poznajemy Twoją firmę, identyfikujemy główne obszary ryzyka, dobieramy pakiet audytu.</p>
+         </div>
+         <div class="col-4 protocol-step">
+            <div class="protocol-step-number">KROK_02</div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Audyt</h3>
+            <p style="color: var(--text-secondary);">Skan techniczny + wywiady + przegląd polityk. Pracujemy zdalnie, minimalne zaangażowanie Twojego zespołu (2-4 godziny łącznie).</p>
+         </div>
+         <div class="col-4 protocol-step">
+            <div class="protocol-step-number">KROK_03</div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Raport i plan</h3>
+            <p style="color: var(--text-secondary);">Raport zrozumiały dla właściciela firmy — nie tylko dla IT. Priorytetyzowany plan działań z szacunkami kosztów i czasu wdrożenia.</p>
+         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE: NIS2 / KSC / CYBER INSURANCE -->
+  <section id="section-compliance" class="section section-white" style="padding: 6rem 0;">
+    <div class="container-fluid">
+      <div class="grid-fluid">
+
+        <div class="layout-col col-5 flex-center-v">
+          <div class="text-xs" style="color: #999; margin-bottom: 1rem; letter-spacing: 0.1em;">NIS2 / KSC / UBEZPIECZENIE</div>
+          <h2 class="academy-header">DLACZEGO<br>TERAZ?</h2>
+          <p style="font-size: 1.1rem; line-height: 1.6; color: #666; max-width: 40ch; margin-bottom: 3rem;">
+            3 kwietnia 2026 w Polsce wchodzi KSC implementujące NIS2. Ubezpieczyciele cyber zaostrzają wymagania. 96% firm doświadczyło incydentu w 2025.
+            Timing jest idealny — ale czas działa na Twoją niekorzyść.
+          </p>
+          <div>
+            <a href="#contact" class="btn btn-accent">Bezpłatna konsultacja</a>
+          </div>
+        </div>
+
+        <div class="layout-col col-7" style="padding-left: 4rem;">
+          <div class="academy-curriculum-box">
+
+            <div class="academy-item academy-curriculum-item" data-modal-type="compliance" data-modal="1">
+              <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">OBSZAR_01</div>
+              <h4 class="academy-curriculum-title">NIS2 / KSC — COMPLIANCE</h4>
+            </div>
+
+            <div class="academy-item academy-curriculum-item" data-modal-type="compliance" data-modal="2">
+              <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">OBSZAR_02</div>
+              <h4 class="academy-curriculum-title">UBEZPIECZENIE CYBER</h4>
+            </div>
+
+            <div class="academy-item" data-modal-type="compliance" data-modal="3">
+              <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">OBSZAR_03</div>
+              <h4 class="academy-curriculum-title">SECURITY AWARENESS</h4>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- APP-MODAL (shared with business) -->
+  <div id="app-modal" class="academy-modal-backdrop">
+    <div class="academy-modal-content">
+      <button id="modal-close" class="academy-modal-close" aria-label="Zamknij">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- KPI / LICZBY -->
+  <section class="section section-white section-compact" style="padding-bottom: 2rem;">
+    <div class="container-fluid">
+      <div class="section-header-centered" style="margin-bottom: 3rem;">
+        <div class="text-xs" style="color: #666; margin-bottom: 1rem;">// DLACZEGO MY</div>
+        <h2 style="font-size: 3rem; margin-bottom: 1.5rem; line-height: 1;">Liczby, które mają znaczenie</h2>
+      </div>
+
+      <div class="kp-container">
+        <div class="kpi-card">
+          <div class="kpi-number">3–7</div>
+          <div class="kpi-label">dni roboczych</div>
+          <p class="kpi-desc">Od kickoff do raportu. Bez tygodni oczekiwania jak u big four.</p>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-number">80%</div>
+          <div class="kpi-label">wymagań ubezpieczycieli</div>
+          <p class="kpi-desc">Audyt Standardowy pokrywa 80% wymagań cyber-ubezpieczeń w Polsce.</p>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-number">5×</div>
+          <div class="kpi-label">tańszy od enterprise</div>
+          <p class="kpi-desc">8 500 PLN vs 45 000 PLN za porównywalny zakres w big four.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="contact" class="section section-contact">
+    <div class="container-fluid">
+      <div class="grid-fluid">
+        <div class="col-6 flex-center-v" style="padding: 2rem 4rem;">
+          <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// BEZPŁATNA KONSULTACJA</div>
+          <h2 style="font-size: 3rem; margin-bottom: 1rem;">Porozmawiajmy<br>o bezpieczeństwie<br>Twojej firmy</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 40ch;">
+            30 minut. Bez zobowiązań. Wyjdziemy z 3 najważniejszymi rekomendacjami — nawet jeśli nie kupisz audytu.
+          </p>
+        </div>
+        <div class="col-6" style="padding: 2rem 4rem;">
+          <form class="contact-form" action="#" method="POST">
+            <div class="form-row">
+              <input type="text" class="form-input" placeholder="Imię i nazwisko" required />
+              <input type="text" class="form-input" placeholder="Firma" />
+            </div>
+            <div class="form-row">
+              <input type="email" class="form-input" placeholder="Email" required />
+              <input type="tel" class="form-input" placeholder="Telefon" />
+            </div>
+            <textarea class="form-input form-textarea" placeholder="Krótki opis — czym się zajmujecie i co Was martwi w kontekście bezpieczeństwa?"></textarea>
+            <label class="form-consent">
+              <input type="checkbox" required />
+              <span>Wyrażam zgodę na przetwarzanie moich danych osobowych przez Ai Puls w celu odpowiedzi na moje zapytanie. <a href="#">Polityka prywatności</a></span>
+            </label>
+            <button type="submit" class="btn btn-accent" style="width: 100%;">Umów bezpłatną konsultację</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container-fluid footer-inner">
+      <div>
+        <div class="footer-brand">A<span class="brand-i">i</span> Puls</div>
+        <div class="footer-copyright">&copy; 2026 Ai Puls Security. Audyty bezpieczeństwa dla MŚP.</div>
+      </div>
+      <div class="footer-links">
+        <a href="/" class="text-xs">&larr; Powrót do wyboru</a>
+        <a href="/business" class="text-xs">Doradztwo</a>
+        <a href="mailto:kontakt@aipulse.pl" class="text-xs">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

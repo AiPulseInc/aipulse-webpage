@@ -1,6 +1,7 @@
 import './style.css'
 import { VERSION } from './src/version.js'
 import { szkoleniaData } from './src/training-data.js'
+import { audytyData, complianceData } from './src/security-data.js'
 
 // Inject version into nav
 document.addEventListener('DOMContentLoaded', () => {
@@ -104,14 +105,22 @@ function renderSzkoleniaModal(data) {
   `;
 }
 
+// Security modals use same layouts but different data sources.
+// audyty = training-style modal (audience / benefits / format / outcome)
+// compliance = auto-style modal (description / modules)
+
 const MODAL_RENDERERS = {
   auto: renderAutoModal,
   szkolenia: renderSzkoleniaModal,
+  audyty: renderSzkoleniaModal,
+  compliance: renderAutoModal,
 };
 
 const MODAL_DATA = {
   auto: automatyzacjeData,
   szkolenia: szkoleniaData,
+  audyty: audytyData,
+  compliance: complianceData,
 };
 
 function openModal(type, id) {
@@ -201,8 +210,11 @@ document.addEventListener('keydown', (e) => {
 // --- Context Nav Visibility (IntersectionObserver) ---
 
 const SECTION_TO_NAV = {
+  // business
   'section-szkolenia-zespoly': 'nav-szkolenia-zespoly',
   'section-szkolenia-dev': 'nav-szkolenia-dev',
+  // security
+  'section-audyty': 'nav-audyty',
 };
 
 const observerOptions = {
