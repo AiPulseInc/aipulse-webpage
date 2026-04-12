@@ -1657,7 +1657,7 @@ body.theme-business {
 }
 
 .hero-static .flex-center-v {
-  padding-bottom: 10rem;
+  padding-bottom: 13rem;
   padding-left: 80px;
   position: relative;
   z-index: 2;
@@ -1675,21 +1675,40 @@ body.theme-business {
 }
 
 /* Trust badges — bottom-right of hero section (security page) */
-.hero-certificates {
+.hero-certificates-link {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 13rem;
   right: 3rem;
-  width: 260px;
-  height: auto;
   z-index: 3;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.hero-certificates-link:hover {
+  transform: scale(1.02);
+}
+
+.hero-certificates {
+  width: 390px;
+  height: auto;
+  display: block;
   filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.6));
+  transition: filter 0.2s;
+}
+
+.hero-certificates-link:hover .hero-certificates {
+  filter: drop-shadow(0 8px 24px rgba(126, 34, 206, 0.4));
 }
 
 @media (max-width: 768px) {
-  .hero-certificates {
-    width: 160px;
+  .hero-certificates-link {
     bottom: 1.5rem;
     right: 1.5rem;
+  }
+  .hero-certificates {
+    width: 240px;
   }
 }
 
