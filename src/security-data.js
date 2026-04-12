@@ -15,8 +15,8 @@ export const audytyData = {
     outcome: 'Jasny obraz luk bezpieczeństwa + plan pierwszych działań. Cena: 3 500 – 5 000 PLN netto.',
   },
   2: {
-    title: 'Audyt Standardowy',
-    category: '_02 // STANDARD',
+    title: 'Audyt Rozszerzony',
+    category: '_02 // ROZSZERZONY',
     audience: 'Firmy 10-50 osób, które potrzebują zgodności z NIS2/KSC lub przygotowują się do ubezpieczenia cyber.',
     benefits: [
       'Wszystko z pakietu BASIC',
@@ -33,7 +33,7 @@ export const audytyData = {
     category: '_03 // PREMIUM',
     audience: 'Firmy wymagające pełnego cyklu: diagnoza → wdrożenie → walidacja. Dla tych, którzy chcą udowodnić bezpieczeństwo, nie tylko je zdeklarować.',
     benefits: [
-      'Wszystko ze STANDARD',
+      'Wszystko z pakietu ROZSZERZONY',
       'Wsparcie we wdrożeniu rekomendacji (do 40h konsultacji)',
       'Szkolenie security awareness dla zespołu (2h online)',
       'Re-audyt po 6 miesiącach — potwierdzenie, że zmiany działają',

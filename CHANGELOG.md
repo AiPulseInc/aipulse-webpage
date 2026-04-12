@@ -2,6 +2,25 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.8] — 2026-04-12
+
+Security — copy polish + pricing cards alignment.
+
+### Changed
+- **Hero headline**: "BEZPIECZEŃSTWO BEZ KORPO-BUDŻETÓW" → **"BEZPIECZEŃSTWO GOTOWE W TYDZIEŃ"** (speed benefit zamiast negatywnego "bez korpo")
+- **Hero subtitle**: usunięte "Bez 45 000 PLN za raport od wielkich firm konsultingowych" (niepotrzebne)
+- **KSC data**: "3 kwietnia 2026 wchodzi" → "3 kwietnia 2026 weszła" (past tense — data już minęła)
+- **Compliance subtitle**: "Timing jest idealny — ale czas działa na Twoją niekorzyść" → **"Każdy dzień zwłoki to rosnące ryzyko"** (po wejściu w życie)
+- **Jak pracujemy subtitle**: "Trzy kroki... certyfikaty poniżej gwarantują..." (słabe) → **"Od pierwszej rozmowy do raportu — trzy kroki, które możesz przewidzieć. Szybko, konkretnie, bez ukrytych kosztów."**
+- **Gap Jak pracujemy** — zmniejszony z 4rem/3.5rem do 2.5rem/1.5rem, certyfikaty przesunięte wyżej
+- **Audyt Standardowy** → **Audyt Rozszerzony** (nazwa + label w kategorii)
+- **"NAJCZĘŚCIEJ WYBIERANY" badge**: Standard → **Basic** (Audyt Podstawowy)
+
+### Added
+- **Pricing cards alignment via CSS subgrid** — `pricing-grid` ma `grid-template-rows: auto auto 1fr auto auto`, każda karta używa `grid-template-rows: subgrid`. Efekt: label, name, desc (rozciągliwy), CTA, features — wszystko wyrównane w rzędach między kartami.
+
+---
+
 ## [0.4.7] — 2026-04-12
 
 Security review + language cleanup. Naprawy merytoryczne, uproszczenie żargonu, uspójnienie brandu.
