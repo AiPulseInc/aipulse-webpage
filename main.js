@@ -1,7 +1,7 @@
 import './style.css'
 import { VERSION } from './src/version.js'
 import { szkoleniaData } from './src/training-data.js'
-import { audytyData, complianceData } from './src/security-data.js'
+import { audytyData, complianceData, securitySzkoleniaData } from './src/security-data.js'
 
 // Inject version into nav
 document.addEventListener('DOMContentLoaded', () => {
@@ -75,7 +75,9 @@ function renderAutoModal(data) {
 }
 
 function renderSzkoleniaModal(data, type) {
-  const ctaLabel = type === 'audyty' ? 'Zamów audyt' : 'Zapytaj o szkolenie';
+  let ctaLabel = 'Zapytaj o szkolenie';
+  if (type === 'audyty') ctaLabel = 'Zamów audyt';
+  else if (type === 'security-szkolenia') ctaLabel = 'Zapytaj o szkolenie';
   return `
     <div class="modal-training">
       <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1.5rem;">${data.category}</div>
@@ -114,6 +116,7 @@ const MODAL_RENDERERS = {
   auto: renderAutoModal,
   szkolenia: renderSzkoleniaModal,
   audyty: renderSzkoleniaModal,
+  'security-szkolenia': renderSzkoleniaModal,
   compliance: renderAutoModal,
 };
 
@@ -121,6 +124,7 @@ const MODAL_DATA = {
   auto: automatyzacjeData,
   szkolenia: szkoleniaData,
   audyty: audytyData,
+  'security-szkolenia': securitySzkoleniaData,
   compliance: complianceData,
 };
 
@@ -214,7 +218,8 @@ const SECTION_TO_NAV = {
   // business
   'section-szkolenia-zespoly': 'nav-szkolenia-zespoly',
   'section-szkolenia-dev': 'nav-szkolenia-dev',
-  // security: brak sliderów (pricing cards zamiast slidera)
+  // security
+  'section-szkolenia-security': 'nav-szkolenia-security',
 };
 
 const observerOptions = {

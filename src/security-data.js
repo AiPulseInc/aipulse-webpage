@@ -44,6 +44,65 @@ export const audytyData = {
   },
 };
 
+export const securitySzkoleniaData = {
+  1: {
+    title: 'Security Awareness',
+    category: '_01 // LUDZIE',
+    audience: 'Cały zespół — od recepcji po zarząd. 85% incydentów zaczyna się od kliknięcia pracownika, nie od luki technicznej.',
+    benefits: [
+      'Rozpoznawanie phishingu w praktyce (real-world examples)',
+      'Hasła, MFA, password managery — co, kiedy, jak',
+      'Social engineering — manipulacja przez telefon, email, LinkedIn',
+      'Incident reporting — co robić po kliknięciu (pierwsze 30 min)',
+      'Bezpieczeństwo pracy zdalnej i BYOD',
+    ],
+    format: '2h online · grupa do 20 osób · ćwiczenia praktyczne + symulacja phishingu',
+    outcome: 'Zespół rozpoznaje typowe wektory ataku. Mierzalna redukcja click-rate w testach phishingowych o 60-80%.',
+  },
+  2: {
+    title: 'Bezpieczne używanie AI',
+    category: '_02 // AI W FIRMIE',
+    audience: 'Zespoły, które już używają ChatGPT, Claude, Copilot — lub właśnie mają zacząć. Dyrektorzy IT i zarządzający.',
+    benefits: [
+      'Shadow AI — wykrywanie nieautoryzowanego użycia AI przez zespół',
+      'Prompt injection i data leakage — jak chronić dane firmowe',
+      'Dobór narzędzi AI pod wymagania RODO i NIS2',
+      'Polityka AI w firmie — co regulować, a co puścić luzem',
+      'AI Act — co wchodzi w 2026, jakie obowiązki dla MŚP',
+    ],
+    format: '1 dzień on-site lub 2× 3h online · grupa do 15 osób · case studies',
+    outcome: 'Jasna polityka używania AI + lista zatwierdzonych narzędzi + szkolenie zespołu. Brak ryzyka wycieku danych przez ChatGPT.',
+  },
+  3: {
+    title: 'Incident Response',
+    category: '_03 // KADRA ZARZĄDZAJĄCA',
+    audience: 'Zarząd, kadra kierownicza, IT leadzi. Osoby, które będą podejmować decyzje podczas incydentu.',
+    benefits: [
+      'Pierwsze 24h incydentu — kto, co, komu',
+      'Komunikacja wewnętrzna i zewnętrzna (klienci, media, RODO)',
+      'Obowiązek zgłoszenia do UODO (72h) i PUODO',
+      'Współpraca z organami ścigania i CERT Polska',
+      'Tabletop exercise — symulacja incydentu ransomware',
+    ],
+    format: '1 dzień on-site · do 10 osób · symulacja incydentu w czasie rzeczywistym',
+    outcome: 'Gotowy incident response playbook dla Twojej firmy + przećwiczony scenariusz. Oszczędność pierwszych 24h w realnym incydencie.',
+  },
+  4: {
+    title: 'RODO + NIS2 w praktyce',
+    category: '_04 // COMPLIANCE',
+    audience: 'DPOs, Inspektorzy Ochrony Danych, kierownicy operacyjni, właściciele firm w regulowanych branżach.',
+    benefits: [
+      'RODO 2026 — co się zmieniło, na co uważać',
+      'NIS2/KSC — czy Twoja firma jest podmiotem ważnym lub kluczowym',
+      'Rejestr czynności przetwarzania — minimum dokumentacyjne',
+      'Analiza ryzyka dla systemów przetwarzania danych',
+      'Audyt wewnętrzny — jak przeprowadzić samodzielnie',
+    ],
+    format: '1 dzień on-site · grupa do 14 osób · praca na realnych procesach firmy',
+    outcome: 'Zaktualizowany rejestr RODO + gap analysis NIS2 + plan działań. Gotowość na kontrolę UODO lub organu sektorowego.',
+  },
+};
+
 export const complianceData = {
   1: {
     title: 'NIS2 / KSC — Compliance',

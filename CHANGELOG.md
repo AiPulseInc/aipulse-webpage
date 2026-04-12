@@ -2,6 +2,30 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.3] — 2026-04-12
+
+Security page — rozbudowa treści + nowa sekcja szkoleń.
+
+### Added
+- **Sekcja szkoleń security** — 4-slajd slider (dark theme) między "Dla kogo" a "Proces":
+  - Security Awareness (anti-phishing, MFA, social eng)
+  - Bezpieczne używanie AI (shadow AI, data leakage, AI Act)
+  - Incident Response (kadra zarządzająca, symulacja ransomware)
+  - RODO + NIS2 w praktyce (DPO, rejestr, gap analysis)
+- **Opisy certyfikatów** w sekcji "Dlaczego my" — 2 badges (CompTIA Security+, DEKRA ISO/IEC 27001) z opisem i "Dlaczego istotne" highlight box (amber border-left)
+- **Rozbudowa opisów branż** — każda karta ma teraz 2-3 linie opisu + 3 bullet points (`▸` amber) z konkretnymi powodami dla branży
+- `src/security-data.js` — nowy export `securitySzkoleniaData` dla 4 szkoleń
+- `main.js` — obsługa nowego typu modala `security-szkolenia`
+- `SECTION_TO_NAV` — dodana sekcja `section-szkolenia-security` do IntersectionObservera
+- CSS: `.cert-strip`, `.cert-item`, `.cert-item-why`, `.branza-card-points`
+
+### Changed
+- **Certyfikaty w hero** — przeniesione z overlay na zdjęciu (bottom 30% left 8%) do prawy dolny róg sekcji hero (bottom 2.5rem right 3rem, 260px wide). Bezpieczny gap od edges.
+- Nav: dodany link "Szkolenia" (6 linków zamiast 5)
+- `renderSzkoleniaModal(data, type)` — obsługuje 3 typy: audyty (CTA "Zamów audyt"), security-szkolenia (CTA "Zapytaj o szkolenie"), szkolenia (business, CTA "Zapytaj o szkolenie")
+
+---
+
 ## [0.4.2] — 2026-04-12
 
 Security page — restrukturyzacja pod B2B content funnel (edukacja → rozwiązanie).

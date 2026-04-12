@@ -31,6 +31,7 @@
     <div class="site-nav-links">
       <a href="#section-compliance" class="hover-white">NIS2 / KSC</a>
       <a href="#section-dla-kogo" class="hover-white">Dla kogo</a>
+      <a href="#section-szkolenia-security" class="hover-white">Szkolenia</a>
       <a href="#section-proces" class="hover-white">Proces</a>
       <a href="#section-oferta" class="hover-white">Oferta</a>
       <a href="#contact" class="hover-white">Kontakt</a>
@@ -38,7 +39,8 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero-static">
+  <section class="hero-static hero-static-security">
+    <img src="/certificates.png" alt="Certyfikaty: CompTIA Security+, ISO 27001, DEKRA" class="hero-certificates" />
     <div class="container-fluid">
       <div class="grid-fluid grid-align-center">
 
@@ -59,7 +61,6 @@
 
         <div class="layout-col col-5 hero-photo-wrap">
           <img src="/MK_3.1.png" alt="Maciej Konieczny — Ai Puls Security" class="hero-photo" />
-          <img src="/certificates.png" alt="Certyfikaty: CompTIA Security+, ISO 27001, DEKRA" class="hero-certificates" />
         </div>
 
       </div>
@@ -124,27 +125,52 @@
           <div class="branza-card">
             <div class="branza-card-label">#01</div>
             <div class="branza-card-name">Kancelarie prawne</div>
-            <div class="branza-card-desc">Dane klientów, tajemnica zawodowa, RODO. Wymagania bardzo restrykcyjne.</div>
+            <div class="branza-card-desc">Tajemnica zawodowa + dane klientów pod RODO = wymogi restrykcyjne.</div>
+            <ul class="branza-card-points">
+              <li>Wyciek danych klienta = odpowiedzialność karna</li>
+              <li>Rosnące wymagania ubezpieczycieli OC zawodowego</li>
+              <li>Klienci zaczynają pytać o bezpieczeństwo IT</li>
+            </ul>
           </div>
           <div class="branza-card">
             <div class="branza-card-label">#02</div>
             <div class="branza-card-name">Biura rachunkowe</div>
-            <div class="branza-card-desc">Dane finansowe firm klientów. Cel #1 dla ransomware w sektorze MŚP.</div>
+            <div class="branza-card-desc">Cel #1 ransomware w MŚP — trzymacie dane finansowe setek firm.</div>
+            <ul class="branza-card-points">
+              <li>Atak blokuje pracę dla wszystkich klientów jednocześnie</li>
+              <li>Dane księgowe = łakomy kąsek dla przestępców</li>
+              <li>Brak ciągłości = utrata zaufania i umów</li>
+            </ul>
           </div>
           <div class="branza-card">
             <div class="branza-card-label">#03</div>
             <div class="branza-card-name">Praktyki medyczne</div>
-            <div class="branza-card-desc">Dane pacjentów, obowiązek RODO + szczególnie chronione kategorie danych.</div>
+            <div class="branza-card-desc">Szczególna kategoria danych pod RODO — kary do 20M EUR.</div>
+            <ul class="branza-card-points">
+              <li>Dane pacjentów = najwyższa klasa ochrony</li>
+              <li>Wymagania NFZ + RODO + sektor ochrony zdrowia</li>
+              <li>Incydent = nagłośnienie medialne i utrata pacjentów</li>
+            </ul>
           </div>
           <div class="branza-card">
             <div class="branza-card-label">#04</div>
             <div class="branza-card-name">E-commerce</div>
-            <div class="branza-card-desc">Dane kart, stocki, operacyjna ciągłość biznesu. Ataki skierowane na sklepy online rosną.</div>
+            <div class="branza-card-desc">Dane kart, stocki, ciągłość — 48h offline = śmierć sezonu.</div>
+            <ul class="branza-card-points">
+              <li>PCI DSS compliance dla płatności kartą</li>
+              <li>Ataki DDoS i ransomware w szczycie sprzedaży</li>
+              <li>Reputacja + utrata ruchu organic po incydencie</li>
+            </ul>
           </div>
           <div class="branza-card">
             <div class="branza-card-label">#05</div>
             <div class="branza-card-name">Firmy IT / Consulting</div>
-            <div class="branza-card-desc">High-value target — kompromis jednej firmy może dotknąć setek klientów (supply chain).</div>
+            <div class="branza-card-desc">High-value target — supply chain attack dotyka setek klientów.</div>
+            <ul class="branza-card-points">
+              <li>Jeden kompromis = wiele firm dotkniętych</li>
+              <li>Klienci enterprise wymagają audytu przed kontraktem</li>
+              <li>ISO 27001 / SOC 2 często warunkiem przetargu</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -176,6 +202,140 @@
             <p class="kpi-desc">8 500 PLN vs 45 000 PLN za porównywalny zakres w big four.</p>
           </div>
         </div>
+
+        <!-- Certyfikaty — co oznaczają i dlaczego ważne -->
+        <div class="cert-strip">
+          <div class="cert-item">
+            <img src="/security+.png" alt="CompTIA Security+" class="cert-item-badge" />
+            <div class="cert-item-content">
+              <div class="cert-item-name">CompTIA Security+</div>
+              <div class="cert-item-desc">Międzynarodowy standard kompetencji audytora bezpieczeństwa — jedna z najbardziej rozpoznawalnych certyfikacji w branży, uznawana przez US DoD i wymóg dla kontraktów obronnych.</div>
+              <div class="cert-item-why"><strong>Dlaczego istotne:</strong> gwarancja technicznej wiedzy z zakresu threat analysis, cryptography, identity management i incident response.</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <img src="/dekra.png" alt="DEKRA ISO/IEC 27001" class="cert-item-badge" />
+            <div class="cert-item-content">
+              <div class="cert-item-name">DEKRA · ISO/IEC 27001</div>
+              <div class="cert-item-desc">Niezależna akredytacja niemieckiej DEKRA — globalnego lidera w certyfikacji. Standard ISO 27001 to międzynarodowy wzorzec Systemu Zarządzania Bezpieczeństwem Informacji (ISMS).</div>
+              <div class="cert-item-why"><strong>Dlaczego istotne:</strong> audyt spełnia europejskie standardy jakości, akceptowany przez ubezpieczycieli cyber i partnerów biznesowych w UE. Przygotowuje do pełnej certyfikacji ISO 27001.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SZKOLENIA SECURITY (slider, 4 tracks) -->
+  <section id="section-szkolenia-security" class="section section-full-height" style="background: #000; position: relative;">
+    <div class="container-fluid">
+
+      <div class="section-szkolenia-header">
+        <div class="section-szkolenia-label">SZKOLENIA</div>
+        <h2 class="section-szkolenia-title section-szkolenia-dev">Szkolenia z bezpieczeństwa</h2>
+        <p class="section-szkolenia-subtitle section-szkolenia-dev">Audyt pokazuje luki techniczne — szkolenia zamykają luki ludzkie. 85% incydentów zaczyna się od kliknięcia pracownika.</p>
+      </div>
+
+      <div class="slider-viewport">
+        <div class="slider-track" id="track-szkolenia-security">
+
+            <!-- SLIDE 01: Security Awareness -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/cc-skills.jpg" alt="Security Awareness — abstrakcyjna wizualizacja ochrony zespołu" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_01 // LUDZIE</div>
+                  <h2 class="module-title">Security<br>Awareness</h2>
+                  <p class="module-desc">
+                    85% incydentów zaczyna się od kliknięcia pracownika. Anti-phishing, hasła, MFA, social engineering — w 2h online Twój zespół zacznie rozpoznawać ataki.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="security-szkolenia" data-modal="1">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 02: Bezpieczne używanie AI -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/ai-builder.jpg" alt="Bezpieczne używanie AI — wizualizacja ochrony danych firmowych" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_02 // AI W FIRMIE</div>
+                  <h2 class="module-title">Bezpieczne<br>używanie AI</h2>
+                  <p class="module-desc">
+                    Shadow AI, prompt injection, data leakage przez ChatGPT. Dowiesz się jak bezpiecznie wdrożyć AI w firmie pod wymagania RODO, NIS2 i AI Act.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="security-szkolenia" data-modal="2">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 03: Incident Response -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/cc-pro.jpg" alt="Incident Response — wizualizacja reakcji na incydent" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_03 // KADRA ZARZĄDZAJĄCA</div>
+                  <h2 class="module-title">Incident<br>Response</h2>
+                  <p class="module-desc">
+                    Pierwsze 24h incydentu decydują o skali strat. Zarząd i kadra kierownicza — kto, co, komu. Symulacja incydentu ransomware w czasie rzeczywistym.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="security-szkolenia" data-modal="3">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 04: RODO + NIS2 -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/antigravity.jpg" alt="RODO + NIS2 — wizualizacja compliance" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_04 // COMPLIANCE</div>
+                  <h2 class="module-title">RODO + NIS2<br>w praktyce</h2>
+                  <p class="module-desc">
+                    DPO, Inspektorzy Ochrony Danych, właściciele firm — aktualizacja wymagań RODO 2026 + NIS2/KSC. Gotowy rejestr RODO i gap analysis na koniec.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="security-szkolenia" data-modal="4">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+
+      <div id="nav-szkolenia-security" class="context-nav-bar">
+        <div class="nav-item active" data-slider="szkolenia-security" data-slide="0">Awareness</div>
+        <div class="nav-item" data-slider="szkolenia-security" data-slide="1">AI w firmie</div>
+        <div class="nav-item" data-slider="szkolenia-security" data-slide="2">Incident</div>
+        <div class="nav-item" data-slider="szkolenia-security" data-slide="3">RODO / NIS2</div>
       </div>
 
     </div>
