@@ -2,6 +2,42 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.5] — 2026-04-12
+
+Security page — restrukturyzacja sekcji + content cleanup.
+
+### Added
+- **Nowa sekcja `Jak pracujemy`** (bg: white): 3 kroki procesu + certyfikaty w jednym bloku. Tytuł: "Proces, który możesz prześledzić". Certyfikaty (CompTIA Security+, DEKRA ISO/IEC 27001) teraz na białym tle — dużo lepiej widoczne.
+- **Dla kogo jako osobna sekcja** (bg: black): branże grid z ciemnym stylem kart (`.branza-card-dark`). Przeniesiona AFTER "Jak pracujemy".
+- CSS: `.branza-card-dark`, `.protocol-step-light`, `.section-szkolenia-compact`
+
+### Changed
+- **Nowa kolejność sekcji**: Hero(D) → Compliance(W) → Szkolenia(D) → **Jak pracujemy(W)** → **Dla kogo(D)** → Oferta(W) → Kontakt(D). Perfect D-W-D-W-D-W-D alternation.
+- **Szkolenia**:
+  - Usunięty podtytuł "Audyt pokazuje luki techniczne..."
+  - Label: "SZKOLENIA" → "// SZKOLENIA" (spójność z innymi sekcjami)
+  - Content zmniejszony o ~10% (font-size, padding, image height) — sekcja mniej zagracona
+  - Padding-top zredukowany (4rem zamiast 6rem) — mniej pustego gapu
+- **Oferta**:
+  - Usunięte wycentrowanie (left-aligned jak inne sekcje)
+  - Label: "OFERTA" → "// OFERTA"
+  - Tytuł: "Od samooceny do pełnego wdrożenia" → **"Wybierz pakiet bezpieczeństwa dla siebie"**
+  - Usunięty podtytuł "Cztery poziomy wsparcia..."
+  - Padding-top zredukowany (4rem) — mniej gapu
+- **Kontakt**: dodany `min-height: 70vh` + align-items: center → sekcja wypełnia ekran, nie widać białego tła poprzedniej sekcji
+
+### Removed
+- **Sekcja "Dlaczego my" (KPI numbers)**: 3-7 / 80% / 5× — user uznał za niepotrzebne
+- **Stara standalone sekcja Proces** (ciemna, 3 kroki bez certyfikatów) — content przeniesiony do "Jak pracujemy"
+
+### Why
+- KPI liczby bez kontekstu nie przekonywały — lepiej pokazać proces 3-krokowy
+- Certyfikaty na czarnym tle były ciężkie czytelnie — biele pokazuje je lepiej
+- Center-alignment w ofercie łamał spójność layoutu
+- Gap nad szkoleniami/ofertą wynikał z dużych paddingów headerów
+
+---
+
 ## [0.4.4] — 2026-04-12
 
 Visual rhythm fix — sekcje naprzemiennie jasne/ciemne + usunięcie pustych gapów.

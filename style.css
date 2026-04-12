@@ -981,8 +981,11 @@ body.theme-business {
 .section-contact {
   border-bottom: none;
   background: #000;
-  padding-top: 2rem;
-  min-height: auto;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
 }
 
 .contact-terminal {
@@ -1382,6 +1385,65 @@ body.theme-business {
   color: #666;
   line-height: 1.5;
   margin-bottom: 0.75rem;
+}
+
+/* Dark variant for branza-card (on dark section bg) */
+.branza-card-dark {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+.branza-card-dark:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--brand-accent);
+}
+
+.branza-card-dark .branza-card-name {
+  color: #FFF;
+}
+
+.branza-card-dark .branza-card-desc {
+  color: var(--text-secondary);
+}
+
+.branza-card-dark .branza-card-points li {
+  color: #CCC;
+}
+
+/* Compact variant of szkolenia section (~10% content size reduction) */
+.section-szkolenia-compact .module-title {
+  font-size: 3.15rem; /* was 3.5rem */
+}
+
+.section-szkolenia-compact .module-desc {
+  font-size: 1.125rem; /* was 1.25rem */
+  margin-bottom: 1.75rem;
+}
+
+.section-szkolenia-compact .module-visual-container {
+  height: 360px; /* was 400px */
+}
+
+.section-szkolenia-compact .slider-col-text {
+  padding: 1.5rem; /* was 2rem */
+}
+
+.section-szkolenia-compact .module-label,
+.section-szkolenia-compact .text-xs {
+  font-size: 0.7rem;
+}
+
+/* Light variant for protocol-step (on white section bg) */
+.protocol-step-light {
+  border-left-color: #E5E5E5;
+}
+
+.protocol-step-light::before {
+  background: var(--brand-accent);
+}
+
+.protocol-step-light .protocol-step-number {
+  color: #999;
 }
 
 .branza-card-points {
