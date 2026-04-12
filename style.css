@@ -28,7 +28,7 @@ html {
 
   --brand-primary: #FFFFFF;
   --brand-secondary: #333333;
-  --brand-accent: #FFFFFF;
+  --brand-accent: #F5A623;
 
   --border-color: #333333;
 
@@ -332,6 +332,18 @@ a {
   color: #000;
 }
 
+.btn-accent {
+  background: var(--brand-accent);
+  color: #000;
+  border: 1px solid var(--brand-accent);
+}
+
+.btn-accent:hover {
+  background: transparent;
+  color: var(--brand-accent);
+  border-color: var(--brand-accent);
+}
+
 .card {
   padding: var(--spacing-m);
   height: 100%;
@@ -508,10 +520,65 @@ a {
   z-index: 100;
 }
 
+.site-nav-brand-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
 .site-nav-brand {
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.site-nav-version {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  line-height: 1;
+}
+
+.brand-i {
+  color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.brand-i::before {
+  content: 'ı';
+  color: inherit;
+  position: absolute;
+  left: 0;
+}
+
+.site-nav-brand .brand-i::before,
+.footer-brand .brand-i::before {
+  color: var(--text-primary);
+}
+
+.brand-i::after {
+  content: '';
+  position: absolute;
+  width: 0.25em;
+  height: 0.25em;
+  background: var(--brand-accent);
+  border-radius: 50%;
+  top: 0.05em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.footer-brand .brand-i::after {
+  top: 0.22em;
+  width: 0.22em;
+  height: 0.22em;
 }
 
 .site-nav-links {
@@ -551,7 +618,7 @@ a {
 }
 
 .hero-headline {
-  font-size: clamp(3.3rem, 6.6vw, 5.5rem);
+  font-size: clamp(2.5rem, 5.2vw, 5.5rem);
   line-height: 1;
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
@@ -576,10 +643,21 @@ a {
 }
 
 /* --- Grid Column Utilities --- */
-.col-4  { grid-column: span 4; }
-.col-5  { grid-column: span 5; }
-.col-6  { grid-column: span 6; }
-.col-7  { grid-column: span 7; }
+.col-4 {
+  grid-column: span 4;
+}
+
+.col-5 {
+  grid-column: span 5;
+}
+
+.col-6 {
+  grid-column: span 6;
+}
+
+.col-7 {
+  grid-column: span 7;
+}
 
 /* --- Slider Layout Columns --- */
 .slider-col-text {
@@ -699,8 +777,10 @@ a {
 }
 
 .footer-brand {
-  font-weight: 700;
-  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-size: 1.4rem;
   margin-bottom: 1rem;
 }
 
@@ -712,6 +792,180 @@ a {
 .footer-links {
   display: flex;
   gap: 2rem;
+}
+
+/* --- Static Hero --- */
+.hero-static {
+  background: #000;
+  min-height: calc(100vh - 65px);
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-static .grid-fluid {
+  align-items: flex-end;
+}
+
+.hero-static .flex-center-v {
+  padding-bottom: 10rem;
+  padding-left: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-photo-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  align-self: flex-end;
+  overflow: visible;
+  margin-left: -100px;
+  z-index: 1;
+}
+
+.hero-photo {
+  width: 132%;
+  max-width: none;
+  margin-right: -15%;
+  height: auto;
+  filter: grayscale(20%);
+  display: block;
+  -webkit-mask-image: radial-gradient(ellipse 80% 90% at center 55%, black 45%, transparent 70%),
+    linear-gradient(to bottom, transparent 0%, black 8%, black 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(ellipse 80% 90% at center 55%, black 45%, transparent 70%),
+    linear-gradient(to bottom, transparent 0%, black 8%, black 100%);
+  mask-composite: intersect;
+}
+
+.hero-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  max-width: 44ch;
+  line-height: 1.6;
+}
+
+/* --- Tool Grid --- */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.tool-card {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.tool-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--brand-accent);
+}
+
+.tool-card-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.tool-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --- Strony WWW Grid --- */
+.strony-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.strona-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.strona-card-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.strona-card-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.strona-card-placeholder {
+  font-size: 0.75rem;
+  color: #555;
+  border: 1px dashed #333;
+  padding: 0.3rem 0.8rem;
+}
+
+/* --- Contact Form --- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-input {
+  background: #111;
+  border: 1px solid #333;
+  color: #FFF;
+  padding: 0.9rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #FFF;
+}
+
+.form-input::placeholder {
+  color: #555;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* --- Method Steps (O nas) --- */
+.method-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
 /* --- Utility --- */
@@ -737,6 +991,31 @@ a {
     flex-direction: column;
     padding: 3rem 1.5rem;
     gap: 3rem;
+  }
+
+  .tool-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .strony-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .method-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-static .grid-fluid {
+    text-align: center;
+  }
+
+  .hero-photo {
+    max-width: 280px;
+    margin: 0 auto;
   }
 }
 

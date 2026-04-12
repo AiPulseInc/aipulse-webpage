@@ -8,6 +8,9 @@ assets/duplicated frames/
 image.png
 image copy*.png
 
+# Temp bin (pre-delete staging)
+_bin/
+
 # Logs
 logs
 *.log

@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AIPulse — Szkolenia AI dla firm</title>
-  <meta name="description" content="AIPulse — szkolenia i wdrożenia AI dla MŚP. Automatyzacja, voice agents, certyfikacje." />
-  <meta property="og:title" content="AIPulse — Szkolenia AI dla firm" />
-  <meta property="og:description" content="Szkolenia i wdrożenia AI dla MŚP. Automatyzacja, voice agents, certyfikacje." />
+  <title>AI Pulse — Szkolenia AI dla firm</title>
+  <meta name="description" content="AI Pulse — szkolenia AI, narzędzia i automatyzacje dla MŚP. Prompt engineering, Claude Code, Gemini, n8n, Make. Bezpłatna konsultacja." />
+  <meta property="og:title" content="AI Pulse — Szkolenia AI dla firm" />
+  <meta property="og:description" content="Szkolimy firmy w AI. Wdrażamy narzędzia. Automatyzujemy procesy. Bezpłatna konsultacja." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,560 +19,567 @@
 
 <body class="theme-neon-nexus">
 
+  <!-- NAV -->
   <nav class="site-nav">
-    <div class="site-nav-brand">Antigravity AI</div>
+    <div class="site-nav-brand-wrap">
+      <div class="site-nav-brand">A<span class="brand-i">i</span> Puls</div>
+      <span id="app-version" class="site-nav-version">v0.2.0</span>
+    </div>
     <div class="site-nav-links">
-      <a href="#section-automation" class="hover-white">Automation</a>
-      <a href="#section-voice" class="hover-white">Voice Agents</a>
-      <a href="#section-academy" class="hover-white">Academy</a>
-      <a href="#section-protocol" class="hover-white">Protocol</a>
-      <a href="#section-why-us" class="hover-white">Why Us?</a>
-      <a href="#contact" class="hover-white">Contact</a>
-      <span style="opacity: 0.3;">|</span>
-      <a href="#" class="hover-white">LOGIN</a>
+      <a href="#section-szkolenia" class="hover-white">Szkolenia</a>
+      <a href="#section-narzedzia" class="hover-white">Narzędzia</a>
+      <a href="#section-automatyzacje" class="hover-white">Automatyzacje</a>
+      <a href="#section-strony" class="hover-white">Strony WWW</a>
+      <a href="#section-o-nas" class="hover-white">O nas</a>
+      <a href="#contact" class="hover-white">Kontakt</a>
     </div>
   </nav>
 
-  <!-- SCROLL-DRIVEN HERO -->
-  <div class="scroll-hero-track hero-track">
-    <div class="scroll-hero-sticky hero-sticky">
-      <div class="container-fluid" style="width: 100%; padding-bottom: 2rem;">
-        <div class="grid-fluid" style="height: 100%; align-items: flex-end;">
+  <!-- HERO -->
+  <section class="hero-static">
+    <div class="container-fluid">
+      <div class="grid-fluid grid-align-center">
 
-          <!-- LEFT: Text Content -->
-          <div class="hero-text">
-             <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-primary);">// SYSTEM_ONLINE</div>
-             <h1 class="hero-headline">
-               INTELLIGENCE<br>
-               <span style="white-space: nowrap;">AS ARCHITECTURE.</span>
-             </h1>
-             <p style="color: var(--text-secondary); font-size: 1.25rem; max-width: 40ch; line-height: 1.6;">
-               We engineer the autonomous layer of your business.
-               Replacing friction with fluid, self-optimizing agentic workflows.
-             </p>
-             <div style="margin-top: 3rem;">
-                <a href="#" class="btn" style="border: 1px solid #333;">Initialize Project</a>
-             </div>
+        <div class="layout-col col-7 flex-center-v">
+          <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">// AI DLA BIZNESU</div>
+          <h1 class="hero-headline">
+            SKUTECZNE WDROŻENIA <span style="color: var(--brand-accent);">AI.</span>
+          </h1>
+          <p class="hero-subtitle" style="margin-top: 1.5rem;">
+            Praktyczne szkolenia, gotowe narzędzia AI i automatyzacja procesów dla MŚP.<br>
+            Bez buzzwordów — z konkretnymi wynikami.
+          </p>
+          <div style="margin-top: 3rem; display: flex; gap: 1rem;">
+            <a href="#contact" class="btn btn-accent">Bezpłatna konsultacja</a>
+            <a href="#section-szkolenia" class="btn btn-outline">Oferta szkoleń</a>
           </div>
-
-          <!-- RIGHT: Abstract Canvas Animation -->
-          <div class="hero-canvas-wrap">
-             <canvas id="hero-canvas" width="1000" height="1000"></canvas>
-          </div>
-
         </div>
+
+        <div class="layout-col col-5 hero-photo-wrap">
+          <img src="./MK_3.1.png" alt="Maciej Konieczny — AI Pulse" class="hero-photo" />
+        </div>
+
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- CORE MODULE 01: AUTOMATION (White) -->
-  <section id="section-automation" class="section section-white section-full-height" style="position: relative;">
+  <!-- SZKOLENIA AI (slider, 4 tracks) -->
+  <section id="section-szkolenia" class="section section-white section-full-height" style="position: relative;">
     <div class="container-fluid">
 
       <div class="slider-viewport">
-        <div class="slider-track" id="track-automation">
+        <div class="slider-track" id="track-szkolenia">
 
-            <!-- SLIDE 1: Orchestration -->
+            <!-- SLIDE 1: Prompt Engineering -->
             <div class="slider-slide">
               <div class="grid-fluid grid-align-center">
                 <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">CORE_MODULE_01 // ORCHESTRATION</div>
-                  <h2 class="module-title">Automation<br>Architecture</h2>
+                  <div class="text-xs module-label">SZKOLENIE_01 // FUNDAMENTY</div>
+                  <h2 class="module-title">Prompt<br>Engineering</h2>
                   <p class="module-desc">
-                    Complete autonomous workflow integration. From sales pipelines to internal CRM updates, we build the invisible layer that powers your business logic.
+                    5 sprawdzonych workflow'ów do pisania skutecznych promptów. Od podstaw po zaawansowane techniki: definiowanie celu, kontekstu, ograniczeń i formatu. Praktyczne ćwiczenia na Twoich danych — wychodzisz z gotową biblioteką promptów.
                   </p>
                   <div>
-                    <a href="#" class="btn btn-outline">+ View Schematics</a>
+                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
                   </div>
                 </div>
                 <div class="layout-col col-7 slider-col-visual">
                    <div class="module-visual-container">
                       <div style="text-align: center;">
-                         <div class="text-xs" style="margin-bottom: 1rem;">SYSTEM STATUS</div>
-                         <div style="font-family: monospace; font-size: 1.5rem; color: #000;">ACTIVE</div>
+                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
+                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Warsztat 1-dniowy</div>
+                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Grupa do 14 osób &middot; on-site lub online</div>
                       </div>
                    </div>
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 2: Sales AI -->
+            <!-- SLIDE 2: Prawo Jazdy AI -->
             <div class="slider-slide">
               <div class="grid-fluid grid-align-center">
                 <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">CORE_MODULE_01 // SALES_AI</div>
-                  <h2 class="module-title">Intelligent<br>Outreach</h2>
+                  <div class="text-xs module-label">SZKOLENIE_02 // SPRZEDAŻ</div>
+                  <h2 class="module-title">Prawo<br>Jazdy AI</h2>
                   <p class="module-desc">
-                    Automated prospecting and lead qualification. Our agents engage stakeholders with hyper-personalized communication at scale.
+                    Warsztat dla zespołów sprzedażowych B2B. Dobór narzędzi AI (Gemini, Claude, Perplexity), automatyzacja prospectingu, pisanie ofert i follow-upów. Bezpieczeństwo danych, RAG, budowa własnej biblioteki promptów. Pracujecie na swoich produktach i klientach.
                   </p>
                   <div>
-                    <a href="#" class="btn btn-outline">+ View Performance</a>
+                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
                   </div>
                 </div>
                 <div class="layout-col col-7 slider-col-visual">
                    <div class="module-visual-container">
-                      <div class="text-xl" style="color: #000;">+400% Lead G.</div>
+                      <div style="text-align: center;">
+                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
+                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Warsztat 1-dniowy lub 4 sesje online</div>
+                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">B2B &middot; do 14 osób &middot; praca na Twoich danych</div>
+                      </div>
                    </div>
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 3: Support AI -->
+            <!-- SLIDE 3: AI Builder Advanced -->
             <div class="slider-slide">
-                <div class="grid-fluid grid-align-center">
-                  <div class="layout-col col-5 slider-col-text">
-                    <div class="text-xs module-label">CORE_MODULE_01 // SUPPORT_AI</div>
-                    <h2 class="module-title">Ticket<br>Resolution</h2>
-                    <p class="module-desc">
-                      L1 and L2 support handled instantly. 24/7 resolution of common issues without human intervention.
-                    </p>
-                  </div>
-                  <div class="layout-col col-7 slider-col-visual">
-                     <div class="module-visual-container">
-                        <div class="text-xl" style="color: #000;">0s Wait Time</div>
-                     </div>
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs module-label">SZKOLENIE_03 // ZAAWANSOWANE</div>
+                  <h2 class="module-title">AI Builder<br>Advanced</h2>
+                  <p class="module-desc">
+                    Buduj własne narzędzia AI. Agentic AI w sprzedaży i marketingu, technika masterprompt, integracja z CRM, bazy wiedzy (RAG), deployment lokalny i chmurowy. Wychodzisz z działającym agentem AI skonfigurowanym pod Twoje produkty.
+                  </p>
+                  <div>
+                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
                   </div>
                 </div>
+                <div class="layout-col col-7 slider-col-visual">
+                   <div class="module-visual-container">
+                      <div style="text-align: center;">
+                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
+                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Warsztat 6h &middot; poziom zaawansowany</div>
+                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Hands-on &middot; budujesz agenta AI na żywo</div>
+                      </div>
+                   </div>
+                </div>
               </div>
+            </div>
 
-            <!-- SLIDE 4: Ops AI -->
+            <!-- SLIDE 4: Claude Code & Gemini -->
             <div class="slider-slide">
-                <div class="grid-fluid grid-align-center">
-                  <div class="layout-col col-5 slider-col-text">
-                    <div class="text-xs module-label">CORE_MODULE_01 // OPS_AI</div>
-                    <h2 class="module-title">Internal<br>Operations</h2>
-                    <p class="module-desc">
-                      Self-healing operational workflows. Automated reporting, invoicing, and compliance checks.
-                    </p>
-                  </div>
-                  <div class="layout-col col-7 slider-col-visual">
-                     <div class="module-visual-container">
-                        <div class="text-xl" style="color: #000;">100% Uptime</div>
-                     </div>
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs module-label">SZKOLENIE_04 // DEV TOOLS</div>
+                  <h2 class="module-title">Claude Code<br>& Gemini</h2>
+                  <p class="module-desc">
+                    Praktyczny kurs narzędzi deweloperskich AI. Claude Code od zera po budowę aplikacji — konfiguracja, CLAUDE.md, hooks, skills, MCP. Gemini CLI i AntiGravity. Dla tych, którzy chcą automatyzować swoją codzienną pracę z kodem.
+                  </p>
+                  <div>
+                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
                   </div>
                 </div>
+                <div class="layout-col col-7 slider-col-visual">
+                   <div class="module-visual-container">
+                      <div style="text-align: center;">
+                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
+                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Kurs online &middot; 3 poziomy</div>
+                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Beginner &middot; Skills &middot; Advanced</div>
+                      </div>
+                   </div>
+                </div>
               </div>
+            </div>
 
         </div>
       </div>
 
-      <div id="nav-automation" class="context-nav-bar">
-          <div class="nav-item active" data-slider="automation" data-slide="0">Orchestration</div>
-          <div class="nav-item" data-slider="automation" data-slide="1">Sales</div>
-          <div class="nav-item" data-slider="automation" data-slide="2">Support</div>
-          <div class="nav-item" data-slider="automation" data-slide="3">Ops</div>
+      <div id="nav-szkolenia" class="context-nav-bar">
+          <div class="nav-item active" data-slider="szkolenia" data-slide="0">Prompting</div>
+          <div class="nav-item" data-slider="szkolenia" data-slide="1">Prawo Jazdy AI</div>
+          <div class="nav-item" data-slider="szkolenia" data-slide="2">AI Builder</div>
+          <div class="nav-item" data-slider="szkolenia" data-slide="3">Dev Tools</div>
       </div>
 
     </div>
   </section>
 
-  <!-- CORE MODULE 02: VOICE AGENTS (Black) -->
-  <section id="section-voice" class="section section-full-height section-black-border" style="background: #000; position: relative;">
+  <!-- NARZĘDZIA AI (grid, 10 tools) -->
+  <section id="section-narzedzia" class="section" style="background: #000; padding: 6rem 0;">
     <div class="container-fluid">
+      <div style="margin-bottom: 3rem;">
+        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">NARZĘDZIA AI</div>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">10 gotowych narzędzi dla Twojej firmy</h2>
+        <p style="color: var(--text-secondary); max-width: 60ch; font-size: 1.1rem; line-height: 1.6;">
+          Sprawdzone narzędzia AI, gotowe do wdrożenia. Każde rozwiązuje konkretny problem — od transkrypcji spotkań po obsługę klienta 24/7.
+        </p>
+      </div>
 
-      <div class="slider-viewport">
-        <div class="slider-track" id="track-voice">
-
-            <!-- SLIDE 1: Inbound -->
-            <div class="slider-slide">
-                <div class="grid-fluid grid-align-center">
-                    <div class="layout-col col-7 slider-col-text">
-                    <div class="module-visual-container visual-dark-bg" style="position: relative; overflow: hidden;">
-                        <div style="display: flex; gap: 4px; align-items: center; height: 100px;">
-                            <div class="viz-bar viz-bar-1 animate-pulse"></div>
-                            <div class="viz-bar viz-bar-2 animate-pulse"></div>
-                            <div class="viz-bar viz-bar-3 animate-pulse"></div>
-                            <div class="viz-bar viz-bar-4 animate-pulse"></div>
-                            <div class="viz-bar viz-bar-5 animate-pulse"></div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="layout-col col-5 slider-col-text">
-                    <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02 // INBOUND</div>
-                    <h2 class="module-title">Voice<br>Agents</h2>
-                    <p class="module-desc">
-                        Latency-optimized conversational models that speak your brand's language with human-like nuance.
-                    </p>
-                    <div>
-                        <a href="#" class="btn btn-white">+ Hear Samples</a>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SLIDE 2: Outbound -->
-            <div class="slider-slide">
-                <div class="grid-fluid grid-align-center">
-                    <div class="layout-col col-7 slider-col-text">
-                    <div class="module-visual-container visual-dark-bg">
-                        <div style="color: #FFF; font-size: 1.2rem; font-family: monospace;">> Dialing...</div>
-                    </div>
-                    </div>
-                    <div class="layout-col col-5 slider-col-text">
-                    <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02 // OUTBOUND</div>
-                    <h2 class="module-title">Active<br>Recall</h2>
-                    <p class="module-desc">
-                        Proactive customer engagement. Surveys, appointment confirmations, and reactivation campaigns.
-                    </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SLIDE 3: Auth -->
-            <div class="slider-slide">
-                <div class="grid-fluid grid-align-center">
-                    <div class="layout-col col-7 slider-col-text">
-                    <div class="module-visual-container visual-dark-bg">
-                         <div style="border: 1px solid #27C93F; color: #27C93F; padding: 0.5rem 1rem; border-radius: 4px;">VERIFIED</div>
-                    </div>
-                    </div>
-                    <div class="layout-col col-5 slider-col-text">
-                    <div class="text-xs" style="margin-bottom: 2rem; color: #555;">CORE_MODULE_02 // SECURITY</div>
-                    <h2 class="module-title">Voice<br>ID</h2>
-                    <p class="module-desc">
-                        Biometric voice authentication for secure, password-less customer verification.
-                    </p>
-                    </div>
-                </div>
-            </div>
-
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-card-name">Voice Agents</div>
+          <div class="tool-card-desc">Asystent głosowy AI. Obsługa klienta, kwalifikacja leadów, umawianie spotkań. Działa 24/7 bez skalowania zespołu.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Inbox Agent</div>
+          <div class="tool-card-desc">Inteligentne zarządzanie emailami. Kategoryzacja, priorytetyzacja, drafty odpowiedzi. Opcja on-premise dla bezpieczeństwa danych.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Voice Memo PRO</div>
+          <div class="tool-card-desc">Zamień notatki głosowe w gotowe dokumenty — plan działania, email, notatka CRM. Transkrypcja w czasie rzeczywistym.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Generator vCard</div>
+          <div class="tool-card-desc">Skanuj wizytówki i podpisy email — automatycznie twórz kontakty. PWA, integracja z CRM i telefonem.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Generator Grafik AI</div>
+          <div class="tool-card-desc">Obrazy AI dla social media, prezentacji, materiałów marketingowych. Kontrola stylu i formatu, zgodność z brand book.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Smart Video Prompter</div>
+          <div class="tool-card-desc">Teleprompter z formatami wideo (Reels, YouTube, Instagram). Utrzymuj kontakt wzrokowy podczas nagrywania.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Transkrypcja Audio</div>
+          <div class="tool-card-desc">Zamień spotkania, wywiady i szkolenia w tekst. Identyfikacja mówców, podsumowanie kluczowych punktów.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">YouTube Transcript</div>
+          <div class="tool-card-desc">Wyciągaj transkrypcje z YouTube z timestampami. Przeszukuj, cytuj i przetwarzaj treści wideo jako tekst.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Generator QR</div>
+          <div class="tool-card-desc">5 typów kodów QR: URL, kontakt, Wi-Fi, wydarzenie, email. Dynamiczne QR z analityką i kontrolą po wdrożeniu.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name">Twoje narzędzie</div>
+          <div class="tool-card-desc">Potrzebujesz czegoś dedykowanego? Projektujemy i budujemy narzędzia AI dopasowane do Twojego procesu biznesowego.</div>
         </div>
       </div>
-
-       <div id="nav-voice" class="context-nav-bar">
-        <div class="nav-item active" data-slider="voice" data-slide="0">Inbound</div>
-        <div class="nav-item" data-slider="voice" data-slide="1">Outbound</div>
-        <div class="nav-item" data-slider="voice" data-slide="2">Security</div>
-      </div>
-
     </div>
   </section>
 
-  <!-- CORE MODULE 03: ACADEMY (White) -->
-  <section id="section-academy" class="section section-white" style="position: relative; padding: 6rem 0;">
+  <!-- AUTOMATYZACJE (3 items + modal) -->
+  <section id="section-automatyzacje" class="section section-white" style="position: relative; padding: 6rem 0;">
     <div class="container-fluid">
       <div class="grid-fluid">
 
         <div class="layout-col col-5 flex-center-v">
-          <div class="text-xs" style="color: #999; margin-bottom: 1rem; letter-spacing: 0.1em;">CORE_MODULE_03</div>
-          <h2 class="academy-header">THE<br>ACADEMY</h2>
+          <div class="text-xs" style="color: #999; margin-bottom: 1rem; letter-spacing: 0.1em;">AUTOMATYZACJE</div>
+          <h2 class="academy-header">PROCESY<br>NA AUTOPILOCIE</h2>
           <p style="font-size: 1.1rem; line-height: 1.6; color: #666; max-width: 40ch; margin-bottom: 4rem;">
-            Corporate training and certification. We empower your workforce to govern the AI systems we build.
+            Automatyzujemy powtarzalne procesy w Twojej firmie. Od prostych integracji po złożone przepływy danych — mniej ręcznej pracy, więcej czasu na rozwój.
           </p>
           <div>
-             <a href="#" class="btn btn-outline" style="color: #000; border-color: #000;">+ JOIN ACADEMY</a>
+            <a href="#contact" class="btn btn-outline" style="color: #000; border-color: #000;">Bezpłatny audyt procesów</a>
           </div>
         </div>
 
         <div class="layout-col col-7" style="padding-left: 4rem;">
-           <div class="academy-curriculum-box">
+          <div class="academy-curriculum-box">
 
-              <div class="academy-item academy-curriculum-item" data-academy="1">
-                  <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_01</div>
-                  <h4 class="academy-curriculum-title">PROMPT ENGINEERING</h4>
-              </div>
+            <div class="academy-item academy-curriculum-item" data-auto="1">
+              <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">PLATFORMA_01</div>
+              <h4 class="academy-curriculum-title">N8N — OPEN SOURCE</h4>
+            </div>
 
-              <div class="academy-item academy-curriculum-item" data-academy="2">
-                  <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_02</div>
-                  <h4 class="academy-curriculum-title">AGENTIC WORKFLOW DESIGN</h4>
-              </div>
+            <div class="academy-item academy-curriculum-item" data-auto="2">
+              <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">PLATFORMA_02</div>
+              <h4 class="academy-curriculum-title">MAKE — NO-CODE</h4>
+            </div>
 
-              <div class="academy-item" data-academy="3">
-                  <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">CERTIFICATION_LEVEL_03</div>
-                  <h4 class="academy-curriculum-title">SYSTEMS GOVERNANCE</h4>
-              </div>
+            <div class="academy-item" data-auto="3">
+              <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">PLATFORMA_03</div>
+              <h4 class="academy-curriculum-title">DEDYKOWANE ROZWIĄZANIA</h4>
+            </div>
 
-           </div>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ACADEMY MODAL (Brutalist) -->
-  <div id="academy-modal" class="academy-modal-backdrop">
-     <div class="academy-modal-content">
-        <button id="academy-modal-close" class="academy-modal-close" aria-label="Close modal">
-           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2"/>
-           </svg>
-        </button>
-        <div id="modal-body"></div>
-     </div>
+  <!-- AUTOMATYZACJE MODAL -->
+  <div id="auto-modal" class="academy-modal-backdrop">
+    <div class="academy-modal-content">
+      <button id="modal-close" class="academy-modal-close" aria-label="Zamknij">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+      <div id="modal-body"></div>
+    </div>
   </div>
 
-  <!-- THE PROTOCOL (Process) -->
-  <section id="section-protocol" class="section section-protocol">
+  <!-- STRONY INTERNETOWE (5 placeholders) -->
+  <section id="section-strony" class="section" style="background: #000; padding: 6rem 0;">
     <div class="container-fluid">
-      <div style="margin-bottom: 4rem; padding: 0 2rem;">
-        <h2 style="font-size: 1.5rem;">The Protocol</h2>
+      <div style="margin-bottom: 3rem;">
+        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">STRONY INTERNETOWE</div>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Strony pod klucz dla Twojego biznesu</h2>
+        <p style="color: var(--text-secondary); max-width: 60ch; font-size: 1.1rem; line-height: 1.6;">
+          Projektujemy i budujemy nowoczesne strony internetowe. Od landing page po rozbudowane portale — szybkie, responsywne, zoptymalizowane pod SEO.
+        </p>
       </div>
 
-      <div class="grid-fluid" style="border: none; background: transparent; gap: 2rem;">
-         <div class="col-4 protocol-step">
-            <div class="protocol-step-number">PHASE_01</div>
-            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Audit & Architect</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">We map your operational topography. Analysts identify friction points, latency, and redundant dependencies that slow velocity.</p>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Next, we architect the neural layer. This cognitive blueprint defines agent personas, permission scopes, and execution decision trees.</p>
-            <p style="color: var(--text-secondary);">The result is a Schematic Design: a visual guide for your new autonomous infrastructure.</p>
-         </div>
-         <div class="col-4 protocol-step">
-            <div class="protocol-step-number">PHASE_02</div>
-            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Develop & Train</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">We build your custom agent swarm on proprietary silicon, fine-tuning foundational models for your specific enterprise context.</p>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Simultaneously, we establish RAG pipelines for zero-latency, hallucination-free access to your internal knowledge base.</p>
-            <p style="color: var(--text-secondary);">We red-team every agent, ensuring bulletproof reliability and compliance before production deployment.</p>
-         </div>
-         <div class="col-4 protocol-step">
-            <div class="protocol-step-number">PHASE_03</div>
-            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Deploy & Autonomy</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">We execute a phased rollout, starting with shadow modes to verify decision logic against human benchmarks.</p>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Upon validation, agents take over. Your dashboard tracks real-time efficiency and completed tasks 24/7.</p>
-            <p style="color: var(--text-secondary);">We continuously monitor for drift and optimize prompt weights, ensuring your workforce evolves with every interaction.</p>
-         </div>
-      </div>
-
-      <div class="scroller-container" style="margin-top: auto; padding-top: 8rem; opacity: 0.7;">
-         <div class="scroller-content">
-            <div class="logo-item">OpenAI</div>
-            <div class="logo-item">Anthropic</div>
-            <div class="logo-item">Vapi</div>
-            <div class="logo-item">HuggingFace</div>
-            <div class="logo-item">Pinecone</div>
-            <div class="logo-item">LangChain</div>
-            <div class="logo-item">Stability</div>
-
-            <div class="logo-item">OpenAI</div>
-            <div class="logo-item">Anthropic</div>
-            <div class="logo-item">Vapi</div>
-            <div class="logo-item">HuggingFace</div>
-            <div class="logo-item">Pinecone</div>
-            <div class="logo-item">LangChain</div>
-            <div class="logo-item">Stability</div>
-         </div>
+      <div class="strony-grid">
+        <div class="strona-card">
+          <div class="strona-card-label">REALIZACJA_01</div>
+          <div class="strona-card-name">Projekt 1</div>
+          <div class="strona-card-placeholder">wkrótce</div>
+        </div>
+        <div class="strona-card">
+          <div class="strona-card-label">REALIZACJA_02</div>
+          <div class="strona-card-name">Projekt 2</div>
+          <div class="strona-card-placeholder">wkrótce</div>
+        </div>
+        <div class="strona-card">
+          <div class="strona-card-label">REALIZACJA_03</div>
+          <div class="strona-card-name">Projekt 3</div>
+          <div class="strona-card-placeholder">wkrótce</div>
+        </div>
+        <div class="strona-card">
+          <div class="strona-card-label">REALIZACJA_04</div>
+          <div class="strona-card-name">Projekt 4</div>
+          <div class="strona-card-placeholder">wkrótce</div>
+        </div>
+        <div class="strona-card">
+          <div class="strona-card-label">REALIZACJA_05</div>
+          <div class="strona-card-name">Projekt 5</div>
+          <div class="strona-card-placeholder">wkrótce</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- WHY US -->
-  <section id="section-why-us" class="section section-white section-compact" style="padding-bottom: 2rem;">
-     <div class="container-fluid">
-        <div class="section-header-centered">
-            <div class="text-xs" style="color: #666; margin-bottom: 1rem;">// PERFORMANCE_METRICS</div>
-            <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1;">Why Us?</h2>
-            <p style="color: var(--text-secondary); max-width: 60ch; margin: 0 auto; font-size: 1.1rem; line-height: 1.6;">
-               We don't just build software; we engineer outcomes. Our autonomous agents are designed to drastically reduce operational friction and amplify human potential.
-            </p>
+  <!-- O NAS: Metoda + KPI + Rekomendacje -->
+  <section id="section-o-nas" class="section section-white section-compact" style="padding-bottom: 2rem;">
+    <div class="container-fluid">
+
+      <!-- Metoda 3 kroki -->
+      <div class="section-header-centered" style="margin-bottom: 3rem;">
+        <div class="text-xs" style="color: #666; margin-bottom: 1rem;">// JAK_DZIAŁAMY</div>
+        <h2 style="font-size: 3rem; margin-bottom: 1.5rem; line-height: 1;">Trzy kroki do AI w Twojej firmie</h2>
+      </div>
+
+      <div class="method-steps">
+        <div class="protocol-step">
+          <div class="protocol-step-number">KROK_01</div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Audyt & Diagnoza</h3>
+          <p style="color: var(--text-secondary);">Analizujemy Twoje procesy biznesowe. Identyfikujemy gdzie AI da największy zwrot — nie wdrażamy technologii dla samej technologii.</p>
+        </div>
+        <div class="protocol-step">
+          <div class="protocol-step-number">KROK_02</div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Szkolenie & Wdrożenie</h3>
+          <p style="color: var(--text-secondary);">Szkolimy Twój zespół i wdrażamy narzędzia. Pracujemy na Twoich danych, z Twoimi procesami. Hands-on, zero teorii oderwanych od rzeczywistości.</p>
+        </div>
+        <div class="protocol-step">
+          <div class="protocol-step-number">KROK_03</div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Wsparcie & Rozwój</h3>
+          <p style="color: var(--text-secondary);">Nie zostawiamy po szkoleniu. Wsparcie po wdrożeniu, optymalizacja procesów, nowe narzędzia w miarę potrzeb. Twój partner w transformacji AI.</p>
+        </div>
+      </div>
+
+      <!-- KPI -->
+      <div class="kp-container" style="margin-top: 2rem;">
+        <div class="kpi-card">
+          <div class="kpi-number">10+</div>
+          <div class="kpi-label">Gotowych narzędzi AI</div>
+          <p class="kpi-desc">Sprawdzone rozwiązania do natychmiastowego wdrożenia w Twojej firmie.</p>
         </div>
 
-        <div class="kp-container">
-           <div class="kpi-card">
-              <div class="kpi-number">94%</div>
-              <div class="kpi-label">Faster Execution</div>
-              <p class="kpi-desc">Tasks that took days now take minutes. Our agents operate asynchronously, clearing backlogs while you sleep.</p>
-           </div>
-
-           <div class="kpi-card">
-              <div class="kpi-number">85%</div>
-              <div class="kpi-label">Cost Reduction</div>
-              <p class="kpi-desc">Minimizing overhead by automating repetitive, high-volume workflows, allowing capital reallocation to growth.</p>
-           </div>
-
-           <div class="kpi-card">
-              <div class="kpi-number">0%</div>
-              <div class="kpi-label">Hallucination Rate</div>
-              <p class="kpi-desc">Our proprietary RAG pipelines ensures strict adherence to your ground-truth data, eliminating creative drift.</p>
-           </div>
+        <div class="kpi-card">
+          <div class="kpi-number">6</div>
+          <div class="kpi-label">Programów szkoleniowych</div>
+          <p class="kpi-desc">Od promptowania po budowę agentów AI. Każdy poziom zaawansowania.</p>
         </div>
 
-        <!-- Testimonials -->
-        <div style="margin-top: 0.5rem; padding-top: 0.5rem;">
-           <div class="testimonial-marquee">
-              <div class="testimonial-track">
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Antigravity didn't just automate our support; they restructured our entire customer logic. We're seeing 10x throughput with zero headcount increase."</p>
-                    <div>
-                       <div class="testimonial-author">Sarah Jenkins</div>
-                       <div class="testimonial-role">CTO, FINTECH_CORP</div>
-                    </div>
-                 </div>
+        <div class="kpi-card">
+          <div class="kpi-number">100%</div>
+          <div class="kpi-label">Praktyki na Twoich danych</div>
+          <p class="kpi-desc">Zero generycznych ćwiczeń. Pracujesz na swoich produktach, klientach i procesach.</p>
+        </div>
+      </div>
 
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"The voice agents are indistinguishable from human operators. Our outbound conversion rates doubled in the first week of deployment."</p>
-                    <div>
-                       <div class="testimonial-author">David Chen</div>
-                       <div class="testimonial-role">VP OPERATIONS, HEALTH_SYSTEMS</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"We were skeptical about autonomous workflows, but the governance protocols gave us the confidence to scale. It's the most robust system we've ever audited."</p>
-                    <div>
-                       <div class="testimonial-author">Elena Rodriguez</div>
-                       <div class="testimonial-role">DIRECTOR, GLOBAL_LOGISTICS</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Reduced latency by 40% across our entire high-frequency trading pipeline. The architecture is simply superior."</p>
-                    <div>
-                       <div class="testimonial-author">James Thorne</div>
-                       <div class="testimonial-role">LEAD ARCHITECT, QUANTUM_FIN</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"The best visual builder I've used. We prototyped complex agent behaviors in hours instead of weeks."</p>
-                    <div>
-                       <div class="testimonial-author">Marcus V.</div>
-                       <div class="testimonial-role">FOUNDER, NEURAL_NET</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Security compliance out of the box was the selling point for us. It passed our internal red-team audit on day one."</p>
-                    <div>
-                       <div class="testimonial-author">Sarah L.</div>
-                       <div class="testimonial-role">CISO, BANK_OLD</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Replaced our entire L1 support tier with Antigravity agents. CSAT scores actually went up by 15 points."</p>
-                    <div>
-                       <div class="testimonial-author">Tom B.</div>
-                       <div class="testimonial-role">VP SUPPORT, TELCO_GIANT</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Seamless integration with legacy mainframes. It bridged a 30-year technology gap for us overnight."</p>
-                    <div>
-                       <div class="testimonial-author">Dr. Ray</div>
-                       <div class="testimonial-role">CIO, HEALTH_PLUS</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"The ROI was visible in 3 days. We paid for the annual license within the first month of operation."</p>
-                    <div>
-                       <div class="testimonial-author">Linda K.</div>
-                       <div class="testimonial-role">CFO, LOGISTICS_X</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Scales infinitely without hallucination. It's the stable foundation we needed for our AI strategy."</p>
-                    <div>
-                       <div class="testimonial-author">P. J.</div>
-                       <div class="testimonial-role">AI LEAD, FUTURE_CORP</div>
-                    </div>
-                 </div>
-
-                 <!-- SET 2 (DUPLICATES FOR INFINITE LOOP) -->
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Antigravity didn't just automate our support; they restructured our entire customer logic. We're seeing 10x throughput with zero headcount increase."</p>
-                    <div>
-                       <div class="testimonial-author">Sarah Jenkins</div>
-                       <div class="testimonial-role">CTO, FINTECH_CORP</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"The voice agents are indistinguishable from human operators. Our outbound conversion rates doubled in the first week of deployment."</p>
-                    <div>
-                       <div class="testimonial-author">David Chen</div>
-                       <div class="testimonial-role">VP OPERATIONS, HEALTH_SYSTEMS</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"We were skeptical about autonomous workflows, but the governance protocols gave us the confidence to scale. It's the most robust system we've ever audited."</p>
-                    <div>
-                       <div class="testimonial-author">Elena Rodriguez</div>
-                       <div class="testimonial-role">DIRECTOR, GLOBAL_LOGISTICS</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Reduced latency by 40% across our entire high-frequency trading pipeline. The architecture is simply superior."</p>
-                    <div>
-                       <div class="testimonial-author">James Thorne</div>
-                       <div class="testimonial-role">LEAD ARCHITECT, QUANTUM_FIN</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"The best visual builder I've used. We prototyped complex agent behaviors in hours instead of weeks."</p>
-                    <div>
-                       <div class="testimonial-author">Marcus V.</div>
-                       <div class="testimonial-role">FOUNDER, NEURAL_NET</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Security compliance out of the box was the selling point for us. It passed our internal red-team audit on day one."</p>
-                    <div>
-                       <div class="testimonial-author">Sarah L.</div>
-                       <div class="testimonial-role">CISO, BANK_OLD</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Replaced our entire L1 support tier with Antigravity agents. CSAT scores actually went up by 15 points."</p>
-                    <div>
-                       <div class="testimonial-author">Tom B.</div>
-                       <div class="testimonial-role">VP SUPPORT, TELCO_GIANT</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Seamless integration with legacy mainframes. It bridged a 30-year technology gap for us overnight."</p>
-                    <div>
-                       <div class="testimonial-author">Dr. Ray</div>
-                       <div class="testimonial-role">CIO, HEALTH_PLUS</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"The ROI was visible in 3 days. We paid for the annual license within the first month of operation."</p>
-                    <div>
-                       <div class="testimonial-author">Linda K.</div>
-                       <div class="testimonial-role">CFO, LOGISTICS_X</div>
-                    </div>
-                 </div>
-
-                 <div class="testimonial-card-item">
-                    <p class="testimonial-text">"Scales infinitely without hallucination. It's the stable foundation we needed for our AI strategy."</p>
-                    <div>
-                       <div class="testimonial-author">P. J.</div>
-                       <div class="testimonial-role">AI LEAD, FUTURE_CORP</div>
-                    </div>
-                 </div>
+      <!-- Rekomendacje (placeholder — user has real ones) -->
+      <div style="margin-top: 2rem; padding-top: 2rem;">
+        <div class="section-header-centered" style="margin-bottom: 1rem;">
+          <div class="text-xs" style="color: #666;">// REKOMENDACJE</div>
+        </div>
+        <div class="testimonial-marquee">
+          <div class="testimonial-track">
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Antigravity didn't just automate our support; they restructured our entire customer logic. We're seeing 10x throughput with zero headcount increase."</p>
+              <div>
+                <div class="testimonial-author">Sarah Jenkins</div>
+                <div class="testimonial-role">CTO, FINTECH_CORP</div>
               </div>
-           </div>
-        </div>
+            </div>
 
-     </div>
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"The voice agents are indistinguishable from human operators. Our outbound conversion rates doubled in the first week of deployment."</p>
+              <div>
+                <div class="testimonial-author">David Chen</div>
+                <div class="testimonial-role">VP OPERATIONS, HEALTH_SYSTEMS</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"We were skeptical about autonomous workflows, but the governance protocols gave us the confidence to scale. It's the most robust system we've ever audited."</p>
+              <div>
+                <div class="testimonial-author">Elena Rodriguez</div>
+                <div class="testimonial-role">DIRECTOR, GLOBAL_LOGISTICS</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Reduced latency by 40% across our entire high-frequency trading pipeline. The architecture is simply superior."</p>
+              <div>
+                <div class="testimonial-author">James Thorne</div>
+                <div class="testimonial-role">LEAD ARCHITECT, QUANTUM_FIN</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"The best visual builder I've used. We prototyped complex agent behaviors in hours instead of weeks."</p>
+              <div>
+                <div class="testimonial-author">Marcus V.</div>
+                <div class="testimonial-role">FOUNDER, NEURAL_NET</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Security compliance out of the box was the selling point for us. It passed our internal red-team audit on day one."</p>
+              <div>
+                <div class="testimonial-author">Sarah L.</div>
+                <div class="testimonial-role">CISO, BANK_OLD</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Replaced our entire L1 support tier with Antigravity agents. CSAT scores actually went up by 15 points."</p>
+              <div>
+                <div class="testimonial-author">Tom B.</div>
+                <div class="testimonial-role">VP SUPPORT, TELCO_GIANT</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Seamless integration with legacy mainframes. It bridged a 30-year technology gap for us overnight."</p>
+              <div>
+                <div class="testimonial-author">Dr. Ray</div>
+                <div class="testimonial-role">CIO, HEALTH_PLUS</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"The ROI was visible in 3 days. We paid for the annual license within the first month of operation."</p>
+              <div>
+                <div class="testimonial-author">Linda K.</div>
+                <div class="testimonial-role">CFO, LOGISTICS_X</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Scales infinitely without hallucination. It's the stable foundation we needed for our AI strategy."</p>
+              <div>
+                <div class="testimonial-author">P. J.</div>
+                <div class="testimonial-role">AI LEAD, FUTURE_CORP</div>
+              </div>
+            </div>
+
+            <!-- DUPLICATE SET FOR INFINITE LOOP -->
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Antigravity didn't just automate our support; they restructured our entire customer logic. We're seeing 10x throughput with zero headcount increase."</p>
+              <div>
+                <div class="testimonial-author">Sarah Jenkins</div>
+                <div class="testimonial-role">CTO, FINTECH_CORP</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"The voice agents are indistinguishable from human operators. Our outbound conversion rates doubled in the first week of deployment."</p>
+              <div>
+                <div class="testimonial-author">David Chen</div>
+                <div class="testimonial-role">VP OPERATIONS, HEALTH_SYSTEMS</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"We were skeptical about autonomous workflows, but the governance protocols gave us the confidence to scale. It's the most robust system we've ever audited."</p>
+              <div>
+                <div class="testimonial-author">Elena Rodriguez</div>
+                <div class="testimonial-role">DIRECTOR, GLOBAL_LOGISTICS</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Reduced latency by 40% across our entire high-frequency trading pipeline. The architecture is simply superior."</p>
+              <div>
+                <div class="testimonial-author">James Thorne</div>
+                <div class="testimonial-role">LEAD ARCHITECT, QUANTUM_FIN</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"The best visual builder I've used. We prototyped complex agent behaviors in hours instead of weeks."</p>
+              <div>
+                <div class="testimonial-author">Marcus V.</div>
+                <div class="testimonial-role">FOUNDER, NEURAL_NET</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Security compliance out of the box was the selling point for us. It passed our internal red-team audit on day one."</p>
+              <div>
+                <div class="testimonial-author">Sarah L.</div>
+                <div class="testimonial-role">CISO, BANK_OLD</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Replaced our entire L1 support tier with Antigravity agents. CSAT scores actually went up by 15 points."</p>
+              <div>
+                <div class="testimonial-author">Tom B.</div>
+                <div class="testimonial-role">VP SUPPORT, TELCO_GIANT</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Seamless integration with legacy mainframes. It bridged a 30-year technology gap for us overnight."</p>
+              <div>
+                <div class="testimonial-author">Dr. Ray</div>
+                <div class="testimonial-role">CIO, HEALTH_PLUS</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"The ROI was visible in 3 days. We paid for the annual license within the first month of operation."</p>
+              <div>
+                <div class="testimonial-author">Linda K.</div>
+                <div class="testimonial-role">CFO, LOGISTICS_X</div>
+              </div>
+            </div>
+
+            <div class="testimonial-card-item">
+              <p class="testimonial-text">"Scales infinitely without hallucination. It's the stable foundation we needed for our AI strategy."</p>
+              <div>
+                <div class="testimonial-author">P. J.</div>
+                <div class="testimonial-role">AI LEAD, FUTURE_CORP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- KONTAKT — Bezpłatna konsultacja -->
   <section id="contact" class="section section-contact">
     <div class="container-fluid">
       <div class="grid-fluid">
-        <div class="col-6 flex-center-v" style="padding: 1rem 4rem;">
-           <h2 style="font-size: 3rem;">Ready to Deploy?</h2>
-           <p style="color: var(--text-secondary); margin-bottom: 2rem;">Schedule a technical consultation to map your automation strategy.</p>
-           <div>
-             <a href="#" class="btn" style="background: transparent; color: white; border: 1px solid white;">Contact Engineering</a>
-           </div>
+        <div class="col-6 flex-center-v" style="padding: 2rem 4rem;">
+          <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// BEZPŁATNA KONSULTACJA</div>
+          <h2 style="font-size: 3rem; margin-bottom: 1rem;">Porozmawiajmy<br>o AI w Twojej firmie</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 40ch;">
+            Bezpłatny audyt AI — sprawdzimy gdzie automatyzacja i sztuczna inteligencja dadzą Ci największy zwrot. Bez zobowiązań.
+          </p>
         </div>
-        <div class="col-6 contact-terminal" style="padding: 1rem 4rem;">
-           <div class="terminal-text">
-             > _init protocol<br>
-             > _loading modules...<br>
-             > _waiting for user input<span class="animate-pulse">_</span>
-           </div>
+        <div class="col-6" style="padding: 2rem 4rem;">
+          <form class="contact-form" action="#" method="POST">
+            <div class="form-row">
+              <input type="text" class="form-input" placeholder="Imię i nazwisko" required />
+              <input type="text" class="form-input" placeholder="Firma" />
+            </div>
+            <div class="form-row">
+              <input type="email" class="form-input" placeholder="Email" required />
+              <input type="tel" class="form-input" placeholder="Telefon" />
+            </div>
+            <textarea class="form-input form-textarea" placeholder="Czym się zajmujesz i jak AI może Ci pomóc?"></textarea>
+            <button type="submit" class="btn btn-accent" style="width: 100%;">Umów bezpłatną konsultację</button>
+          </form>
         </div>
       </div>
     </div>
@@ -580,15 +587,15 @@
 
   <footer class="site-footer">
     <div class="container-fluid footer-inner">
-       <div>
-         <div class="footer-brand">Antigravity AI</div>
-         <div class="footer-copyright">&copy; 2026. All Systems Nominal.</div>
-       </div>
-       <div class="footer-links">
-          <a href="#" class="text-xs">Twitter</a>
-          <a href="#" class="text-xs">LinkedIn</a>
-          <a href="#" class="text-xs">GitHub</a>
-       </div>
+      <div>
+        <div class="footer-brand">A<span class="brand-i">i</span> Puls</div>
+        <div class="footer-copyright">&copy; 2026 AI Pulse. Szkolenia AI dla firm.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="text-xs">LinkedIn</a>
+        <a href="#" class="text-xs">YouTube</a>
+        <a href="mailto:kontakt@aipulse.pl" class="text-xs">Email</a>
+      </div>
     </div>
   </footer>
 
