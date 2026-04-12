@@ -29,8 +29,7 @@
       <span id="app-version" class="site-nav-version">v0.2.0</span>
     </a>
     <div class="site-nav-links">
-      <a href="#section-audyty" class="hover-white">Audyty</a>
-      <a href="#section-selfcheck" class="hover-white">Samoocena</a>
+      <a href="#section-oferta" class="hover-white">Oferta</a>
       <a href="#section-branze" class="hover-white">Dla kogo</a>
       <a href="#section-proces" class="hover-white">Proces</a>
       <a href="#section-compliance" class="hover-white">NIS2 / KSC</a>
@@ -54,7 +53,7 @@
           </p>
           <div style="margin-top: 3rem; display: flex; gap: 1rem;">
             <a href="#contact" class="btn btn-accent">Bezpłatna konsultacja</a>
-            <a href="#section-selfcheck" class="btn btn-outline">Samoocena online</a>
+            <a href="#section-oferta" class="btn btn-outline">Zobacz ofertę</a>
           </div>
         </div>
 
@@ -66,133 +65,110 @@
     </div>
   </section>
 
-  <!-- AUDYTY (3 pakiety + slider) -->
-  <section id="section-audyty" class="section section-white section-full-height" style="position: relative;">
+  <!-- OFERTA (4 karty: Samoocena + Basic + Standard + Premium) -->
+  <section id="section-oferta" class="section section-white" style="padding: 6rem 0;">
     <div class="container-fluid">
 
-      <div class="section-szkolenia-header">
-        <div class="section-szkolenia-label">AUDYTY BEZPIECZEŃSTWA</div>
-        <h2 class="section-szkolenia-title">Trzy pakiety dopasowane do Twojej firmy</h2>
-        <p class="section-szkolenia-subtitle">Od szybkiego skanu po kompleksową ocenę z wdrożeniem. Wszystko z raportem zrozumiałym nie tylko dla IT.</p>
+      <div class="section-header-centered" style="margin-bottom: 3rem;">
+        <div class="section-szkolenia-label">OFERTA</div>
+        <h2 class="section-szkolenia-title">Od samooceny do pełnego wdrożenia</h2>
+        <p class="section-szkolenia-subtitle">Cztery poziomy wsparcia — zacznij bezpłatnie, skaluj w miarę potrzeb.</p>
       </div>
 
-      <div class="slider-viewport">
-        <div class="slider-track" id="track-audyty">
+      <div class="pricing-grid">
 
-            <!-- SLIDE 01: BASIC -->
-            <div class="slider-slide">
-              <div class="grid-fluid grid-align-center">
-                <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">_01 // BASIC</div>
-                  <h2 class="module-title">Audyt<br>Podstawowy</h2>
-                  <p class="module-desc">
-                    Szybki przegląd bezpieczeństwa — skan podatności, przegląd polityk, raport z rekomendacjami.
-                    2-3 dni robocze. Idealne jeśli zaczynasz lub potrzebujesz wstępnej diagnozy.
-                  </p>
-                  <div class="module-actions">
-                    <a href="#contact" class="btn btn-accent">Zamów audyt</a>
-                    <a href="#" class="btn btn-outline" data-modal-type="audyty" data-modal="1">Więcej &rarr;</a>
-                  </div>
-                  <div class="price-tag">3 500 – 5 000 PLN netto</div>
-                </div>
-                <div class="layout-col col-7 slider-col-visual">
-                  <div class="training-image-container">
-                    <img src="/generated/security/audyt-basic.jpg" alt="Audyt Podstawowy — szybki skan bezpieczeństwa" class="training-image" loading="lazy" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- SLIDE 02: STANDARD -->
-            <div class="slider-slide">
-              <div class="grid-fluid grid-align-center">
-                <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">_02 // STANDARD · NAJCZĘŚCIEJ WYBIERANY</div>
-                  <h2 class="module-title">Audyt<br>Standardowy</h2>
-                  <p class="module-desc">
-                    Kompleksowa ocena ryzyka NIS2/KSC, testy konfiguracji, plan działań naprawczych, gap analysis.
-                    5-7 dni roboczych. Spełnia 80% wymagań ubezpieczycieli cyber.
-                  </p>
-                  <div class="module-actions">
-                    <a href="#contact" class="btn btn-accent">Zamów audyt</a>
-                    <a href="#" class="btn btn-outline" data-modal-type="audyty" data-modal="2">Więcej &rarr;</a>
-                  </div>
-                  <div class="price-tag">7 000 – 10 000 PLN netto</div>
-                </div>
-                <div class="layout-col col-7 slider-col-visual">
-                  <div class="training-image-container">
-                    <img src="/generated/security/audyt-standard.jpg" alt="Audyt Standardowy — ocena ryzyka NIS2/KSC" class="training-image" loading="lazy" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- SLIDE 03: PREMIUM -->
-            <div class="slider-slide">
-              <div class="grid-fluid grid-align-center">
-                <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">_03 // PREMIUM</div>
-                  <h2 class="module-title">Audyt<br>Premium</h2>
-                  <p class="module-desc">
-                    Wszystko ze Standardu + wsparcie we wdrożeniu rekomendacji + re-audyt po 6 miesiącach.
-                    Dla firm, które chcą nie tylko wiedzieć — ale naprawić i udowodnić to ubezpieczycielowi.
-                  </p>
-                  <div class="module-actions">
-                    <a href="#contact" class="btn btn-accent">Zamów audyt</a>
-                    <a href="#" class="btn btn-outline" data-modal-type="audyty" data-modal="3">Więcej &rarr;</a>
-                  </div>
-                  <div class="price-tag">12 000 – 18 000 PLN netto</div>
-                </div>
-                <div class="layout-col col-7 slider-col-visual">
-                  <div class="training-image-container">
-                    <img src="/generated/security/audyt-premium.jpg" alt="Audyt Premium — wdrożenie i re-audyt" class="training-image" loading="lazy" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-        </div>
-      </div>
-
-      <div id="nav-audyty" class="context-nav-bar">
-        <div class="nav-item active" data-slider="audyty" data-slide="0">Basic</div>
-        <div class="nav-item" data-slider="audyty" data-slide="1">Standard</div>
-        <div class="nav-item" data-slider="audyty" data-slide="2">Premium</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SELFCHECK — Lead magnet -->
-  <section id="section-selfcheck" class="section" style="background: #000; padding: 6rem 0;">
-    <div class="container-fluid">
-      <div class="grid-fluid grid-align-center">
-
-        <div class="layout-col col-6 flex-center-v">
-          <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// SAMOOCENA ONLINE · BEZPŁATNIE</div>
-          <h2 style="font-size: 3rem; line-height: 1; margin-bottom: 2rem;">Sprawdź poziom bezpieczeństwa<br>swojej firmy w 10 minut</h2>
-          <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; max-width: 52ch; margin-bottom: 2rem;">
-            Kwestionariusz 40-50 pytań obejmujących kluczowe obszary: tożsamość i dostęp, ochrona danych, backup, incident response, compliance.
-            Wynik natychmiastowy — szczegółowy raport PDF za 99 PLN.
-          </p>
-          <ul class="selfcheck-bullets">
-            <li>Ocena w 5 kategoriach (score 0-100)</li>
-            <li>Porównanie z benchmarkami branży</li>
-            <li>3 najważniejsze rekomendacje działań</li>
-            <li>Szacowany koszt wdrożenia dla Twojej firmy</li>
-          </ul>
-          <div style="margin-top: 2.5rem;">
-            <a href="#contact" class="btn btn-accent">Rozpocznij samoocenę</a>
+        <!-- Card 1: SAMOOCENA (free/freemium) -->
+        <div class="pricing-card">
+          <div class="pricing-card-label">_00 · SAMOOCENA</div>
+          <div class="pricing-card-name">Online</div>
+          <div class="pricing-card-price">
+            <span class="price-free">Bezpłatnie</span>
+            <span class="price-note">PDF raport: 99 PLN</span>
+          </div>
+          <p class="pricing-card-desc">Kwestionariusz 40-50 pytań. Wynik natychmiastowy w 5 kategoriach. Idealne na start.</p>
+          <a href="#contact" class="pricing-card-cta">Rozpocznij samoocenę</a>
+          <div class="pricing-card-features">
+            <div class="pricing-card-features-label">Co dostajesz</div>
+            <ul>
+              <li>Score 0-100 w 5 kategoriach</li>
+              <li>Porównanie z benchmarkami branży</li>
+              <li>3 najważniejsze rekomendacje</li>
+              <li>Szacowany koszt wdrożenia</li>
+            </ul>
           </div>
         </div>
 
-        <div class="layout-col col-6" style="padding-left: 2rem;">
-          <div class="training-image-container">
-            <img src="/generated/security/selfcheck.jpg" alt="Samoocena bezpieczeństwa online" class="training-image" loading="lazy" />
+        <!-- Card 2: BASIC -->
+        <div class="pricing-card">
+          <div class="pricing-card-label">_01 · BASIC</div>
+          <div class="pricing-card-name">Audyt Podstawowy</div>
+          <div class="pricing-card-price">
+            <span class="price-amount">3 500 – 5 000</span>
+            <span class="price-unit">PLN netto</span>
+          </div>
+          <p class="pricing-card-desc">Szybka diagnoza — skan podatności, przegląd polityk, raport z rekomendacjami. 2-3 dni robocze.</p>
+          <a href="#" class="pricing-card-cta pricing-card-cta-outline" data-modal-type="audyty" data-modal="1">Zobacz szczegóły</a>
+          <div class="pricing-card-features">
+            <div class="pricing-card-features-label">Co zawiera</div>
+            <ul>
+              <li>Automatyczny skan podatności</li>
+              <li>Przegląd polityk bezpieczeństwa</li>
+              <li>Raport z priorytetami</li>
+              <li>Checklist 30 najważniejszych działań</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3: STANDARD (highlighted) -->
+        <div class="pricing-card pricing-card-highlighted">
+          <div class="pricing-card-badge">NAJCZĘŚCIEJ WYBIERANY</div>
+          <div class="pricing-card-label">_02 · STANDARD</div>
+          <div class="pricing-card-name">Audyt Standardowy</div>
+          <div class="pricing-card-price">
+            <span class="price-amount">7 000 – 10 000</span>
+            <span class="price-unit">PLN netto</span>
+          </div>
+          <p class="pricing-card-desc">Kompleksowa ocena NIS2/KSC + gap analysis pod ubezpieczenie cyber. 5-7 dni roboczych.</p>
+          <a href="#" class="pricing-card-cta" data-modal-type="audyty" data-modal="2">Zobacz szczegóły</a>
+          <div class="pricing-card-features">
+            <div class="pricing-card-features-label">Wszystko z BASIC +</div>
+            <ul>
+              <li>Ocena ryzyka NIS2/KSC (60 elementów)</li>
+              <li>Testy konfiguracji kluczowych systemów</li>
+              <li>Gap analysis pod ubezpieczenie</li>
+              <li>Plan działań z kosztami wdrożenia</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 4: PREMIUM -->
+        <div class="pricing-card">
+          <div class="pricing-card-label">_03 · PREMIUM</div>
+          <div class="pricing-card-name">Audyt Premium</div>
+          <div class="pricing-card-price">
+            <span class="price-amount">12 000 – 18 000</span>
+            <span class="price-unit">PLN netto</span>
+          </div>
+          <p class="pricing-card-desc">Pełny cykl — diagnoza + wsparcie we wdrożeniu + re-audyt po 6 miesiącach. 2 tygodnie audyt + 3 miesiące wsparcia.</p>
+          <a href="#" class="pricing-card-cta pricing-card-cta-outline" data-modal-type="audyty" data-modal="3">Zobacz szczegóły</a>
+          <div class="pricing-card-features">
+            <div class="pricing-card-features-label">Wszystko ze STANDARD +</div>
+            <ul>
+              <li>Wsparcie we wdrożeniu (do 40h)</li>
+              <li>Szkolenie security awareness zespołu</li>
+              <li>Re-audyt po 6 miesiącach</li>
+              <li>Dokumentacja gotowa pod ISO 27001</li>
+            </ul>
           </div>
         </div>
 
       </div>
+
+      <div class="pricing-footnote">
+        <span>Wszystkie pakiety obejmują bezpłatną 30-min konsultację wstępną.</span>
+        <a href="#contact" class="pricing-footnote-link">Porozmawiajmy &rarr;</a>
+      </div>
+
     </div>
   </section>
 

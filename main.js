@@ -213,8 +213,7 @@ const SECTION_TO_NAV = {
   // business
   'section-szkolenia-zespoly': 'nav-szkolenia-zespoly',
   'section-szkolenia-dev': 'nav-szkolenia-dev',
-  // security
-  'section-audyty': 'nav-audyty',
+  // security: brak sliderów (pricing cards zamiast slidera)
 };
 
 const observerOptions = {

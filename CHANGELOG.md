@@ -2,6 +2,37 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.1] — 2026-04-12
+
+Redesign sekcji ofertowej security — z slidera (image 60% + tekst 40%) na 4-kolumnową siatkę kart pricing inspirowaną Railway.com/pricing.
+
+### Changed
+- **Security: slider audytów → grid pricing cards** (Railway-style)
+- **Samoocena jako 4. karta** (integracja freemium jako entry point, nie osobna sekcja)
+- Nav: "Audyty + Samoocena" → jeden link "Oferta"
+- Hero CTA "Samoocena online" → "Zobacz ofertę" (scroll do pricing)
+- Stały layout `_00 Samoocena → _01 Basic → _02 Standard (highlighted) → _03 Premium`
+
+### Added
+- `.pricing-grid` — 4-col desktop, 2-col tablet, 1-col mobile
+- `.pricing-card` z hover lift effect (transform + border-color)
+- `.pricing-card-highlighted` — violet border + box-shadow + badge "NAJCZĘŚCIEJ WYBIERANY"
+- `.pricing-card-cta` (filled violet) + `.pricing-card-cta-outline` (black outline)
+- `.pricing-footnote` z CTA do kontaktu
+- Features list z violet checkmark markers (✓)
+
+### Removed
+- Slider audytów (section-audyty + nav-audyty)
+- Osobna sekcja SelfCheck (section-selfcheck)
+- IntersectionObserver mapping dla `section-audyty` (slider już nie istnieje)
+- 4 wygenerowane obrazy audit-basic/standard/premium/selfcheck nie są już używane w sekcji głównej (zostają do ewentualnego użycia w modalach)
+
+### Fix
+- Poprzednio (v0.4.0): obraz zajmował 50-60% szerokości, użytkownik musiał scrollować slider aby zobaczyć wszystkie pakiety
+- Teraz: wszystkie 4 opcje widoczne w jednym viewport, szybkie porównanie
+
+---
+
 ## [0.4.0] — 2026-04-12
 
 Rozszerzenie firmy o drugą linię biznesową: **Ai Puls Cyber Security**. Pełna restrukturyzacja na multi-page app z chooser landing i dwoma osobnymi podstronami (`/business`, `/security`).

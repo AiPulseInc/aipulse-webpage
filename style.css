@@ -1035,6 +1035,215 @@ body.theme-business {
   gap: 2rem;
 }
 
+/* --- Pricing Grid (4-card Railway-style) --- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  background: #FAFAFA;
+  border: 1px solid #E5E5E5;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.pricing-card:hover {
+  border-color: var(--brand-accent);
+  transform: translateY(-2px);
+}
+
+.pricing-card-highlighted {
+  background: #FFF;
+  border: 2px solid var(--brand-accent);
+  box-shadow: 0 8px 32px -8px rgba(126, 34, 206, 0.25);
+}
+
+.pricing-card-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--brand-accent);
+  color: #FFF;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  padding: 0.35rem 0.8rem;
+  white-space: nowrap;
+}
+
+.pricing-card-label {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--brand-accent);
+  margin-bottom: 0.5rem;
+}
+
+.pricing-card-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #000;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.pricing-card-price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+  min-height: 4.5rem;
+}
+
+.pricing-card-price .price-amount {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.9rem;
+  color: #000;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.pricing-card-price .price-unit {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pricing-card-price .price-free {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--brand-accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.pricing-card-price .price-note {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 0.05em;
+}
+
+.pricing-card-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 1.5rem;
+  min-height: 4rem;
+}
+
+.pricing-card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1rem;
+  background: var(--brand-accent);
+  color: #FFF;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--brand-accent);
+  transition: all 0.2s;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.pricing-card-cta:hover {
+  background: transparent;
+  color: var(--brand-accent);
+}
+
+.pricing-card-cta-outline {
+  background: transparent;
+  color: #000;
+  border-color: #000;
+}
+
+.pricing-card-cta-outline:hover {
+  background: #000;
+  color: #FFF;
+  border-color: #000;
+}
+
+.pricing-card-features {
+  border-top: 1px solid #E5E5E5;
+  padding-top: 1.25rem;
+  margin-top: auto;
+}
+
+.pricing-card-features-label {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 0.85rem;
+}
+
+.pricing-card-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pricing-card-features li {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #333;
+  padding-left: 1.4rem;
+  position: relative;
+}
+
+.pricing-card-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--brand-accent);
+  font-weight: 700;
+}
+
+.pricing-footnote {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pricing-footnote-link {
+  color: var(--brand-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pricing-footnote-link:hover {
+  text-decoration: underline;
+}
+
 /* --- Security: Price tag --- */
 .price-tag {
   font-family: 'Space Grotesk', monospace;
@@ -1499,6 +1708,11 @@ body.theme-business {
   .branze-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 
   .strony-grid {
     grid-template-columns: 1fr;
