@@ -2,6 +2,16 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.6] — 2026-04-12
+
+### Added
+- `.section-tall` utility — `min-height: 70vh` + flex column + justify-content: center
+
+### Changed
+- **DLACZEGO TERAZ (Compliance)**, **Szkolenia**, **Dla kogo** — dodany `.section-tall` = min-height 70vh z wycentrowanym contentem. Sekcje wypełniają ekran, kontent nie "wisi" u góry.
+
+---
+
 ## [0.4.5] — 2026-04-12
 
 Security page — restrukturyzacja sekcji + content cleanup.

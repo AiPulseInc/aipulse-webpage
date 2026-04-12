@@ -115,6 +115,15 @@ a {
   align-items: center;
 }
 
+/* Tall section — fills at least 70vh with vertically centered content */
+.section-tall {
+  min-height: 70vh;
+  padding: 5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* FLUID 12-COLUMN GRID ENGINE */
 .grid-fluid {
   display: grid;
