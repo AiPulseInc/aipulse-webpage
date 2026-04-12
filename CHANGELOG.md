@@ -2,6 +2,28 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.2] — 2026-04-12
+
+Security page — restrukturyzacja pod B2B content funnel (edukacja → rozwiązanie).
+
+### Changed
+- **Nowa kolejność sekcji**: Hero → NIS2/KSC → Dla kogo + Dlaczego my → Proces → Oferta → Kontakt
+  - Edukacja (compliance) pierwsza, pricing ostatni
+  - Standard B2B funnel: awareness → target → differentiation → process → price → action
+- **Merge** sekcji "Dla kogo" (branże) + "Dlaczego my" (KPI) w jedną `#section-dla-kogo` z dwoma blokami
+- **Pricing cards — bez cen**: usunięte `.pricing-card-price` ze wszystkich 4 kart (ceny zostały w modalach)
+- **Samoocena**: "Bezpłatnie" przesunięte z osobnego bloku w inline label przy nazwie
+- **Modal CTA kontekstowy**: `renderSzkoleniaModal(data, type)` — dla `audyty` CTA = "Zamów audyt" (nie "Zapytaj o szkolenie")
+- **Nav**: reorder linków (NIS2/KSC → Dla kogo → Proces → Oferta → Kontakt)
+
+### Why
+- Pricing po hero pokazywał ofertę zanim user zrozumiał problem (NIS2, ryzyko)
+- 2 osobne sekcje (Dla kogo + KPI) miały podobny cel trust-building → merge
+- Ceny na kartach duplikowały info które jest już w modal details
+- "Zapytaj o szkolenie" w modalu audytu było mylące (security ≠ szkolenia)
+
+---
+
 ## [0.4.1] — 2026-04-12
 
 Redesign sekcji ofertowej security — z slidera (image 60% + tekst 40%) na 4-kolumnową siatkę kart pricing inspirowaną Railway.com/pricing.

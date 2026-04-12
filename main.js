@@ -74,7 +74,8 @@ function renderAutoModal(data) {
   `;
 }
 
-function renderSzkoleniaModal(data) {
+function renderSzkoleniaModal(data, type) {
+  const ctaLabel = type === 'audyty' ? 'Zamów audyt' : 'Zapytaj o szkolenie';
   return `
     <div class="modal-training">
       <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1.5rem;">${data.category}</div>
@@ -98,7 +99,7 @@ function renderSzkoleniaModal(data) {
           <div class="modal-section-label" style="margin-top: 2rem;">WYNIK</div>
           <p class="modal-section-body modal-outcome">${data.outcome}</p>
 
-          <a href="#contact" class="btn btn-accent modal-cta" data-close-modal="true">Zapytaj o szkolenie</a>
+          <a href="#contact" class="btn btn-accent modal-cta" data-close-modal="true">${ctaLabel}</a>
         </div>
       </div>
     </div>
@@ -132,7 +133,7 @@ function openModal(type, id) {
   const body = document.getElementById('modal-body');
   if (!modal || !body) return;
 
-  body.innerHTML = renderer(data);
+  body.innerHTML = renderer(data, type);
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
