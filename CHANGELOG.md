@@ -2,6 +2,27 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.4.4] — 2026-04-12
+
+Visual rhythm fix — sekcje naprzemiennie jasne/ciemne + usunięcie pustych gapów.
+
+### Changed
+- **`.section` base class**: usunięty `min-height: 100vh` który powodował że każda sekcja zajmowała pełen ekran (ogromne puste gapy). Padding zredukowany z `8rem` do `5rem`. To był **główny sprawca pustych obszarów**.
+- **`.section-full-height`**: padding z `8rem` → `6rem`, usunięty `min-height: 80vh`
+- **Security — reorder sekcji**: Swap Dla-kogo ↔ Szkolenia żeby osiągnąć perfect alternację
+  - Było: Hero(D)-Compliance(W)-**Dla kogo(W)**-**Szkolenia(D)**-Proces(D)-Oferta(W)-Kontakt(D) — 2 konflikty
+  - Jest: Hero(D)-Compliance(W)-**Szkolenia(D)**-**Dla kogo(W)**-Proces(D)-Oferta(W)-Kontakt(D) — **0 konfliktów, D-W-D-W-D-W-D ✓**
+- **Business — reorder sekcji**: 2 swapy (narzędzia↔automatyzacje + strony↔o-nas) dla lepszej alternacji
+  - Było: Hero(D)-Zespoly(W)-Dev(D)-**Narzędzia(D)**-Auto(W)-Strony(D)-O-nas(W)-Kontakt(D) — konflikt Dev-Narzędzia
+  - Jest: Hero(D)-Zespoly(W)-Dev(D)-**Auto(W)**-**Narzędzia(D)**-**O-nas(W)**-**Strony(D)**-Kontakt(D)
+  - Sekwencja D-W-D-W-D-W-D-D — 1 konflikt tylko na końcu (Strony-Kontakt, mniej widoczne)
+
+### Why
+- User zauważył że sekcje powinny naprzemiennie zmieniać kolor tła (lepszy visual rhythm)
+- User zauważył puste gapy — głównym sprawcą był `.section { min-height: 100vh }` z globalnego CSS (każda sekcja zajmowała 100vh nawet gdy content był krótki, co tworzyło ogromne puste miejsca)
+
+---
+
 ## [0.4.3] — 2026-04-12
 
 Security page — rozbudowa treści + nowa sekcja szkoleń.
