@@ -26,11 +26,11 @@
       <span id="app-version" class="site-nav-version">v0.2.0</span>
     </div>
     <div class="site-nav-links">
-      <a href="#section-szkolenia" class="hover-white">Szkolenia</a>
+      <a href="#section-szkolenia-zespoly" class="hover-white">Wdrażaj AI</a>
+      <a href="#section-szkolenia-dev" class="hover-white">Buduj z AI</a>
       <a href="#section-narzedzia" class="hover-white">Narzędzia</a>
       <a href="#section-automatyzacje" class="hover-white">Automatyzacje</a>
       <a href="#section-strony" class="hover-white">Strony WWW</a>
-      <a href="#section-o-nas" class="hover-white">O nas</a>
       <a href="#contact" class="hover-white">Kontakt</a>
     </div>
   </nav>
@@ -63,109 +63,84 @@
     </div>
   </section>
 
-  <!-- SZKOLENIA AI (slider, 4 tracks) -->
-  <section id="section-szkolenia" class="section section-white section-full-height" style="position: relative;">
+  <!-- SZKOLENIA A: Wdrażaj AI (3 tracks for business teams) -->
+  <section id="section-szkolenia-zespoly" class="section section-white section-full-height" style="position: relative;">
     <div class="container-fluid">
 
-      <div class="slider-viewport">
-        <div class="slider-track" id="track-szkolenia">
+      <div class="section-szkolenia-header">
+        <div class="section-szkolenia-label">WDRAŻAJ AI</div>
+        <h2 class="section-szkolenia-title">Szkolenia AI dla Twojego zespołu</h2>
+        <p class="section-szkolenia-subtitle">Praktyczne szkolenia dla osób, które używają AI w pracy — sprzedaż, marketing, operations.</p>
+      </div>
 
-            <!-- SLIDE 1: Prompt Engineering -->
+      <div class="slider-viewport">
+        <div class="slider-track" id="track-szkolenia-zespoly">
+
+            <!-- SLIDE 01: Podstawy rozmowy z AI -->
             <div class="slider-slide">
               <div class="grid-fluid grid-align-center">
                 <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">SZKOLENIE_01 // FUNDAMENTY</div>
-                  <h2 class="module-title">Prompt<br>Engineering</h2>
+                  <div class="text-xs module-label">_01 // FUNDAMENTY</div>
+                  <h2 class="module-title">Podstawy<br>rozmowy z AI</h2>
                   <p class="module-desc">
-                    5 sprawdzonych workflow'ów do pisania skutecznych promptów. Od podstaw po zaawansowane techniki: definiowanie celu, kontekstu, ograniczeń i formatu. Praktyczne ćwiczenia na Twoich danych — wychodzisz z gotową biblioteką promptów.
+                    Naucz się pisać polecenia, które dają przewidywalne, powtarzalne wyniki.
+                    Bez technicznego żargonu, bez znajomości kodu. Wychodzisz z gotową biblioteką poleceń dla swojej firmy.
                   </p>
-                  <div>
-                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="szkolenia" data-modal="1">Więcej &rarr;</a>
                   </div>
                 </div>
                 <div class="layout-col col-7 slider-col-visual">
-                   <div class="module-visual-container">
-                      <div style="text-align: center;">
-                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
-                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Warsztat 1-dniowy</div>
-                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Grupa do 14 osób &middot; on-site lub online</div>
-                      </div>
-                   </div>
+                  <div class="training-image-container">
+                    <img src="/generated/szkolenia/podstawy.jpg" alt="Podstawy rozmowy z AI — abstrakcyjna wizualizacja dialogu człowieka z AI" class="training-image" loading="lazy" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 2: Prawo Jazdy AI -->
+            <!-- SLIDE 02: Prawo Jazdy AI -->
             <div class="slider-slide">
               <div class="grid-fluid grid-align-center">
                 <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">SZKOLENIE_02 // SPRZEDAŻ</div>
+                  <div class="text-xs module-label">_02 // SPRZEDAŻ B2B</div>
                   <h2 class="module-title">Prawo<br>Jazdy AI</h2>
                   <p class="module-desc">
-                    Warsztat dla zespołów sprzedażowych B2B. Dobór narzędzi AI (Gemini, Claude, Perplexity), automatyzacja prospectingu, pisanie ofert i follow-upów. Bezpieczeństwo danych, RAG, budowa własnej biblioteki promptów. Pracujecie na swoich produktach i klientach.
+                    Twój zespół sprzedażowy zaoszczędzi 10h/tygodniowo dzięki AI — na researchu, ofertach, follow-upach.
+                    Bez ryzyka utraty danych klientów. Praca na realnych produktach Twojej firmy.
                   </p>
-                  <div>
-                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="szkolenia" data-modal="2">Więcej &rarr;</a>
                   </div>
                 </div>
                 <div class="layout-col col-7 slider-col-visual">
-                   <div class="module-visual-container">
-                      <div style="text-align: center;">
-                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
-                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Warsztat 1-dniowy lub 4 sesje online</div>
-                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">B2B &middot; do 14 osób &middot; praca na Twoich danych</div>
-                      </div>
-                   </div>
+                  <div class="training-image-container">
+                    <img src="/generated/szkolenia/prawo-jazdy.jpg" alt="Prawo Jazdy AI — abstrakcyjna wizualizacja przyspieszenia sprzedaży" class="training-image" loading="lazy" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 3: AI Builder Advanced -->
+            <!-- SLIDE 03: Zbuduj własnego agenta AI -->
             <div class="slider-slide">
               <div class="grid-fluid grid-align-center">
                 <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">SZKOLENIE_03 // ZAAWANSOWANE</div>
-                  <h2 class="module-title">AI Builder<br>Advanced</h2>
+                  <div class="text-xs module-label">_03 // ZAAWANSOWANE</div>
+                  <h2 class="module-title">Zbuduj<br>własnego<br>agenta AI</h2>
                   <p class="module-desc">
-                    Buduj własne narzędzia AI. Agentic AI w sprzedaży i marketingu, technika masterprompt, integracja z CRM, bazy wiedzy (RAG), deployment lokalny i chmurowy. Wychodzisz z działającym agentem AI skonfigurowanym pod Twoje produkty.
+                    Nie ucz się jak korzystać z gotowych narzędzi — naucz się jak BUDOWAĆ własne.
+                    Agent AI skonfigurowany pod Twoje produkty, klientów, procesy. Hands-on na Twoich danych.
                   </p>
-                  <div>
-                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="szkolenia" data-modal="3">Więcej &rarr;</a>
                   </div>
                 </div>
                 <div class="layout-col col-7 slider-col-visual">
-                   <div class="module-visual-container">
-                      <div style="text-align: center;">
-                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
-                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Warsztat 6h &middot; poziom zaawansowany</div>
-                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Hands-on &middot; budujesz agenta AI na żywo</div>
-                      </div>
-                   </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- SLIDE 4: Claude Code & Gemini -->
-            <div class="slider-slide">
-              <div class="grid-fluid grid-align-center">
-                <div class="layout-col col-5 slider-col-text">
-                  <div class="text-xs module-label">SZKOLENIE_04 // DEV TOOLS</div>
-                  <h2 class="module-title">Claude Code<br>& Gemini</h2>
-                  <p class="module-desc">
-                    Praktyczny kurs narzędzi deweloperskich AI. Claude Code od zera po budowę aplikacji — konfiguracja, CLAUDE.md, hooks, skills, MCP. Gemini CLI i AntiGravity. Dla tych, którzy chcą automatyzować swoją codzienną pracę z kodem.
-                  </p>
-                  <div>
-                    <a href="#contact" class="btn btn-outline">Zapytaj o szkolenie</a>
+                  <div class="training-image-container">
+                    <img src="/generated/szkolenia/ai-builder.jpg" alt="Zbuduj własnego agenta AI — abstrakcyjna architektura systemu AI" class="training-image" loading="lazy" />
                   </div>
-                </div>
-                <div class="layout-col col-7 slider-col-visual">
-                   <div class="module-visual-container">
-                      <div style="text-align: center;">
-                         <div class="text-xs" style="margin-bottom: 1rem;">FORMAT</div>
-                         <div style="font-family: monospace; font-size: 1.2rem; color: #000;">Kurs online &middot; 3 poziomy</div>
-                         <div style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Beginner &middot; Skills &middot; Advanced</div>
-                      </div>
-                   </div>
                 </div>
               </div>
             </div>
@@ -173,11 +148,128 @@
         </div>
       </div>
 
-      <div id="nav-szkolenia" class="context-nav-bar">
-          <div class="nav-item active" data-slider="szkolenia" data-slide="0">Prompting</div>
-          <div class="nav-item" data-slider="szkolenia" data-slide="1">Prawo Jazdy AI</div>
-          <div class="nav-item" data-slider="szkolenia" data-slide="2">AI Builder</div>
-          <div class="nav-item" data-slider="szkolenia" data-slide="3">Dev Tools</div>
+      <div id="nav-szkolenia-zespoly" class="context-nav-bar">
+        <div class="nav-item active" data-slider="szkolenia-zespoly" data-slide="0">Podstawy</div>
+        <div class="nav-item" data-slider="szkolenia-zespoly" data-slide="1">Prawo Jazdy</div>
+        <div class="nav-item" data-slider="szkolenia-zespoly" data-slide="2">AI Builder</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SZKOLENIA B: Buduj z AI (4 tracks for developers) -->
+  <section id="section-szkolenia-dev" class="section section-full-height section-black-border" style="background: #000; position: relative;">
+    <div class="container-fluid">
+
+      <div class="section-szkolenia-header">
+        <div class="section-szkolenia-label">BUDUJ Z AI</div>
+        <h2 class="section-szkolenia-title section-szkolenia-dev">Szkolenia AI dla developerów</h2>
+        <p class="section-szkolenia-subtitle section-szkolenia-dev">Buduj z AI. Dev tools, advanced workflows, multi-agent orchestration. Dla osób, które chcą nie tylko używać AI — ale je projektować.</p>
+      </div>
+
+      <div class="slider-viewport">
+        <div class="slider-track" id="track-szkolenia-dev">
+
+            <!-- SLIDE 04: Claude Code Start -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/cc-start.jpg" alt="Claude Code: Start — minimalistyczny terminal cursor" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_04 // DEV TOOLS</div>
+                  <h2 class="module-title">Claude Code:<br>Start</h2>
+                  <p class="module-desc">
+                    Automate your daily coding work. Claude Code handles boilerplate, bugs, refactory — Ty skupiasz się na architekturze.
+                    Setup od zera, pierwsza app zbudowana podczas kursu.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="szkolenia" data-modal="4">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 05: Claude Code Skills -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/cc-skills.jpg" alt="Claude Code Skills — geometryczny puzzle piece" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_05 // DEV TOOLS</div>
+                  <h2 class="module-title">Claude Code:<br>Skills</h2>
+                  <p class="module-desc">
+                    Zastosuj Skills Claude Code do konkretnych procesów biznesowych.
+                    ROI widoczny w pierwszym tygodniu. Hands-on na Twoich realnych procesach.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="szkolenia" data-modal="5">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 06: Claude Code Pro -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/cc-pro.jpg" alt="Claude Code Pro — multi-agent network graph" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_06 // DEV TOOLS</div>
+                  <h2 class="module-title">Claude Code:<br>Pro</h2>
+                  <p class="module-desc">
+                    Mastery level. Multi-agent orchestration, hooks, subagents, worktrees.
+                    Claude Code staje się Twoim zespołem Junior developerów pracujących 24/7.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="szkolenia" data-modal="6">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 07: Gemini + AntiGravity -->
+            <div class="slider-slide">
+              <div class="grid-fluid grid-align-center">
+                <div class="layout-col col-7 slider-col-text">
+                  <div class="module-visual-container visual-dark-bg visual-image-fill">
+                    <img src="/generated/szkolenia/antigravity.jpg" alt="Gemini + AntiGravity — orbitalne circles z amber center" class="module-image-full" loading="lazy" />
+                  </div>
+                </div>
+                <div class="layout-col col-5 slider-col-text">
+                  <div class="text-xs" style="margin-bottom: 2rem; color: var(--brand-accent);">_07 // DEV TOOLS</div>
+                  <h2 class="module-title">Gemini +<br>AntiGravity</h2>
+                  <p class="module-desc">
+                    Alternatywny stack do Claude Code. Gemini 3.1 Pro + AntiGravity — setup, który obsługuje $4M+ biznesy.
+                    "Vibe coding" methodology w praktyce.
+                  </p>
+                  <div class="module-actions">
+                    <a href="#contact" class="btn btn-accent">Zapytaj o szkolenie</a>
+                    <a href="#" class="btn btn-outline" data-modal-type="szkolenia" data-modal="7">Więcej &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+
+      <div id="nav-szkolenia-dev" class="context-nav-bar">
+        <div class="nav-item active" data-slider="szkolenia-dev" data-slide="0">CC Start</div>
+        <div class="nav-item" data-slider="szkolenia-dev" data-slide="1">CC Skills</div>
+        <div class="nav-item" data-slider="szkolenia-dev" data-slide="2">CC Pro</div>
+        <div class="nav-item" data-slider="szkolenia-dev" data-slide="3">AntiGravity</div>
       </div>
 
     </div>
@@ -196,42 +288,52 @@
 
       <div class="tool-grid">
         <div class="tool-card">
+          <img src="/generated/tools/voice-agents.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Voice Agents</div>
           <div class="tool-card-desc">Asystent głosowy AI. Obsługa klienta, kwalifikacja leadów, umawianie spotkań. Działa 24/7 bez skalowania zespołu.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/inbox-agent.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Inbox Agent</div>
           <div class="tool-card-desc">Inteligentne zarządzanie emailami. Kategoryzacja, priorytetyzacja, drafty odpowiedzi. Opcja on-premise dla bezpieczeństwa danych.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/voice-memo.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Voice Memo PRO</div>
           <div class="tool-card-desc">Zamień notatki głosowe w gotowe dokumenty — plan działania, email, notatka CRM. Transkrypcja w czasie rzeczywistym.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/vcard.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Generator vCard</div>
           <div class="tool-card-desc">Skanuj wizytówki i podpisy email — automatycznie twórz kontakty. PWA, integracja z CRM i telefonem.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/grafiki-ai.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Generator Grafik AI</div>
           <div class="tool-card-desc">Obrazy AI dla social media, prezentacji, materiałów marketingowych. Kontrola stylu i formatu, zgodność z brand book.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/video-prompter.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Smart Video Prompter</div>
           <div class="tool-card-desc">Teleprompter z formatami wideo (Reels, YouTube, Instagram). Utrzymuj kontakt wzrokowy podczas nagrywania.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/transkrypcja.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Transkrypcja Audio</div>
           <div class="tool-card-desc">Zamień spotkania, wywiady i szkolenia w tekst. Identyfikacja mówców, podsumowanie kluczowych punktów.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/youtube-transcript.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">YouTube Transcript</div>
           <div class="tool-card-desc">Wyciągaj transkrypcje z YouTube z timestampami. Przeszukuj, cytuj i przetwarzaj treści wideo jako tekst.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/qr-generator.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Generator QR</div>
           <div class="tool-card-desc">5 typów kodów QR: URL, kontakt, Wi-Fi, wydarzenie, email. Dynamiczne QR z analityką i kontrolą po wdrożeniu.</div>
         </div>
         <div class="tool-card">
+          <img src="/generated/tools/custom-tool.jpg" alt="" class="tool-icon" loading="lazy" />
           <div class="tool-card-name">Twoje narzędzie</div>
           <div class="tool-card-desc">Potrzebujesz czegoś dedykowanego? Projektujemy i budujemy narzędzia AI dopasowane do Twojego procesu biznesowego.</div>
         </div>
@@ -258,17 +360,17 @@
         <div class="layout-col col-7" style="padding-left: 4rem;">
           <div class="academy-curriculum-box">
 
-            <div class="academy-item academy-curriculum-item" data-auto="1">
+            <div class="academy-item academy-curriculum-item" data-modal-type="auto" data-modal="1">
               <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">PLATFORMA_01</div>
               <h4 class="academy-curriculum-title">N8N — OPEN SOURCE</h4>
             </div>
 
-            <div class="academy-item academy-curriculum-item" data-auto="2">
+            <div class="academy-item academy-curriculum-item" data-modal-type="auto" data-modal="2">
               <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">PLATFORMA_02</div>
               <h4 class="academy-curriculum-title">MAKE — NO-CODE</h4>
             </div>
 
-            <div class="academy-item" data-auto="3">
+            <div class="academy-item" data-modal-type="auto" data-modal="3">
               <div class="text-xs" style="color: #aaa; margin-bottom: 0.5rem;">PLATFORMA_03</div>
               <h4 class="academy-curriculum-title">DEDYKOWANE ROZWIĄZANIA</h4>
             </div>
@@ -281,7 +383,7 @@
   </section>
 
   <!-- AUTOMATYZACJE MODAL -->
-  <div id="auto-modal" class="academy-modal-backdrop">
+  <div id="app-modal" class="academy-modal-backdrop">
     <div class="academy-modal-content">
       <button id="modal-close" class="academy-modal-close" aria-label="Zamknij">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -305,29 +407,39 @@
 
       <div class="strony-grid">
         <div class="strona-card">
-          <div class="strona-card-label">REALIZACJA_01</div>
-          <div class="strona-card-name">Projekt 1</div>
-          <div class="strona-card-placeholder">wkrótce</div>
+          <img src="/generated/strony/ecommerce.jpg" alt="Mockup strony e-commerce" class="strona-card-image" loading="lazy" />
+          <div class="strona-card-overlay">
+            <div class="strona-card-label">REALIZACJA_01</div>
+            <div class="strona-card-name">Sklep e-commerce</div>
+          </div>
         </div>
         <div class="strona-card">
-          <div class="strona-card-label">REALIZACJA_02</div>
-          <div class="strona-card-name">Projekt 2</div>
-          <div class="strona-card-placeholder">wkrótce</div>
+          <img src="/generated/strony/ubezpieczenia.jpg" alt="Mockup strony agenta ubezpieczeniowego" class="strona-card-image" loading="lazy" />
+          <div class="strona-card-overlay">
+            <div class="strona-card-label">REALIZACJA_02</div>
+            <div class="strona-card-name">Agent ubezpieczeniowy</div>
+          </div>
         </div>
         <div class="strona-card">
-          <div class="strona-card-label">REALIZACJA_03</div>
-          <div class="strona-card-name">Projekt 3</div>
-          <div class="strona-card-placeholder">wkrótce</div>
+          <img src="/generated/strony/firma-uslugowa.jpg" alt="Mockup strony firmy usługowej" class="strona-card-image" loading="lazy" />
+          <div class="strona-card-overlay">
+            <div class="strona-card-label">REALIZACJA_03</div>
+            <div class="strona-card-name">Firma usługowa</div>
+          </div>
         </div>
         <div class="strona-card">
-          <div class="strona-card-label">REALIZACJA_04</div>
-          <div class="strona-card-name">Projekt 4</div>
-          <div class="strona-card-placeholder">wkrótce</div>
+          <img src="/generated/strony/ogrodnicza.jpg" alt="Mockup strony firmy ogrodniczej" class="strona-card-image" loading="lazy" />
+          <div class="strona-card-overlay">
+            <div class="strona-card-label">REALIZACJA_04</div>
+            <div class="strona-card-name">Firma ogrodnicza</div>
+          </div>
         </div>
         <div class="strona-card">
-          <div class="strona-card-label">REALIZACJA_05</div>
-          <div class="strona-card-name">Projekt 5</div>
-          <div class="strona-card-placeholder">wkrótce</div>
+          <img src="/generated/strony/golf.jpg" alt="Mockup strony pola golfowego" class="strona-card-image" loading="lazy" />
+          <div class="strona-card-overlay">
+            <div class="strona-card-label">REALIZACJA_05</div>
+            <div class="strona-card-name">Pole golfowe</div>
+          </div>
         </div>
       </div>
     </div>
@@ -578,6 +690,10 @@
               <input type="tel" class="form-input" placeholder="Telefon" />
             </div>
             <textarea class="form-input form-textarea" placeholder="Czym się zajmujesz i jak AI może Ci pomóc?"></textarea>
+            <label class="form-consent">
+              <input type="checkbox" required />
+              <span>Wyrażam zgodę na przetwarzanie moich danych osobowych przez AI Pulse w celu odpowiedzi na moje zapytanie. <a href="#">Polityka prywatności</a></span>
+            </label>
             <button type="submit" class="btn btn-accent" style="width: 100%;">Umów bezpłatną konsultację</button>
           </form>
         </div>

@@ -2,6 +2,56 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.3.0] — 2026-04-12
+
+Major content expansion + AI-generated visuals. Rozbudowa oferty szkoleniowej z 4 do 7 pozycji podzielonych na 2 slidery. 22 unikalne obrazy wygenerowane przez Gemini 3.1.
+
+### Added
+- **Sekcja "Wdrażaj AI"** — 3 szkolenia dla zespołów biznesowych:
+  - Podstawy rozmowy z AI (fundamenty promptowania, plain Polish)
+  - Prawo Jazdy AI (B2B sprzedaż)
+  - Zbuduj własnego agenta AI (EY-level advance)
+- **Sekcja "Buduj z AI"** — 4 szkolenia dla developerów:
+  - Claude Code: Start (CC beginner)
+  - Claude Code: Skills (CC for business)
+  - Claude Code: Pro (CC advanced)
+  - Gemini + AntiGravity (alternatywny stack)
+- **Modale szkoleń** — każde z 7 szkoleń otwiera modal z pełnymi informacjami (Dla kogo, Czego się nauczysz, Format, Wynik) i CTA
+- **22 obrazy AI-generated** przez Gemini 3.1 Flash Image Preview (Nano Banana 2):
+  - 7 wizuali szkoleń (abstract brutalist + amber accent)
+  - 10 ikon narzędzi (unified icon set)
+  - 5 mockupów stron (e-commerce, ubezpieczenia, firma usługowa, ogrodnicza, golf)
+- **RODO consent checkbox** w formularzu kontaktowym (wymagany)
+- **Skrypt `generate-images.mjs`** — reproducible image generation via `npm run generate-images`
+- **Generalizacja systemu modali** — jeden `#app-modal` obsługuje 2 typy (auto + szkolenia) przez `data-modal-type`
+- **`src/training-data.js`** — osobny moduł z kontentem 7 szkoleń
+- Etykieta `_0X //` zamiast `SZKOLENIE_0X //` (cleaner labels)
+- Esc key closes modals (accessibility)
+
+### Changed
+- Język copy szkoleń: opis techniczny → **język korzyści** (po co + co dostanę)
+- Nawigacja: "Szkolenia" (1 link) → "Wdrażaj AI" + "Buduj z AI" (2 linki)
+- Navbar: usunięto link "O nas" (sekcja się nie zmieniła, link powrócił do "Kontakt")
+- Dev szkolenia visual: text placeholder → pełen AI-generated obraz
+- Strony WWW: placeholder boxes → mockupy 16:10 z amber gradient overlay
+- Narzędzia cards: text-only → icon + text (56×56 AI-generated ikony)
+- Bump wersji: 0.2.0 → 0.3.0
+
+### Technical
+- Nowe dependencies: `@google/genai ^1.49`, `dotenv ^17`
+- Zweryfikowane API: model `gemini-3.1-flash-image-preview` z endpointem `generateContent` + `Modality.IMAGE`
+- `public/generated/` z 22 plikami .jpg (7.2MB łącznie) — commitowane (deployment-ready)
+- Usunięty stary folder `images/` (1.8MB klatek animacji z poprzedniej wersji hero)
+- Rewrite `README.md` + `CLAUDE.md` na brand AI Pulse
+- Bundle: 4.5KB JS → 10.4KB JS (dodatkowa logika modali + training-data)
+
+### Removed
+- Stary folder `images/` z 68 klatek animacji (1.8MB)
+- Placeholdery "wkrótce" w sekcji Strony WWW
+- Unused `Bash(cd:*)` ban — dodane do allow dla płynności
+
+---
+
 ## [0.2.0] — 2026-04-12
 
 Pierwszy milestone kontentowy po refaktoryzacji. Strona zmienia brand z "Antigravity AI" na **AI Pulse** i otrzymuje polską treść marketingową.

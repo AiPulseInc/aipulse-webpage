@@ -1,74 +1,76 @@
-# Antigravity AI
+# AI Pulse
 
-> **Intelligence as Architecture.**
-> The autonomous layer for modern business.
+> Szkolenia AI, narzędzia i automatyzacje dla MŚP. Bez buzzwordów — z konkretnymi wynikami.
 
-A high-performance, design-forward landing page for a premier AI automation agency. Built with a "Brutalist Obsidian" aesthetic to convey authority, precision, and technological dominance.
+Strona marketingowa firmy AI Pulse. Vite + vanilla JS + custom CSS w estetyce Obsidian Brutalist z amber accent (#F5A623).
 
----
+## Stack
 
-## 🚀 Quick Start
+- **Vite 5** — build tool
+- **Vanilla JS** — zero runtime dependencies
+- **CSS custom** — własny design system bez frameworka
+- **Google Fonts** — Inter, Outfit, Space Grotesk
 
-Get the system online in < 2 minutes.
+## Quick start
 
 ```bash
-# 1. Install dependencies
-npm install
-
-# 2. Start the development server
-npm run dev
-
-# 3. Access the portal
-> Local: http://localhost:5173
+npm install            # Instalacja dependencies
+npm run dev            # Dev server na :5173
+npm run build          # Build produkcyjny → dist/
+npm run preview        # Preview buildu
 ```
 
----
+Dla generacji obrazów AI (opcjonalnie):
 
-## 🛠 Technology Stack
-
-*   **Vite**: Next-generation frontend tooling.
-*   **Vanilla JS**: Zero-framework approach for maximum performance and control.
-*   **CSS Variables**: "Obsidian Fluid" theme engine.
-*   **Canvas API**: Hardware-accelerated hero scroll animation.
-
----
-
-## 🎨 Design System: "Obsidian Brutalist"
-
-This project strictly adheres to the **Frontend Specialist** protocols.
-
-### Core Principles
-1.  **Strict Monochrome**: Black (`#000`), White (`#FFF`), and Greyscale. **No Purple.**
-2.  **Brutalist Navigation**: Solid black backgrounds, sharp edges (`0px` border-radius), and raw 1px borders.
-3.  **Intentional Glassmorphism**: Reserved *only* for the floating Context Nav to distinguish it as a HUD element. [See Architecture Reference].
-4.  **Physics-Based Animation**: Scroll-linked animations using Canvas and `IntersectionObserver`.
-
-### Layout Architecture
--   **Scroll-Driven Hero**: 400vh tall track driving a frame-by-frame canvas sequence.
--   **Horizontal Modules**: "Automation" and "Voice" sections use a horizontal scroll paradigm (Apple-style) instead of vertical stacking.
--   **Asymmetric Design**: Avoids standard 50/50 splits where possible.
-
----
-
-## 📂 Project Structure
-
-```text
-├── main.js        # Core logic & HTML injection (Single Entry Point)
-├── style.css      # "Obsidian" theme & Global Styles
-├── index.html     # Minimal entry wrapper
-├── images/        # Animation sequence frames (frame_000.jpg...)
-└── package.json   # Dependencies (Vite)
+```bash
+npm run generate-images   # Wymaga GEMINI_API_KEY w .env
 ```
 
-> **Note**: The entire DOM structure is injected via `main.js`. This is a strict architectural choice to centralize logic and view for this specific landing page iteration.
+## Struktura projektu
 
----
+```
+aipulse-webpage/
+├── index.html              # Pełny markup strony
+├── main.js                 # Logika (modale, sliders, observer)
+├── style.css               # Design system + styles
+├── src/
+│   └── version.js          # Wersja aplikacji (sync z package.json)
+├── scripts/
+│   └── generate-images.mjs # Skrypt generujący obrazy AI (Gemini)
+├── public/                 # Static assets (served at root)
+│   └── generated/          # AI-generated images
+├── MK_3.0.png, MK_3.1.png  # Portrety do sekcji hero
+├── CHANGELOG.md            # Historia zmian
+├── PLAN-content-v2.md      # Plan aktualnej iteracji
+└── CLAUDE.md               # Instrukcje dla Claude Code
+```
 
-## 🛡️ Security
+## Design system
 
-*   **Injection Safe**: No external user input is rendered.
-*   **Zero-Dependency Runtime**: No production dependencies, minimizing supply chain risk.
+**Kolory (Obsidian theme):**
+- Background: `#000`
+- Text primary: `#FFF`
+- Text secondary: `#666`
+- Accent (amber): `#F5A623`
+- Borders: `#333`
 
----
+**Typografia:**
+- Headlines: Inter (uppercase, tight letter-spacing)
+- Body: Inter 400-500
+- Logo: Outfit 800
+- Mono: Space Grotesk
 
-© 2026 Antigravity AI. All Systems Nominal.
+## Wersjonowanie
+
+Wersja wyświetlana w nav-bar (`v0.X.Y`). Przy każdym commicie:
+1. Bump w `package.json` (`version`)
+2. Bump w `src/version.js` (`VERSION`)
+3. Wpis w `CHANGELOG.md`
+
+## Brand
+
+AI Pulse — firma szkoleniowa AI dla MŚP i JDG w polskim rynku. Strona hostuje ofertę: szkolenia (7 ścieżek), narzędzia (10 gotowych), automatyzacje (n8n, Make, custom), strony internetowe pod klucz.
+
+## Licencja
+
+Proprietary. All rights reserved. © 2026 AI Pulse.
