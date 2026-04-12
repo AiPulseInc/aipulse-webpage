@@ -248,3 +248,59 @@ Object.keys(SECTION_TO_NAV).forEach(id => {
   const el = document.getElementById(id);
   if (el) observer.observe(el);
 });
+
+// --- Main Nav Active Section Indicator ---
+// Highlight the navbar link corresponding to the section currently in view
+
+const navLinks = Array.from(document.querySelectorAll('.site-nav-links a'));
+
+// Map each nav link href (#section-id) → element id
+const navLinkTargets = navLinks
+  .map(a => {
+    const href = a.getAttribute('href') || '';
+    if (!href.startsWith('#')) return null;
+    const id = href.slice(1);
+    if (!id || id === 'top') return null;
+    const el = document.getElementById(id);
+    if (!el) return null;
+    return { link: a, section: el };
+  })
+  .filter(Boolean);
+
+function setActiveNav(activeSectionId) {
+  navLinks.forEach(a => a.classList.remove('nav-active'));
+  if (!activeSectionId) return;
+  const match = navLinkTargets.find(t => t.section.id === activeSectionId);
+  if (match) match.link.classList.add('nav-active');
+}
+
+// Track which section is most visible
+const visibleSections = new Map(); // sectionId -> intersectionRatio
+
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      visibleSections.set(entry.target.id, entry.intersectionRatio);
+    } else {
+      visibleSections.delete(entry.target.id);
+    }
+  });
+
+  // Find the section with highest intersection ratio
+  let topSection = null;
+  let topRatio = 0;
+  visibleSections.forEach((ratio, id) => {
+    if (ratio > topRatio) {
+      topRatio = ratio;
+      topSection = id;
+    }
+  });
+
+  setActiveNav(topSection);
+}, {
+  root: null,
+  rootMargin: '-70px 0px 0px 0px', // Offset for sticky nav
+  threshold: [0, 0.25, 0.5, 0.75, 1.0],
+});
+
+navLinkTargets.forEach(t => navObserver.observe(t.section));

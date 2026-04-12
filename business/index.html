@@ -17,7 +17,7 @@
     rel="stylesheet">
 </head>
 
-<body class="theme-neon-nexus theme-business">
+<body class="theme-neon-nexus theme-business" id="top">
 
   <!-- NAV -->
   <nav class="site-nav">
@@ -29,10 +29,11 @@
       <span id="app-version" class="site-nav-version"></span>
     </a>
     <div class="site-nav-links">
+      <a href="#top" class="hover-white nav-start">Start</a>
       <a href="#section-szkolenia-zespoly" class="hover-white">Wdrażaj AI</a>
       <a href="#section-szkolenia-dev" class="hover-white">Buduj z AI</a>
-      <a href="#section-narzedzia" class="hover-white">Narzędzia</a>
       <a href="#section-automatyzacje" class="hover-white">Automatyzacje</a>
+      <a href="#section-narzedzia" class="hover-white">Narzędzia</a>
       <a href="#section-strony" class="hover-white">Strony WWW</a>
       <a href="#contact" class="hover-white">Kontakt</a>
     </div>
@@ -67,11 +68,11 @@
   </section>
 
   <!-- SZKOLENIA A: Wdrażaj AI (3 tracks for business teams) -->
-  <section id="section-szkolenia-zespoly" class="section section-white section-full-height" style="position: relative;">
+  <section id="section-szkolenia-zespoly" class="section section-white section-tall" style="position: relative;">
     <div class="container-fluid">
 
       <div class="section-szkolenia-header">
-        <div class="section-szkolenia-label">WDRAŻAJ AI</div>
+        <div class="section-szkolenia-label">// WDRAŻAJ AI</div>
         <h2 class="section-szkolenia-title">Szkolenia AI dla Twojego zespołu</h2>
         <p class="section-szkolenia-subtitle">Praktyczne szkolenia dla osób, które używają AI w pracy — sprzedaż, marketing, operations.</p>
       </div>
@@ -161,11 +162,11 @@
   </section>
 
   <!-- SZKOLENIA B: Buduj z AI (4 tracks for developers) -->
-  <section id="section-szkolenia-dev" class="section section-full-height section-black-border" style="background: #000; position: relative;">
+  <section id="section-szkolenia-dev" class="section section-tall section-black-border" style="background: #000; position: relative;">
     <div class="container-fluid">
 
       <div class="section-szkolenia-header">
-        <div class="section-szkolenia-label">BUDUJ Z AI</div>
+        <div class="section-szkolenia-label">// BUDUJ Z AI</div>
         <h2 class="section-szkolenia-title section-szkolenia-dev">Szkolenia AI dla developerów</h2>
         <p class="section-szkolenia-subtitle section-szkolenia-dev">Buduj z AI. Dev tools, advanced workflows, multi-agent orchestration. Dla osób, które chcą nie tylko używać AI — ale je projektować.</p>
       </div>
@@ -279,12 +280,12 @@
   </section>
 
   <!-- AUTOMATYZACJE (3 items + modal) -->
-  <section id="section-automatyzacje" class="section section-white" style="position: relative; padding: 6rem 0;">
+  <section id="section-automatyzacje" class="section section-white section-tall" style="position: relative;">
     <div class="container-fluid">
       <div class="grid-fluid">
 
         <div class="layout-col col-5 flex-center-v">
-          <div class="text-xs" style="color: #999; margin-bottom: 1rem; letter-spacing: 0.1em;">AUTOMATYZACJE</div>
+          <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// AUTOMATYZACJE</div>
           <h2 class="academy-header">PROCESY<br>NA AUTOPILOCIE</h2>
           <p style="font-size: 1.1rem; line-height: 1.6; color: #666; max-width: 40ch; margin-bottom: 4rem;">
             Automatyzujemy powtarzalne procesy w Twojej firmie. Od prostych integracji po złożone przepływy danych — mniej ręcznej pracy, więcej czasu na rozwój.
@@ -320,14 +321,17 @@
   </section>
 
   <!-- NARZĘDZIA AI (grid, 10 tools) -->
-  <section id="section-narzedzia" class="section" style="background: #000; padding: 6rem 0;">
+  <section id="section-narzedzia" class="section section-tall" style="background: #000;">
     <div class="container-fluid">
-      <div style="margin-bottom: 3rem;">
-        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">NARZĘDZIA AI</div>
-        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">10 gotowych narzędzi dla Twojej firmy</h2>
-        <p style="color: var(--text-secondary); max-width: 60ch; font-size: 1.1rem; line-height: 1.6;">
-          Sprawdzone narzędzia AI, gotowe do wdrożenia. Każde rozwiązuje konkretny problem — od transkrypcji spotkań po obsługę klienta 24/7.
-        </p>
+      <div class="narzedzia-header">
+        <div class="narzedzia-header-text">
+          <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// NARZĘDZIA AI</div>
+          <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">10 gotowych narzędzi dla Twojej firmy</h2>
+          <p style="color: var(--text-secondary); max-width: 60ch; font-size: 1.1rem; line-height: 1.6;">
+            Sprawdzone narzędzia AI, gotowe do wdrożenia. Każde rozwiązuje konkretny problem — od transkrypcji spotkań po obsługę klienta 24/7.
+          </p>
+        </div>
+        <a href="#" class="btn btn-accent toolbox-btn">AiPulse Toolbox &rarr;</a>
       </div>
 
       <div class="tool-grid">
@@ -398,12 +402,12 @@
   </div>
 
   <!-- O NAS: Metoda + KPI + Rekomendacje -->
-  <section id="section-o-nas" class="section section-white section-compact" style="padding-bottom: 2rem;">
+  <section id="section-o-nas" class="section section-white section-tall">
     <div class="container-fluid">
 
       <!-- Metoda 3 kroki -->
       <div class="section-header-centered" style="margin-bottom: 3rem;">
-        <div class="text-xs" style="color: #666; margin-bottom: 1rem;">// JAK_DZIAŁAMY</div>
+        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// JAK DZIAŁAMY</div>
         <h2 style="font-size: 3rem; margin-bottom: 1.5rem; line-height: 1;">Trzy kroki do AI w Twojej firmie</h2>
       </div>
 
@@ -425,31 +429,10 @@
         </div>
       </div>
 
-      <!-- KPI -->
-      <div class="kp-container" style="margin-top: 2rem;">
-        <div class="kpi-card">
-          <div class="kpi-number">10+</div>
-          <div class="kpi-label">Gotowych narzędzi AI</div>
-          <p class="kpi-desc">Sprawdzone rozwiązania do natychmiastowego wdrożenia w Twojej firmie.</p>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-number">6</div>
-          <div class="kpi-label">Programów szkoleniowych</div>
-          <p class="kpi-desc">Od promptowania po budowę agentów AI. Każdy poziom zaawansowania.</p>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-number">100%</div>
-          <div class="kpi-label">Praktyki na Twoich danych</div>
-          <p class="kpi-desc">Zero generycznych ćwiczeń. Pracujesz na swoich produktach, klientach i procesach.</p>
-        </div>
-      </div>
-
       <!-- Rekomendacje (placeholder — user has real ones) -->
-      <div style="margin-top: 2rem; padding-top: 2rem;">
-        <div class="section-header-centered" style="margin-bottom: 1rem;">
-          <div class="text-xs" style="color: #666;">// REKOMENDACJE</div>
+      <div style="margin-top: 3rem;">
+        <div class="section-header-centered" style="margin-bottom: 1.5rem;">
+          <div class="text-xs" style="color: var(--brand-accent);">// REKOMENDACJE</div>
         </div>
         <div class="testimonial-marquee">
           <div class="testimonial-track">
@@ -621,10 +604,10 @@
   </section>
 
   <!-- STRONY INTERNETOWE (5 placeholders) -->
-  <section id="section-strony" class="section" style="background: #000; padding: 6rem 0;">
+  <section id="section-strony" class="section section-tall" style="background: #000;">
     <div class="container-fluid">
       <div style="margin-bottom: 3rem;">
-        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">STRONY INTERNETOWE</div>
+        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1rem;">// STRONY WWW</div>
         <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Strony pod klucz dla Twojego biznesu</h2>
         <p style="color: var(--text-secondary); max-width: 60ch; font-size: 1.1rem; line-height: 1.6;">
           Projektujemy i budujemy nowoczesne strony internetowe. Od landing page po rozbudowane portale — szybkie, responsywne, zoptymalizowane pod SEO.

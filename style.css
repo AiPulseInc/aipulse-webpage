@@ -105,8 +105,8 @@ a {
 .section {
   padding: 5rem 0;
   border-bottom: 1px solid var(--border-color);
-  scroll-margin-top: 70px;
-  /* Offset for sticky header */
+  scroll-margin-top: 78px;
+  /* 108px nav - 30px extra — section top tucks 30px further under nav so more content is visible */
 }
 
 .section-full-height {
@@ -115,9 +115,9 @@ a {
   align-items: center;
 }
 
-/* Tall section — fills at least 70vh with vertically centered content */
+/* Tall section — fills at least 90vh with vertically centered content */
 .section-tall {
-  min-height: 70vh;
+  min-height: 90vh;
   padding: 5rem 0;
   display: flex;
   flex-direction: column;
@@ -834,6 +834,34 @@ body.theme-business {
   color: var(--text-secondary);
 }
 
+.site-nav-links a {
+  position: relative;
+  padding-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.site-nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 24px;
+  height: 2px;
+  background: var(--brand-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.site-nav-links a.nav-active::after,
+.site-nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.site-nav-links a.nav-active {
+  color: var(--text-primary);
+}
+
 /* --- Hero --- */
 .hero-track {
   height: 400vh;
@@ -992,7 +1020,7 @@ body.theme-business {
   background: #000;
   padding-top: 4rem;
   padding-bottom: 4rem;
-  min-height: 70vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
 }
@@ -1737,6 +1765,32 @@ body.theme-business {
   font-size: 1.25rem;
   max-width: 44ch;
   line-height: 1.6;
+}
+
+/* --- Narzedzia AI section header (with Toolbox CTA) --- */
+.narzedzia-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.narzedzia-header-text {
+  flex: 1;
+}
+
+.toolbox-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .narzedzia-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* --- Tool Grid --- */

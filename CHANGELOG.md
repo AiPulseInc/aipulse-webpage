@@ -2,6 +2,51 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.491] — 2026-04-12
+
+UX polish: nav active indicator, 90vh sections, business standardization, Toolbox CTA, scroll-to-anchor fix, nav order fix.
+
+### Added
+- **START link** na początku navbara (oba pages) — smooth scroll do `#top` (dodany ID na body)
+- **Active section indicator** — amber/violet underline (24px, 2px) pod bieżącym linkiem nav. Scale-X transition (0.3s). Hover też wyświetla.
+- **IntersectionObserver** dla nav — śledzi ratio każdej sekcji i podświetla tę najbardziej widoczną w viewporcie.
+- **AiPulse Toolbox button** — amber CTA w prawym górnym rogu sekcji Narzędzia AI (business page). `href="#"` — na razie placeholder.
+- **Nowe CSS klasy**: `.nav-start`, `.nav-active`, `.narzedzia-header`, `.narzedzia-header-text`, `.toolbox-btn`
+- `id="top"` na body (obu stron) — anchor dla "START" link
+
+### Changed
+- **Min-height 90vh** dla wszystkich sekcji (oba pages):
+  - `.section-tall` min-height 70vh → **90vh**
+  - `.section-contact` min-height 70vh → **90vh**
+  - Business sections (automatyzacje, narzedzia, o-nas, strony, szkolenia-zespoly, szkolenia-dev) → dodana klasa `.section-tall`
+  - Security sections (proces, oferta) → dodana klasa `.section-tall`
+- **Business section labels — ujednolicone do `// NAZWA` format**:
+  - `WDRAŻAJ AI` → `// WDRAŻAJ AI`
+  - `BUDUJ Z AI` → `// BUDUJ Z AI`
+  - `NARZĘDZIA AI` → `// NARZĘDZIA AI`
+  - `AUTOMATYZACJE` (color #999) → `// AUTOMATYZACJE` (color amber)
+  - `STRONY INTERNETOWE` → `// STRONY WWW`
+  - `// JAK_DZIAŁAMY` (gray + underscore) → `// JAK DZIAŁAMY` (amber + space)
+  - `// REKOMENDACJE` (gray) → amber
+- **Business O nas** — usunięty blok KPI (10+/6/100%), podniesione rekomendacje (marquee) bezpośrednio pod method-steps
+- **Scroll-to-anchor offset** — `scroll-margin-top: 78px` na `.section` (było 70, potem duplikat scroll-padding + scroll-margin sumował się do 216). Teraz sekcja wsuwa się 30px pod nav, więcej contentu widocznego.
+- **Nav order fix** — menu pasuje do kolejności sekcji na stronie:
+  - Business: Automatyzacje przed Narzędzia (było odwrotnie)
+  - Security: Szkolenia → Jak pracujemy → Dla kogo (było pomieszane)
+
+### Removed
+- KPI container block w `section-o-nas` (10+ / 6 / 100%) — bez kontekstu, niepotrzebne
+- `scroll-padding-top` na html — duplikat ze `scroll-margin-top` na sekcjach, sumowało się do 216px
+
+### Why
+- User: "w business jest bajzel z nazwami sekcji różne wyrównania, brak //" — ujednolicone
+- User: "wysokość każdej sekcji to minimum 90vh" — chcemy unikać widoku tła innych sekcji
+- User: "sekcja z KPI — nie pasuje mi, podnieś do góry opinie"
+- User: "przewija sekcje tak, że widoczna jest końcówka poprzedniej sekcji" → fix scroll offset + 30px bonus
+- User: "menu przewija do góry i na dół bo nie ma właściwej kolejności" → nav order = section order
+
+---
+
 ## [0.4.9] — 2026-04-12
 
 Hero polish — uczciwy headline + wyrównanie certyfikatów.
