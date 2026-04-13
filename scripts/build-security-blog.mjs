@@ -411,6 +411,10 @@ function renderBlogPost(post) {
     </ol>
   </aside>` : '';
 
+  // Inject cover as floated figure at start of prose — text wraps around on desktop, full-width on phone
+  const coverFigure = `<figure class="blog-post-cover-inline"><img src="${post.cover}" alt="${escapeHtml(post.coverAlt)}" loading="lazy" /></figure>`;
+  const proseHtml = coverFigure + post.html;
+
   return `${renderHead({
     title: `${post.title} | Ai Puls Security Blog`,
     description: post.description,
@@ -441,15 +445,11 @@ function renderBlogPost(post) {
       </div>
     </header>
 
-    <div class="blog-post-cover-wrap">
-      <img src="${post.cover}" alt="${escapeHtml(post.coverAlt)}" class="blog-post-cover" />
-    </div>
-
     <div class="section section-white blog-post-body-section">
       <div class="container-fluid blog-post-layout">
         ${tocHtml}
         <div class="blog-prose">
-          ${post.html}
+          ${proseHtml}
         </div>
       </div>
     </div>

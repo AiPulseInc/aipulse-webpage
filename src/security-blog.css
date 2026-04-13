@@ -95,7 +95,7 @@
 
 .blog-posts-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
 
@@ -284,18 +284,19 @@
   margin: 0;
 }
 
-.blog-post-cover-wrap {
-  background: #FFF;
-  padding: 0 var(--spacing-m, 2rem) 3rem;
+/* Floated inline cover — replaces former full-viewport .blog-post-cover-wrap */
+.blog-post-cover-inline {
+  float: right;
+  width: 340px;
+  margin: 0.25rem 0 1.5rem 2rem;
+  padding: 0;
 }
 
-.blog-post-cover {
+.blog-post-cover-inline img {
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  display: block;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
+  display: block;
   border: 1px solid #E5E5E5;
 }
 
@@ -365,6 +366,14 @@
   font-size: 1.1rem;
   line-height: 1.7;
   max-width: 68ch;
+  margin-left: auto;
+  margin-right: auto;
+  /* Centered horizontally within prose column — no empty right strip */
+}
+
+/* When post has no H2 headings (no TOC), prose spans full grid width */
+.blog-post-layout > .blog-prose:only-child {
+  grid-column: 1 / -1;
 }
 
 .blog-prose h2 {
@@ -519,6 +528,17 @@
 
   .blog-posts-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Cover: float-right on desktop becomes full-width above prose on phone */
+  .blog-post-cover-inline {
+    float: none;
+    width: 100%;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .blog-post-cover-inline img {
+    aspect-ratio: 16 / 9;
   }
 
   .blog-featured-title {

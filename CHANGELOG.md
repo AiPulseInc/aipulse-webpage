@@ -4,6 +4,30 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.512] — 2026-04-13
+
+Blog layout fixes — grid orphan + non-TOC posts + prose centering.
+
+### Fixed
+- **Blog index grid** `.blog-posts-grid`: `repeat(3, 1fr)` → `repeat(2, 1fr)` (4 non-featured posts now fill 2×2 cleanly, no orphan)
+- **Bug: non-TOC posts rendered in 260px narrow column** — when a post has no H2 headings (4 of 5 posts), `tocHtml` was empty string, but `.blog-post-layout` grid still placed `.blog-prose` in column 1 (260px TOC slot). Fix: `.blog-post-layout > .blog-prose:only-child { grid-column: 1 / -1 }`
+- **Empty right strip on featured post with TOC** — `.blog-prose max-width: 68ch` with no margin left prose flush-left in column, leaving ~200px empty right. Fix: `margin-left/right: auto` centers prose within its grid column
+
+### Changed (from v0.511)
+- Cover image: removed full-width `.blog-post-cover-wrap` (took full viewport on desktop)
+- Added `.blog-post-cover-inline`: floated right 340px inside `.blog-prose`, aspect-ratio 4:3, text wraps first 2-3 paragraphs (editorial layout)
+- Phone override: cover becomes full-width 16:9 above prose (no float)
+
+### Generator
+- `renderBlogPost`: injects `<figure class="blog-post-cover-inline">` at start of `.blog-prose` innerHTML instead of between header and body-section
+
+### Why
+- User: "pozostałe posty [nie featured] — wąski pasek tekstu po lewej stronie" → non-TOC grid placement bug
+- User: "zdjęcie zajmuje cały ekran, bez sensu, tekst opływa obraz" → full-viewport cover → floated inline
+- User: "w poście tytułowym pusty pasek po prawej — wyśrodkować w poziomie" → prose `margin: 0 auto`
+
+---
+
 ## [0.511] — 2026-04-13
 
 Contrast fix — secondary text on dark was failing WCAG AA.
