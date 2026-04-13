@@ -730,24 +730,42 @@ a {
   }
   .landing-half {
     min-height: 0;
-    /* Top half pushed down to clear overlay header; bottom half pushed up to clear footer */
-    padding: 5rem 1.5rem 3rem;
+    /* Tighter vertical padding — content must fit small phones */
+    padding: 2rem 1.5rem 1.5rem;
   }
   .landing-business {
-    padding-top: 6rem;
-    /* Extra top space so overlay "AI PULS · WYBIERZ OBSZAR" doesn't kiss the Ai Puls logo */
+    padding-top: 3.5rem;
+    /* Space for overlay "AI PULS · WYBIERZ OBSZAR" above — was 6rem, tightened */
   }
   .landing-security {
-    padding-bottom: 5rem;
-    /* Extra bottom space so footer "v0.x · © 2026 Ai Puls" doesn't kiss the CTA button */
+    padding-bottom: 3rem;
+    /* Space for footer below — was 5rem, tightened */
   }
   .landing-logo {
-    font-size: 3rem;
-    /* Cap logo at 3rem on mobile — clamp was already locking to 3rem but this documents intent */
+    font-size: 2.5rem;
+    /* Was 3rem — smaller logo reclaims ~16px per half */
+  }
+  .landing-tagline {
+    margin-bottom: 1rem;
+    /* Was 2rem — tighter gap between logo and tagline */
   }
   .landing-desc {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    /* Was 1.5rem */
+  }
+  .landing-cta {
+    padding: 0.7rem 1.5rem;
+    /* Was 0.9rem 2rem */
+  }
+  .landing-overlay {
+    top: 1.25rem;
+    /* Was 2.5rem — closer to top edge on mobile */
+  }
+  .landing-footer {
+    bottom: 1rem;
+    /* Was 1.5rem */
   }
   .landing-split:hover .landing-half:not(:hover) {
     flex: 1;

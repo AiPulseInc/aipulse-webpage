@@ -4,6 +4,28 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.497] — 2026-04-13
+
+Tighten landing chooser mobile — everything fits in one viewport (no scroll).
+
+### Changed
+- `.landing-half` padding: `5rem 1.5rem 3rem` → `2rem 1.5rem 1.5rem`
+- `.landing-business` padding-top: `6rem` → `3.5rem`
+- `.landing-security` padding-bottom: `5rem` → `3rem`
+- `.landing-logo` mobile size: `3rem` → `2.5rem`
+- `.landing-tagline` margin-bottom: `2rem` → `1rem`
+- `.landing-desc` mobile: 0.95rem → `0.9rem` + margin-bottom `1rem`
+- `.landing-cta` padding: `0.9rem 2rem` → `0.7rem 1.5rem`
+- `.landing-overlay` top: `2.5rem` → `1.25rem` (mobile only)
+- `.landing-footer` bottom: `1.5rem` → `1rem` (mobile only)
+
+Reclaimed ~180px vertical space → fits on iPhone SE (568px).
+
+### Why
+- User: "zmniejsz odstępy między częściami kontentu — nie mieszczą się na ekranie"
+
+---
+
 ## [0.496] — 2026-04-13
 
 Landing chooser mobile layout fix — overlay header + footer no longer covered by content.
