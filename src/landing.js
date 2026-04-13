@@ -1,4 +1,5 @@
 import '../style.css'
+import './cookie-consent/index.js'
 import { VERSION } from './version.js'
 
 // Inject version in landing footer

@@ -15,6 +15,7 @@ function getHtmlInputs() {
       'security/index.html',
       'security/blog/index.html',
       'security/blog/**/index.html',
+      'polityka-cookies/index.html',
     ],
     {
       cwd: __dirname,
@@ -67,6 +68,7 @@ export default defineConfig(async () => {
     '/business/',
     '/security/',
     '/security/blog/',
+    '/polityka-cookies/',
     ...postFiles.map((f) => '/' + f.replace(/index\.html$/, '')),
   ];
 

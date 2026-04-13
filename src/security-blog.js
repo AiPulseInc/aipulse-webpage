@@ -1,4 +1,5 @@
 import '../style.css';
+import './cookie-consent/index.js';
 import './security-blog.css';
 import { VERSION } from './version.js';
 

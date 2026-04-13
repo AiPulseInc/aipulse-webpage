@@ -4,6 +4,33 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.530] — 2026-04-13
+
+Codex cookie consent — GDPR-compliant banner + preferences modal + policy page.
+
+### Integration
+- `main.js` — `import './src/cookie-consent/index.js'` (business + security pages)
+- `src/landing.js` — `import './cookie-consent/index.js'` (landing page)
+- `src/security-blog.js` — `import './cookie-consent/index.js'` (blog pages)
+- `src/polityka-cookies.js` already wired by Codex (policy page entry)
+
+### Vite config
+- `polityka-cookies/index.html` added to `getHtmlInputs()` glob
+- `/polityka-cookies/` added to sitemap `dynamicRoutes`
+
+### Codex-delivered files (already in repo since v0.522)
+- `src/cookie-consent/consent.js` — localStorage API (`getConsent`, `setConsent`, `hasConsent`, `clearConsent`)
+- `src/cookie-consent/ui.js` — banner (3 buttons: Akceptuj/Odrzuć/Dostosuj) + preferences modal with focus trap
+- `src/cookie-consent/styles.css` — banner + modal styling
+- `src/cookie-consent/index.js` — public entry, auto-inits on DOMContentLoaded
+- `polityka-cookies/index.html` — static GDPR cookie policy page
+- `src/polityka-cookies.js` — policy page entry with "open settings" button wiring
+
+### Footer cookie link
+- `.footer-cookie-link` (added in v0.523) now activates — Codex `ui.js` listens for clicks and opens preferences modal
+
+---
+
 ## [0.523] — 2026-04-13
 
 Mobile UX Commit 3/3 — footer harmonization + vCISO modal expansion.

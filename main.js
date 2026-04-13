@@ -1,4 +1,5 @@
 import './style.css'
+import './src/cookie-consent/index.js'
 import { VERSION } from './src/version.js'
 import { szkoleniaData } from './src/training-data.js'
 import { audytyData, complianceData, securitySzkoleniaData } from './src/security-data.js'
