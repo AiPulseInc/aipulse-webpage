@@ -719,13 +719,35 @@ a {
 }
 
 @media (max-width: 768px) {
+  /* Landing body gets back scroll on mobile — 100vh split didn't fit content */
+  body.landing-body {
+    overflow: auto;
+  }
   .landing-split {
     flex-direction: column;
     height: auto;
     min-height: 100vh;
   }
   .landing-half {
-    min-height: 50vh;
+    min-height: 0;
+    /* Top half pushed down to clear overlay header; bottom half pushed up to clear footer */
+    padding: 5rem 1.5rem 3rem;
+  }
+  .landing-business {
+    padding-top: 6rem;
+    /* Extra top space so overlay "AI PULS · WYBIERZ OBSZAR" doesn't kiss the Ai Puls logo */
+  }
+  .landing-security {
+    padding-bottom: 5rem;
+    /* Extra bottom space so footer "v0.x · © 2026 Ai Puls" doesn't kiss the CTA button */
+  }
+  .landing-logo {
+    font-size: 3rem;
+    /* Cap logo at 3rem on mobile — clamp was already locking to 3rem but this documents intent */
+  }
+  .landing-desc {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
   }
   .landing-split:hover .landing-half:not(:hover) {
     flex: 1;

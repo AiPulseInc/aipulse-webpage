@@ -4,6 +4,24 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.496] — 2026-04-13
+
+Landing chooser mobile layout fix — overlay header + footer no longer covered by content.
+
+### Fixed
+- `body.landing-body` — `overflow: hidden` → `overflow: auto` on mobile (<=768px) so content fits without forcing 100vh cramp
+- `.landing-half` — `min-height: 50vh` → `min-height: 0` + `padding: 5rem 1.5rem 3rem` for generous breathing room
+- `.landing-business` — extra `padding-top: 6rem` so overlay label "AI PULS · WYBIERZ OBSZAR" doesn't kiss the logo
+- `.landing-security` — extra `padding-bottom: 5rem` so footer badge "v0.x · © 2026 Ai Puls" doesn't kiss the WEJDŹ CTA
+- `.landing-logo` — locked to `3rem` on mobile (was clamp — intent now explicit)
+- `.landing-desc` — smaller font (0.95rem) + tighter margin-bottom
+
+### Why
+- User on mobile: "kontent zasłania i nagłówek i stopkę"
+- Root cause: 50vh half + fixed absolute overlay/footer positioning caused overlap on small phones where content height exceeded remaining space
+
+---
+
 ## [0.495] — 2026-04-13
 
 Fix mobile security hero: flex-direction row → column so cert strip flows below content instead of beside CTAs.
