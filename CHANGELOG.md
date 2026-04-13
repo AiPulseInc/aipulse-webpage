@@ -4,6 +4,43 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.521] — 2026-04-13
+
+Mobile UX Commit 1/3 — hero refactor (image above CTAs) + slider reorder (image above buttons) + cert overlay on photo.
+
+### Hero (both pages)
+- Hero actions duplicated (`.hero-actions-desktop` in flex-center-v — hidden on mobile; `.hero-actions-mobile` as sibling — hidden on desktop)
+- Mobile flex-col order: text → photo → actions (was text+actions → photo)
+- Mobile buttons: **side-by-side smaller** (was stacked full-width)
+- Tighter padding: phone `0.75rem 0 1.25rem` (was `3rem 0 4rem`), tablet `1rem 0 1.5rem` (was `2rem 0 3rem`)
+- Reduced grid-fluid gap to `0.75rem` on mobile (was `1.25rem`)
+- Hero headline font reduced on phone: `clamp(2rem, 7vw, 2.5rem)` (was `clamp(2.25rem, 8vw, 3rem)`)
+
+### Security hero — cert badges as overlay
+- `.hero-certificates-link` moved INSIDE `.hero-photo-wrap` in HTML
+- On mobile: absolute bottom-right of photo-wrap, `max-width: 180px` tablet / `140px` phone (was full-width below photo)
+- Overlay drop-shadow for readability on photo background
+- Desktop behavior unchanged (still absolute in photo-wrap area)
+
+### Szkolenia slider (zespoly + dev + security)
+- Mobile reorder via `display: contents` on `.slider-col-text` — children escape to grid-fluid as flex items
+- CSS order: text (0) → image (2) → actions (3) — works for both source orders (text-first zespoly + image-first dev/security)
+- Actions row: `flex-direction: row` side-by-side smaller (2 buttons split 50/50)
+- Reset `.grid-align-center` (align-items: center) to `stretch` on mobile — prevents label/title/desc centering
+- Force `text-align: left` on all slider flex children
+
+### Files
+- `business/index.html` — hero HTML restructure (duplicate actions, named classes)
+- `security/index.html` — same + cert-link moved inside photo-wrap
+- `style.css` — tablet (<=1023) + phone (<=767) hero overrides; szkolenia slider display:contents block; desktop .hero-actions-desktop rule
+
+### Regression check
+- Desktop 1280: hero unchanged visually (photo overlap preserved, cert strip in same position)
+- Tablet 834: hero stacks correctly, cert overlay 180px
+- Phone 375: text → photo (with cert overlay bottom-right) → 2 CTAs side-by-side
+
+---
+
 ## [0.520] — 2026-04-13
 
 Pricing update — realistic market-aligned rates based on benchmark research.

@@ -2718,18 +2718,25 @@ body.theme-business {
     overflow: hidden;
   }
 
-  /* ---- Hero reset — no more overlap/negative margins on non-desktop ---- */
+  /* ---- Hero reset non-desktop: flex column, text → photo → actions ---- */
   .hero-static {
     flex-direction: column;
     align-items: stretch;
     min-height: 0;
-    padding: 2rem 0 3rem;
+    padding: 1rem 0 1.5rem;
+    /* Tighter top padding — section was eating too much vertical space under nav */
   }
 
-  /* Content grid stays before certs even if certs are first in markup */
-  .hero-static .container-fluid {
-    order: 1;
+  .hero-static .grid-fluid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    /* Was 1.25rem — tighter between text, image, and actions */
   }
+
+  .hero-text-block { order: 1; }
+  .hero-photo-wrap { order: 2; }
+  .hero-actions-mobile { order: 3; }
 
   .hero-static .flex-center-v {
     padding-bottom: 0;
@@ -2741,6 +2748,8 @@ body.theme-business {
     justify-content: center;
     align-items: center;
     align-self: center;
+    position: relative;
+    /* So .hero-certificates-link absolute anchors here */
   }
 
   .hero-photo {
@@ -2749,24 +2758,41 @@ body.theme-business {
     margin-right: 0;
   }
 
-  /* Cert strip in security hero — move from absolute to flow, below CTAs */
+  /* Hero actions: desktop element hidden, mobile element shown as side-by-side smaller CTAs */
+  .hero-actions-desktop { display: none !important; }
+  .hero-actions-mobile {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .hero-actions-mobile .btn {
+    flex: 1;
+    padding: 0.8rem 0.75rem;
+    font-size: 0.75rem;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  /* Cert strip: absolute overlay in bottom-right of photo-wrap (50% of desktop size) */
   .hero-certificates-link {
-    order: 2;
-    position: static;
-    bottom: auto;
-    right: auto;
-    display: block;
-    margin: 2rem auto 0;
-    padding: 0 1.25rem;
-    max-width: min(100%, 420px);
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    order: unset;
+    margin: 0;
+    padding: 0;
+    max-width: 180px;
+    z-index: 3;
   }
 
   .hero-certificates {
-    width: 100%;
+    width: 180px;
     height: auto;
-    max-width: 360px;
+    max-width: 180px;
     display: block;
-    margin: 0 auto;
+    margin: 0;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
   }
 
   /* FAB visible on tablet + phone */
@@ -2775,21 +2801,82 @@ body.theme-business {
   }
 }
 
+/* Desktop: hide mobile actions, keep desktop actions visible (default) */
+@media (min-width: 1024px) {
+  .hero-actions-mobile { display: none !important; }
+  .hero-actions-desktop {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+}
+
+/* --- Szkolenia slider — reorder on mobile: text → image → actions (row side-by-side) --- */
+@media (max-width: 767px) {
+  /* Override .grid-align-center (align-items: center) on mobile flex-col — would center-align all items horizontally */
+  .slider-slide .grid-fluid.grid-align-center {
+    align-items: stretch;
+  }
+
+  /* display: contents dissolves .slider-col-text wrapper, so its children (label/title/desc/actions)
+     become direct flex items of grid-fluid, able to be ordered independently from .slider-col-visual */
+  .slider-slide .slider-col-text {
+    display: contents;
+  }
+
+  /* Keep all slider children left-aligned + full-width when escaped via display: contents
+     (both .module-label AND inline-styled .text-xs used in dev section) */
+  .slider-slide .grid-fluid > *,
+  .slider-slide .grid-fluid .text-xs,
+  .slider-slide .grid-fluid .module-label,
+  .slider-slide .grid-fluid .module-title,
+  .slider-slide .grid-fluid .module-desc {
+    text-align: left !important;
+    align-self: stretch;
+    width: 100%;
+  }
+
+  /* Within flex-col grid-fluid: label/title/desc default (0), image moves to position 2, actions to 3 */
+  .slider-slide .slider-col-visual {
+    order: 2;
+    width: 100%;
+  }
+
+  .slider-slide .module-actions {
+    order: 3;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    align-self: stretch;
+  }
+
+  .slider-slide .module-actions .btn {
+    flex: 1;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+}
+
 /* ---- 4. Phone layer (<=767px) — stack, smaller hero, full-width CTAs ---- */
 @media (max-width: 767px) {
 
   .hero-static {
     min-height: 0;
-    padding: 3rem 0 4rem;
+    padding: 0.75rem 0 1.25rem;
+    /* Phone: even tighter — top just ~12px, bottom ~20px. Section below flows closer. */
   }
 
   .hero-static .flex-center-v {
-    padding-bottom: 3rem;
+    padding-bottom: 0;
     text-align: left;
   }
 
   .hero-headline {
-    font-size: clamp(2.25rem, 8vw, 3rem);
+    font-size: clamp(2rem, 7vw, 2.5rem);
     line-height: 1.05;
   }
 
@@ -2797,22 +2884,27 @@ body.theme-business {
     font-size: 1rem;
   }
 
-  /* Stack hero CTAs full width */
-  .hero-static .flex-center-v > div[style*="margin-top: 3rem"] {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem !important;
-  }
-
-  .hero-static .flex-center-v .btn {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-
   .hero-photo {
     max-width: 260px;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Cert overlay scaled down for phone (was 180px on tablet, 140px phone) */
+  .hero-certificates-link {
+    bottom: 0.25rem;
+    right: 0.25rem;
+    max-width: 140px;
+  }
+
+  .hero-certificates {
+    width: 140px;
+    max-width: 140px;
+  }
+
+  /* Hero actions buttons slightly smaller on phone */
+  .hero-actions-mobile .btn {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.7rem;
   }
 
   .call-fab {
