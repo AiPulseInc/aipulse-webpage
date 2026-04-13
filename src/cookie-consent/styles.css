@@ -305,6 +305,10 @@ body.cookie-modal-open {
     flex-shrink: 0;
   }
 
+  .cookie-modal-close {
+    display: none;
+  }
+
   .cookie-modal-title {
     font-size: 1.2rem;
   }

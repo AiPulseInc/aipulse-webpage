@@ -4,6 +4,12 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.532] — 2026-04-13
+
+Hide duplicate "Zamknij" button in cookie modal on mobile — top header close button hidden (≤767px), bottom actions close button remains.
+
+---
+
 ## [0.531] — 2026-04-13
 
 Fix cookie preferences modal not fitting on phone screens.
