@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Raport Samooceny Cyberbezpieczeństwa — Wersja A: Management Report</title>
+<style>
+  @page { size: A4; margin: 18mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    color: #111;
+    background: #fff;
+    line-height: 1.5;
+    font-size: 11pt;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 18mm;
+    margin: 0 auto 8mm;
+    background: #fff;
+    page-break-after: always;
+    box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    border-top: 4px solid #7E22CE;
+  }
+  .page:last-child { page-break-after: avoid; }
+
+  /* COVER */
+  .cover { background: #000; color: #fff; min-height: 261mm; padding: 30mm 20mm; position: relative; }
+  .cover .brand { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 32pt; letter-spacing: -0.02em; }
+  .cover .brand .dot { color: #7E22CE; }
+  .cover .tagline { font-family: 'Space Grotesk', monospace; font-size: 9pt; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-top: 4pt; }
+  .cover .label { font-family: 'Space Grotesk', monospace; font-size: 10pt; letter-spacing: 0.15em; text-transform: uppercase; color: #7E22CE; margin-top: 40mm; }
+  .cover h1 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 36pt; line-height: 1; letter-spacing: -0.02em; margin-top: 6mm; }
+  .cover .score-block { margin-top: 40mm; padding: 10mm 0; border-top: 2px solid #333; border-bottom: 2px solid #333; }
+  .cover .score { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 96pt; line-height: 1; color: #7E22CE; }
+  .cover .score-unit { font-size: 24pt; color: #666; }
+  .cover .maturity { font-family: 'Space Grotesk', monospace; font-size: 14pt; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-top: 4mm; }
+  .cover .meta { position: absolute; bottom: 20mm; left: 20mm; right: 20mm; display: flex; justify-content: space-between; font-size: 9pt; color: #999; font-family: 'Space Grotesk', monospace; letter-spacing: 0.1em; }
+  .cover .meta span { text-transform: uppercase; }
+
+  /* INTERNAL PAGES */
+  .eyebrow { font-family: 'Space Grotesk', monospace; font-size: 9pt; letter-spacing: 0.15em; text-transform: uppercase; color: #7E22CE; margin-bottom: 3mm; }
+  h2 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 22pt; line-height: 1.1; margin-bottom: 6mm; letter-spacing: -0.01em; }
+  h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14pt; margin: 8mm 0 3mm; }
+
+  /* Executive Summary */
+  .exec-box { background: #FAFAFA; border: 1px solid #E5E5E5; padding: 8mm; margin: 5mm 0; }
+  .exec-box h3 { margin-top: 0; }
+  .exec-box p { font-size: 11pt; }
+  .exec-highlight { border-left: 4px solid #7E22CE; padding: 4mm 6mm; background: #F5F0FB; margin: 5mm 0; }
+  .exec-highlight strong { color: #7E22CE; }
+
+  /* Bar chart */
+  .bars { margin: 8mm 0; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 5mm; gap: 4mm; }
+  .bar-label { width: 40mm; font-family: 'Space Grotesk', monospace; font-size: 9pt; letter-spacing: 0.05em; text-transform: uppercase; color: #666; }
+  .bar-track { flex: 1; height: 20pt; background: #F0F0F0; position: relative; border: 1px solid #E5E5E5; }
+  .bar-fill { height: 100%; background: #7E22CE; display: flex; align-items: center; padding: 0 3mm; color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 11pt; }
+  .bar-benchmark { position: absolute; top: -3pt; bottom: -3pt; width: 2pt; background: #000; }
+  .bar-value { width: 18mm; text-align: right; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12pt; }
+  .bar-critical .bar-fill { background: #D32F2F; }
+  .bar-developing .bar-fill { background: #F5A623; }
+
+  /* Recommendations */
+  .rec { border: 1px solid #E5E5E5; margin-bottom: 4mm; display: flex; }
+  .rec-num { background: #7E22CE; color: #fff; padding: 5mm 6mm; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 18pt; display: flex; align-items: center; justify-content: center; min-width: 20mm; }
+  .rec-body { padding: 5mm; flex: 1; }
+  .rec-body h4 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 13pt; margin-bottom: 2mm; }
+  .rec-body p { font-size: 10pt; color: #444; margin-bottom: 3mm; }
+  .rec-meta { display: flex; gap: 5mm; font-family: 'Space Grotesk', monospace; font-size: 9pt; }
+  .rec-meta span { color: #666; }
+  .rec-meta strong { color: #111; }
+  .rec-meta .tag-cost { color: #2E7D32; font-weight: 700; }
+  .rec-meta .tag-effort { color: #1565C0; font-weight: 700; }
+  .rec-meta .tag-impact { color: #D32F2F; font-weight: 700; }
+
+  .footer-page { position: relative; }
+  .footer-page::after {
+    content: "AI PULS SECURITY · RAPORT SAMOOCENY · POUFNE · v2026-01";
+    position: absolute; bottom: 8mm; left: 18mm; right: 18mm;
+    font-family: 'Space Grotesk', monospace; font-size: 8pt; letter-spacing: 0.15em;
+    color: #999; text-align: center; text-transform: uppercase;
+  }
+  .page-num { position: absolute; bottom: 8mm; right: 18mm; font-family: 'Space Grotesk', monospace; font-size: 8pt; color: #999; }
+
+  .next-steps { background: #000; color: #fff; padding: 10mm 8mm; margin-top: 8mm; }
+  .next-steps h3 { color: #fff; margin-bottom: 5mm; }
+  .next-steps ul { list-style: none; padding: 0; }
+  .next-steps li { padding: 3mm 0 3mm 8mm; position: relative; border-bottom: 1px solid #222; }
+  .next-steps li:last-child { border: none; }
+  .next-steps li::before { content: ">"; position: absolute; left: 0; color: #7E22CE; font-weight: 700; }
+  .cta-box { background: #7E22CE; color: #fff; padding: 8mm; margin: 8mm 0 0; text-align: center; }
+  .cta-box h3 { color: #fff; margin-bottom: 3mm; }
+  .cta-box a { color: #fff; font-weight: 700; font-size: 11pt; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <div class="brand">A<span class="dot">i</span> Puls <span style="color:#7E22CE;">Security</span></div>
+  <div class="tagline">CYBER SECURITY</div>
+
+  <div class="label">// RAPORT SAMOOCENY CYBERBEZPIECZEŃSTWA</div>
+  <h1>TWÓJ<br>WYNIK</h1>
+
+  <div class="score-block">
+    <div style="display:flex; align-items:baseline; gap:6mm;">
+      <div class="score">58</div>
+      <div class="score-unit">/ 100</div>
+    </div>
+    <div class="maturity">Developing · Podstawowy</div>
+  </div>
+
+  <div class="meta">
+    <span>Data: 13.04.2026</span>
+    <span>Wersja kwestionariusza: 2026-01</span>
+    <span>Firma: TwojaFirma Sp. z o.o.</span>
+  </div>
+</div>
+
+<!-- PAGE 2: EXECUTIVE SUMMARY -->
+<div class="page footer-page">
+  <div class="eyebrow">// EXECUTIVE SUMMARY</div>
+  <h2>Jedna strona, którą musi przeczytać właściciel firmy</h2>
+
+  <div class="exec-highlight">
+    <p><strong>Twoja firma jest na poziomie "Developing" (58/100)</strong> — są podstawowe zabezpieczenia, ale brakuje procesów i spójności. Ryzyko paraliżu działalności w razie incydentu ransomware wynosi <strong>~50%</strong>.</p>
+  </div>
+
+  <div class="exec-box">
+    <h3>Co to znaczy w praktyce biznesowej:</h3>
+    <p>Masz narzędzia (firewall, antywirus, backup), ale nie masz procesów, które by je sprawiały naprawdę skutecznymi. Jeśli dziś zdarzy się poważny incydent (ransomware, wyciek danych), Twoja firma będzie <strong>reagować w trybie kryzysowym</strong>, nie zgodnie z planem.</p>
+  </div>
+
+  <h3>Twoje 3 największe luki:</h3>
+  <ol style="padding-left: 6mm; margin: 4mm 0;">
+    <li style="margin-bottom: 3mm;"><strong>Brak testowanego planu reakcji na incydent</strong> — wiesz "co" ale nie "kto, kiedy, do kogo dzwonić"</li>
+    <li style="margin-bottom: 3mm;"><strong>MFA tylko na poczcie</strong> — brakuje na VPN, CRM, hostingu (= 3 wektory wejścia hackera)</li>
+    <li style="margin-bottom: 3mm;"><strong>Backup bez testu odtwarzania</strong> — nie wiesz, czy odzyskasz dane, dopóki ich nie stracisz</li>
+  </ol>
+
+  <h3>Ryzyko finansowe (szacowane):</h3>
+  <p>Przeciętny incydent ransomware w MŚP w 2026: <strong>45-120 tys. zł</strong> (przestój + odzyskiwanie + kary RODO + koszt reputacji). Trzy rekomendacje z tego raportu obniżają to ryzyko o szacowane <strong>75%</strong>.</p>
+
+  <div class="page-num">Strona 2 z 4</div>
+</div>
+
+<!-- PAGE 3: SCORES + BENCHMARK -->
+<div class="page footer-page">
+  <div class="eyebrow">// ANALIZA KATEGORII</div>
+  <h2>Gdzie jesteś mocny, gdzie słaby</h2>
+
+  <p style="margin-bottom:6mm; color:#666;">Czarny pionowy znacznik = średnia dla Twojej branży (Produkcja, 11-50 osób, n=42).</p>
+
+  <div class="bars">
+    <div class="bar-row bar-developing">
+      <div class="bar-label">Ludzie</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 67%;">67</div>
+        <div class="bar-benchmark" style="left: 55%;"></div>
+      </div>
+      <div class="bar-value">67</div>
+    </div>
+    <div class="bar-row bar-critical">
+      <div class="bar-label">Dane</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 33%;">33</div>
+        <div class="bar-benchmark" style="left: 48%;"></div>
+      </div>
+      <div class="bar-value">33</div>
+    </div>
+    <div class="bar-row bar-developing">
+      <div class="bar-label">Infrastruktura</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 58%;">58</div>
+        <div class="bar-benchmark" style="left: 52%;"></div>
+      </div>
+      <div class="bar-value">58</div>
+    </div>
+    <div class="bar-row bar-developing">
+      <div class="bar-label">Procesy</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 42%;">42</div>
+        <div class="bar-benchmark" style="left: 45%;"></div>
+      </div>
+      <div class="bar-value">42</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Compliance</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 71%;">71</div>
+        <div class="bar-benchmark" style="left: 58%;"></div>
+      </div>
+      <div class="bar-value">71</div>
+    </div>
+  </div>
+
+  <div class="exec-box">
+    <h3>Co mówi benchmark?</h3>
+    <p><strong>Jesteś lepszy niż średnia w:</strong> Ludzie (+12), Infrastruktura (+6), Compliance (+13)<br>
+    <strong>Jesteś gorszy niż średnia w:</strong> Dane (-15 — krytyczne), Procesy (-3)</p>
+    <p style="margin-top:3mm; font-style: italic; color:#666;">Próba: 42 firmy z sektora Produkcja, 11-50 pracowników, wersja kwestionariusza 2026-01. Dane aktualne na 13.04.2026.</p>
+  </div>
+
+  <div class="page-num">Strona 3 z 4</div>
+</div>
+
+<!-- PAGE 4: TOP-5 RECOMMENDATIONS -->
+<div class="page footer-page">
+  <div class="eyebrow">// TOP 5 REKOMENDACJI</div>
+  <h2>Co zrobić w pierwszej kolejności</h2>
+
+  <p style="margin-bottom: 6mm; color:#666;">Posortowane według: największy wpływ na bezpieczeństwo / najmniejszy koszt wdrożenia.</p>
+
+  <div class="rec">
+    <div class="rec-num">1</div>
+    <div class="rec-body">
+      <h4>Włącz MFA w Microsoft 365 i VPN</h4>
+      <p>Dwuskładnikowe logowanie blokuje ~99% ataków opartych na kradzieży haseł. To nr 1 na liście wymogów ubezpieczycieli cyber.</p>
+      <div class="rec-meta">
+        <span>Koszt: <strong class="tag-cost">0 PLN</strong></span>
+        <span>Wdrożenie: <strong class="tag-effort">2 godziny</strong></span>
+        <span>Impact: <strong class="tag-impact">WYSOKI</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="rec-num">2</div>
+    <div class="rec-body">
+      <h4>Przetestuj odtwarzanie backupu</h4>
+      <p>"Mam backup" ≠ "Odzyskam dane". Zrób test próbny — odtworz losowo wybrany plik i 1 system. Jeśli nie działa, teraz masz szansę to naprawić.</p>
+      <div class="rec-meta">
+        <span>Koszt: <strong class="tag-cost">0 PLN</strong></span>
+        <span>Wdrożenie: <strong class="tag-effort">4 godziny / kwartał</strong></span>
+        <span>Impact: <strong class="tag-impact">KRYTYCZNY</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="rec-num">3</div>
+    <div class="rec-body">
+      <h4>Spisz plan reakcji na incydent (1 strona A4)</h4>
+      <p>Kto wyłącza sieć, kto dzwoni do Ai Puls/informatyka, kto do klienta, kto do UODO (72h RODO). Nie 40-stronicowy dokument — 1 strona z telefonami i krokami.</p>
+      <div class="rec-meta">
+        <span>Koszt: <strong class="tag-cost">0 PLN</strong></span>
+        <span>Wdrożenie: <strong class="tag-effort">1 dzień</strong></span>
+        <span>Impact: <strong class="tag-impact">WYSOKI</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="rec-num">4</div>
+    <div class="rec-body">
+      <h4>Dodaj immutable backup offsite (Cloudflare R2 / Backblaze B2)</h4>
+      <p>Ransomware nie skasuje danych, których nie może nadpisać. Object storage z immutability = Twój ostatni bastion.</p>
+      <div class="rec-meta">
+        <span>Koszt: <strong class="tag-cost">~50 zł/mies</strong></span>
+        <span>Wdrożenie: <strong class="tag-effort">1 dzień</strong></span>
+        <span>Impact: <strong class="tag-impact">KRYTYCZNY</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <div class="rec-num">5</div>
+    <div class="rec-body">
+      <h4>Wprowadź kwartalne szkolenie anti-phishing</h4>
+      <p>60-minutowe szkolenie online + 1 test phishingowy co 3 miesiące. Koszt: niski. Efekt: 70% mniej udanych prób phishingu.</p>
+      <div class="rec-meta">
+        <span>Koszt: <strong class="tag-cost">~200 zł/osoba/rok</strong></span>
+        <span>Wdrożenie: <strong class="tag-effort">1h/kwartał</strong></span>
+        <span>Impact: <strong class="tag-impact">ŚREDNI-WYSOKI</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>Chcesz to zamienić na konkretny plan wdrożenia?</h3>
+    <p>Umów bezpłatną 30-min konsultację. Porozmawiamy o Twojej sytuacji i powiemy, co zrobilibyśmy NAJPIERW, w Twoim kontekście.</p>
+    <a href="mailto:kontakt@aipulse.pl">kontakt@aipulse.pl · aipulse.pl/security</a>
+  </div>
+
+  <div class="page-num">Strona 4 z 4</div>
+</div>
+
+</body>
+</html>

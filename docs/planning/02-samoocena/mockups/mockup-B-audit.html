@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Raport Samooceny Cyberbezpieczeństwa — Wersja B: Quasi-Certyfikowany Audyt</title>
+<style>
+  @page { size: A4; margin: 16mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    color: #111;
+    background: #fff;
+    line-height: 1.5;
+    font-size: 10.5pt;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 16mm;
+    margin: 0 auto 8mm;
+    background: #fff;
+    page-break-after: always;
+    box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .page:last-child { page-break-after: avoid; }
+
+  /* Letterhead — formal */
+  .letterhead {
+    border-bottom: 3px double #7E22CE;
+    padding-bottom: 6mm;
+    margin-bottom: 8mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .letterhead .brand { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 18pt; letter-spacing: -0.02em; }
+  .letterhead .brand .dot { color: #7E22CE; }
+  .letterhead .doc-meta { text-align: right; font-family: 'Space Grotesk', monospace; font-size: 8pt; color: #666; letter-spacing: 0.05em; }
+  .letterhead .doc-meta strong { color: #111; }
+
+  /* COVER */
+  .cover { background: #fff; min-height: 265mm; padding: 0; }
+  .cover .crest {
+    border: 4px double #7E22CE; padding: 8mm; text-align: center;
+    margin: 20mm auto 15mm; max-width: 140mm; background: #FAF5FF;
+  }
+  .cover .crest-title { font-family: 'Space Grotesk', monospace; font-size: 10pt; letter-spacing: 0.25em; text-transform: uppercase; color: #7E22CE; margin-bottom: 6mm; }
+  .cover .crest-main { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 28pt; line-height: 1.1; letter-spacing: -0.02em; }
+  .cover .crest-sub { font-family: 'Inter', sans-serif; font-size: 11pt; color: #666; margin-top: 4mm; font-style: italic; }
+
+  .cover-body {
+    padding: 0 16mm; margin-top: 10mm;
+  }
+  .cover-for {
+    border-top: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+    padding: 8mm 0;
+    margin: 10mm 0;
+    text-align: center;
+  }
+  .cover-for-label { font-family: 'Space Grotesk', monospace; font-size: 8pt; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+  .cover-for-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 16pt; margin-top: 3mm; }
+  .cover-for-meta { font-size: 9pt; color: #666; margin-top: 2mm; }
+
+  .seal-box {
+    margin: 15mm auto 0; max-width: 120mm; border: 2px solid #111; padding: 8mm;
+    text-align: center; background: #FAFAFA;
+  }
+  .seal-score { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 72pt; line-height: 1; color: #7E22CE; }
+  .seal-maturity { font-family: 'Space Grotesk', monospace; font-size: 10pt; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 3mm; color: #111; }
+  .seal-scope { font-size: 9pt; color: #666; margin-top: 4mm; font-style: italic; }
+
+  .auditor-signature {
+    margin-top: 18mm; display: flex; justify-content: space-between; gap: 15mm;
+    padding: 0 16mm;
+  }
+  .sig-block { flex: 1; text-align: center; }
+  .sig-line { border-bottom: 1px solid #111; margin-bottom: 2mm; height: 20mm; position: relative; }
+  .sig-line::after {
+    content: "Maciej Konieczny"; position: absolute; bottom: 1mm; left: 50%; transform: translateX(-50%) rotate(-4deg);
+    font-family: 'Dancing Script', 'Brush Script MT', cursive; font-size: 14pt; color: #1a1a6b;
+  }
+  .sig-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 10pt; }
+  .sig-title { font-family: 'Space Grotesk', monospace; font-size: 8pt; letter-spacing: 0.1em; color: #666; text-transform: uppercase; margin-top: 1mm; }
+
+  /* Headings */
+  h2 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18pt; line-height: 1.15; margin-bottom: 5mm; padding-bottom: 3mm; border-bottom: 1px solid #111; letter-spacing: -0.01em; }
+  h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12pt; margin: 6mm 0 3mm; }
+  h4 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 10pt; letter-spacing: 0.05em; text-transform: uppercase; margin: 4mm 0 2mm; color: #7E22CE; }
+
+  p { margin-bottom: 3mm; }
+
+  /* Methodology */
+  .methodology { background: #FAFAFA; border-left: 4px solid #7E22CE; padding: 5mm 6mm; margin: 5mm 0; }
+  .methodology ul { padding-left: 5mm; }
+  .methodology li { margin-bottom: 2mm; }
+
+  /* Scope table */
+  table.scope { width: 100%; border-collapse: collapse; margin: 4mm 0; font-size: 9.5pt; }
+  table.scope th, table.scope td { padding: 3mm; border: 1px solid #E5E5E5; text-align: left; }
+  table.scope th { background: #F5F0FB; font-family: 'Space Grotesk', monospace; font-size: 8pt; letter-spacing: 0.1em; text-transform: uppercase; color: #7E22CE; }
+  table.scope tr:nth-child(even) td { background: #FAFAFA; }
+
+  /* Radar chart (CSS-only pentagon) */
+  .radar {
+    width: 140mm; height: 100mm; margin: 5mm auto; position: relative;
+  }
+  .radar svg { width: 100%; height: 100%; }
+  .radar-legend { display: flex; justify-content: center; gap: 8mm; margin-top: 3mm; font-size: 9pt; }
+  .radar-legend span { display: inline-flex; align-items: center; gap: 2mm; }
+  .radar-legend .dot-you { width: 10pt; height: 10pt; background: #7E22CE; border-radius: 50%; }
+  .radar-legend .dot-bench { width: 10pt; height: 10pt; background: #111; border-radius: 50%; }
+
+  /* Findings */
+  .finding {
+    border-left: 4px solid #ccc; padding: 4mm 5mm; margin-bottom: 4mm; background: #FAFAFA; font-size: 10pt;
+  }
+  .finding.crit { border-color: #D32F2F; background: #FFF4F4; }
+  .finding.high { border-color: #F5A623; background: #FFFAF0; }
+  .finding.med { border-color: #7E22CE; background: #FAF5FF; }
+  .finding.low { border-color: #2E7D32; background: #F4FAF4; }
+  .finding-header { display: flex; justify-content: space-between; margin-bottom: 2mm; }
+  .finding-id { font-family: 'Space Grotesk', monospace; font-size: 9pt; color: #666; letter-spacing: 0.05em; }
+  .finding-sev { font-family: 'Space Grotesk', monospace; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+  .finding.crit .finding-sev { color: #D32F2F; }
+  .finding.high .finding-sev { color: #C77700; }
+  .finding.med .finding-sev { color: #7E22CE; }
+  .finding.low .finding-sev { color: #2E7D32; }
+  .finding-title { font-weight: 700; font-size: 11pt; margin-bottom: 2mm; }
+  .finding-detail { font-size: 9.5pt; color: #333; }
+  .finding-mapping { margin-top: 2mm; font-family: 'Space Grotesk', monospace; font-size: 8pt; color: #666; }
+
+  /* Compliance map */
+  .compliance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin: 4mm 0; }
+  .compliance-card { border: 1px solid #E5E5E5; padding: 4mm; }
+  .compliance-card h4 { margin-top: 0; border-bottom: 1px solid #E5E5E5; padding-bottom: 2mm; margin-bottom: 3mm; }
+  .compliance-item { display: flex; justify-content: space-between; padding: 1.5mm 0; font-size: 9pt; border-bottom: 1px dotted #EEE; }
+  .compliance-item:last-child { border: none; }
+  .compliance-status { font-family: 'Space Grotesk', monospace; font-size: 8pt; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5mm 2mm; }
+  .status-ok { background: #E8F5E9; color: #2E7D32; }
+  .status-partial { background: #FFF3E0; color: #C77700; }
+  .status-missing { background: #FFEBEE; color: #C62828; }
+
+  /* Footer/Header */
+  .page-header {
+    position: absolute; top: 6mm; left: 16mm; right: 16mm;
+    display: flex; justify-content: space-between;
+    font-family: 'Space Grotesk', monospace; font-size: 8pt; color: #999; letter-spacing: 0.1em;
+    padding-bottom: 2mm; border-bottom: 1px solid #EEE;
+  }
+  .page-footer {
+    position: absolute; bottom: 6mm; left: 16mm; right: 16mm;
+    display: flex; justify-content: space-between;
+    font-family: 'Space Grotesk', monospace; font-size: 8pt; color: #999; letter-spacing: 0.1em;
+    padding-top: 2mm; border-top: 1px solid #EEE;
+  }
+
+  /* Table of contents */
+  .toc ol { list-style: none; padding: 0; }
+  .toc > ol > li { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12pt; padding: 3mm 0; border-bottom: 1px dotted #ccc; display: flex; justify-content: space-between; }
+  .toc > ol > li > span:last-child { color: #666; font-family: 'Space Grotesk', monospace; font-size: 10pt; font-weight: normal; }
+  .toc ol ol { margin-left: 6mm; margin-top: 2mm; }
+  .toc ol ol li { font-weight: normal; font-family: 'Inter', sans-serif; font-size: 10pt; color: #444; padding: 1mm 0; border: none; }
+
+  /* CTA */
+  .cta-box { margin-top: 8mm; padding: 6mm; background: #111; color: #fff; }
+  .cta-box h4 { color: #F5A623; margin-top: 0; }
+  .cta-box a { color: #F5A623; text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <div style="text-align:center; padding: 35mm 16mm 0;">
+    <div style="font-family:'Space Grotesk',monospace; font-size:9pt; letter-spacing:0.3em; color:#666; text-transform:uppercase;">Ai Puls Security · Cyber Audit Division</div>
+    <div style="margin-top:3mm; font-family:'Space Grotesk',monospace; font-size:8pt; letter-spacing:0.2em; color:#999; text-transform:uppercase;">Dokument poufny · Nie do redystrybucji bez zgody autora</div>
+  </div>
+
+  <div class="crest">
+    <div class="crest-title">// Raport Audytu Samooceny</div>
+    <div class="crest-main">CYBER<br>SECURITY<br>ASSESSMENT</div>
+    <div class="crest-sub">Zgodny z CIS Controls IG1 + NIST CSF 2.0</div>
+  </div>
+
+  <div class="cover-for">
+    <div class="cover-for-label">Raport przygotowany dla</div>
+    <div class="cover-for-name">TwojaFirma Sp. z o.o.</div>
+    <div class="cover-for-meta">NIP: 1234567890 · Branża: Produkcja · Wielkość: 11-50 pracowników</div>
+  </div>
+
+  <div class="seal-box">
+    <div style="font-family:'Space Grotesk',monospace; font-size:9pt; letter-spacing:0.2em; color:#666; text-transform:uppercase;">Wynik ogólny</div>
+    <div class="seal-score">58<span style="font-size:28pt; color:#666;">/100</span></div>
+    <div class="seal-maturity">Developing · Podstawowy</div>
+    <div class="seal-scope">Kwestionariusz v2026-01 · 35 pytań · 5 kategorii kontroli</div>
+  </div>
+
+  <div class="auditor-signature">
+    <div class="sig-block">
+      <div class="sig-line"></div>
+      <div class="sig-name">Maciej Konieczny</div>
+      <div class="sig-title">Lead Security Auditor · CompTIA Security+</div>
+    </div>
+    <div class="sig-block">
+      <div class="sig-line" style="position:relative;"></div>
+      <div class="sig-name">Data audytu</div>
+      <div class="sig-title">13 kwietnia 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: TABLE OF CONTENTS + METHODOLOGY -->
+<div class="page">
+  <div class="page-header">
+    <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+    <span>REF: AP-SA-2026-04-13-00042</span>
+  </div>
+
+  <div class="letterhead">
+    <div>
+      <div class="brand">A<span class="dot">i</span> Puls <span style="color:#7E22CE;">Security</span></div>
+      <div style="font-family:'Space Grotesk',monospace; font-size:8pt; letter-spacing:0.15em; color:#666; margin-top:2mm; text-transform:uppercase;">Cyber Audit Division</div>
+    </div>
+    <div class="doc-meta">
+      <div><strong>Dokument:</strong> AP-SA-2026-04-13-00042</div>
+      <div><strong>Data:</strong> 13.04.2026</div>
+      <div><strong>Metodyka:</strong> CIS IG1 + NIST CSF 2.0</div>
+      <div><strong>Strony:</strong> 10</div>
+    </div>
+  </div>
+
+  <h2>1. Spis treści</h2>
+  <div class="toc">
+    <ol>
+      <li><span>2. Podsumowanie zarządcze</span><span>str. 3</span></li>
+      <li><span>3. Metodyka audytu</span><span>str. 4</span></li>
+      <li><span>4. Zakres i ograniczenia</span><span>str. 4</span></li>
+      <li><span>5. Wyniki szczegółowe per kategoria</span><span>str. 5</span>
+        <ol>
+          <li>5.1 Ludzie (Awareness) — 67/100</li>
+          <li>5.2 Dane (Data Protection) — 33/100</li>
+          <li>5.3 Infrastruktura (Systems) — 58/100</li>
+          <li>5.4 Procesy (Governance) — 42/100</li>
+          <li>5.5 Compliance (NIS2/RODO) — 71/100</li>
+        </ol>
+      </li>
+      <li><span>6. Lista findings (identyfikacja luk)</span><span>str. 6</span></li>
+      <li><span>7. Mapa zgodności z regulacjami</span><span>str. 8</span></li>
+      <li><span>8. Top 5 rekomendacji</span><span>str. 9</span></li>
+      <li><span>9. Następne kroki + kontakt audytora</span><span>str. 10</span></li>
+    </ol>
+  </div>
+
+  <h2 style="margin-top:10mm;">3. Metodyka audytu</h2>
+  <div class="methodology">
+    <p>Niniejszy raport jest wynikiem <strong>samooceny deklaratywnej</strong> (self-assessment) przeprowadzonej przez przedstawiciela ocenianej organizacji za pośrednictwem kwestionariusza internetowego Ai Puls Security.</p>
+    <p><strong>Ramy referencyjne:</strong></p>
+    <ul>
+      <li>Center for Internet Security (CIS) Controls v8 — Implementation Group 1 (IG1)</li>
+      <li>NIST Cybersecurity Framework 2.0 (obejmuje funkcje: Govern, Identify, Protect, Detect, Respond, Recover)</li>
+      <li>Dyrektywa NIS2 (UE 2022/2555) w zakresie właściwym dla sektora MŚP</li>
+      <li>Rozporządzenie RODO (UE 2016/679)</li>
+    </ul>
+    <p><strong>Skala punktowa:</strong> każde pytanie 0-3 pkt; wynik kategorii = suma/max × 100; wagi 2.0 dla krytycznych kontroli (MFA, tested backup).</p>
+  </div>
+
+  <h2>4. Zakres i ograniczenia</h2>
+  <table class="scope">
+    <tr><th style="width: 40%;">Zakres</th><th>Opis</th></tr>
+    <tr><td>Typ oceny</td><td>Self-assessment deklaratywny</td></tr>
+    <tr><td>Co jest mierzone</td><td>Deklarowane praktyki + stan procesów bezpieczeństwa</td></tr>
+    <tr><td>Co NIE jest mierzone</td><td>Techniczne testy penetracyjne, audyt kodu, przegląd konfiguracji systemów, OSINT</td></tr>
+    <tr><td>Wiarygodność</td><td>Zależy od rzetelności odpowiedzi respondenta</td></tr>
+    <tr><td>Porównywalność</td><td>Benchmarki pochodzą z anonimowej bazy odpowiedzi (n=42 dla tej branży/wielkości)</td></tr>
+  </table>
+  <p style="margin-top:3mm; font-style:italic; color:#666; font-size:9pt;">W celu uzyskania oceny z rygorystyczną weryfikacją techniczną, zaleca się przeprowadzenie pełnego audytu technicznego (oferta Ai Puls Security: Audyt Rozszerzony / Premium).</p>
+
+  <div class="page-footer">
+    <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+    <span>Strona 2 z 10</span>
+  </div>
+</div>
+
+<!-- PAGE 3: RADAR + CATEGORY BREAKDOWN -->
+<div class="page">
+  <div class="page-header">
+    <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+    <span>REF: AP-SA-2026-04-13-00042</span>
+  </div>
+
+  <h2>5. Wyniki szczegółowe per kategoria</h2>
+
+  <div class="radar">
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background pentagon grid -->
+      <g stroke="#DDD" fill="none" stroke-width="0.8">
+        <!-- 100% ring -->
+        <polygon points="200,30 295,100 259,210 141,210 105,100"/>
+        <!-- 75% -->
+        <polygon points="200,63 271,115 244,198 156,198 129,115" fill="#F9F6FC" fill-opacity="0.3"/>
+        <!-- 50% -->
+        <polygon points="200,95 247,130 229,186 171,186 153,130" fill="#F4EFFA" fill-opacity="0.3"/>
+        <!-- 25% -->
+        <polygon points="200,128 223,145 215,174 185,174 177,145" fill="#EFE7F8" fill-opacity="0.3"/>
+      </g>
+      <!-- Axes -->
+      <g stroke="#CCC" stroke-width="0.5">
+        <line x1="200" y1="160" x2="200" y2="30"/>
+        <line x1="200" y1="160" x2="295" y2="100"/>
+        <line x1="200" y1="160" x2="259" y2="210"/>
+        <line x1="200" y1="160" x2="141" y2="210"/>
+        <line x1="200" y1="160" x2="105" y2="100"/>
+      </g>
+      <!-- Benchmark polygon (black outline) -->
+      <polygon points="200,85 248,132 225,193 175,191 155,130"
+               stroke="#111" fill="none" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- Your scores (violet filled) -->
+      <polygon points="200,76 262,128 228,201 179,188 151,125"
+               stroke="#7E22CE" fill="#7E22CE" fill-opacity="0.25" stroke-width="2"/>
+      <!-- Score dots -->
+      <circle cx="200" cy="76" r="3" fill="#7E22CE"/>
+      <circle cx="262" cy="128" r="3" fill="#7E22CE"/>
+      <circle cx="228" cy="201" r="3" fill="#7E22CE"/>
+      <circle cx="179" cy="188" r="3" fill="#7E22CE"/>
+      <circle cx="151" cy="125" r="3" fill="#7E22CE"/>
+      <!-- Labels -->
+      <g font-family="Space Grotesk, monospace" font-size="10" text-anchor="middle" fill="#111" font-weight="700">
+        <text x="200" y="20">LUDZIE (67)</text>
+        <text x="308" y="96">DANE (33)</text>
+        <text x="276" y="228">INFRA (58)</text>
+        <text x="124" y="228">PROCESY (42)</text>
+        <text x="88" y="96">COMPLIANCE (71)</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="radar-legend">
+    <span><span class="dot-you"></span> Twoja firma</span>
+    <span><span class="dot-bench"></span> Średnia branży (Produkcja, 11-50, n=42)</span>
+  </div>
+
+  <h4>5.1 Ludzie — 67/100 (Managed / Stabilny)</h4>
+  <p style="font-size:9.5pt;"><strong>Mocne strony:</strong> regularne szkolenia, świadomość phishingu. <strong>Luki:</strong> brak testowanego phishingu symulowanego, brak formalnej polityki bezpieczeństwa dla pracowników zdalnych.</p>
+
+  <h4>5.2 Dane — 33/100 (Initial / Krytyczny)</h4>
+  <p style="font-size:9.5pt;"><strong>Najpoważniejsza luka w ocenie.</strong> Backupy są wykonywane, ale nie są testowane ani przechowywane z zasadą immutability. W przypadku ataku ransomware: wysokie ryzyko utraty danych.</p>
+
+  <h4>5.3 Infrastruktura — 58/100 (Developing / Podstawowy)</h4>
+  <p style="font-size:9.5pt;">MFA wdrożone częściowo (poczta, VPN). Brakuje na CRM, systemie księgowym, panelu hostingowym. Patch management nieformalny.</p>
+
+  <h4>5.4 Procesy — 42/100 (Developing / Podstawowy)</h4>
+  <p style="font-size:9.5pt;">Ogólne wytyczne tak, ale brak sformalizowanego Incident Response Plan. W razie incydentu organizacja będzie reagować chaotycznie, ryzyko eskalacji.</p>
+
+  <h4>5.5 Compliance — 71/100 (Managed / Stabilny)</h4>
+  <p style="font-size:9.5pt;">Wyznaczony IOD, rejestr czynności przetwarzania aktualny, umowy DPA z dostawcami. Luka: brak sformalizowanej procedury oceny dostawców pod NIS2.</p>
+
+  <div class="page-footer">
+    <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+    <span>Strona 3 z 10</span>
+  </div>
+</div>
+
+<!-- PAGE 4: FINDINGS LIST -->
+<div class="page">
+  <div class="page-header">
+    <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+    <span>REF: AP-SA-2026-04-13-00042</span>
+  </div>
+
+  <h2>6. Lista findings (identyfikacja luk)</h2>
+  <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej lista zidentyfikowanych luk posortowana według krytyczności. Każda luka oznaczona identyfikatorem, severity i mapowaniem do kontroli CIS/NIST.</p>
+
+  <div class="finding crit">
+    <div class="finding-header">
+      <span class="finding-id">F-001</span>
+      <span class="finding-sev">CRITICAL</span>
+    </div>
+    <div class="finding-title">Backupy nie są testowane pod kątem odtwarzania</div>
+    <div class="finding-detail">Respondent deklaruje wykonywanie backupów, ale nie przeprowadza regularnych testów odtwarzania. W praktyce oznacza to, że organizacja <strong>nie wie, czy jest w stanie odzyskać dane</strong> po incydencie. To jest root cause większości "udanych" ataków ransomware w segmencie MŚP.</div>
+    <div class="finding-mapping">CIS 11.5 · NIST PR.DS-01, RC.RP-01</div>
+  </div>
+
+  <div class="finding crit">
+    <div class="finding-header">
+      <span class="finding-id">F-002</span>
+      <span class="finding-sev">CRITICAL</span>
+    </div>
+    <div class="finding-title">Brak immutable backup offsite</div>
+    <div class="finding-detail">Wszystkie kopie zapasowe są dostępne z głównej infrastruktury sieciowej. W przypadku przejęcia konta administratora lub udanego ataku ransomware, <strong>atakujący może skasować/zaszyfrować również kopie zapasowe</strong>.</div>
+    <div class="finding-mapping">CIS 11.4 · NIST PR.DS-04</div>
+  </div>
+
+  <div class="finding high">
+    <div class="finding-header">
+      <span class="finding-id">F-003</span>
+      <span class="finding-sev">HIGH</span>
+    </div>
+    <div class="finding-title">MFA wdrożone tylko w części systemów</div>
+    <div class="finding-detail">MFA działa na poczcie i VPN, ale brakuje na CRM, systemie księgowym, panelu hostingowym. Te trzy systemy są <strong>wektorami ataku</strong> — szczególnie CRM i hosting (dane klientów, możliwość deface'u strony).</div>
+    <div class="finding-mapping">CIS 6.5 · NIST PR.AA-03</div>
+  </div>
+
+  <div class="finding high">
+    <div class="finding-header">
+      <span class="finding-id">F-004</span>
+      <span class="finding-sev">HIGH</span>
+    </div>
+    <div class="finding-title">Brak sformalizowanego Incident Response Plan</div>
+    <div class="finding-detail">W razie incydentu brak jasnej procedury: kto, kiedy, do kogo dzwoni. Konsekwencja: <strong>chaos decyzyjny w pierwszych 24h</strong>, które są najbardziej krytyczne dla ograniczenia szkód i spełnienia wymogu 72h notyfikacji RODO do UODO.</div>
+    <div class="finding-mapping">CIS 17.1 · NIST RS.RP-01 · NIS2 Art. 23</div>
+  </div>
+
+  <div class="finding med">
+    <div class="finding-header">
+      <span class="finding-id">F-005</span>
+      <span class="finding-sev">MEDIUM</span>
+    </div>
+    <div class="finding-title">Brak formalnej oceny dostawców IT</div>
+    <div class="finding-detail">Dostawcy IT i cloud są wybierani na podstawie ceny/reputacji, bez ankiet bezpieczeństwa ani weryfikacji certyfikatów. W kontekście NIS2 (łańcuch dostaw) oraz RODO (procesorzy) — <strong>ryzyko regulacyjne</strong>.</div>
+    <div class="finding-mapping">CIS 15.1 · NIST GV.SC-01 · NIS2 Art. 21</div>
+  </div>
+
+  <div class="finding med">
+    <div class="finding-header">
+      <span class="finding-id">F-006</span>
+      <span class="finding-sev">MEDIUM</span>
+    </div>
+    <div class="finding-title">Patch management nieformalny</div>
+    <div class="finding-detail">Aktualizacje systemów i aplikacji wykonywane ad-hoc, bez harmonogramu. Średnie opóźnienie w aplikowaniu krytycznych łatek może przekraczać 30 dni.</div>
+    <div class="finding-mapping">CIS 7.1 · NIST PR.IP-12</div>
+  </div>
+
+  <div class="finding low">
+    <div class="finding-header">
+      <span class="finding-id">F-007</span>
+      <span class="finding-sev">LOW</span>
+    </div>
+    <div class="finding-title">Brak testów phishingowych symulowanych</div>
+    <div class="finding-detail">Pracownicy są szkoleni teoretycznie, ale nie są testowani (symulowany phishing co 3-6 miesięcy). Bez testów nie wiadomo, jak odporni są w praktyce.</div>
+    <div class="finding-mapping">CIS 14.2 · NIST PR.AT-01</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+    <span>Strona 4 z 10 (wybrane strony w mockupie)</span>
+  </div>
+</div>
+
+<!-- PAGE 5: COMPLIANCE MAP + CTA -->
+<div class="page">
+  <div class="page-header">
+    <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+    <span>REF: AP-SA-2026-04-13-00042</span>
+  </div>
+
+  <h2>7. Mapa zgodności z regulacjami</h2>
+  <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Jak Twój wynik przekłada się na konkretne wymogi NIS2, RODO oraz wymogi ubezpieczycieli cyber 2026.</p>
+
+  <div class="compliance-grid">
+    <div class="compliance-card">
+      <h4>NIS2 / KSC</h4>
+      <div class="compliance-item">
+        <span>Art. 21 — Środki techniczne</span>
+        <span class="compliance-status status-partial">Częściowo</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 21 — Szkolenia zarządu</span>
+        <span class="compliance-status status-missing">Brak</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 21 — Łańcuch dostaw</span>
+        <span class="compliance-status status-missing">Brak</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 23 — Raportowanie 24h</span>
+        <span class="compliance-status status-missing">Brak</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 23 — Raportowanie 72h</span>
+        <span class="compliance-status status-partial">Częściowo</span>
+      </div>
+    </div>
+
+    <div class="compliance-card">
+      <h4>RODO / GDPR</h4>
+      <div class="compliance-item">
+        <span>Art. 32 — Środki techniczne</span>
+        <span class="compliance-status status-partial">Częściowo</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 33 — Powiadomienie UODO 72h</span>
+        <span class="compliance-status status-partial">Częściowo</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 30 — Rejestr czynności</span>
+        <span class="compliance-status status-ok">Tak</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 37 — Inspektor Ochrony Danych</span>
+        <span class="compliance-status status-ok">Tak</span>
+      </div>
+      <div class="compliance-item">
+        <span>Art. 28 — Umowy z procesorami</span>
+        <span class="compliance-status status-ok">Tak</span>
+      </div>
+    </div>
+
+    <div class="compliance-card">
+      <h4>Wymogi ubezpieczycieli (2026)</h4>
+      <div class="compliance-item">
+        <span>MFA na kluczowych systemach</span>
+        <span class="compliance-status status-partial">Częściowo</span>
+      </div>
+      <div class="compliance-item">
+        <span>EDR / antywirus zarządzany</span>
+        <span class="compliance-status status-ok">Tak</span>
+      </div>
+      <div class="compliance-item">
+        <span>Tested backup</span>
+        <span class="compliance-status status-missing">Brak</span>
+      </div>
+      <div class="compliance-item">
+        <span>User awareness training</span>
+        <span class="compliance-status status-partial">Częściowo</span>
+      </div>
+      <div class="compliance-item">
+        <span>Incident Response Plan</span>
+        <span class="compliance-status status-missing">Brak</span>
+      </div>
+    </div>
+
+    <div class="compliance-card">
+      <h4>Ocena ogólna ryzyka</h4>
+      <p style="font-size:9.5pt;"><strong>Ryzyko regulacyjne:</strong> Średnie (60/100)</p>
+      <p style="font-size:9.5pt;"><strong>Ryzyko operacyjne:</strong> Wysokie (45/100 — dane i procesy)</p>
+      <p style="font-size:9.5pt;"><strong>Gotowość ubezpieczeniowa:</strong> Warunkowa — spodziewaj się wyższej składki lub wykluczeń</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top:8mm;">Podsumowanie i rekomendacje</h2>
+  <p style="font-size:10pt;">Twoja organizacja znajduje się na poziomie "Developing" z wynikiem 58/100. Rekomendujemy <strong>priorytetowe zaadresowanie 2 findingów krytycznych</strong> (F-001, F-002 — backup) w horyzoncie <strong>30 dni</strong>, a findingów High-severity (F-003, F-004) w horyzoncie <strong>90 dni</strong>.</p>
+  <p style="font-size:10pt;">Po wdrożeniu rekomendacji, spodziewany poziom dojrzałości: 75+/100 ("Managed / Stabilny"), co pozwoli:</p>
+  <ul style="font-size:10pt; padding-left:5mm;">
+    <li>Kwalifikować się do standardowych stawek ubezpieczenia cyber</li>
+    <li>Spełnić wymogi NIS2 dla dostawców podmiotów kluczowych</li>
+    <li>Znacząco ograniczyć ryzyko paraliżu biznesu w razie incydentu</li>
+  </ul>
+
+  <div class="cta-box">
+    <h4>NASTĘPNY KROK</h4>
+    <p style="color:#fff; font-size:10pt;">Umów bezpłatną 30-min konsultację, podczas której przełożymy niniejszy raport na konkretny plan wdrożenia dostosowany do Twojej organizacji i budżetu.</p>
+    <p style="margin-top: 3mm;"><a href="https://aipulse.pl/security/#contact">aipulse.pl/security · kontakt@aipulse.pl</a></p>
+  </div>
+
+  <div style="margin-top:10mm; padding-top:5mm; border-top:1px solid #E5E5E5; font-size:8pt; color:#999; font-style:italic;">
+    Niniejszy dokument stanowi wynik samooceny deklaratywnej i nie zastępuje pełnego audytu technicznego. Audyt pełny (np. Ai Puls Security Audyt Rozszerzony) obejmuje testy penetracyjne, przegląd konfiguracji oraz analizę logów i może ujawnić dodatkowe luki niewidoczne w samoocenie.
+  </div>
+
+  <div class="page-footer">
+    <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+    <span>Strona 10 z 10 (finał mockupu)</span>
+  </div>
+</div>
+
+</body>
+</html>
