@@ -4,6 +4,52 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.520] — 2026-04-13
+
+Pricing update — realistic market-aligned rates based on benchmark research.
+
+### Changed (Audit packages)
+- **Samoocena PDF**: 99 zł → **149 zł brutto (early adopters)** + strikethrough `199 zł` regular price. Card copy updated: 35 pytań (was 40-50)
+- **Basic**: 3.5-5k → **from 5 500 PLN netto** (firms ≤50 os); time 2-3 days → **3-5 days**
+- **Rozszerzony**: 7-10k → **from 12 000 PLN netto**; time 5-7 days → **7-10 days**; added 1 phishing simulation campaign (also offered as standalone from 2 500 PLN)
+- **Premium**: renamed `Audyt Premium` → **`Premium + vCISO`**; 12-18k → **from 25 000 PLN netto**; format 2 weeks + 3 months support → **3 weeks audit + 3 months vCISO (4h/mies)** + Incident Response Playbook
+
+### Added (New product)
+- **Virtual CISO subscription** — standalone card below pricing grid (black bg, violet border)
+  - Copy: "8h/mies senior security, Executive Report, audit representation, 2h SLA"
+  - Modal `audyty/4`: full details + pricing **from 4 500 PLN/mies netto** (≤50 os)
+  - 2 CTAs: "Zobacz szczegóły" + "Umów rozmowę"
+
+### Added (Footnote + scaling)
+- Footnote updated: "Ceny pakietów dotyczą firm do 50 osób. Większe organizacje wyceniamy indywidualnie."
+- Size multiplier communicated as "wycena indywidualna" (not explicit 1.5x/2x per user decision)
+
+### CSS additions
+- `.pricing-strike` — strikethrough price styling for promo display
+- `.vciso-card` + subcomponents — black bg, violet accent border, 2-column layout (desktop) / stacked (tablet+phone)
+- Responsive: vCISO card stacks CTAs below content at ≤1023px, full vertical stack at ≤767px
+
+### Modal data (`src/security-data.js`)
+- All 3 audit entries updated (outcome + format with new prices/times)
+- New entry key `4` for vCISO modal (reused `renderSzkoleniaModal` shape)
+
+### Why
+- Benchmark ([docs/planning/04-pricing-benchmark/gemini-benchmark.md](docs/planning/04-pricing-benchmark/gemini-benchmark.md)): current prices 40-60% below market (Niebezpiecznik, Securitum, LogicalTrust, Cyberforces); day rate senior PL 2000-3500 PLN = previous Premium = ~65 PLN/h (dumping)
+- User-approved decisions (6 questions answered):
+  - Premium 25k (Gemini floor)
+  - vCISO added immediately as separate card
+  - Prices in modals (not on cards)
+  - Size scaling: "wycena indywidualna"
+  - Phishing included in Rozszerzony + standalone option
+  - Samoocena PDF 199/149 "early adopters" (strikethrough pattern)
+
+### Desktop regression
+- Pricing 4-card grid: unchanged
+- Modal layout: unchanged (only data updated)
+- vCISO card: new addition, does not affect existing cards
+
+---
+
 ## [0.512] — 2026-04-13
 
 Blog layout fixes — grid orphan + non-TOC posts + prose centering.
