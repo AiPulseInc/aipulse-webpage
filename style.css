@@ -2904,9 +2904,78 @@ body.theme-business {
   .academy-curriculum-title { font-size: 1rem; }
   .academy-curriculum-box { padding: 1.5rem; }
 
-  /* Pricing card mobile tweaks (before commit 5/5 radical reorg) */
-  .pricing-card-name { font-size: 1.05rem; }
-  .pricing-card-desc { font-size: 0.8rem; }
+  /* --- Pricing ladder (radical phone reorg: stacked maturity ladder) --- */
+  .pricing-grid {
+    display: flex !important;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 100%;
+  }
+
+  .pricing-card {
+    /* Disable subgrid on phone — each card is standalone block */
+    display: block !important;
+    grid-template-rows: none !important;
+    grid-row: auto !important;
+    padding: 1.75rem 1.25rem !important;
+    position: relative;
+  }
+
+  /* Step indicator on each card — gives ladder progression feel */
+  .pricing-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #E5E5E5;
+    transition: background 0.2s;
+  }
+
+  .pricing-card:nth-child(1)::before { background: #CCC; }
+  .pricing-card:nth-child(2)::before { background: var(--brand-accent); }
+  .pricing-card:nth-child(3)::before { background: var(--brand-accent); opacity: 0.7; }
+  .pricing-card:nth-child(4)::before { background: var(--brand-accent); opacity: 0.85; }
+
+  /* Highlighted "Basic" — extra badge offset from top edge */
+  .pricing-card-highlighted {
+    margin-top: 0.75rem;
+  }
+
+  .pricing-card-badge {
+    top: -10px;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .pricing-card-label { font-size: 0.6rem; }
+  .pricing-card-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  .pricing-card-desc {
+    font-size: 0.85rem;
+    min-height: 0 !important;
+    margin-bottom: 1rem;
+  }
+  .pricing-card-cta {
+    font-size: 0.7rem;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .pricing-card-features {
+    padding-top: 1rem;
+    margin-top: 0;
+  }
+  .pricing-card-features-label { font-size: 0.6rem; }
+  .pricing-card-features li { font-size: 0.78rem; }
+
+  .pricing-footnote {
+    margin-top: 2rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
   /* --- Modal font reset on phone --- */
   .academy-modal-content {

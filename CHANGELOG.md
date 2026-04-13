@@ -4,6 +4,30 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.501] — 2026-04-13
+
+Pricing ladder radical reorg on mobile (Task 3 commit 5/5).
+
+### Changed
+- `.pricing-grid` on phone: `display: grid` → `display: flex; flex-direction: column` with gap `2rem`
+- `.pricing-card` on phone: subgrid disabled (`display: block`, `grid-row: auto`)
+- Left rail indicator: 3px gradient progression (gray → violet → violet faded → violet semi)
+- Card 1 (Samoocena): gray rail — entry level
+- Card 2 (Basic, highlighted): full violet rail + NAJCZĘŚCIEJ WYBIERANY badge
+- Card 3-4 (Rozszerzony, Premium): violet rail with opacity step
+- Tighter card padding (1.75rem 1.25rem), smaller labels/CTA on phone
+- Pricing footnote stacks vertically
+
+### Why
+- Task 3 commit 5/5 — maturity ladder makes progression Samoocena → Basic → Rozszerzony → Premium visually obvious on phone
+- Left rail replaces desktop subgrid alignment as visual anchor
+- Desktop (4-col subgrid with aligned rows) unchanged
+
+### Deferred (next commit after review)
+- srcset image variants (requires sharp pipeline script)
+
+---
+
 ## [0.500] — 2026-04-13
 
 Typography consistency patch — security section titles + centered headers left-align on mobile.
