@@ -2811,6 +2811,51 @@ body.theme-business {
   }
 }
 
+/* --- Section-compliance — reorder on mobile: text → boxes → button ---
+   CTA button is inside .flex-center-v wrapper; use display: contents to escape. */
+@media (max-width: 767px) {
+  #section-compliance .grid-fluid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  #section-compliance .flex-center-v {
+    display: contents;
+  }
+  #section-compliance .compliance-boxes-col {
+    order: 2;
+    padding-left: 0 !important;
+  }
+  #section-compliance .compliance-cta-wrap {
+    order: 3;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  #section-compliance .compliance-cta-wrap .btn {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+    justify-content: center;
+  }
+  /* Subtle separator lines between boxes */
+  #section-compliance .academy-curriculum-box {
+    padding: 0.5rem 1rem;
+  }
+  #section-compliance .academy-curriculum-item,
+  #section-compliance .academy-item {
+    padding: 1.25rem 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  #section-compliance .academy-curriculum-box > :last-child {
+    border-bottom: none;
+  }
+}
+
 /* --- Szkolenia slider — reorder on mobile: text → image → actions (row side-by-side) --- */
 @media (max-width: 767px) {
   /* Override .grid-align-center (align-items: center) on mobile flex-col — would center-align all items horizontally */
