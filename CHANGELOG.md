@@ -4,6 +4,40 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.498] — 2026-04-13
+
+Business sections mobile — tablet layer, phone tool media-object, swipe testimonials, stacked footer (Task 3 commit 4/5).
+
+### Added
+- **Tablet layer** `@media (min-width: 768px) and (max-width: 1023px)`:
+  - `.tool-grid` 3-col (was inheriting phone 2-col)
+  - `.branze-grid` 3-col
+  - `.strony-grid` 2-col
+  - `.method-steps` 3-col (explicit)
+  - `.form-row` 2-col (explicit)
+- **Testimonial scroll-snap swipe rail** at `<=1023px`:
+  - Animation disabled
+  - Horizontal overflow + `scroll-snap-type: x mandatory`
+  - Cards flex 0 0 85% (max 320px) with `scroll-snap-align: start`
+  - Duplicate set `:nth-child(n+11)` hidden
+- **Phone tool-card media-object layout** — icon left (48px), content right, 2-column grid
+- **Phone footer stack** — `.footer-inner { flex-direction: column; gap: 1.5rem }` + smaller padding
+- **Phone contact cleanup** — `.section-contact .col-6 { padding: 1.5rem }`
+
+### Changed
+- `@media (max-width: 768px)` → `@media (max-width: 767px)` (phone only, narrowed)
+- Phone grids now **1-col** where previously 2-col:
+  - `.tool-grid` 2-col → 1fr (media-object)
+  - `.branze-grid` 2-col → 1fr
+  - `.pricing-grid` 2-col → 1fr (will be detailed ladder in commit 5)
+
+### Why
+- Task 3 commit 4/5
+- Testimonials animated marquee was janky on narrow screens — swipe rail feels intentional
+- Tool grid 2-col on mobile was cramping labels — media-object gives each tool breathing room
+
+---
+
 ## [0.497] — 2026-04-13
 
 Tighten landing chooser mobile — everything fits in one viewport (no scroll).

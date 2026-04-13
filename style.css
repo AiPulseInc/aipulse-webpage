@@ -1996,8 +1996,8 @@ body.theme-business {
   align-items: center;
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
+/* Responsiveness — PHONE layer (<=767px) */
+@media (max-width: 767px) {
   .grid-fluid {
     display: flex;
     flex-direction: column;
@@ -2011,17 +2011,18 @@ body.theme-business {
   }
 
   .tool-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    /* Phone: single-column media-object list */
   }
 
   .branze-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .pricing-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    /* Phone: maturity ladder (vertical stack) — detailed reorg in commit 5 */
   }
-
 
   .strony-grid {
     grid-template-columns: 1fr;
@@ -2036,7 +2037,7 @@ body.theme-business {
   }
 
   .hero-static .grid-fluid {
-    text-align: center;
+    text-align: left;
   }
 
   .hero-photo {
@@ -2051,6 +2052,34 @@ body.theme-business {
 
   .section-szkolenia-title {
     font-size: 1.8rem;
+  }
+}
+
+/* Responsiveness — TABLET layer (768-1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tool-grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* Tablet: 3 tool cards per row */
+  }
+
+  .branze-grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* Tablet: 3 industry cards per row */
+  }
+
+  .strony-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* Tablet: 2 website mockups per row */
+  }
+
+  .method-steps {
+    grid-template-columns: repeat(3, 1fr);
+    /* Tablet: keep 3-step row */
+  }
+
+  .form-row {
+    grid-template-columns: repeat(2, 1fr);
+    /* Tablet: keep 2-column form rows */
   }
 }
 
@@ -2570,5 +2599,77 @@ body.theme-business {
   .call-fab-icon {
     width: 24px;
     height: 24px;
+  }
+
+  /* ---- Phone footer stack ---- */
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .site-footer {
+    padding: 3rem 1.5rem;
+  }
+
+  /* ---- Phone contact form padding cleanup ---- */
+  .section-contact .col-6 {
+    padding: 1.5rem !important;
+  }
+
+  /* ---- Phone tool-card media-object layout (icon left, content right) ---- */
+  .tool-card {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    column-gap: 1rem;
+    align-items: start;
+    padding: 1rem 1rem 1.25rem;
+  }
+
+  .tool-card .tool-icon {
+    margin-bottom: 0;
+  }
+
+  .tool-card .tool-name,
+  .tool-card .tool-desc {
+    grid-column: 2;
+  }
+
+  .tool-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ---- Testimonials: scroll-snap swipe rail instead of animated marquee on non-desktop ---- */
+@media (max-width: 1023px) {
+  .testimonial-marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .testimonial-marquee::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-track {
+    animation: none !important;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .testimonial-card-item {
+    flex: 0 0 85%;
+    max-width: 320px;
+    scroll-snap-align: start;
+  }
+
+  /* Hide duplicate set (items 11-20) — only needed for desktop infinite-loop trick */
+  .testimonial-track .testimonial-card-item:nth-child(n+11) {
+    display: none;
   }
 }
