@@ -2,6 +2,28 @@
 
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+
+## [0.493] — 2026-04-13
+
+Mobile foundation (Task 3 Commit 1): nav-height CSS variable, modal mobile fix, prefers-reduced-motion.
+
+### Added
+- **`--nav-height: 108px`** CSS custom property in `:root` — single source of truth for nav offset calculations, replaces hardcoded values
+- **`prefers-reduced-motion: reduce`** media query — disables testimonial marquee + smooth scroll + global animation/transition durations for users who prefer reduced motion (WCAG AAA)
+- **Academy modal mobile responsive rules** — proper `.academy-modal-backdrop` + `.academy-modal-content` mobile sizing (was targeting non-existent `.blur-overlay` + `.modal-content` — dead CSS removed)
+
+### Changed
+- `.section { scroll-margin-top }` now uses `calc(var(--nav-height) - 30px)` instead of hardcoded `78px` — self-adjusting if nav height ever changes
+
+### Removed
+- Dead CSS at former `style.css:2149` targeting `.blur-overlay` (class didn't exist in HTML)
+- Dead CSS at former `style.css:2153` targeting `.modal-content` (class didn't exist; actual modal uses `.academy-modal-content`)
+
+### Why
+- Foundation for 5-commit mobile responsive rollout (Task 3 plan)
+- Pure infrastructure: desktop rendering byte-identical to v0.492
+- Fixes found by Codex during planning audit
+
 ## [0.492] — 2026-04-12
 
 Content density pass: compact training cards, tighter pricing, shorter contact.

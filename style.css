@@ -18,6 +18,10 @@ html {
   --radius-m: 0px;
   --radius-l: 0px;
 
+  /* Nav height — kept in sync with .site-nav actual height.
+     Used by scroll-margin-top on sections + future mobile nav. */
+  --nav-height: 108px;
+
   /* OBSIDIAN FLUID THEME (Default / Dark) */
   --bg-surface: #000000;
   --bg-card: #0A0A0A;
@@ -105,8 +109,8 @@ a {
 .section {
   padding: 5rem 0;
   border-bottom: 1px solid var(--border-color);
-  scroll-margin-top: 78px;
-  /* 108px nav - 30px extra — section top tucks 30px further under nav so more content is visible */
+  scroll-margin-top: calc(var(--nav-height) - 30px);
+  /* Nav-aware offset: section top tucks 30px under nav so header + first content are visible together */
 }
 
 .section-full-height {
@@ -2144,16 +2148,36 @@ body.theme-business {
   .grid-fluid>* {
     width: 100%;
   }
+}
 
-  /* Ensure modal is scrollable on mobile if needed */
-  .blur-overlay {
+/* Academy modal responsive behavior (fixes earlier dead CSS that targeted non-existent .blur-overlay/.modal-content) */
+@media (max-width: 768px) {
+  .academy-modal-backdrop {
     padding: 1rem;
   }
-
-  .modal-content {
+  .academy-modal-content {
+    width: 100%;
     padding: 2rem;
     max-height: 90vh;
     overflow-y: auto;
+  }
+}
+
+/* Respect user motion preferences — disables testimonial marquee + smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-track {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  /* Remove transitions that could disorient */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 
