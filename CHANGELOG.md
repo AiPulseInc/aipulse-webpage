@@ -4,6 +4,45 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.499] — 2026-04-13
+
+Mobile typography consistency pass — unified scale across all sections + critical bug fixes.
+
+### Fixed
+- **Horizontal swipe void** on mobile — `html, body { overflow-x: hidden; max-width: 100vw }` at `<=1023px` prevents accidental left-swipe revealing empty space
+- **Hero photo on phone** — max-width 260px → 380px, properly centered (`margin: 1rem auto 0`)
+- **Training image aspect ratio on phone** — fixed 360px height → `aspect-ratio: 16/9` (no more giant square images)
+- **Module description > section title** — inverted hierarchy fixed. Phone: section-szkolenia-title 1.6rem, module-title 1.4rem, module-desc 0.9rem
+- **Automatyzacje section title one-line** — 4rem → 1.75rem phone / 2.5rem tablet (PROCESY NA AUTOPILOCIE fits in 2 lines)
+- **Tool card grid broken** — CSS was targeting `.tool-name`/`.tool-desc` but HTML uses `.tool-card-name`/`.tool-card-desc`. Fixed both selectors. Icon + title now on row 1, description spans full width row 2
+- **Modal fonts too big** on phone — refactored main.js to use classes instead of inline font-size; applied mobile overrides (title 3.5rem → 1.5rem on phone, body 1.25rem → 0.95rem)
+- **Jak działamy / Kontakt / Narzędzia / Strony inline H2** — inline-styled headlines now overridden on mobile via specific `#section-* h2` selectors with `!important` (1.6rem on phone)
+
+### Added
+- **Mobile typography system** (phone <=767 + tablet 768-1023 layers):
+  - Hero headline: clamp(1.9-2.4) phone / 3.25 tablet
+  - Section h2: 1.6 phone / 2-2.2 tablet
+  - Section subtitle: 0.9 phone / 1.05 tablet
+  - Module title: 1.4 phone / 2 tablet
+  - Module desc: 0.9 phone / 1 tablet
+  - Labels (// NAZWA): 0.65 phone
+  - Modal: 1.5 phone / 2 tablet titles
+- **Modal class refactor** (main.js): inline styles → `.modal-auto-*` + `.modal-training-*` classes
+- **Container padding tighter on mobile**: 2rem → 1.25rem
+
+### Changed
+- Training image container `.section-szkolenia-compact .training-image-container` on phone: height auto + aspect-ratio 16/9 (was 360px fixed)
+- Tool card phone layout: 2-row grid — icon + title row 1, desc full-width row 2
+- Container-fluid padding 2rem → 1.25rem on non-desktop
+
+### Why
+- User feedback from real device: "opis szkolenia większą czcionką niż tytuł sekcji", "obrazy w szkoleniach za duże", "modale za duże czcionki", "boxy narzędzia źle sformatowane", "okno mobile daje się przesuwać w lewo", "zrób zestaw reguł css dla elementów strony aby zachować spójność"
+
+### Desktop
+Byte-identical to v0.498 (verified at 1280px: hero, modals, sections unchanged)
+
+---
+
 ## [0.498] — 2026-04-13
 
 Business sections mobile — tablet layer, phone tool media-object, swipe testimonials, stacked footer (Task 3 commit 4/5).

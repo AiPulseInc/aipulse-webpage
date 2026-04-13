@@ -125,19 +125,17 @@ const automatyzacjeData = {
 
 function renderAutoModal(data) {
   return `
-    <div class="grid-fluid" style="gap: 4rem;">
-      <div style="grid-column: span 7; background: transparent;">
-        <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 2rem;">${data.category}</div>
-        <h3 style="font-size: 3.5rem; line-height: 1; margin-bottom: 2rem; color: #FFF; text-transform: uppercase;">${data.title}</h3>
-        <p style="color: #999; font-size: 1.25rem; line-height: 1.6;">${data.description}</p>
+    <div class="modal-auto">
+      <div class="modal-auto-main">
+        <div class="modal-auto-category">${data.category}</div>
+        <h3 class="modal-auto-title">${data.title}</h3>
+        <p class="modal-auto-description">${data.description}</p>
       </div>
-      <div style="grid-column: span 5; border-left: 1px solid #333; padding-left: 3rem; display: flex; flex-direction: column; justify-content: center; background: transparent;">
-        <div class="text-xs" style="color: #666; margin-bottom: 2rem;">ZASTOSOWANIA</div>
-        <div style="display: grid; gap: 1.5rem;">
+      <div class="modal-auto-side">
+        <div class="modal-auto-side-label">ZASTOSOWANIA</div>
+        <div class="modal-auto-modules">
           ${data.modules.map(m => `
-            <div style="display: flex; align-items: center; gap: 1rem; color: #FFF; font-size: 1.1rem;">
-              <span style="color: var(--brand-accent);">&gt;</span> ${m}
-            </div>
+            <div class="modal-auto-module"><span class="modal-auto-module-chevron">&gt;</span> ${m}</div>
           `).join('')}
         </div>
       </div>
@@ -151,15 +149,15 @@ function renderSzkoleniaModal(data, type) {
   else if (type === 'security-szkolenia') ctaLabel = 'Zapytaj o szkolenie';
   return `
     <div class="modal-training">
-      <div class="text-xs" style="color: var(--brand-accent); margin-bottom: 1.5rem;">${data.category}</div>
-      <h3 style="font-size: 3rem; line-height: 1; margin-bottom: 2rem; color: #FFF; text-transform: uppercase;">${data.title}</h3>
+      <div class="modal-training-category">${data.category}</div>
+      <h3 class="modal-training-title">${data.title}</h3>
 
       <div class="modal-training-grid">
         <div>
           <div class="modal-section-label">DLA KOGO</div>
           <p class="modal-section-body">${data.audience}</p>
 
-          <div class="modal-section-label" style="margin-top: 2rem;">CZEGO SIĘ NAUCZYSZ</div>
+          <div class="modal-section-label modal-section-label-spaced">CZEGO SIĘ NAUCZYSZ</div>
           <ul class="modal-benefits">
             ${data.benefits.map(b => `<li>${b}</li>`).join('')}
           </ul>
@@ -169,7 +167,7 @@ function renderSzkoleniaModal(data, type) {
           <div class="modal-section-label">FORMAT</div>
           <p class="modal-section-body">${data.format}</p>
 
-          <div class="modal-section-label" style="margin-top: 2rem;">WYNIK</div>
+          <div class="modal-section-label modal-section-label-spaced">WYNIK</div>
           <p class="modal-section-body modal-outcome">${data.outcome}</p>
 
           <a href="#contact" class="btn btn-accent modal-cta" data-close-modal="true">${ctaLabel}</a>

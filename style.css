@@ -1582,6 +1582,101 @@ body.theme-business {
   display: block;
 }
 
+/* --- Modal typography (shared: auto + training/szkolenia modals) --- */
+.modal-auto {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 4rem;
+}
+
+.modal-auto-main { background: transparent; }
+
+.modal-auto-category {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+  margin-bottom: 2rem;
+}
+
+.modal-auto-title {
+  font-size: 2.75rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+  color: #FFF;
+  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.modal-auto-description {
+  color: #999;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.modal-auto-side {
+  border-left: 1px solid #333;
+  padding-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-auto-side-label {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.modal-auto-modules {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.modal-auto-module {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #FFF;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.modal-auto-module-chevron {
+  color: var(--brand-accent);
+  flex-shrink: 0;
+}
+
+.modal-training-category {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+  margin-bottom: 1.5rem;
+}
+
+.modal-training-title {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+  color: #FFF;
+  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.modal-section-label-spaced {
+  margin-top: 2rem;
+}
+
 /* --- Training Modal (shared modal, training-specific layout) --- */
 .modal-training-grid {
   display: grid;
@@ -2671,5 +2766,254 @@ body.theme-business {
   /* Hide duplicate set (items 11-20) — only needed for desktop infinite-loop trick */
   .testimonial-track .testimonial-card-item:nth-child(n+11) {
     display: none;
+  }
+}
+
+/* ==========================================================================
+   MOBILE TYPOGRAPHY DESIGN SYSTEM (Task 3 — cross-cutting consistency pass)
+   ========================================================================== */
+
+/* Prevent horizontal swipe "void" on mobile — catches any element that overflows */
+@media (max-width: 1023px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Container padding tightening on mobile (was 2rem from desktop --spacing-m) */
+  .container-fluid {
+    padding: 0 1.25rem;
+  }
+}
+
+/* ---- Tablet typography (768-1023px) ---- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-headline { font-size: 3.25rem; }
+  .academy-header { font-size: 2.5rem; line-height: 1.05; }
+  .section-szkolenia-title { font-size: 2rem; }
+  .section-szkolenia-subtitle { font-size: 1.05rem; }
+  .module-title { font-size: 2rem !important; }
+  .module-desc { font-size: 1rem !important; }
+  .section-szkolenia-compact .module-title { font-size: 2rem; }
+  .section-szkolenia-compact .module-desc { font-size: 1rem; }
+  .modal-auto-title,
+  .modal-training-title { font-size: 2rem; }
+  .modal-auto-description { font-size: 1rem; }
+  .academy-curriculum-title { font-size: 1.15rem; }
+  .hero-subtitle { font-size: 1.05rem; }
+
+  /* Narzedzia header — force title on one line at tablet */
+  .narzedzia-header h2 { font-size: 1.6rem !important; line-height: 1.15; }
+}
+
+/* ---- Phone typography (<=767px) — unified scale ---- */
+@media (max-width: 767px) {
+
+  /* Section labels (// NAZWA) — tight */
+  .text-xs { font-size: 0.65rem !important; }
+
+  /* Section headlines (h1, h2 across sections) */
+  .hero-headline {
+    font-size: clamp(1.9rem, 7vw, 2.4rem);
+    line-height: 1.1;
+  }
+
+  .academy-header {
+    font-size: 1.75rem;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-szkolenia-title {
+    font-size: 1.6rem;
+    line-height: 1.15;
+  }
+
+  .section-szkolenia-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  /* Inline h2 headlines (narzedzia, o-nas, strony, oferta, contact) — override inline styles via !important */
+  .narzedzia-header h2,
+  #section-o-nas .section-header-centered h2,
+  #section-strony h2,
+  #section-oferta h2,
+  #contact h2 {
+    font-size: 1.6rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .section-contact h2 {
+    font-size: 1.6rem !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Slider module (szkolenia) typography — description must be smaller than section title */
+  .module-title,
+  .section-szkolenia-compact .module-title {
+    font-size: 1.4rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .module-desc,
+  .section-szkolenia-compact .module-desc {
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .module-label,
+  .section-szkolenia-compact .module-label {
+    font-size: 0.65rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Training image: aspect 16:9 instead of fixed 360px height on phone */
+  .section-szkolenia-compact .training-image-container,
+  .training-image-container {
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
+  }
+
+  .section-szkolenia-compact .module-visual-container,
+  .module-visual-container {
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
+  }
+
+  /* Slider-col padding tight on phone */
+  .slider-col-text,
+  .section-szkolenia-compact .slider-col-text {
+    padding: 1rem 0 !important;
+  }
+
+  /* Automatyzacje + compliance curriculum items */
+  .academy-curriculum-title { font-size: 1rem; }
+  .academy-curriculum-box { padding: 1.5rem; }
+
+  /* Pricing card mobile tweaks (before commit 5/5 radical reorg) */
+  .pricing-card-name { font-size: 1.05rem; }
+  .pricing-card-desc { font-size: 0.8rem; }
+
+  /* --- Modal font reset on phone --- */
+  .academy-modal-content {
+    padding: 2rem 1.25rem !important;
+    width: 100% !important;
+    max-height: 92vh;
+  }
+
+  .modal-auto {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .modal-auto-title,
+  .modal-training-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .modal-auto-description {
+    font-size: 0.95rem;
+  }
+
+  .modal-auto-side {
+    border-left: none;
+    border-top: 1px solid #333;
+    padding-left: 0;
+    padding-top: 1.5rem;
+  }
+
+  .modal-auto-module {
+    font-size: 0.9rem;
+  }
+
+  .modal-training-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .modal-section-body {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .modal-benefits li {
+    font-size: 0.9rem;
+  }
+
+  .academy-modal-close {
+    top: 0.85rem;
+    right: 0.85rem;
+  }
+
+  /* --- Hero image: enlarge + center properly on phone --- */
+  .hero-photo {
+    max-width: 380px !important;
+    width: 100% !important;
+    margin: 1rem auto 0 !important;
+    display: block;
+  }
+
+  .hero-photo-wrap {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+  }
+
+  /* --- Tool card grid: icon+title on row 1, desc full-width row 2 --- */
+  .tool-card {
+    display: grid !important;
+    grid-template-columns: 48px 1fr !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 1rem !important;
+    row-gap: 0.5rem !important;
+    padding: 1.25rem 1.25rem !important;
+    align-items: start;
+  }
+
+  .tool-card .tool-icon {
+    grid-row: 1;
+    grid-column: 1;
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .tool-card .tool-card-name,
+  .tool-card .tool-name {
+    grid-row: 1 !important;
+    grid-column: 2 !important;
+    align-self: center;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.08em;
+  }
+
+  .tool-card .tool-card-desc,
+  .tool-card .tool-desc {
+    grid-row: 2 !important;
+    grid-column: 1 / -1 !important;
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Section header margin cleanup — tighter on phone */
+  .section-szkolenia-header {
+    margin-bottom: 1rem !important;
+    padding: 0 !important;
+  }
+
+  /* Prevent inline-style section headers (e.g., narzedzia, strony) from having huge margins */
+  #section-narzedzia .container-fluid > [style*="margin-bottom"],
+  #section-strony .container-fluid > [style*="margin-bottom"] {
+    margin-bottom: 1.5rem !important;
   }
 }
