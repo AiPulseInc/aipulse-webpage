@@ -2425,11 +2425,19 @@ body.theme-business {
 
   /* ---- Hero reset — no more overlap/negative margins on non-desktop ---- */
   .hero-static {
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding: 2rem 0 3rem;
+  }
+
+  /* Content grid stays before certs even if certs are first in markup */
+  .hero-static .container-fluid {
+    order: 1;
   }
 
   .hero-static .flex-center-v {
-    padding-bottom: 2rem;
+    padding-bottom: 0;
     padding-left: 0;
   }
 
@@ -2446,20 +2454,24 @@ body.theme-business {
     margin-right: 0;
   }
 
-  /* Cert strip in security hero — move from absolute to flow */
+  /* Cert strip in security hero — move from absolute to flow, below CTAs */
   .hero-certificates-link {
+    order: 2;
     position: static;
     bottom: auto;
     right: auto;
     display: block;
-    margin: 1.5rem auto 0;
-    max-width: min(100%, 360px);
+    margin: 2rem auto 0;
+    padding: 0 1.25rem;
+    max-width: min(100%, 420px);
   }
 
   .hero-certificates {
     width: 100%;
-    max-width: 360px;
     height: auto;
+    max-width: 360px;
+    display: block;
+    margin: 0 auto;
   }
 
   /* FAB visible on tablet + phone */

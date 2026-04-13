@@ -4,6 +4,23 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.495] — 2026-04-13
+
+Fix mobile security hero: flex-direction row → column so cert strip flows below content instead of beside CTAs.
+
+### Fixed
+- `.hero-static` on non-desktop: added `flex-direction: column` (was row inherited from desktop), cert strip now appears in order `order: 2` (after text + photo)
+- Cert strip on mobile: centered via `max-width: min(100%, 420px)` + `margin: 2rem auto 0` + explicit image `max-width: 360px`
+
+### Changed
+- `.hero-static` padding on non-desktop: `2rem 0 3rem` (was using previous padding-bottom 6rem via `.flex-center-v`)
+
+### Why
+- User on 375px: "w wersji cyber hero reset słabo wyszedł - zostały certyfikaty w kontent i rozjechała się strona"
+- Root cause: changed `align-items` but left default `flex-direction: row` → certs flowed as sibling column next to content instead of below
+
+---
+
 ## [0.494] — 2026-04-13
 
 Mobile hamburger nav + hero reset + Call-now FAB (Task 3 commit 2/5).

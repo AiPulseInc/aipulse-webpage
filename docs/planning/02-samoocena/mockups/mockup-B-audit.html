@@ -2,6 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Raport Samooceny Cyberbezpieczeństwa — Wersja B: Quasi-Certyfikowany Audyt</title>
 <style>
   @page { size: A4; margin: 16mm; }
@@ -158,9 +159,9 @@
 
   /* Table of contents */
   .toc ol { list-style: none; padding: 0; }
-  .toc > ol > li { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12pt; padding: 3mm 0; border-bottom: 1px dotted #ccc; display: flex; justify-content: space-between; }
-  .toc > ol > li > span:last-child { color: #666; font-family: 'Space Grotesk', monospace; font-size: 10pt; font-weight: normal; }
-  .toc ol ol { margin-left: 6mm; margin-top: 2mm; }
+  .toc > ol > li { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12pt; padding: 3mm 0; border-bottom: 1px dotted #ccc; display: flex; justify-content: space-between; flex-wrap: wrap; }
+  .toc > ol > li > span:last-of-type { color: #666; font-family: 'Space Grotesk', monospace; font-size: 10pt; font-weight: normal; }
+  .toc ol ol { flex-basis: 100%; margin-left: 6mm; margin-top: 2mm; }
   .toc ol ol li { font-weight: normal; font-family: 'Inter', sans-serif; font-size: 10pt; color: #444; padding: 1mm 0; border: none; }
 
   /* CTA */
