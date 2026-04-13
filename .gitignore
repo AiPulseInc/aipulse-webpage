@@ -143,3 +143,8 @@ dist
 *.sln
 *.sw?
 .env copy
+
+# Security blog — generated files (source of truth is content/security/blog/**/*.md)
+security/blog/
+public/security/blog/feed.xml
+public/generated/security/blog/

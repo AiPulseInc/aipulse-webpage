@@ -4,6 +4,79 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.510] — 2026-04-13
+
+**TASK 1 — SECURITY BLOG** (`/security/blog/`) — markdown-driven blog, Vite MPA static build.
+
+### Added
+
+**Infrastructure**:
+- `scripts/build-security-blog.mjs` — Node generator: scans `content/security/blog/**/index.md`, validates front-matter, builds per-post HTML + index + RSS feed
+- `vite.config.js` — async config with dynamic `rollupOptions.input` via globby, pre-build hook calls `buildSecurityBlog()`, dev watcher on `content/`, `vite-plugin-sitemap` integration
+- `src/security-blog.js` + `src/security-blog.css` — separate entry for blog pages (not in `main.js` bundle)
+
+**Content**:
+- `content/security/blog/<slug>/index.md` — source of truth for posts (5 initial posts covering mity / supply-chain npm / AI phishing / backup 3-2-1 / cyber insurance)
+- Each post: front-matter (title, slug, date, excerpt, description, category, tags, cover, coverAlt, featured, draft, author) + markdown body
+
+**Generator features**:
+- Front-matter validation (required fields + slug must match folder name, no duplicates)
+- Draft mode: `draft: true` posts excluded from build
+- Sort: featured first, then date desc
+- Auto TOC from H2 headings (with slugified IDs)
+- Reading time estimate (200 wpm)
+- Image pipeline: relative images (./images/xxx) → sharp → WebP 1600px max + hash → `public/generated/security/blog/<slug>/`; absolute paths passed through
+- Inline images get `loading="lazy"`, `decoding="async"`, `.blog-inline-image` class
+
+**Templates**:
+- Blog index: hero + featured card + 3-col post grid + CTA box + shared nav/footer
+- Single post: breadcrumbs + meta + title + lead + cover + sticky TOC sidebar + prose + CTA box
+- Shared `renderNav('/security/blog/')` — adds Blog link with `aria-current="page"` + `.nav-active` class, full nav with absolute URLs for cross-page anchors
+
+**SEO**:
+- Per-page `<title>`, `<meta description>`, canonical, Open Graph (title/desc/url/image/type=article)
+- `<link rel="alternate" type="application/rss+xml">` in every page
+- RSS feed at `/security/blog/feed.xml` (via `feed@4.2.2`)
+- Sitemap.xml at `/sitemap.xml` (all posts + main pages, via `vite-plugin-sitemap@0.8.2`)
+
+**Nav integration**:
+- Added `Blog` link to `security/index.html` nav (position 6, before Kontakt)
+
+### Dependencies added (devDependencies)
+- `gray-matter@4.0.3` — front-matter parsing
+- `markdown-it@14.1.1` + `markdown-it-anchor@9.2.0` + `markdown-it-attrs@4.3.1` — markdown rendering
+- `slugify@1.6.9` — Polish-aware slugs
+- `sharp@0.34.5` — image optimization
+- `globby@14.0.2` — glob matching
+- `feed@4.2.2` — RSS feed generation
+- `vite-plugin-sitemap@0.8.2` — sitemap generation
+
+### Design
+- Violet theme inherits from `body.theme-security` (CSS var `--brand-accent`)
+- All blog classes prefixed `.blog-*` (no collisions with main site)
+- Responsive: 3-col desktop → 2-col tablet → 1-col phone
+- TOC: sticky sidebar desktop → static block mobile (above prose)
+- Brutalist aesthetic: black bg + white text + violet accent + sharp corners
+
+### Generated artifacts (git-ignored)
+- `security/blog/**/*.html` (regenerated on every build)
+- `public/security/blog/feed.xml` (regenerated)
+- `public/generated/security/blog/**/*.webp` (regenerated from images/)
+
+### Workflow for new posts
+1. Create `content/security/blog/<new-slug>/index.md` with front-matter + body
+2. Optional: add images to `content/security/blog/<new-slug>/images/`
+3. Commit with `draft: true` for review
+4. Flip to `draft: false` to publish
+5. `npm run build` regenerates everything
+
+### Why
+- Task 1 from sprint plan — minimum-effort blog for cybersecurity insights, solo author, 1-2 posts/week
+- Static HTML output = perfect SEO, zero runtime JS for content, Vercel-friendly
+- No CMS, git = source of truth
+
+---
+
 ## [0.501] — 2026-04-13
 
 Pricing ladder radical reorg on mobile (Task 3 commit 5/5).
