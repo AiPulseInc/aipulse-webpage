@@ -4,6 +4,18 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.531] — 2026-04-13
+
+Fix cookie preferences modal not fitting on phone screens.
+
+- Modal becomes flex column with scrollable categories area (`flex: 1; overflow-y: auto`)
+- `max-height: calc(100dvh - 1.5rem)` with `100vh` fallback for mobile browser chrome
+- Tighter padding (modal `1rem`, categories `0.75rem`, backdrop `0.75rem`)
+- Smaller typography (descriptions `0.8rem`, title `1.2rem`, toggle labels `0.65rem`)
+- Toggle control `44×24px` (was `52×28px`), buttons `min-height: 40px` (was `46px`)
+
+---
+
 ## [0.530] — 2026-04-13
 
 Codex cookie consent — GDPR-compliant banner + preferences modal + policy page.
