@@ -4,6 +4,25 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.523] — 2026-04-13
+
+Mobile UX Commit 3/3 — footer harmonization + vCISO modal expansion.
+
+### Footer harmonization (both pages + blog generator)
+- Centered column layout: brand → copyright → links (was horizontal `space-between`)
+- `.footer-brand-row` wrapper, `.footer-copyright` moved outside brand div
+- 5 links per page: LinkedIn + Email + cross-brand link + Powrót do wyboru + Ustawienia cookies
+- `.footer-cookie-link` class added (activates with v0.530 cookie consent)
+- Phone (≤767px): links stack vertically (`flex-direction: column`, `gap: 0.75rem`)
+- Desktop: links wrap horizontally centered (`flex-wrap: wrap`, `justify-content: center`)
+- `scripts/build-security-blog.mjs` `renderFooter()` updated with same pattern
+
+### vCISO modal expansion (`src/security-data.js`)
+- Modal 3 (Premium + vCISO): audience now explains "vCISO = Virtual CISO = zewnętrzny Chief Information Security Officer"; format adds "hybrid (zdalnie + 1 wizyta)"; outcome adds firm size note
+- Modal 4 (Virtual CISO standalone): title "Virtual CISO (vCISO)"; audience opens with full acronym expansion; benefits more specific (monthly priorities, "zamiast Ciebie lub obok Ciebie", "jesteśmy pierwszym telefonem")
+
+---
+
 ## [0.522] — 2026-04-13
 
 Mobile UX Commit 2/3 — pricing unify + section layouts + copy cleanup + toolbox CTA + consultation gap.

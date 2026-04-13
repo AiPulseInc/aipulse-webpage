@@ -254,14 +254,16 @@ function renderNav(activePath = '') {
 function renderFooter() {
   return `<footer class="site-footer">
     <div class="container-fluid footer-inner">
-      <div>
+      <div class="footer-brand-row">
         <div class="footer-brand">A<span class="brand-i">i</span> Puls</div>
-        <div class="footer-copyright">© 2026 Ai Puls Security · Audyty cyberbezpieczeństwa dla MŚP</div>
       </div>
+      <div class="footer-copyright">© 2026 Ai Puls Security · Audyty cyberbezpieczeństwa dla MŚP</div>
       <div class="footer-links">
-        <a href="/" class="text-xs">← Powrót do wyboru</a>
-        <a href="/business/" class="text-xs">Doradztwo</a>
+        <a href="https://www.linkedin.com/company/aipulseinc" target="_blank" rel="noopener" class="text-xs">LinkedIn</a>
         <a href="mailto:kontakt@aipulse.pl" class="text-xs">Email</a>
+        <a href="/business/" class="text-xs">Doradztwo</a>
+        <a href="/" class="text-xs">← Powrót do wyboru</a>
+        <a href="/polityka-cookies/" class="text-xs footer-cookie-link">Ustawienia cookies</a>
       </div>
     </div>
   </footer>`;
