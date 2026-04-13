@@ -2839,11 +2839,13 @@ body.theme-business {
     line-height: 1.55;
   }
 
-  /* Inline h2 headlines (narzedzia, o-nas, strony, oferta, contact) — override inline styles via !important */
+  /* Inline h2 headlines — override inline font-size across BOTH pages (business + security) */
   .narzedzia-header h2,
   #section-o-nas .section-header-centered h2,
   #section-strony h2,
   #section-oferta h2,
+  #section-proces h2,
+  #section-dla-kogo h2,
   #contact h2 {
     font-size: 1.6rem !important;
     line-height: 1.15 !important;
@@ -2852,6 +2854,11 @@ body.theme-business {
   .section-contact h2 {
     font-size: 1.6rem !important;
     line-height: 1.15 !important;
+  }
+
+  /* Left-align centered section headers on mobile — centered intent is desktop-only */
+  .section-header-centered {
+    text-align: left !important;
   }
 
   /* Slider module (szkolenia) typography — description must be smaller than section title */

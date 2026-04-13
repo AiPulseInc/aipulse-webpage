@@ -4,6 +4,21 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.500] — 2026-04-13
+
+Typography consistency patch — security section titles + centered headers left-align on mobile.
+
+### Fixed
+- Security `#section-proces h2` ("PROCES, KTÓRY MOŻESZ PRZEŚLEDZIĆ") + `#section-dla-kogo h2` ("BRANŻE, KTÓRE OBSŁUGUJEMY") — inline 2.5rem now overridden to 1.6rem on phone, matching business section titles
+- `.section-header-centered` — centered intent is desktop-only; mobile now `text-align: left !important` (applies to business o-nas "TRZY KROKI" + REKOMENDACJE label, plus any future centered headers)
+
+### Why
+- User: "te tytuły nadal mają zbyt duże czcionki - niespójne z resztą czcionek tytułów sekcji" (security)
+- User: "TRZY KROKI DO AI W TWOJEJ FIRMIE - nagłówki sekcji wyśrodkowane, zamiast do lewej" (business o-nas)
+- User: "// rekomendacje - wyśrodkowane zamiast do lewej" (business o-nas rekomendacje label)
+
+---
+
 ## [0.499] — 2026-04-13
 
 Mobile typography consistency pass — unified scale across all sections + critical bug fixes.
