@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polityka cookies — Ai Puls</title>
+  <meta name="description" content="Polityka cookies Ai Puls: kategorie cookies, cele przetwarzania, czas przechowywania i zarządzanie zgodą." />
+  <meta property="og:title" content="Polityka cookies — Ai Puls" />
+  <meta property="og:description" content="Sprawdź, jakich cookies używamy i jak zarządzać preferencjami zgody." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    .policy-shell {
+      min-height: 100vh;
+      background: var(--bg-surface, #000);
+      color: var(--text-primary, #fff);
+    }
+
+    .policy-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border-color, #333);
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .policy-nav-inner,
+    .policy-footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .policy-brand,
+    .policy-nav-link,
+    .policy-footer-links a,
+    .policy-inline-link {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .policy-brand {
+      font-size: 1rem;
+    }
+
+    .policy-nav-link,
+    .policy-footer-links a,
+    .policy-inline-link {
+      color: var(--brand-accent, #d9d9d9);
+    }
+
+    .policy-inline-link {
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+    }
+
+    .policy-main {
+      padding-bottom: 5rem;
+    }
+
+    .policy-hero {
+      padding-top: 4rem;
+      padding-bottom: 2rem;
+    }
+
+    .policy-kicker {
+      margin: 0 0 1rem;
+      color: var(--brand-accent, #d9d9d9);
+      font: 700 0.8rem/1.4 'Space Grotesk', 'Inter', sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .policy-lead {
+      max-width: 70ch;
+      margin: 0;
+      color: var(--text-secondary, #b3b3b3);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .policy-card,
+    .policy-cta {
+      border: 1px solid var(--border-color, #333);
+      background: #050505;
+      padding: 1.5rem;
+    }
+
+    .policy-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .policy-section-text {
+      max-width: 75ch;
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.8;
+    }
+
+    .policy-list {
+      margin: 1rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.8;
+    }
+
+    .policy-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-color, #333);
+    }
+
+    .policy-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: #050505;
+    }
+
+    .policy-table th,
+    .policy-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #222;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .policy-table th {
+      font: 700 0.78rem/1.4 'Space Grotesk', 'Inter', sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .policy-table td {
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.7;
+    }
+
+    .policy-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .policy-category-name {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .policy-cta {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .policy-cta p,
+    .policy-meta {
+      margin: 0;
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.7;
+    }
+
+    .policy-btn {
+      width: fit-content;
+      min-height: 48px;
+      padding: 0.85rem 1.2rem;
+      border: 1px solid var(--brand-accent, #d9d9d9);
+      background: var(--brand-accent, #d9d9d9);
+      color: #000;
+      font: 700 0.8rem/1 'Space Grotesk', 'Inter', sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .policy-btn:focus-visible,
+    .policy-nav-link:focus-visible,
+    .policy-footer-links a:focus-visible,
+    .policy-inline-link:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    .policy-footer {
+      border-top: 1px solid var(--border-color, #333);
+    }
+
+    .policy-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 767px) {
+      .policy-nav-inner,
+      .policy-footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .policy-footer-links {
+        justify-content: flex-start;
+      }
+
+      .policy-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="theme-neon-nexus" id="top">
+  <div class="policy-shell">
+    <header class="policy-nav">
+      <div class="container-fluid policy-nav-inner">
+        <div class="policy-brand">Ai Puls <span id="app-version"></span></div>
+        <a class="policy-nav-link" href="/">Powrót do /</a>
+      </div>
+    </header>
+
+    <main class="policy-main">
+      <section class="section policy-hero">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <p class="policy-kicker">// Compliance</p>
+            <h1>Polityka cookies</h1>
+            <p class="policy-lead">
+              Wyjaśniamy, jakie technologie przechowywania danych stosujemy, po co je uruchamiamy i jak w każdej chwili zmienić swoją decyzję. Preferencje analityczne i marketingowe aktywujemy wyłącznie po uzyskaniu zgody.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <h2>Co to są cookies</h2>
+            <p class="policy-section-text">
+              Cookies to niewielkie informacje zapisywane w przeglądarce lub podobnych mechanizmach pamięci, takich jak localStorage. Pozwalają utrzymać podstawowe działanie serwisu, zapamiętać ustawienia użytkownika oraz — po uzyskaniu zgody — mierzyć ruch lub skuteczność kampanii.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <h2>Jakich cookies używamy</h2>
+            <p class="policy-section-text">
+              Poniżej opisujemy obecnie używane lub planowane kategorie technologii. Konkretni dostawcy mogą się zmieniać, ale zasada pozostaje stała: narzędzia analityczne i marketingowe nie uruchamiają się bez zgody.
+            </p>
+          </div>
+
+          <div class="policy-table-wrap">
+            <table class="policy-table">
+              <thead>
+                <tr>
+                  <th>Kategoria</th>
+                  <th>Nazwa</th>
+                  <th>Pochodzenie</th>
+                  <th>Cel</th>
+                  <th>Czas przechowywania</th>
+                  <th>Jak opt-out</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="policy-category-name">Niezbędne</td>
+                  <td><code>cookie_consent</code></td>
+                  <td>Ai Puls, first-party</td>
+                  <td>Zapamiętanie wyboru zgody i zachowanie zgodności z wymogami GDPR.</td>
+                  <td>Do czasu zmiany decyzji lub ręcznego usunięcia danych w przeglądarce.</td>
+                  <td>Możesz wyczyścić dane przeglądarki; ta kategoria pozostaje niezbędna do zapisania decyzji.</td>
+                </tr>
+                <tr>
+                  <td class="policy-category-name">Analityczne</td>
+                  <td><code>_ga</code>, <code>_ga_*</code></td>
+                  <td>Google Analytics 4</td>
+                  <td>Pomiar ruchu, analiza korzystania ze strony, poprawa treści i UX.</td>
+                  <td>Do 14 miesięcy, zależnie od konfiguracji narzędzia.</td>
+                  <td>Odrzuć kategorię „Analityczne” w ustawieniach cookies lub użyj narzędzi opt-out Google.</td>
+                </tr>
+                <tr>
+                  <td class="policy-category-name">Marketingowe</td>
+                  <td><code>_fbp</code>, <code>fr</code>, <code>IDE</code></td>
+                  <td>Meta Pixel, Google Ads i podobni partnerzy</td>
+                  <td>Pomiar skuteczności kampanii, remarketing i ograniczanie wielokrotnego wyświetlania reklam.</td>
+                  <td>Zwykle od 90 dni do 13 miesięcy, zależnie od dostawcy.</td>
+                  <td>Odrzuć kategorię „Marketingowe” w ustawieniach cookies lub skorzystaj z ustawień prywatności dostawcy.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <h2>Twoje prawa</h2>
+            <p class="policy-section-text">
+              Masz prawo do informacji, dostępu do danych, sprostowania, usunięcia, ograniczenia przetwarzania, sprzeciwu oraz wniesienia skargi do Prezesa UODO. Szczegóły dotyczące przetwarzania danych osobowych opisujemy w <a class="policy-inline-link" href="/privacy/">Polityce prywatności</a>.
+            </p>
+            <ul class="policy-list">
+              <li>Możesz w dowolnym momencie wycofać zgodę bez wpływu na zgodność wcześniejszego przetwarzania.</li>
+              <li>Możesz zmienić ustawienia cookies z poziomu strony lub ustawień swojej przeglądarki.</li>
+              <li>Brak zgody na analitykę i marketing nie ogranicza dostępu do podstawowych treści serwisu.</li>
+            </ul>
+          </div>
+
+          <div class="policy-cta">
+            <h2>Zarządzaj preferencjami cookies</h2>
+            <p>Możesz ponownie otworzyć ustawienia i zaktualizować zgodę w dowolnym momencie.</p>
+            <button class="policy-btn" type="button" data-open-cookie-settings>Otwórz ustawienia cookies</button>
+            <p class="policy-meta">Zmiana ustawień aktualizuje zapis zgody lokalnie w Twojej przeglądarce.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="policy-footer">
+      <div class="container-fluid policy-footer-inner">
+        <p class="policy-meta">© 2026 Ai Puls</p>
+        <nav class="policy-footer-links" aria-label="Dodatkowe linki">
+          <a href="/business/">Business</a>
+          <a href="/security/">Security</a>
+          <a href="/">Powrót do /</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/polityka-cookies.js"></script>
+</body>
+
+</html>

@@ -1296,7 +1296,8 @@ body.theme-business {
 }
 
 .pricing-card-cta {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   padding: 0.7rem 0.85rem; /* was 0.85rem 1rem */
@@ -2809,12 +2810,51 @@ body.theme-business {
     gap: 1rem;
     margin-top: 3rem;
   }
+
+  /* Toolbox: header button visible (default), mobile-below wrapper hidden */
+  .toolbox-cta-wrap { display: none !important; }
 }
 
-/* --- Section-compliance — reorder on mobile: text → boxes → button ---
-   CTA button is inside .flex-center-v wrapper; use display: contents to escape. */
+/* Mobile + tablet: header toolbox button hidden, mobile-below wrapper shown centered */
+@media (max-width: 1023px) {
+  .narzedzia-header .toolbox-btn { display: none !important; }
+  .toolbox-cta-wrap {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+  .toolbox-btn-mobile {
+    display: inline-flex;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* --- Consultation section gap fix on mobile (item 11 security / item 5 business) --- */
 @media (max-width: 767px) {
-  #section-compliance .grid-fluid {
+  .section-contact {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    min-height: 0;
+  }
+  .section-contact .grid-fluid {
+    gap: 0.75rem;
+    /* Was 2rem from generic mobile rule — too much between title col and form col */
+  }
+  .section-contact .col-6 {
+    padding: 1rem !important;
+    /* Was inline padding 2rem — tighter on mobile */
+  }
+  .section-contact .flex-center-v {
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* --- Section-compliance + Section-automatyzacje — reorder on mobile: text → boxes → button ---
+   Both sections share academy-curriculum-box pattern; CTA is inside .flex-center-v.
+   Use display: contents to escape so we can order independently. */
+@media (max-width: 767px) {
+  #section-compliance .grid-fluid,
+  #section-automatyzacje .grid-fluid {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -2822,19 +2862,23 @@ body.theme-business {
     max-width: 90%;
     margin: 0 auto;
   }
-  #section-compliance .flex-center-v {
+  #section-compliance .flex-center-v,
+  #section-automatyzacje .flex-center-v {
     display: contents;
   }
-  #section-compliance .compliance-boxes-col {
+  #section-compliance .compliance-boxes-col,
+  #section-automatyzacje .compliance-boxes-col {
     order: 2;
     padding-left: 0 !important;
   }
-  #section-compliance .compliance-cta-wrap {
+  #section-compliance .compliance-cta-wrap,
+  #section-automatyzacje .compliance-cta-wrap {
     order: 3;
     text-align: center;
     margin-top: 0.5rem;
   }
-  #section-compliance .compliance-cta-wrap .btn {
+  #section-compliance .compliance-cta-wrap .btn,
+  #section-automatyzacje .compliance-cta-wrap .btn {
     width: 100%;
     padding: 0.85rem 1rem;
     font-size: 0.8rem;
@@ -2842,16 +2886,20 @@ body.theme-business {
     justify-content: center;
   }
   /* Subtle separator lines between boxes */
-  #section-compliance .academy-curriculum-box {
+  #section-compliance .academy-curriculum-box,
+  #section-automatyzacje .academy-curriculum-box {
     padding: 0.5rem 1rem;
   }
   #section-compliance .academy-curriculum-item,
-  #section-compliance .academy-item {
+  #section-compliance .academy-item,
+  #section-automatyzacje .academy-curriculum-item,
+  #section-automatyzacje .academy-item {
     padding: 1.25rem 0;
     margin-bottom: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
-  #section-compliance .academy-curriculum-box > :last-child {
+  #section-compliance .academy-curriculum-box > :last-child,
+  #section-automatyzacje .academy-curriculum-box > :last-child {
     border-bottom: none;
   }
 }
@@ -3201,10 +3249,14 @@ body.theme-business {
     transition: background 0.2s;
   }
 
-  .pricing-card:nth-child(1)::before { background: #CCC; }
-  .pricing-card:nth-child(2)::before { background: var(--brand-accent); }
-  .pricing-card:nth-child(3)::before { background: var(--brand-accent); opacity: 0.7; }
-  .pricing-card:nth-child(4)::before { background: var(--brand-accent); opacity: 0.85; }
+  /* Unified violet rail for all 4 cards (user decision — consistency over hierarchy gradient) */
+  .pricing-card:nth-child(1)::before,
+  .pricing-card:nth-child(2)::before,
+  .pricing-card:nth-child(3)::before,
+  .pricing-card:nth-child(4)::before {
+    background: var(--brand-accent);
+    opacity: 1;
+  }
 
   /* Highlighted "Basic" — extra badge offset from top edge */
   .pricing-card-highlighted {

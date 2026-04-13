@@ -4,6 +4,37 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.522] — 2026-04-13
+
+Mobile UX Commit 2/3 — pricing unify + section layouts + copy cleanup + toolbox CTA + consultation gap.
+
+### Pricing unify (security #section-oferta)
+- All 4 cards: violet rail (was Samoocena gray + violet gradient on others)
+- All 4 CTAs: violet filled (was Basic violet, Rozszerzony/Premium outline) — `pricing-card-cta-outline` class removed from HTML
+- Pricing CTA: `display: flex; width: 100%` for full-width centering inside card (was inline-flex narrow)
+- Premium card desc cleanup: removed duplicate "3 tygodnie audyt + 3 miesiące opieki" tail. New: "Pełny cykl przez 6 miesięcy: 3 tygodnie audytu + 3 miesiące vCISO (4h/mies) + re-audyt po 6 miesiącach."
+
+### Section layouts (compliance + automatyzacje analogous pattern)
+- Mobile: text → boxes → button (was text+button | boxes side-by-side)
+- Boxes max-width 90% centered
+- Button moved BELOW boxes via `display: contents` + CSS order on `.compliance-cta-wrap` (3) and `.compliance-boxes-col` (2)
+- Subtle separator lines between academy-curriculum-items (border-bottom rgba 0.08)
+- Business automatyzacje: button class `btn btn-outline` (czarny) → `btn btn-accent` (amber filled) per "w kolorze akcentów"
+- Added `.compliance-cta-wrap` + `.compliance-boxes-col` classes to both sections
+
+### Toolbox CTA (business #section-narzedzia)
+- HTML: duplicate button — `.toolbox-btn` in header (desktop) + `.toolbox-btn-mobile` in `.toolbox-cta-wrap` after tool-grid (mobile/tablet)
+- CSS: `.toolbox-cta-wrap` hidden on desktop, header `.toolbox-btn` hidden on `<=1023px`
+- Mobile button centered (text-align: center on wrap), 0.85rem 1.5rem padding
+
+### Consultation section gap (both pages)
+- `@media (max-width: 767px) .section-contact { padding: 2rem 0 2rem; min-height: 0 }` (was 4rem 0 4rem + 65vh)
+- `.grid-fluid` gap reduced to 0.75rem (was 2rem from generic mobile rule)
+- Inline `padding: 2rem` → `1rem` on `.col-6` form columns
+- Result: title flows directly into form on phone, no big empty gap
+
+---
+
 ## [0.521] — 2026-04-13
 
 Mobile UX Commit 1/3 — hero refactor (image above CTAs) + slider reorder (image above buttons) + cert overlay on photo.
