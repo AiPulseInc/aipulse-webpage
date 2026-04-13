@@ -60,4 +60,22 @@ Zapomnij o nudnych szkoleniach z PowerPointa raz w roku. W świecie AI obrona to
 1.  **Hasło Bezpieczeństwa (Safe Word):** Brzmi jak z filmu szpiegowskiego, ale to najskuteczniejsza metoda na deepfake voice. Ustal z kluczowymi osobami w firmie unikalne, nieoczywiste hasło (np. „niebieski rower 77”), które musi paść, jeśli wydajesz polecenie finansowe przez telefon lub wideo. Jeśli „Ty” w słuchawce go nie znasz — rozmowa się kończy.
 2.  **Zasada 4 Oczu i Out-of-Band Verification:** Każdy przelew powyżej określonej kwoty musi być zatwierdzony przez drugą osobę. Ale uwaga: potwierdzenie musi nastąpić **innym kanałem komunikacji** niż przyszła prośba. Jeśli mail przyszedł z Outlooka, zadzwoń na znany numer telefonu. Jeśli był telefon — wyślij wiadomość na firmowym komunikatorze.
 3.  **FIDO2 zamiast SMS-ów:** Kody SMS i proste aplikacje Authenticator są już podatne na ataki typu „Adversary-in-the-Middle”. Zainwestuj w klucze sprzętowe (np. YubiKey) oparte na standardzie FIDO2. To obecnie jedyna metoda logowania, której AI nie potrafi oszukać prostym phishingiem.
-4.  **AI do walki z AI:** Wdroż systemy ochrony poczty (np.
+4.  **AI do walki z AI:** Wdroż systemy ochrony poczty (np. Microsoft Defender for Office 365, Proofpoint Essentials, Barracuda Email Protection), które używają modeli językowych do wykrywania podejrzanych wzorców — anomalii stylu pisania, manipulacji emocjonalnej, próśb o nietypowe akcje finansowe. Wersja MŚP kosztuje 20-40 zł na skrzynkę miesięcznie — znacznie mniej niż jedna nieudana próba przelewu.
+
+5.  **FIDO2 wszędzie, nie tylko na poczcie:** Najczęstszy błąd — MFA tylko w Microsoft 365, a do bankowości wchodzisz hasłem + SMS. To dziura. Wdrażaj klucz FIDO2 wszędzie tam, gdzie są pieniądze i dane klientów: bank, CRM, panel hostingu, panel Azure/AWS, księgowość online. Jeden klucz per pracownik = cała firma pod parasolem.
+
+6.  **Szkolenia kwartalne zamiast rocznych:** Świat AI porusza się co miesiąc, nie co rok. Zamiast jednego 2-godzinnego szkolenia rocznie, zrób 15 minut co kwartał — z aktualnymi przykładami ataków z ostatnich 3 miesięcy. Dodaj symulowaną kampanię phishingu co 3 miesiące. Pracownicy, którzy dwa razy klikną w test, dostają szkolenie 1:1. Mierzymy klikowalność — jeśli spada z 28% do 7% w ciągu roku, wygrywasz.
+
+### Co zrobić w tym tygodniu?
+
+Nie musisz wdrażać wszystkich 6 zasad naraz. Zacznij od jednej — tej, która najbardziej Cię boli:
+
+- Jeśli Twoja firma robi przelewy powyżej 10 tys. PLN bez drugiego zatwierdzenia → **zasada 2** (out-of-band verification). Koszt wdrożenia: 0 zł, 15 minut rozmowy z księgową.
+- Jeśli Twój zespół do tej pory opiera MFA tylko na SMS → **zasada 3** (FIDO2). Koszt: około 200 zł/klucz × liczba kluczowych użytkowników.
+- Jeśli ostatnie szkolenie miało miejsce "kiedyś" → **zasada 6** (szkolenia kwartalne + test phishingu).
+
+Każdy z tych kroków kosztuje mniej niż jedna udana próba oszustwa. A w 2026 roku to nie jest kwestia "czy" — tylko "kiedy".
+
+---
+
+Chcesz sprawdzić, jak odporna jest Twoja firma na te konkretne scenariusze? [Umów bezpłatną 30-minutową konsultację](/security/#contact) — przepracujemy razem Twoje największe ryzyko i powiemy, gdzie zacząć.
