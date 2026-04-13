@@ -3,6 +3,31 @@
 Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
 
+
+## [0.494] — 2026-04-13
+
+Mobile hamburger nav + hero reset + Call-now FAB (Task 3 commit 2/5).
+
+### Added
+- **Brutalist hamburger menu** — 2 thick horizontal bars in 44x44px square frame (morphs to X on open), shown at `<=1023px`
+- **Mobile drawer** — full-width sheet slides down from under sticky nav; black bg + violet accent border; all 7 links as tappable rows with 48px min height; `.nav-active` shown as left amber/violet border
+- **Call-now FAB** — floating phone button (56x56px, accent color, brutalist border + box-shadow), fixed bottom-right on `<=1023px`; `tel:+48502333645`
+- `initMobileNav()` in `main.js` — toggle with `aria-expanded`, close on: hash-link click / Escape / outside click / resize to desktop
+- `initNavHeightTracking()` — ResizeObserver on `.site-nav`, keeps `--nav-height` CSS var in sync with actual measured height
+
+### Changed
+- Hero on non-desktop (`<=1023px`): removed `margin-left: -100px` photo overlap, photo `max-width: 320px`, padding-left 0, content centered vertically
+- Hero on phone (`<=767px`): headline uses `clamp(2.25rem, 8vw, 3rem)`, CTAs stack full-width, photo 260px
+- Security hero certificates: position absolute → static/flow on `<=1023px`, cap at 360px wide
+
+### Fixed
+- **Bug**: `business/index.html:58` hero secondary CTA pointed to `#section-szkolenia` (non-existent) → now `#section-szkolenia-zespoly`
+
+### Why
+- Task 3 commit 2/5 — mobile + tablet usable, desktop unchanged
+- Codex audit caught the hero CTA bug; fixed now alongside mobile work
+- FAB follows user request (Polish B2B prefers calling over forms)
+
 ## [0.493] — 2026-04-13
 
 Mobile foundation (Task 3 Commit 1): nav-height CSS variable, modal mobile fix, prefers-reduced-motion.

@@ -7,7 +7,78 @@ import { audytyData, complianceData, securitySzkoleniaData } from './src/securit
 document.addEventListener('DOMContentLoaded', () => {
   const versionEl = document.getElementById('app-version');
   if (versionEl) versionEl.textContent = `v${VERSION}`;
+  initMobileNav();
+  initNavHeightTracking();
 });
+
+// --- Mobile Nav (hamburger toggle + close behaviors) ---
+
+function initMobileNav() {
+  const toggle = document.querySelector('.site-nav-toggle');
+  const menu = document.getElementById('site-nav-menu');
+  if (!toggle || !menu) return;
+
+  const setOpen = (open) => {
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
+  };
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = toggle.getAttribute('aria-expanded') !== 'true';
+    setOpen(willOpen);
+  });
+
+  // Close on hash-link click
+  menu.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (link) setOpen(false);
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (toggle.getAttribute('aria-expanded') !== 'true') return;
+    if (e.target.closest('.site-nav')) return;
+    setOpen(false);
+  });
+
+  // Close on resize to desktop
+  const mq = window.matchMedia('(min-width: 1024px)');
+  mq.addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+}
+
+// --- Dynamic --nav-height tracking ---
+// Keeps the CSS var in sync with actual sticky-nav height, so scroll-margin
+// and anchor offsets stay correct when nav styling changes.
+
+function initNavHeightTracking() {
+  const nav = document.querySelector('.site-nav');
+  if (!nav) return;
+
+  const update = () => {
+    const h = Math.round(nav.getBoundingClientRect().height);
+    if (h > 0) document.documentElement.style.setProperty('--nav-height', `${h}px`);
+  };
+
+  update();
+  window.addEventListener('resize', update);
+
+  // Observe nav resize (e.g. font load pushing layout)
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(update).observe(nav);
+  }
+}
 
 // --- Automatyzacje Modal Data ---
 

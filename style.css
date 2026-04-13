@@ -2259,3 +2259,264 @@ body.theme-business {
   background: rgba(0, 0, 0, 0.03);
   border: 1px solid #eee;
 }
+
+/* ==========================================================================
+   MOBILE / TABLET RESPONSIVE LAYER — Task 3 (mobile responsiveness)
+   Strategy: desktop >=1024px is baseline (unchanged);
+             tablet 768-1023px + phone <=767px add overrides below.
+   ========================================================================== */
+
+/* ---- 1. Hamburger toggle (brutalist: 2 thick horizontal bars in a square) ---- */
+.site-nav-toggle {
+  display: none;
+  /* Desktop: hidden. Mobile/tablet: shown via media queries below. */
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 2px solid var(--text-primary);
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.site-nav-toggle:hover {
+  background: var(--brand-accent);
+  border-color: var(--brand-accent);
+}
+
+.site-nav-toggle-bar {
+  display: block;
+  width: 20px;
+  height: 3px;
+  background: var(--text-primary);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.25s, opacity 0.2s, top 0.25s;
+}
+
+.site-nav-toggle-bar:nth-child(1) { top: 14px; }
+.site-nav-toggle-bar:nth-child(2) { top: 24px; }
+
+.site-nav-toggle:hover .site-nav-toggle-bar {
+  background: #000;
+}
+
+/* Open state → X */
+.site-nav-toggle[aria-expanded="true"] .site-nav-toggle-bar:nth-child(1) {
+  top: 19px;
+  transform: translateX(-50%) rotate(45deg);
+}
+.site-nav-toggle[aria-expanded="true"] .site-nav-toggle-bar:nth-child(2) {
+  top: 19px;
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+/* ---- 2. Call-now FAB (floating phone button, mobile only) ---- */
+.call-fab {
+  display: none;
+  /* Shown only on mobile/tablet via media queries below */
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 56px;
+  height: 56px;
+  background: var(--brand-accent);
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 0;
+  /* Brutalist: sharp corners */
+  z-index: 1200;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.9);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.call-fab:hover,
+.call-fab:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 rgba(0, 0, 0, 0.9);
+  outline: none;
+}
+
+.call-fab:active {
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.9);
+}
+
+.call-fab-icon {
+  width: 26px;
+  height: 26px;
+}
+
+/* ---- 3. Non-desktop shared layer (<=1023px) — nav mode, hero resets ---- */
+@media (max-width: 1023px) {
+
+  .site-nav {
+    position: sticky;
+    padding: 1rem 1.25rem;
+  }
+
+  .site-nav-brand {
+    font-size: 1.8rem;
+  }
+
+  .site-nav-tagline {
+    font-size: 0.6rem;
+  }
+
+  .site-nav-version {
+    display: none;
+    /* Save space; version still in footer */
+  }
+
+  .site-nav-toggle {
+    display: block;
+  }
+
+  /* Collapse nav links into a drawer below the sticky bar */
+  .site-nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: #000;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--brand-accent);
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 1.25rem 1.5rem;
+    transform: translateY(-150%);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 99;
+    max-height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+  }
+
+  body.nav-open .site-nav-links {
+    transform: translateY(0);
+  }
+
+  .site-nav-links a {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+  }
+
+  .site-nav-links a::after {
+    /* Hide desktop underline indicator — on mobile we use left border for active */
+    display: none;
+  }
+
+  .site-nav-links a.nav-active {
+    border-left: 3px solid var(--brand-accent);
+    padding-left: 0.85rem;
+  }
+
+  /* Prevent body scroll when drawer open */
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  /* ---- Hero reset — no more overlap/negative margins on non-desktop ---- */
+  .hero-static {
+    align-items: center;
+  }
+
+  .hero-static .flex-center-v {
+    padding-bottom: 2rem;
+    padding-left: 0;
+  }
+
+  .hero-photo-wrap {
+    margin-left: 0;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+  }
+
+  .hero-photo {
+    width: 100%;
+    max-width: 320px;
+    margin-right: 0;
+  }
+
+  /* Cert strip in security hero — move from absolute to flow */
+  .hero-certificates-link {
+    position: static;
+    bottom: auto;
+    right: auto;
+    display: block;
+    margin: 1.5rem auto 0;
+    max-width: min(100%, 360px);
+  }
+
+  .hero-certificates {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+  }
+
+  /* FAB visible on tablet + phone */
+  .call-fab {
+    display: inline-flex;
+  }
+}
+
+/* ---- 4. Phone layer (<=767px) — stack, smaller hero, full-width CTAs ---- */
+@media (max-width: 767px) {
+
+  .hero-static {
+    min-height: 0;
+    padding: 3rem 0 4rem;
+  }
+
+  .hero-static .flex-center-v {
+    padding-bottom: 3rem;
+    text-align: left;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.25rem, 8vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  /* Stack hero CTAs full width */
+  .hero-static .flex-center-v > div[style*="margin-top: 3rem"] {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem !important;
+  }
+
+  .hero-static .flex-center-v .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .hero-photo {
+    max-width: 260px;
+    margin-top: 1.5rem;
+  }
+
+  .call-fab {
+    right: 1rem;
+    bottom: 1rem;
+    width: 54px;
+    height: 54px;
+  }
+
+  .call-fab-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
