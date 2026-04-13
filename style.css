@@ -28,7 +28,8 @@ html {
   --bg-card-hover: #111111;
 
   --text-primary: #FFFFFF;
-  --text-secondary: #666666;
+  --text-secondary: #B3B3B3;
+  /* WCAG AAA: 11.4:1 on black (was #666 = 3.66:1 — failed AA). Light mode keeps #666 (5.7:1 on white, passes AA). */
 
   --brand-primary: #FFFFFF;
   --brand-secondary: #333333;

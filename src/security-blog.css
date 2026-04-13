@@ -5,7 +5,7 @@
 
 /* Blog hero */
 .blog-hero {
-  min-height: auto;
+  min-height: 0;
   padding: 6rem 0 4rem;
   align-items: flex-start;
 }
@@ -142,7 +142,8 @@
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #888;
+  color: #A8A8A8;
+  /* was #888 (4.9:1 on dark card) — now 7.4:1 AAA */
 }
 
 .blog-card-category {

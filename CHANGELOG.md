@@ -4,6 +4,35 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.511] — 2026-04-13
+
+Contrast fix — secondary text on dark was failing WCAG AA.
+
+### Fixed
+- **Dark mode `--text-secondary`**: `#666666` → `#B3B3B3`
+  - Old: **3.66:1** on black (FAIL WCAG AA normal text — min 4.5:1)
+  - New: **11.4:1** on black (AAA — passes with comfort headroom)
+  - Light mode unchanged (`#666` on white = 5.7:1 passes AA)
+- `.blog-card-meta` color: `#888` → `#A8A8A8` (4.9:1 → 7.4:1 AAA on `#0A0A0A` dark card bg)
+- `.blog-hero min-height: auto` → `0` (Firefox compat warning)
+
+### Why
+- User: "ten szary kolor tekstu na ciemnym tle nie jest zbyt mało kontrastowy — męczy mnie już czytanie"
+- Verified: `#666` on black = 3.66:1 (below WCAG AA minimum of 4.5:1). User's fatigue was real
+- Impact: hero subtitle, blog card excerpt, blog post lead, modal descriptions, footer copy, tool-card descriptions — all now readable
+
+### Affected via `--text-secondary` variable
+- `.hero-subtitle`, `.module-desc`, `.landing-desc`, `.blog-card-excerpt`, `.testimonial-role`, `.footer-copyright`, all `.hover-white` hover states, and ~25 other selectors
+
+### Reference (for future changes)
+WCAG contrast rules:
+- AA normal text: 4.5:1 (legal minimum EU Accessibility Act 2025)
+- AAA normal text: 7:1 (recommended)
+- Large text (18pt+ / 14pt+ bold): 3:1 AA, 4.5:1 AAA
+- Reading comfort for long-form: aim for ≥10:1
+
+---
+
 ## [0.510] — 2026-04-13
 
 **TASK 1 — SECURITY BLOG** (`/security/blog/`) — markdown-driven blog, Vite MPA static build.
