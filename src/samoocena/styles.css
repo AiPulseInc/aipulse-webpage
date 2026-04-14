@@ -1,0 +1,64 @@
+.samoocena-shell {
+  min-height: 100vh;
+  background: var(--bg-surface, #000);
+  color: var(--text-primary, #fff);
+}
+
+.samoocena-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border-color, #333);
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(14px);
+}
+
+.samoocena-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.samoocena-brand,
+.samoocena-nav-link,
+.samoocena-kicker {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.samoocena-brand {
+  font-size: 1rem;
+}
+
+.samoocena-nav-link {
+  color: var(--brand-accent, #7E22CE);
+}
+
+.samoocena-main {
+  padding-bottom: 5rem;
+}
+
+.samoocena-hero {
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+}
+
+.samoocena-kicker {
+  margin: 0 0 1rem;
+  color: var(--brand-accent, #7E22CE);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+}
+
+.samoocena-lead {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--text-secondary, #b3b3b3);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}

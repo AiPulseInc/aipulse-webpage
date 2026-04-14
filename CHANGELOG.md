@@ -4,6 +4,12 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.533] — 2026-04-14
+
+Task 2 (Samoocena bezpieczeństwa) — A1 wiring. Nowy entrypoint MPA `/bezpieczenstwo-samoocena/` z pustym skeletonem (theme-security, violet accent). Dodany do `getHtmlInputs()` w `vite.config.js` i sitemap `dynamicRoutes`. Stub `src/samoocena/app.js` + `styles.css`. Przygotowane pod A2 (question bank + scoring).
+
+---
+
 ## [0.532] — 2026-04-13
 
 Hide duplicate "Zamknij" button in cookie modal on mobile — top header close button hidden (≤767px), bottom actions close button remains.
