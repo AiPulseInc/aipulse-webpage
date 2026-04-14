@@ -4,6 +4,32 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.536] — 2026-04-14
+
+Task 2 (Samoocena) — A3 redesign landing (editorial audit chamber aesthetic).
+
+### Redesign
+- Hero display typography (Outfit 800, do 6.5rem) — trzywierszowy headline "35 pytań · 10 minut · Twój stan bezpieczeństwa" z violet accent na liczbach
+- Meta-tape górny z uppercase data fields (data audytu, framework, scope)
+- Eyebrow z pulsującą violet kropką — "Dokument #YYYYMMDD"
+- 4-panel stat grid z giantnymi liczbami (35 / 10min / 0zł / ∅) — tabular-nums, hairline separators
+- Numbered deliverables list (01/02/03) — bez boxów, z hover slide + hairline dividers, meta monospace pod każdym
+- CTA primary z offset shadow hover effect + arrow transition
+- Landing footer z credits (CIS v8 / NIST CSF 2.0 / NIS2+KSC+RODO)
+
+### Visual detail
+- Tło grid lines (96×96px) + radial violet glow + mask fade
+- Staggered fade-up animation z cubic-bezier(0.22, 1, 0.36, 1) na hero (0.1s stepping)
+- `prefers-reduced-motion` — wszystkie animacje off
+- Safari prefix dla mask-image
+
+### Mobile
+- Stats 4→2→1 kolumny przy breakpointach 1024/768
+- Display headline skaluje clamp(2.4rem, 12vw, 4rem)
+- Deliverables single column z redukcją indexu
+
+---
+
 ## [0.535] — 2026-04-14
 
 Task 2 (Samoocena) — A3: UX flow + on-screen results (mockup A).
