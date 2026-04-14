@@ -4,6 +4,32 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.534] — 2026-04-14
+
+Task 2 (Samoocena) — A2: question bank + scoring engine + rekomendacje.
+
+### Question bank (`src/samoocena/questions.json`)
+- 35 pytań w 5 kategoriach × 7 (Ludzie, Dane, Infrastruktura, Procesy, Compliance)
+- Scoring 0/1/3 lub 0/2/3 per pytanie (3 opcje każde)
+- Weight 2.0 dla pytań `critical: true` (B1 backup, C1 MFA), 1.0 reszta
+- Mapping na CIS Controls v8 + NIST CSF 2.0 + RODO/NIS2 per pytanie
+- 4 maturity levels (Initial/Developing/Managed/Optimized)
+
+### Scoring engine (`scoring.js`)
+- Per-kategoria: `earned / max * 100` (% ważony)
+- Overall: suma ważonych earned / max
+- Guardrail: jeśli WSZYSTKIE critical questions = 0 → cap maturity na "Developing" (zapobiega "Managed" bez MFA + backup)
+
+### Rekomendacje (`recommendations.js`)
+- Top-N po severity = `gapPoints × weight × (critical ? 1.5 : 1)`
+- Biblioteka 35 rekomendacji z fieldami: title, action, cost, effort, impact (konkretne narzędzia i szacunki kosztów)
+
+### Status
+- [ ] Recenzja merytoryczna pytań (35) przez Ai Puls — do zrobienia przed A3
+- A3 użyje tych modułów w flow UX
+
+---
+
 ## [0.533] — 2026-04-14
 
 Task 2 (Samoocena bezpieczeństwa) — A1 wiring. Nowy entrypoint MPA `/bezpieczenstwo-samoocena/` z pustym skeletonem (theme-security, violet accent). Dodany do `getHtmlInputs()` w `vite.config.js` i sitemap `dynamicRoutes`. Stub `src/samoocena/app.js` + `styles.css`. Przygotowane pod A2 (question bank + scoring).

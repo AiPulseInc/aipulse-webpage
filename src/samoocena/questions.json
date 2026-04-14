@@ -1,0 +1,498 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "A",
+      "name": "Ludzie",
+      "subtitle": "Awareness i kultura bezpieczeństwa",
+      "description": "Pracownicy są pierwszą linią obrony. 82% udanych ataków zaczyna się od człowieka."
+    },
+    {
+      "id": "B",
+      "name": "Dane",
+      "subtitle": "Ochrona informacji i backup",
+      "description": "Co się stanie, jeśli jutro ransomware zaszyfruje wszystko? Backup to nie fantazja — to ubezpieczenie."
+    },
+    {
+      "id": "C",
+      "name": "Infrastruktura",
+      "subtitle": "Systemy, sieć, urządzenia",
+      "description": "MFA, aktualizacje i hardening. Podstawy bez których nic innego nie ma znaczenia."
+    },
+    {
+      "id": "D",
+      "name": "Procesy",
+      "subtitle": "Zarządzanie i reagowanie",
+      "description": "Atak się wydarzy. Pytanie brzmi: czy wiesz kogo zadzwonić o 3 w nocy."
+    },
+    {
+      "id": "E",
+      "name": "Compliance",
+      "subtitle": "NIS2, RODO, dostawcy",
+      "description": "Polski rynek regulacyjny — KSC, NIS2, RODO. Nie musisz być kluczowym podmiotem, żeby Twój klient wymuszał standardy."
+    }
+  ],
+  "questions": [
+    {
+      "id": "A1",
+      "category": "A",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jak często pracownicy Twojej firmy przechodzą szkolenia z cyberbezpieczeństwa (phishing, bezpieczne hasła, social engineering)?",
+      "options": [
+        { "label": "Nigdy lub rzadziej niż raz na 2 lata.", "score": 0 },
+        { "label": "Raz w roku, w formie prezentacji lub e-learningu.", "score": 1 },
+        { "label": "Minimum co pół roku + testy kontrolowanego phishingu.", "score": 3 }
+      ],
+      "mapping": "CIS Control 14.1 / NIST PR.AT-01"
+    },
+    {
+      "id": "A2",
+      "category": "A",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy pracownicy wiedzą KOMU i JAK zgłosić podejrzany e-mail, telefon lub incydent?",
+      "options": [
+        { "label": "Nie wiadomo — prawdopodobnie by skasowali albo przesłali koledze.", "score": 0 },
+        { "label": "Jest ogólna wiedza \"zgłoś do IT\", ale brak procedury.", "score": 1 },
+        { "label": "Jest jasny kanał zgłoszeń (adres e-mail, przycisk w Outlooku), ludzie z niego korzystają.", "score": 3 }
+      ],
+      "mapping": "CIS Control 14.6 / NIST PR.AT-01"
+    },
+    {
+      "id": "A3",
+      "category": "A",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jak firma wymusza używanie silnych, unikalnych haseł? (np. menedżer haseł)",
+      "options": [
+        { "label": "Ludzie używają tych samych haseł wszędzie, czasem na karteczkach.", "score": 0 },
+        { "label": "Jest polityka haseł, ale bez narzędzia — każdy sobie radzi.", "score": 1 },
+        { "label": "Firmowy menedżer haseł (1Password/Bitwarden) jest wymagany i opłacony.", "score": 3 }
+      ],
+      "mapping": "CIS Control 5.2 / NIST PR.AA-01"
+    },
+    {
+      "id": "A4",
+      "category": "A",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Co dzieje się z dostępami pracownika w dniu, w którym odchodzi z firmy?",
+      "options": [
+        { "label": "Zwykle pamięta się żeby wyłączyć konto — czasem po tygodniu.", "score": 0 },
+        { "label": "Jest checklist offboardingu, ale wykonanie zależy od HR.", "score": 2 },
+        { "label": "Wyłączenie dostępów uruchamia się automatycznie w dniu zakończenia umowy.", "score": 3 }
+      ],
+      "mapping": "CIS Control 6.1 / NIST PR.AA-05"
+    },
+    {
+      "id": "A5",
+      "category": "A",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy pracownicy używają prywatnych urządzeń (laptopy, telefony) do pracy? Jak to kontrolujecie?",
+      "options": [
+        { "label": "Tak, używają prywatnych urządzeń, brak kontroli.", "score": 0 },
+        { "label": "Tak, ale jest polityka BYOD (hasło, szyfrowanie).", "score": 2 },
+        { "label": "Nie — tylko urządzenia firmowe z MDM lub BYOD z wymuszoną separacją danych.", "score": 3 }
+      ],
+      "mapping": "CIS Control 1.1 / NIST PR.DS-04"
+    },
+    {
+      "id": "A6",
+      "category": "A",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jak zarządzacie uprawnieniami administratorów? (kto ma admin access?)",
+      "options": [
+        { "label": "Wszyscy pracownicy są adminami na swoich maszynach dla wygody.", "score": 0 },
+        { "label": "Admin ma 1-2 osoby z IT, reszta — user.", "score": 2 },
+        { "label": "Admin access jest osobnym kontem (nie codziennym), używany tylko do zadań admina.", "score": 3 }
+      ],
+      "mapping": "CIS Control 5.4 / NIST PR.AA-05"
+    },
+    {
+      "id": "A7",
+      "category": "A",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy zespół księgowości/finansów jest przeszkolony z ataków BEC (Business Email Compromise) — fałszywe przelewy, fałszywe faktury?",
+      "options": [
+        { "label": "Nie — przelew zatwierdza kto pierwszy zobaczy e-mail.", "score": 0 },
+        { "label": "Jest świadomość, ale brak formalnej procedury weryfikacji.", "score": 1 },
+        { "label": "Przelewy > X zł wymagają weryfikacji głosowej lub dual-approval.", "score": 3 }
+      ],
+      "mapping": "CIS Control 14.2 / NIST PR.AT-02"
+    },
+    {
+      "id": "B1",
+      "category": "B",
+      "weight": 2.0,
+      "critical": true,
+      "text": "Czy firma ma kopie zapasowe kluczowych danych przechowywane poza siecią firmową (offline lub immutable cloud)?",
+      "options": [
+        { "label": "Nie robimy backupu lub backup jest na pendrive/dysk podpięty do PC.", "score": 0 },
+        { "label": "Backup automatyczny, ale nigdy nie testowaliśmy odtworzenia.", "score": 1 },
+        { "label": "Backup zgodny z regułą 3-2-1 (3 kopie, 2 media, 1 offsite) + regularne testy odtwarzania.", "score": 3 }
+      ],
+      "mapping": "CIS Control 11.1 / NIST PR.DS-01"
+    },
+    {
+      "id": "B2",
+      "category": "B",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Kiedy ostatnio faktycznie odtwarzaliście dane z backupu (test, nie incydent)?",
+      "options": [
+        { "label": "Nigdy albo nie pamiętamy.", "score": 0 },
+        { "label": "Ponad rok temu.", "score": 1 },
+        { "label": "W ciągu ostatnich 6 miesięcy, z dokumentacją.", "score": 3 }
+      ],
+      "mapping": "CIS Control 11.5 / NIST PR.DS-01"
+    },
+    {
+      "id": "B3",
+      "category": "B",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy dyski laptopów i telefonów służbowych są szyfrowane? (BitLocker, FileVault, szyfrowanie Androida/iOS)",
+      "options": [
+        { "label": "Nie wiem / raczej nie / tylko niektóre.", "score": 0 },
+        { "label": "Tak, na laptopach firmowych. Telefony — nie weryfikujemy.", "score": 2 },
+        { "label": "Wszystkie urządzenia firmowe mają wymuszone szyfrowanie przez politykę MDM.", "score": 3 }
+      ],
+      "mapping": "CIS Control 3.6 / NIST PR.DS-05"
+    },
+    {
+      "id": "B4",
+      "category": "B",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy wiesz KTO ma dostęp do Twoich najważniejszych danych (np. dane klientów, finanse)?",
+      "options": [
+        { "label": "Nie mam pełnej listy — dostęp urósł historycznie.", "score": 0 },
+        { "label": "Wiem w przybliżeniu, ale nie weryfikuję okresowo.", "score": 1 },
+        { "label": "Mamy aktywny przegląd uprawnień (access review) minimum raz na pół roku.", "score": 3 }
+      ],
+      "mapping": "CIS Control 3.3 / NIST PR.DS-05"
+    },
+    {
+      "id": "B5",
+      "category": "B",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jak firma klasyfikuje dane? (co jest poufne, co publiczne, co wrażliwe z RODO?)",
+      "options": [
+        { "label": "Nijak — wszystko leży razem.", "score": 0 },
+        { "label": "Mamy ogólne pojęcie, ale brak formalnej klasyfikacji.", "score": 1 },
+        { "label": "Dane są oznaczone/skategoryzowane, poufne trafiają do osobnych folderów/systemów.", "score": 3 }
+      ],
+      "mapping": "CIS Control 3.7 / NIST ID.AM-05"
+    },
+    {
+      "id": "B6",
+      "category": "B",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jak długo przechowujecie dane pracowników i klientów po zakończeniu współpracy?",
+      "options": [
+        { "label": "W nieskończoność — nikt nigdy nie kasuje.", "score": 0 },
+        { "label": "Usuwamy ręcznie, jak ktoś przypomni.", "score": 1 },
+        { "label": "Jest polityka retencji zgodna z RODO — usuwanie automatyczne lub planowane.", "score": 3 }
+      ],
+      "mapping": "NIST ID.GV-03 / RODO Art. 5"
+    },
+    {
+      "id": "B7",
+      "category": "B",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jak udostępniacie pliki zewnętrznym kontrahentom?",
+      "options": [
+        { "label": "Załączniki w mailach albo niefirmowy Dysk/WeTransfer.", "score": 0 },
+        { "label": "Firmowy SharePoint/Drive z linkiem \"każdy z linkiem\".", "score": 1 },
+        { "label": "Linki z wygaśnięciem i zawężone do konkretnych adresów e-mail + logowanie.", "score": 3 }
+      ],
+      "mapping": "CIS Control 3.3 / NIST PR.DS-05"
+    },
+    {
+      "id": "C1",
+      "category": "C",
+      "weight": 2.0,
+      "critical": true,
+      "text": "W ilu systemach firmowych (poczta, CRM, bankowość, VPN, chmura) wdrożone jest uwierzytelnianie dwuetapowe (MFA)?",
+      "options": [
+        { "label": "W żadnym lub tylko w banku.", "score": 0 },
+        { "label": "W najważniejszych (poczta, VPN) — reszta zależy od pracownika.", "score": 2 },
+        { "label": "Wszędzie, gdzie to technicznie możliwe, wymuszone politycznie.", "score": 3 }
+      ],
+      "mapping": "CIS Control 6.3 / NIST PR.AA-03"
+    },
+    {
+      "id": "C2",
+      "category": "C",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy systemy operacyjne i aplikacje są regularnie aktualizowane? (patch management)",
+      "options": [
+        { "label": "Pracownicy sami decydują, kiedy instalować aktualizacje.", "score": 0 },
+        { "label": "Aktualizacje automatyczne, ale bez weryfikacji czy się zastosowały.", "score": 2 },
+        { "label": "Centralny patch management z raportami + priorytet na critical CVEs < 72h.", "score": 3 }
+      ],
+      "mapping": "CIS Control 7.3 / NIST PR.IP-12"
+    },
+    {
+      "id": "C3",
+      "category": "C",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jakie narzędzie chroni endpointy (laptopy, serwery) przed złośliwym oprogramowaniem?",
+      "options": [
+        { "label": "Windows Defender na autopilocie + darmowy antywirus.", "score": 0 },
+        { "label": "Komercyjny antywirus centralnie zarządzany.", "score": 2 },
+        { "label": "EDR/XDR (np. Defender for Endpoint, SentinelOne, CrowdStrike) z monitoringiem.", "score": 3 }
+      ],
+      "mapping": "CIS Control 10.1 / NIST PR.PT-01"
+    },
+    {
+      "id": "C4",
+      "category": "C",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Jak zabezpieczona jest Wasza sieć firmowa i Wi-Fi?",
+      "options": [
+        { "label": "Domyślne ustawienia routera od dostawcy internetu.", "score": 0 },
+        { "label": "Zmienione hasło Wi-Fi, segmentacja gościnna osobna od firmowej.", "score": 2 },
+        { "label": "Firewall nowej generacji + VLAN-y + separacja sieci IoT/gościnnej/firmowej.", "score": 3 }
+      ],
+      "mapping": "CIS Control 12.2 / NIST PR.AC-05"
+    },
+    {
+      "id": "C5",
+      "category": "C",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy pracownicy pracujący zdalnie łączą się przez VPN lub Zero Trust?",
+      "options": [
+        { "label": "Łączą się bezpośrednio, publiczne Wi-Fi w kawiarni to norma.", "score": 0 },
+        { "label": "Mamy VPN, ale nie wszyscy go używają.", "score": 1 },
+        { "label": "VPN wymuszony politycznie lub Zero Trust Network Access (np. Cloudflare, Tailscale).", "score": 3 }
+      ],
+      "mapping": "CIS Control 12.7 / NIST PR.AC-03"
+    },
+    {
+      "id": "C6",
+      "category": "C",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy macie spis (inwentarz) urządzeń i oprogramowania używanego w firmie?",
+      "options": [
+        { "label": "Nie — nikt nie wie ile laptopów jest w obrocie.", "score": 0 },
+        { "label": "Mamy Excel z listą, ale nie zawsze aktualny.", "score": 1 },
+        { "label": "Automatyczny inwentarz (MDM/Intune/Jamf) z alertami na nowe urządzenia.", "score": 3 }
+      ],
+      "mapping": "CIS Control 1.1 / NIST ID.AM-01"
+    },
+    {
+      "id": "C7",
+      "category": "C",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy systemy poczty i chmury są zabezpieczone przed spoofingiem? (SPF, DKIM, DMARC)",
+      "options": [
+        { "label": "Nie mam pojęcia co to jest.", "score": 0 },
+        { "label": "Mamy SPF, ale DMARC nieskonfigurowany lub w trybie p=none.", "score": 1 },
+        { "label": "SPF + DKIM + DMARC p=quarantine/reject, monitorujemy raporty.", "score": 3 }
+      ],
+      "mapping": "CIS Control 9.5 / NIST PR.DS-02"
+    },
+    {
+      "id": "D1",
+      "category": "D",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy firma ma spisany i przetestowany plan reagowania na incydent (Incident Response Plan)?",
+      "options": [
+        { "label": "Nie — liczymy na dział IT albo zewnętrznego informatyka.", "score": 0 },
+        { "label": "Mamy ogólne wytyczne, ale nie były testowane.", "score": 1 },
+        { "label": "Tak, z listą kontaktów 24/7, testowany symulacją minimum raz w roku.", "score": 3 }
+      ],
+      "mapping": "CIS Control 17.1 / NIST RS.RP-01"
+    },
+    {
+      "id": "D2",
+      "category": "D",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Gdyby teraz wydarzył się atak ransomware, kogo dzwonisz pierwsze?",
+      "options": [
+        { "label": "Nie wiem, najpierw Google.", "score": 0 },
+        { "label": "Firmowy informatyk/zewnętrzny IT — numer mam w telefonie.", "score": 1 },
+        { "label": "Mamy playbook: IT, CSIRT (NASK/MON/MSWiA), prawnik, ubezpieczyciel, CEO. Wszystkie numery dostępne offline.", "score": 3 }
+      ],
+      "mapping": "CIS Control 17.3 / NIST RS.CO-01"
+    },
+    {
+      "id": "D3",
+      "category": "D",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy logi z kluczowych systemów są zbierane i przeglądane?",
+      "options": [
+        { "label": "Nie zbieramy logów albo są tylko lokalne na serwerach.", "score": 0 },
+        { "label": "Logi są zbierane, ale nikt ich regularnie nie przegląda.", "score": 1 },
+        { "label": "Centralny SIEM/log aggregator + reguły alertujące na anomalie.", "score": 3 }
+      ],
+      "mapping": "CIS Control 8.2 / NIST DE.AE-03"
+    },
+    {
+      "id": "D4",
+      "category": "D",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy firma testuje swoje zabezpieczenia? (pentest, symulacja phishingu, tabletop exercise)",
+      "options": [
+        { "label": "Nigdy. \"Wszystko działa, więc po co?\"", "score": 0 },
+        { "label": "Raz na parę lat robimy phishing test.", "score": 1 },
+        { "label": "Roczny pentest + regularne symulacje phishingu + tabletop z zarządem.", "score": 3 }
+      ],
+      "mapping": "CIS Control 18.1 / NIST ID.RA-01"
+    },
+    {
+      "id": "D5",
+      "category": "D",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy firma ma polityki bezpieczeństwa spisane i dostępne dla pracowników?",
+      "options": [
+        { "label": "Nie — albo są gdzieś w mailach, nikt nie pamięta gdzie.", "score": 0 },
+        { "label": "Są spisane, ale pracownicy nigdy ich nie czytali.", "score": 1 },
+        { "label": "Polityki są w firmowym wiki, aktualizowane, wymaga się zapoznania przy onboardingu.", "score": 3 }
+      ],
+      "mapping": "CIS Control 14.1 / NIST ID.GV-01"
+    },
+    {
+      "id": "D6",
+      "category": "D",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Kto odpowiada za cyberbezpieczeństwo w firmie?",
+      "options": [
+        { "label": "Nikt konkretnie — wszyscy i nikt.", "score": 0 },
+        { "label": "Dział IT, ale to tylko jedna z wielu rzeczy na liście.", "score": 1 },
+        { "label": "Jest wyznaczona osoba (CISO/Security Officer) lub zewnętrzny vCISO z jasnym zakresem.", "score": 3 }
+      ],
+      "mapping": "NIST GV.RR-02"
+    },
+    {
+      "id": "D7",
+      "category": "D",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy zarząd regularnie dostaje raport o stanie cyberbezpieczeństwa?",
+      "options": [
+        { "label": "Nie — zarząd się dowiaduje jak coś wybuchnie.", "score": 0 },
+        { "label": "Raz w roku przy okazji budżetu.", "score": 1 },
+        { "label": "Kwartalny raport z KPIs: incydenty, szkolenia, patche, pentest findings.", "score": 3 }
+      ],
+      "mapping": "NIST GV.OV-03"
+    },
+    {
+      "id": "E1",
+      "category": "E",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy wiesz, czy Twoja firma jest objęta NIS2/KSC (podmiot kluczowy, ważny, lub dostawca)?",
+      "options": [
+        { "label": "Nie wiem, pewnie nas to nie dotyczy.", "score": 0 },
+        { "label": "Słyszałem o NIS2, ale nie zrobiłem analizy.", "score": 1 },
+        { "label": "Wiem — mamy analizę applicability i plan zgodności (lub status \"poza scope\" udokumentowany).", "score": 3 }
+      ],
+      "mapping": "NIS2 Art. 3 / NIST GV.RM-01"
+    },
+    {
+      "id": "E2",
+      "category": "E",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy firma ma rejestr czynności przetwarzania danych osobowych (RODO Art. 30)?",
+      "options": [
+        { "label": "Nie mamy — albo nie wiemy co to jest.", "score": 0 },
+        { "label": "Mamy, ale nie aktualizowaliśmy od wdrożenia RODO w 2018.", "score": 1 },
+        { "label": "Rejestr aktywny, aktualizowany przy każdej zmianie procesu/systemu.", "score": 3 }
+      ],
+      "mapping": "RODO Art. 30 / NIST ID.GV-03"
+    },
+    {
+      "id": "E3",
+      "category": "E",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy firma weryfikuje poziom bezpieczeństwa kluczowych dostawców IT/Cloud/SaaS?",
+      "options": [
+        { "label": "Nie — ufamy dużym dostawcom.", "score": 0 },
+        { "label": "Sprawdzamy zapisy w umowach (DPA, SLA).", "score": 1 },
+        { "label": "Wymagamy certyfikatów (ISO 27001/SOC 2) lub robimy własne security assessment.", "score": 3 }
+      ],
+      "mapping": "NIST GV.SC-01 / NIS2 Art. 21"
+    },
+    {
+      "id": "E4",
+      "category": "E",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy firma ma procedurę zgłaszania naruszeń danych do UODO (72h) i — jeśli dotyczy — do CSIRT (24h)?",
+      "options": [
+        { "label": "Nie mamy — nie wiemy jak się zgłasza.", "score": 0 },
+        { "label": "Mamy procedurę na papierze, ale nie była testowana.", "score": 1 },
+        { "label": "Procedura z jasnymi terminami + tabletop ją sprawdził.", "score": 3 }
+      ],
+      "mapping": "RODO Art. 33 / NIS2 Art. 23"
+    },
+    {
+      "id": "E5",
+      "category": "E",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy firma ma ubezpieczenie cyber (cyber insurance)?",
+      "options": [
+        { "label": "Nie mamy albo nie wiem.", "score": 0 },
+        { "label": "Mamy, ale nie znamy szczegółów warunków i wyłączeń.", "score": 1 },
+        { "label": "Mamy polisę dopasowaną do ryzyka, znamy wymagania (MFA, backup, szkolenia).", "score": 3 }
+      ],
+      "mapping": "NIST GV.RM-05"
+    },
+    {
+      "id": "E6",
+      "category": "E",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy umowy z pracownikami i kontrahentami zawierają klauzule dot. bezpieczeństwa i poufności?",
+      "options": [
+        { "label": "Standardowa NDA z internetu, bez specyfiki.", "score": 0 },
+        { "label": "Mamy NDA, ale bez szczegółów dot. bezpieczeństwa IT.", "score": 1 },
+        { "label": "Umowy zawierają wymagania bezpieczeństwa, klauzule zgłaszania incydentów, prawo audytu.", "score": 3 }
+      ],
+      "mapping": "NIST GV.SC-05"
+    },
+    {
+      "id": "E7",
+      "category": "E",
+      "weight": 1.0,
+      "critical": false,
+      "text": "Czy w firmie wyznaczono Inspektora Ochrony Danych (IOD/DPO) — jeśli dotyczy?",
+      "options": [
+        { "label": "Nie wiem czy nas to dotyczy i nikogo nie wyznaczyliśmy.", "score": 0 },
+        { "label": "Wyznaczyliśmy kogoś pro-forma (np. prezes), ale nie ma przeszkolenia.", "score": 1 },
+        { "label": "IOD ma odpowiednie kwalifikacje lub korzystamy z zewnętrznego DPO as a Service.", "score": 3 }
+      ],
+      "mapping": "RODO Art. 37"
+    }
+  ],
+  "maturity_levels": [
+    { "min": 0, "max": 25, "key": "initial", "label": "Initial (Krytyczny)", "description": "Brak podstawowych zabezpieczeń. Wysokie ryzyko paraliżu firmy w razie ataku." },
+    { "min": 26, "max": 50, "key": "developing", "label": "Developing (Podstawowy)", "description": "Pewne narzędzia są, brak procesów. Podatność na masowe ataki." },
+    { "min": 51, "max": 75, "key": "managed", "label": "Managed (Stabilny)", "description": "Dobra higiena cyfrowa. Spełnia większość wymagań ubezpieczycieli." },
+    { "min": 76, "max": 100, "key": "optimized", "label": "Optimized (Lider)", "description": "Gotowość na NIS2, proaktywne podejście do ryzyka." }
+  ]
+}
