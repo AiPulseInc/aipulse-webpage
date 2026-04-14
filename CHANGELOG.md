@@ -4,6 +4,27 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.546] — 2026-04-14
+
+Task 2 (Samoocena) — FIX: setState nie zaimportowany w app.js.
+
+### Root cause (znaleziony przez Chrome DevTools MCP)
+- Console error: `Uncaught ReferenceError: setState is not defined`
+- Akcje `submit-profiling`, `next-question`, `finish` wywołują `setState(...)` z state.js, ale nie było go w destructured import w app.js
+- Wszystkie poprzednie próby (v0.541-0.545) były niewidoczne dla usera bo handler crashował przy pierwszym `setState()` call, a profiling był pierwszą ścieżką gdzie go używałem
+
+### Fix
+- Dodany `setState` do import z `./state.js` w app.js
+
+### Verified end-to-end (Chrome DevTools MCP)
+- Landing → klik "Rozpocznij audyt" → profiling ✅
+- Profiling: IT/Software + 11-50 → klik "Rozpocznij audyt" → category-intro `01/05 Ludzie` ✅
+- Intro → klik "Rozpocznij pierwszą kategorię" → pytanie 1/35 z 4 opcjami (w tym "Nie wiem") ✅
+- Progress counter "1/35" + label "LUDZIE" widoczne
+- Poprzednie disabled (first), Następne disabled (brak odpowiedzi)
+
+---
+
 ## [0.545] — 2026-04-14
 
 Task 2 (Samoocena) — fix profiling button (klik nie działał).

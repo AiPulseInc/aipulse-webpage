@@ -4,6 +4,7 @@ import { getQuestions } from './scoring.js';
 import { scoreAssessment } from './scoring.js';
 import {
   getState,
+  setState,
   setStep,
   setProfile,
   saveResponse,
