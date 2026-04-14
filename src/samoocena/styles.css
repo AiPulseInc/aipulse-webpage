@@ -628,6 +628,208 @@
   font-weight: 700;
 }
 
+/* CATEGORY INTRO */
+
+.samoocena-category-intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem 0 2rem;
+}
+
+.samoocena-category-transition {
+  padding: 1.2rem 1.4rem;
+  border-left: 3px solid var(--samoocena-accent);
+  background: rgba(126, 34, 206, 0.07);
+  margin: 0 0 3rem;
+}
+
+.samoocena-category-transition .samoocena-kicker {
+  margin: 0 0 0.5rem;
+  color: var(--samoocena-accent);
+  font-size: 0.72rem;
+}
+
+.samoocena-category-transition-text {
+  margin: 0;
+  color: var(--samoocena-muted);
+  line-height: 1.65;
+  font-size: 1rem;
+}
+
+.samoocena-category-transition-text strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.samoocena-category-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1em;
+  margin: 0 0 1.5rem;
+  font: 800 clamp(4.5rem, 11vw, 8rem)/0.9 'Outfit', sans-serif;
+  letter-spacing: -0.04em;
+  color: var(--samoocena-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.samoocena-category-divider {
+  color: var(--samoocena-border);
+  font-weight: 500;
+}
+
+.samoocena-category-total {
+  color: var(--samoocena-muted);
+  font-size: 0.55em;
+  font-weight: 700;
+}
+
+.samoocena-category-intro .samoocena-kicker {
+  margin: 0 0 0.6rem;
+}
+
+.samoocena-category-title {
+  margin: 0.3rem 0 0.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.samoocena-category-subtitle {
+  margin: 0 0 1.5rem;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-category-description {
+  max-width: 60ch;
+  margin: 0 0 2.5rem;
+  color: var(--samoocena-muted);
+  line-height: 1.7;
+  font-size: 1.02rem;
+}
+
+.samoocena-category-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  padding: 0;
+  border-top: 1px solid var(--samoocena-card-border);
+  border-bottom: 1px solid var(--samoocena-card-border);
+  margin: 0 0 2.5rem;
+}
+
+.samoocena-category-meta-grid > div {
+  padding: 1.2rem 0.8rem;
+  border-right: 1px solid var(--samoocena-card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.samoocena-category-meta-grid > div:last-child {
+  border-right: none;
+}
+
+.samoocena-category-meta-grid dt {
+  font: 700 0.72rem/1 'Space Grotesk', monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+  margin: 0;
+}
+
+.samoocena-category-meta-grid dd {
+  font: 800 clamp(1.4rem, 2.2vw, 1.8rem)/1 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+.samoocena-category-actions {
+  display: flex;
+}
+
+/* THANK YOU */
+
+.samoocena-thank-you {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.samoocena-thank-you .samoocena-kicker {
+  margin: 0 0 1rem;
+  color: var(--samoocena-accent);
+}
+
+.samoocena-thank-you-title {
+  margin: 0 0 1.2rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.samoocena-thank-you-lead {
+  max-width: 58ch;
+  margin: 0 0 3rem;
+  color: var(--samoocena-muted);
+  line-height: 1.65;
+  font-size: 1.1rem;
+}
+
+.samoocena-thank-you-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--samoocena-card-border);
+  border-bottom: 1px solid var(--samoocena-card-border);
+  margin: 0 0 3rem;
+  padding: 0;
+}
+
+.samoocena-thank-you-stats > div {
+  padding: 1.4rem 1.1rem;
+  border-right: 1px solid var(--samoocena-card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.samoocena-thank-you-stats > div:last-child {
+  border-right: none;
+}
+
+.samoocena-thank-you-stats dt {
+  font: 700 0.72rem/1 'Space Grotesk', monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+  margin: 0;
+}
+
+.samoocena-thank-you-stats dd {
+  font: 800 clamp(1.8rem, 3vw, 2.4rem)/1 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+  color: var(--samoocena-accent);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+.samoocena-thank-you-actions {
+  display: flex;
+}
+
 /* ANIMATIONS */
 
 @keyframes samoocena-fadeUp {
@@ -1231,6 +1433,22 @@
 
   .samoocena-rec-head {
     gap: 0.7rem;
+  }
+
+  .samoocena-category-meta-grid,
+  .samoocena-thank-you-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .samoocena-category-meta-grid > div,
+  .samoocena-thank-you-stats > div {
+    border-right: none;
+    border-bottom: 1px solid var(--samoocena-card-border);
+  }
+
+  .samoocena-category-meta-grid > div:last-child,
+  .samoocena-thank-you-stats > div:last-child {
+    border-bottom: none;
   }
 
   /* LANDING — mobile tuning */

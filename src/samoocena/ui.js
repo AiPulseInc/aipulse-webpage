@@ -236,6 +236,87 @@ export function renderQuestion(ctx) {
   `;
 }
 
+export function renderCategoryIntro(ctx) {
+  const { currentIndex } = ctx;
+  const categoriesMeta = getCategoriesMeta();
+  const categoryIndex = Math.floor(currentIndex / 7);
+  const category = categoriesMeta[categoryIndex];
+  const isFirst = categoryIndex === 0;
+  const prevCategory = isFirst ? null : categoriesMeta[categoryIndex - 1];
+
+  return `
+    <section class="samoocena-category-intro">
+      ${
+        !isFirst
+          ? `
+        <div class="samoocena-category-transition">
+          <p class="samoocena-kicker">// Koniec sekcji ${String(categoryIndex).padStart(2, '0')}</p>
+          <p class="samoocena-category-transition-text">
+            Dziękuję — to wszystkie pytania w kategorii <strong>${escapeHtml(prevCategory.name)}</strong>. Przejdźmy do następnej.
+          </p>
+        </div>
+      `
+          : ''
+      }
+
+      <div class="samoocena-category-meta">
+        <span class="samoocena-category-number">${String(categoryIndex + 1).padStart(2, '0')}</span>
+        <span class="samoocena-category-divider">/</span>
+        <span class="samoocena-category-total">05</span>
+      </div>
+
+      <p class="samoocena-kicker">// Kategoria ${categoryIndex + 1} z 5</p>
+      <h1 class="samoocena-category-title">${escapeHtml(category.name)}</h1>
+      <p class="samoocena-category-subtitle">${escapeHtml(category.subtitle)}</p>
+      <p class="samoocena-category-description">${escapeHtml(category.description)}</p>
+
+      <dl class="samoocena-category-meta-grid">
+        <div><dt>Pytań</dt><dd>7</dd></div>
+        <div><dt>Czas</dt><dd>~2 min</dd></div>
+        <div><dt>Postęp</dt><dd>${categoryIndex + 1}/5</dd></div>
+      </dl>
+
+      <div class="samoocena-category-actions">
+        <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="begin-category">
+          <span class="samoocena-cta-label">${isFirst ? 'Rozpocznij pierwszą kategorię' : 'Kontynuuj'}</span>
+          <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+  `;
+}
+
+export function renderThankYou(ctx) {
+  const { profile, responses, startedAt, completedAt } = ctx;
+  const answered = Object.keys(responses).length;
+  const durationMinutes =
+    startedAt && completedAt
+      ? Math.max(1, Math.round((new Date(completedAt) - new Date(startedAt)) / 60000))
+      : null;
+  return `
+    <section class="samoocena-thank-you">
+      <p class="samoocena-kicker">// Ukończono samoocenę</p>
+      <h1 class="samoocena-thank-you-title">Dziękujemy.<br>Raport jest gotowy.</h1>
+      <p class="samoocena-thank-you-lead">
+        Odpowiedzi zapisane lokalnie — żadne dane nie zostały wysłane poza Twoją przeglądarkę. Kliknij niżej, żeby zobaczyć pełny wynik z rekomendacjami.
+      </p>
+
+      <dl class="samoocena-thank-you-stats">
+        <div><dt>Odpowiedzi</dt><dd>${answered}</dd></div>
+        <div><dt>Czas</dt><dd>${durationMinutes ? `${durationMinutes} min` : '—'}</dd></div>
+        <div><dt>Kategorii</dt><dd>5/5</dd></div>
+      </dl>
+
+      <div class="samoocena-thank-you-actions">
+        <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="go-to-results">
+          <span class="samoocena-cta-label">Zobacz raport</span>
+          <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+  `;
+}
+
 export function renderResults(ctx) {
   return renderManagementResults(ctx);
 }

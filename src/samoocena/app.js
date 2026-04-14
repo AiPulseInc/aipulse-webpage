@@ -17,7 +17,9 @@ import {
 import {
   renderLanding,
   renderProfiling,
+  renderCategoryIntro,
   renderQuestion,
+  renderThankYou,
   renderResults,
   renderError,
 } from './ui.js';
@@ -51,6 +53,8 @@ function buildRenderContext(state) {
     profile: state.profile,
     responses: state.responses,
     currentIndex: state.currentQuestionIndex,
+    startedAt: state.startedAt,
+    completedAt: state.completedAt,
     hasResume: hasResumableState(),
   };
 
@@ -68,8 +72,12 @@ function routeToRenderer(step, ctx) {
       return renderLanding(ctx);
     case 'profiling':
       return renderProfiling(ctx);
+    case 'category-intro':
+      return renderCategoryIntro(ctx);
     case 'question':
       return renderQuestion(ctx);
+    case 'thank-you':
+      return renderThankYou(ctx);
     case 'results':
       return renderResults(ctx);
     default:
@@ -113,12 +121,26 @@ function handleClick(event) {
     'next-question': () => {
       const state = getState();
       const questions = getQuestions();
-      if (state.currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+      const next = state.currentQuestionIndex + 1;
+      const currentCat = Math.floor(state.currentQuestionIndex / 7);
+      const nextCat = Math.floor(next / 7);
+      if (nextCat > currentCat && nextCat < 5) {
+        setState({ step: 'category-intro', currentQuestionIndex: next });
+      } else if (next < questions.length) {
+        setCurrentQuestionIndex(next);
       }
     },
+    'begin-category': () => {
+      setStep('question');
+    },
     finish: () => {
-      markCompleted();
+      setState({
+        step: 'thank-you',
+        completedAt: new Date().toISOString(),
+      });
+    },
+    'go-to-results': () => {
+      setStep('results');
     },
     'download-pdf': () => {
       // Placeholder do A6 — Edge Function generate-report
@@ -153,6 +175,6 @@ function handleSubmit(event) {
     const size = formData.get('size');
     if (!industry || !size) return;
     setProfile({ industry, size });
-    setStep('question');
+    setState({ step: 'category-intro', currentQuestionIndex: 0 });
   }
 }

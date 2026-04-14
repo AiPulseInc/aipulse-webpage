@@ -4,6 +4,35 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.541] — 2026-04-14
+
+Task 2 (Samoocena) — category intro + thank-you screens + flow restructure.
+
+### Category intro (1/5 → 5/5)
+- Nowy step `category-intro` w state flow
+- Visual: giantny numer kategorii `01/05` (Outfit 800, clamp 4.5-8rem, violet), nazwa kategorii, subtitle, description z questions.json
+- Kategoria 1: tylko intro ("Rozpocznij pierwszą kategorię")
+- Kategorie 2-5: transition box (violet border-left) z "Dziękuję — to wszystkie pytania w [prev]. Przejdźmy do następnej." + intro
+- Meta grid: 7 pytań · ~2 min · X/5 postęp
+
+### Thank-you screen
+- Nowy step `thank-you` między ostatnim pytaniem a raportem
+- Duży "Dziękujemy. Raport jest gotowy." (Outfit 800)
+- Stats grid: odpowiedzi / czas wypełniania / kategorii
+- Jeden CTA "Zobacz raport →" (otwiera results)
+- Moment closure przed dramaturgią raportu (wynik pokazuje się dopiero po kliknięciu)
+
+### Flow changes
+- profiling submit → `category-intro` (cat 0)
+- `begin-category` action → `question` (pierwsze pytanie kategorii)
+- `next-question` przy ostatnim pytaniu kategorii → skok do `category-intro` (następna cat)
+- `finish` na pytaniu 35 → `thank-you` (nie results od razu)
+- `go-to-results` na thank-you → `results`
+
+Bundle: 47.05 KB / 15.91 KB gzip.
+
+---
+
 ## [0.540] — 2026-04-14
 
 Task 2 (Samoocena) — typography bliżej mockup A + question width constraint + progress counter prominence.
