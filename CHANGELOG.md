@@ -4,6 +4,12 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.550] — 2026-04-14
+
+/security/ — rename nazwy karty SAMOOCENA: `Online · Bezpłatnie` → `Audyt uproszczony` (spójne z opisem, lepiej pokazuje produkt).
+
+---
+
 ## [0.549] — 2026-04-14
 
 /security/ — fix listy "Co dostajesz" w karcie `_00 · SAMOOCENA` — spójność z realnym raportem.
