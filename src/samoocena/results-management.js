@@ -1,82 +1,263 @@
-import { renderOverallScore, renderCategoryBars, renderBenchmarkLine, escapeHtml } from './charts.js';
+import { escapeHtml } from './charts.js';
 import { topRecommendations } from './recommendations.js';
+import { getCategoriesMeta } from './scoring.js';
+
+// Wstępny benchmark dopóki A5 (Supabase RPC) nie jest gotowe.
+// Reprezentuje "przeciętne MŚP 11-50 os." na podstawie KB (Knowledge Base).
+const MOCKED_BENCHMARK = {
+  A: 55,
+  B: 48,
+  C: 52,
+  D: 45,
+  E: 58,
+  sampleSize: 42,
+  cohortLabel: 'MŚP 11–50 pracowników',
+};
+
+const SIZE_LABELS = {
+  '1-10': '1–10 pracowników',
+  '11-50': '11–50 pracowników',
+  '51-250': '51–250 pracowników',
+};
 
 export function renderManagementResults(ctx) {
-  const { scoringResult, responses, profile, benchmark } = ctx;
-  const recs = topRecommendations(scoringResult, responses, 3);
+  const { scoringResult, responses, profile } = ctx;
+  const topRecs = topRecommendations(scoringResult, responses, 5);
+  const topGaps = topRecommendations(scoringResult, responses, 3);
+  const categoriesMeta = getCategoriesMeta();
+  const today = new Date().toLocaleDateString('pl-PL');
 
   return `
-    <section class="samoocena-results">
-      <header class="samoocena-results-head">
-        <p class="samoocena-kicker">// Wynik samooceny</p>
-        <h1>Twój wynik</h1>
-        <p class="samoocena-lead">
-          Jedna strona, którą musi przeczytać właściciel firmy. Pełny raport audytowy (~10 stron) do pobrania niżej.
-        </p>
-      </header>
+    <article class="samoocena-report">
+      ${renderReportCover(scoringResult, today, profile)}
+      ${renderExecutiveSummary(scoringResult, topGaps)}
+      ${renderCategoryAnalysis(scoringResult, categoriesMeta, profile)}
+      ${renderTopRecommendations(topRecs)}
+      ${renderReportCTA()}
+      <footer class="samoocena-report-restart">
+        <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="restart">Zacznij nową samoocenę</button>
+      </footer>
+    </article>
+  `;
+}
 
-      ${renderOverallScore(scoringResult)}
-      ${renderBenchmarkLine(benchmark)}
-
-      <div class="samoocena-section-card">
-        <h2>Gdzie jesteś mocny, gdzie słaby</h2>
-        ${renderCategoryBars(scoringResult)}
+function renderReportCover(scoringResult, date, profile) {
+  const pct = scoringResult.overall.percentage;
+  const sizeLabel = SIZE_LABELS[profile.size] || profile.size || '—';
+  return `
+    <section class="samoocena-report-cover">
+      <div class="samoocena-report-cover-head">
+        <div class="samoocena-report-brand-line">
+          <div class="samoocena-report-brand">A<span class="brand-i">i</span> Puls <span class="samoocena-report-brand-accent">Security</span></div>
+          <div class="samoocena-report-brand-tagline">Cyber Security</div>
+        </div>
       </div>
 
-      <div class="samoocena-section-card">
-        <h2>Co zrobić w pierwszej kolejności</h2>
-        <ol class="samoocena-recs">
-          ${recs
-            .map(
-              (rec, i) => `
-              <li class="samoocena-rec">
-                <div class="samoocena-rec-head">
-                  <span class="samoocena-rec-num">${i + 1}</span>
-                  <div>
-                    <h3>${escapeHtml(rec.title)}</h3>
-                    <p class="samoocena-rec-cat">${escapeHtml(rec.categoryName)}${rec.critical ? ' · krytyczne' : ''}</p>
-                  </div>
-                </div>
-                <p class="samoocena-rec-action">${escapeHtml(rec.action)}</p>
-                <div class="samoocena-rec-meta">
-                  <span><strong>Koszt:</strong> ${escapeHtml(rec.cost)}</span>
-                  <span><strong>Nakład:</strong> ${escapeHtml(rec.effort)}</span>
-                </div>
-                <p class="samoocena-rec-impact">${escapeHtml(rec.impact)}</p>
-              </li>
-            `
-            )
-            .join('')}
-        </ol>
+      <p class="samoocena-kicker samoocena-report-label">// Raport samooceny cyberbezpieczeństwa</p>
+      <h1 class="samoocena-report-cover-title">Twój<br>wynik</h1>
+
+      <div class="samoocena-report-score-block">
+        <div class="samoocena-report-score-row">
+          <div class="samoocena-report-score ${pctToLevelClass(pct)}">${pct}</div>
+          <div class="samoocena-report-score-unit">/ 100</div>
+        </div>
+        <div class="samoocena-report-maturity">${escapeHtml(scoringResult.maturity.label)}</div>
       </div>
 
-      <div class="samoocena-section-card samoocena-cta-card">
-        <h2>Pełny raport audytowy PDF</h2>
-        <p>Szczegółowa analiza ~10 stron: wyniki per pytanie, mapa zgodności NIS2/RODO, roadmap 30/60/90 dni. Darmowy w wersji beta.</p>
-        <button type="button" class="samoocena-btn samoocena-btn-primary" data-action="download-pdf" disabled>
-          Pobierz PDF (dostępne po A6)
-        </button>
-        <p class="samoocena-meta">${escapeHtml(profile.industry || '—')} · ${escapeHtml(sizeLabel(profile.size))}</p>
-      </div>
-
-      <div class="samoocena-section-card samoocena-cta-card">
-        <h2>Chcesz tego w swojej firmie?</h2>
-        <p>Ai Puls pomaga MŚP domknąć luki z tego raportu — szkolenia, vCISO, wdrożenia narzędzi.</p>
-        <a class="samoocena-btn samoocena-btn-outline" href="/security/#contact">Umów konsultację</a>
-      </div>
-
-      <div class="samoocena-restart">
-        <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="restart">Zacznij od nowa</button>
+      <div class="samoocena-report-cover-meta">
+        <span>Data: ${date}</span>
+        <span>Wersja: 2026-01</span>
+        <span>Profil: ${escapeHtml(profile.industry || '—')} · ${escapeHtml(sizeLabel)}</span>
       </div>
     </section>
   `;
 }
 
-function sizeLabel(size) {
+function renderExecutiveSummary(scoringResult, topGaps) {
+  const pct = scoringResult.overall.percentage;
+  const maturity = scoringResult.maturity;
+  const risk = getRiskStatement(maturity.key);
+  return `
+    <section class="samoocena-report-section">
+      <p class="samoocena-kicker">// Executive summary</p>
+      <h2 class="samoocena-report-h2">Jedna strona, którą musi przeczytać właściciel firmy</h2>
+
+      <div class="samoocena-exec-highlight">
+        <p>
+          <strong>Twoja firma jest na poziomie "${escapeHtml(maturity.label)}" (${pct}/100)</strong> — ${escapeHtml(maturity.description)} Ryzyko paraliżu działalności w razie incydentu ransomware wynosi <strong>${risk.riskPct}</strong>.
+        </p>
+      </div>
+
+      <div class="samoocena-exec-box">
+        <h3>Co to znaczy w praktyce biznesowej</h3>
+        <p>${risk.businessText}</p>
+      </div>
+
+      <h3 class="samoocena-report-h3">Twoje 3 największe luki</h3>
+      <ol class="samoocena-report-gaps">
+        ${topGaps
+          .map(
+            (g) => `
+          <li>
+            <strong>${escapeHtml(g.title)}</strong> — ${escapeHtml(g.action)}
+          </li>
+        `
+          )
+          .join('')}
+      </ol>
+
+      <h3 class="samoocena-report-h3">Ryzyko finansowe (szacowane)</h3>
+      <p class="samoocena-report-paragraph">
+        Przeciętny incydent ransomware w MŚP w 2026 roku: <strong>45–120 tys. zł</strong> (przestój + odzyskiwanie + kary RODO + koszt reputacji). Trzy pierwsze rekomendacje z tego raportu obniżają to ryzyko o szacowane <strong>75%</strong>.
+      </p>
+    </section>
+  `;
+}
+
+function renderCategoryAnalysis(scoringResult, categoriesMeta, profile) {
+  const entries = categoriesMeta.map((cat) => ({
+    id: cat.id,
+    name: cat.name,
+    pct: scoringResult.categories[cat.id]?.percentage ?? 0,
+    benchmark: MOCKED_BENCHMARK[cat.id] ?? 50,
+  }));
+  const above = entries.filter((e) => e.pct > e.benchmark);
+  const below = entries.filter((e) => e.pct < e.benchmark);
+  const equal = entries.filter((e) => e.pct === e.benchmark);
+  return `
+    <section class="samoocena-report-section">
+      <p class="samoocena-kicker">// Analiza kategorii</p>
+      <h2 class="samoocena-report-h2">Gdzie jesteś mocny, gdzie słaby</h2>
+      <p class="samoocena-report-paragraph samoocena-report-muted">
+        Pionowy znacznik = średnia dla ${escapeHtml(MOCKED_BENCHMARK.cohortLabel)} (n=${MOCKED_BENCHMARK.sampleSize}). <em>Benchmark wstępny — realne dane podłączymy w A5 (Supabase RPC).</em>
+      </p>
+
+      <div class="samoocena-report-bars">
+        ${entries.map((e) => renderReportBar(e)).join('')}
+      </div>
+
+      <div class="samoocena-exec-box">
+        <h3>Co mówi benchmark</h3>
+        ${
+          above.length
+            ? `<p><strong>Jesteś lepszy niż średnia w:</strong> ${above
+                .map((a) => `${escapeHtml(a.name)} (+${a.pct - a.benchmark})`)
+                .join(', ')}</p>`
+            : ''
+        }
+        ${
+          below.length
+            ? `<p><strong>Jesteś gorszy niż średnia w:</strong> ${below
+                .map((b) => `${escapeHtml(b.name)} (${b.pct - b.benchmark})`)
+                .join(', ')}</p>`
+            : ''
+        }
+        ${
+          equal.length
+            ? `<p><strong>Równy średniej w:</strong> ${equal.map((e) => escapeHtml(e.name)).join(', ')}</p>`
+            : ''
+        }
+        <p class="samoocena-report-footnote">
+          Próba: ${MOCKED_BENCHMARK.sampleSize} firm z kohorty ${escapeHtml(MOCKED_BENCHMARK.cohortLabel)}, wersja kwestionariusza 2026-01.
+        </p>
+      </div>
+    </section>
+  `;
+}
+
+function renderReportBar(e) {
+  const levelClass = pctToLevelClass(e.pct);
+  return `
+    <div class="samoocena-report-bar ${levelClass}">
+      <div class="samoocena-report-bar-label">${escapeHtml(e.name)}</div>
+      <div class="samoocena-report-bar-track">
+        <div class="samoocena-report-bar-fill" style="width: ${e.pct}%"></div>
+        <div class="samoocena-report-bar-benchmark" style="left: ${e.benchmark}%" title="Średnia branży: ${e.benchmark}"></div>
+      </div>
+      <div class="samoocena-report-bar-value">${e.pct}</div>
+    </div>
+  `;
+}
+
+function renderTopRecommendations(recs) {
+  return `
+    <section class="samoocena-report-section">
+      <p class="samoocena-kicker">// Top 5 rekomendacji</p>
+      <h2 class="samoocena-report-h2">Co zrobić w pierwszej kolejności</h2>
+      <p class="samoocena-report-paragraph samoocena-report-muted">
+        Posortowane według: największy wpływ na bezpieczeństwo / najmniejszy koszt wdrożenia.
+      </p>
+      <ol class="samoocena-report-recs">
+        ${recs.map((r, i) => renderReportRec(r, i + 1)).join('')}
+      </ol>
+    </section>
+  `;
+}
+
+function renderReportRec(rec, num) {
+  const impact = impactLabel(rec);
+  return `
+    <li class="samoocena-report-rec">
+      <div class="samoocena-report-rec-num">${num}</div>
+      <div class="samoocena-report-rec-body">
+        <h4>${escapeHtml(rec.title)}</h4>
+        <p>${escapeHtml(rec.action)}</p>
+        <div class="samoocena-report-rec-meta">
+          <span>Koszt: <strong class="samoocena-tag-cost">${escapeHtml(rec.cost)}</strong></span>
+          <span>Wdrożenie: <strong class="samoocena-tag-effort">${escapeHtml(rec.effort)}</strong></span>
+          <span>Impact: <strong class="samoocena-tag-impact impact-${impact.toLowerCase()}">${escapeHtml(impact)}</strong></span>
+        </div>
+        ${rec.impact ? `<p class="samoocena-report-rec-why">${escapeHtml(rec.impact)}</p>` : ''}
+      </div>
+    </li>
+  `;
+}
+
+function renderReportCTA() {
+  return `
+    <section class="samoocena-report-cta">
+      <h3>Chcesz to zamienić na konkretny plan wdrożenia?</h3>
+      <p>Umów bezpłatną 30-minutową konsultację. Porozmawiamy o Twojej sytuacji i powiemy, co zrobilibyśmy <strong>najpierw</strong>, w Twoim kontekście.</p>
+      <a class="samoocena-report-cta-link" href="/security/#contact">Umów konsultację →</a>
+    </section>
+  `;
+}
+
+function pctToLevelClass(pct) {
+  if (pct < 26) return 'level-initial';
+  if (pct < 51) return 'level-developing';
+  if (pct < 76) return 'level-managed';
+  return 'level-optimized';
+}
+
+function impactLabel(rec) {
+  if (rec.critical) return 'KRYTYCZNY';
+  if (rec.gapPoints >= 2) return 'WYSOKI';
+  return 'ŚREDNI';
+}
+
+function getRiskStatement(maturityKey) {
   const map = {
-    '1-10': '1–10 pracowników',
-    '11-50': '11–50 pracowników',
-    '51-250': '51–250 pracowników',
+    initial: {
+      riskPct: '80–95%',
+      businessText:
+        'Masz pojedyncze zabezpieczenia, ale brak procesów. Jeśli dziś zdarzy się poważny incydent (ransomware, wyciek danych), Twoja firma prawdopodobnie <strong>stanie na tygodnie</strong> i będzie reagować chaotycznie bez planu.',
+    },
+    developing: {
+      riskPct: '~50%',
+      businessText:
+        'Masz narzędzia (firewall, antywirus, backup), ale nie masz procesów, które by je sprawiały naprawdę skutecznymi. Jeśli dziś zdarzy się poważny incydent, Twoja firma będzie <strong>reagować w trybie kryzysowym</strong>, a nie zgodnie z planem.',
+    },
+    managed: {
+      riskPct: '~25%',
+      businessText:
+        'Masz solidne podstawy — narzędzia i procesy. Brakuje jeszcze kilku elementów, które wypełniają wymagania ubezpieczycieli cyber i dużych klientów w łańcuchu dostaw NIS2. Warto <strong>domknąć te luki</strong>, zanim staną się blokerem kontraktu.',
+    },
+    optimized: {
+      riskPct: '<10%',
+      businessText:
+        'Jesteś w czołówce MŚP pod względem cyberbezpieczeństwa. Ryzyko poważnego incydentu jest niskie, a Ty spełniasz wymogi NIS2, RODO i większości ubezpieczycieli. Utrzymanie tego poziomu wymaga <strong>regularnych testów i aktualizacji</strong>.',
+    },
   };
-  return map[size] || size || '—';
+  return map[maturityKey] || map.developing;
 }

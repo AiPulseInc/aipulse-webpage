@@ -4,6 +4,33 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.542] — 2026-04-14
+
+Task 2 (Samoocena) — results screen 1:1 mockup A (management report, scrollable).
+
+### Struktura raportu (4 sekcje na jednym scrollu)
+
+1. **Cover** — brand A**i** Puls Security + tagline, kicker `// Raport samooceny cyberbezpieczeństwa`, H1 "TWÓJ WYNIK" (Outfit 800), giantny score 58 / 100 (clamp 5-9rem, kolor zależny od maturity), maturity label, meta (data · wersja · profil firmy). Top border 4px violet.
+2. **Executive summary** — H2 "Jedna strona, którą musi przeczytać właściciel firmy", violet border-left `.exec-highlight` z pct + ryzyko paraliżu, `.exec-box` z kontekstem biznesowym, H3 "Twoje 3 największe luki" (top 3 gaps dynamicznie), H3 "Ryzyko finansowe" z szacunkami 45-120 tys. zł.
+3. **Analiza kategorii** — 5 horizontal bars z wartościami + benchmark marker (pionowy biały pasek 2px = średnia branży). Kolory per level (critical=red, developing=amber, managed=green, optimized=violet). Exec-box "Co mówi benchmark?" porównuje per-kategoria.
+4. **Top 5 rekomendacji** — zamiast 3, jak w mockupie A. Każdy rec: violet num block 60px + body (h4 + paragraph + meta tags koszt/wdrożenie/impact z color-coded tagami). Opcjonalny "why" footer z impact rationale.
+
+### CTA + restart
+- Finalny `.samoocena-report-cta` — violet filled panel z H3 "Chcesz to zamienić na konkretny plan wdrożenia?" + link do `/security/#contact` (black button z white text, hover swap na white→violet).
+- Restart button centered poniżej.
+
+### Benchmark placeholder
+- Mocked benchmark dla MŚP 11-50 (A=55, B=48, C=52, D=45, E=58, n=42) — adnotacja w footnote że real dane podłączymy w A5 (Supabase RPC).
+
+### Mobile
+- Bars stackują label na osobny rząd
+- Cover meta mniejsze, gap mniejszy
+- Rec num 48px zamiast 60px
+
+Bundle: 50.72 KB / 17.14 KB gzip.
+
+---
+
 ## [0.541] — 2026-04-14
 
 Task 2 (Samoocena) — category intro + thank-you screens + flow restructure.

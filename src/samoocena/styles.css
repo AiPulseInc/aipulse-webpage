@@ -830,6 +830,459 @@
   display: flex;
 }
 
+/* REPORT — full 4-section management report (mockup A adaptation) */
+
+.samoocena-report {
+  display: grid;
+  gap: 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.samoocena-report-cover {
+  background: #050010;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--samoocena-card-border);
+  border-top: 4px solid var(--samoocena-accent);
+}
+
+.samoocena-report-cover-head {
+  margin-bottom: 3rem;
+}
+
+.samoocena-report-brand-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.samoocena-report-brand {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1;
+}
+
+.samoocena-report-brand-accent {
+  color: var(--samoocena-accent);
+}
+
+.samoocena-report-brand-tagline {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+  margin-top: 0.3rem;
+}
+
+.samoocena-report-label {
+  margin: 0 0 0.8rem;
+}
+
+.samoocena-report-cover-title {
+  margin: 0 0 3rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.samoocena-report-score-block {
+  padding: 2rem 0;
+  border-top: 2px solid var(--samoocena-border);
+  border-bottom: 2px solid var(--samoocena-border);
+  margin-bottom: 2.5rem;
+}
+
+.samoocena-report-score-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.samoocena-report-score {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(5rem, 12vw, 9rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--samoocena-accent);
+}
+
+.samoocena-report-score.level-initial { color: #ef4444; }
+.samoocena-report-score.level-developing { color: #F5A623; }
+.samoocena-report-score.level-managed { color: #22c55e; }
+.samoocena-report-score.level-optimized { color: var(--samoocena-accent); }
+
+.samoocena-report-score-unit {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2vw, 1.7rem);
+  color: var(--samoocena-muted);
+}
+
+.samoocena-report-maturity {
+  margin-top: 0.8rem;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.samoocena-report-cover-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--samoocena-card-border);
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-report-section {
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--samoocena-card-border);
+  border-top: none;
+  background: #050505;
+}
+
+.samoocena-report-section .samoocena-kicker {
+  margin: 0 0 0.6rem;
+}
+
+.samoocena-report-h2 {
+  margin: 0 0 1.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: #fff;
+  max-width: 30ch;
+}
+
+.samoocena-report-h3 {
+  margin: 2rem 0 0.8rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.samoocena-report-paragraph {
+  margin: 0 0 1rem;
+  color: var(--samoocena-muted);
+  line-height: 1.7;
+  max-width: 68ch;
+  font-size: 0.98rem;
+}
+
+.samoocena-report-paragraph strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.samoocena-report-muted {
+  font-size: 0.9rem;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-report-muted em {
+  color: var(--samoocena-accent);
+  font-style: normal;
+}
+
+.samoocena-report-footnote {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--samoocena-muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.samoocena-exec-highlight {
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.4rem;
+  border-left: 4px solid var(--samoocena-accent);
+  background: rgba(126, 34, 206, 0.08);
+}
+
+.samoocena-exec-highlight p {
+  margin: 0;
+  color: #fff;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.samoocena-exec-highlight strong {
+  color: var(--samoocena-accent);
+}
+
+.samoocena-exec-box {
+  margin: 1.2rem 0;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--samoocena-card-border);
+  background: #0a0a0a;
+}
+
+.samoocena-exec-box h3 {
+  margin: 0 0 0.7rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.samoocena-exec-box p {
+  margin: 0 0 0.6rem;
+  color: var(--samoocena-muted);
+  line-height: 1.65;
+  font-size: 0.94rem;
+}
+
+.samoocena-exec-box p:last-child {
+  margin-bottom: 0;
+}
+
+.samoocena-exec-box strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.samoocena-report-gaps {
+  margin: 0 0 1rem;
+  padding-left: 1.4rem;
+}
+
+.samoocena-report-gaps li {
+  margin-bottom: 0.8rem;
+  color: var(--samoocena-muted);
+  line-height: 1.65;
+  font-size: 0.96rem;
+}
+
+.samoocena-report-gaps li::marker {
+  color: var(--samoocena-accent);
+  font-weight: 800;
+}
+
+.samoocena-report-gaps strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.samoocena-report-bars {
+  margin: 1.5rem 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.samoocena-report-bar {
+  display: grid;
+  grid-template-columns: 140px 1fr 40px;
+  gap: 1rem;
+  align-items: center;
+}
+
+.samoocena-report-bar-label {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-report-bar-track {
+  position: relative;
+  height: 26px;
+  background: #1a1a1a;
+  border: 1px solid var(--samoocena-card-border);
+}
+
+.samoocena-report-bar-fill {
+  height: 100%;
+  background: var(--samoocena-accent);
+  transition: width 0.4s ease;
+}
+
+.samoocena-report-bar.level-initial .samoocena-report-bar-fill { background: #ef4444; }
+.samoocena-report-bar.level-developing .samoocena-report-bar-fill { background: #F5A623; }
+.samoocena-report-bar.level-managed .samoocena-report-bar-fill { background: #22c55e; }
+.samoocena-report-bar.level-optimized .samoocena-report-bar-fill { background: var(--samoocena-accent); }
+
+.samoocena-report-bar-benchmark {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background: #fff;
+  box-shadow: 0 0 0 1px #000;
+  pointer-events: none;
+}
+
+.samoocena-report-bar-value {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-align: right;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.samoocena-report-recs {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.samoocena-report-rec {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  border: 1px solid var(--samoocena-card-border);
+  background: #0a0a0a;
+}
+
+.samoocena-report-rec-num {
+  background: var(--samoocena-accent);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+}
+
+.samoocena-report-rec-body {
+  padding: 1.2rem 1.4rem;
+}
+
+.samoocena-report-rec-body h4 {
+  margin: 0 0 0.4rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.08rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.samoocena-report-rec-body > p {
+  margin: 0 0 0.9rem;
+  color: var(--samoocena-muted);
+  line-height: 1.6;
+  font-size: 0.94rem;
+}
+
+.samoocena-report-rec-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-report-rec-meta strong {
+  font-weight: 700;
+}
+
+.samoocena-tag-cost { color: #22c55e; }
+.samoocena-tag-effort { color: #60a5fa; }
+.samoocena-tag-impact.impact-krytyczny { color: #ef4444; }
+.samoocena-tag-impact.impact-wysoki { color: #F5A623; }
+.samoocena-tag-impact.impact-średni { color: var(--samoocena-muted); }
+
+.samoocena-report-rec-why {
+  margin: 0.8rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--samoocena-card-border);
+  color: var(--samoocena-muted);
+  line-height: 1.5;
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
+.samoocena-report-cta {
+  padding: clamp(2rem, 4vw, 2.8rem) clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--samoocena-accent);
+  color: #000;
+  border: 1px solid var(--samoocena-accent);
+  border-top: none;
+  display: grid;
+  gap: 0.8rem;
+  justify-items: start;
+}
+
+.samoocena-report-cta h3 {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  letter-spacing: -0.015em;
+  color: #000;
+}
+
+.samoocena-report-cta p {
+  margin: 0;
+  line-height: 1.6;
+  max-width: 60ch;
+  font-size: 0.98rem;
+}
+
+.samoocena-report-cta p strong {
+  font-weight: 700;
+}
+
+.samoocena-report-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.4rem;
+  background: #000;
+  color: #fff;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 0.4rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.samoocena-report-cta-link:hover {
+  background: #fff;
+  color: var(--samoocena-accent);
+}
+
+.samoocena-report-restart {
+  padding: 2.5rem 0 0;
+  display: flex;
+  justify-content: center;
+}
+
 /* ANIMATIONS */
 
 @keyframes samoocena-fadeUp {
@@ -1449,6 +1902,29 @@
   .samoocena-category-meta-grid > div:last-child,
   .samoocena-thank-you-stats > div:last-child {
     border-bottom: none;
+  }
+
+  .samoocena-report-bar {
+    grid-template-columns: 1fr 40px;
+    grid-template-rows: auto auto;
+    row-gap: 0.4rem;
+  }
+
+  .samoocena-report-bar-label {
+    grid-column: 1 / -1;
+  }
+
+  .samoocena-report-cover-meta {
+    gap: 0.8rem 1.2rem;
+    font-size: 0.65rem;
+  }
+
+  .samoocena-report-rec {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .samoocena-report-rec-num {
+    font-size: 1.3rem;
   }
 
   /* LANDING — mobile tuning */
