@@ -31,33 +31,108 @@
 }
 
 .samoocena-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 0;
 }
 
-.samoocena-brand,
-.samoocena-nav-link,
+.samoocena-brand-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.samoocena-brand-wrap:hover .samoocena-brand {
+  color: var(--samoocena-accent);
+}
+
+.samoocena-brand-inner {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 0.35rem;
+}
+
+.samoocena-brand {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  transition: color 0.2s ease;
+}
+
+.samoocena-brand-tagline {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-brand-version {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  color: var(--samoocena-muted);
+  letter-spacing: 0.04em;
+}
+
+.brand-i {
+  color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.brand-i::before {
+  content: 'ı';
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.brand-i::after {
+  content: '';
+  position: absolute;
+  width: 0.22em;
+  height: 0.22em;
+  border-radius: 50%;
+  background: var(--samoocena-accent);
+  top: 0.1em;
+  left: 0.18em;
+}
+
+.samoocena-nav-link {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.samoocena-nav-link:hover {
+  color: var(--samoocena-accent);
+}
+
+.samoocena-nav-link-short {
+  display: none;
+}
+
 .samoocena-kicker {
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.samoocena-brand {
-  font-size: 1rem;
-}
-
-.samoocena-nav-link {
-  color: var(--samoocena-accent);
-  text-decoration: none;
-}
-
-.samoocena-nav-link:hover {
-  text-decoration: underline;
 }
 
 /* MAIN SHELL */
@@ -1069,12 +1144,31 @@
 
 @media (max-width: 767px) {
   .samoocena-nav-inner {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    gap: 0.6rem;
+  }
+
+  .samoocena-brand {
+    font-size: 1.1rem;
+  }
+
+  .samoocena-brand-tagline,
+  .samoocena-brand-version {
+    display: none;
+  }
+
+  .samoocena-nav-link-full {
+    display: none;
+  }
+
+  .samoocena-nav-link-short {
+    display: inline;
   }
 
   .samoocena-viewport {
     padding-top: 1.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   .samoocena-form-actions,

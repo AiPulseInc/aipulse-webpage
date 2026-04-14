@@ -4,6 +4,19 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.539] — 2026-04-14
+
+Task 2 (Samoocena) — nav spójny ze stroną security.
+
+- Brand: `Ai Puls` (Outfit 800) + `Cyber Security` tagline (Space Grotesk uppercase) — replicated pattern z `.site-nav-brand` na /security/
+- `brand-i` z violet kropką (pseudo-element) — lokalna kopia globalnego patternu
+- Link prawy: `Powrót na stronę główną` → `href="/"` (pełna na desktop, `← Powrót` na mobile)
+- Nav-inner dostaje `max-width: 1200px` + `padding: 1.25rem 2rem` — content już nie dotyka krawędzi ekranu
+- Mobile (<768px): tagline i version chowają się, padding 1.25rem side, link skraca się do `← Powrót`
+- Viewport dostaje też padding 1.25rem side na mobile żeby zgrać się z nav
+
+---
+
 ## [0.538] — 2026-04-14
 
 Task 2 (Samoocena) — stat cards czytelność. Pojedynczy stat ("0 zł") był nieczytelny bez kontekstu.
