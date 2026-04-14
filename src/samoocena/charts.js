@@ -57,12 +57,15 @@ export function renderBenchmarkLine(benchmark) {
   `;
 }
 
-export function renderProgressBar(current, total) {
+export function renderProgressBar(current, total, categoryLabel) {
   const pct = total > 0 ? Math.round((current / total) * 100) : 0;
   return `
+    <div class="samoocena-progress-wrap">
+      <div class="samoocena-progress-counter">${current}<span class="samoocena-progress-counter-total">/${total}</span></div>
+      ${categoryLabel ? `<div class="samoocena-progress-category-label">${escapeHtml(categoryLabel)}</div>` : ''}
+    </div>
     <div class="samoocena-progress" role="progressbar" aria-valuenow="${current}" aria-valuemin="0" aria-valuemax="${total}">
       <div class="samoocena-progress-fill" style="width: ${pct}%"></div>
-      <span class="samoocena-progress-label">${current} z ${total}</span>
     </div>
   `;
 }

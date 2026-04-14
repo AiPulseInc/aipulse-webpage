@@ -4,6 +4,27 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.540] — 2026-04-14
+
+Task 2 (Samoocena) — typography bliżej mockup A + question width constraint + progress counter prominence.
+
+### Typography alignment z mockupem A
+- Headlines wszędzie: `Outfit` 700-800 z tight letter-spacing (-0.01em do -0.02em) zamiast Inter uppercase. Match cover mockupu A (h1 36pt / h2 22pt).
+- `.samoocena-display`, `.samoocena-section-title`, `.samoocena-question-text`, `.samoocena-profiling h1`, `.samoocena-results h1`, `.samoocena-deliverable h3`, `.samoocena-rec h3`, `.samoocena-section-card h2` — wszystkie Outfit z spójnymi wagami
+- Body text zostaje Inter (czytelność długich pytań)
+- Labels/kickers/CTA: Space Grotesk (bez zmian)
+
+### Width constraint
+- Question screen (`.samoocena-question-shell`) i profiling (`.samoocena-profiling`) max-width 720px — tekst pytań w 60-72ch zamiast lecenia na 1200px
+- Landing i stats zostają na 1200px (monumentalny efekt)
+
+### Progress counter prominence
+- Duży `X / 35` Outfit 800 violet tabular-nums nad paskiem
+- Po prawej stronie etykieta kategorii (Space Grotesk uppercase)
+- Bar shrunk z 6px → 4px żeby counter był głównym hitem
+
+---
+
 ## [0.539] — 2026-04-14
 
 Task 2 (Samoocena) — nav spójny ze stroną security.

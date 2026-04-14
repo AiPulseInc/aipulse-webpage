@@ -195,9 +195,9 @@ export function renderQuestion(ctx) {
 
   return `
     <section class="samoocena-question-shell">
-      ${renderProgressBar(progressNum, questions.length)}
+      ${renderProgressBar(progressNum, questions.length, category.name)}
       <div class="samoocena-question-category">
-        <span class="samoocena-kicker">${escapeHtml(category.name)} · ${escapeHtml(category.subtitle)}</span>
+        <span class="samoocena-kicker">${escapeHtml(category.subtitle)}</span>
       </div>
       <article class="samoocena-question">
         <h2 class="samoocena-question-text">${escapeHtml(question.text)}</h2>
