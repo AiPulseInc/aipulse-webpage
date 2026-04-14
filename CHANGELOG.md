@@ -4,6 +4,24 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.549] — 2026-04-14
+
+/security/ — fix listy "Co dostajesz" w karcie `_00 · SAMOOCENA` — spójność z realnym raportem.
+
+### Było (niespójne z faktycznym raportem)
+- Wynik 0-100 w 5 kategoriach
+- Porównanie ze średnią Twojej branży
+- 3 najważniejsze rekomendacje (faktycznie jest 5)
+- Szacowany koszt wdrożenia (redundant — to jest W rekomendacjach)
+
+### Jest (1:1 z Executive Summary + Top 5)
+- Wynik 0–100 w 5 kategoriach + poziom dojrzałości
+- Executive summary z 3 największymi lukami i ryzykiem finansowym
+- Top 5 rekomendacji z kosztem, nakładem i impactem
+- Benchmark na tle firm MŚP (wersja wstępna)
+
+---
+
 ## [0.548] — 2026-04-14
 
 Task 2 (Samoocena) — sticky footers + flex viewport + A3c-7 (banner removal, box stability, 75vw desktop) + podpięcie z /security/.
