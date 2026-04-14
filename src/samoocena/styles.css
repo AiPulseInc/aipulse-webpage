@@ -2,12 +2,38 @@
   min-height: 100vh;
   background: #000;
   color: #fff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
   --samoocena-accent: #7E22CE;
   --samoocena-accent-rgb: 126, 34, 206;
   --samoocena-border: #333;
   --samoocena-muted: #B3B3B3;
   --samoocena-card-bg: #0A0A0A;
   --samoocena-card-border: #1a1a1a;
+}
+
+.samoocena-shell * {
+  font-family: inherit;
+}
+
+.samoocena-shell h1,
+.samoocena-shell h2,
+.samoocena-shell h3,
+.samoocena-shell h4,
+.samoocena-shell h5,
+.samoocena-shell h6,
+.samoocena-shell p,
+.samoocena-shell button,
+.samoocena-shell input,
+.samoocena-shell select,
+.samoocena-shell textarea,
+.samoocena-shell label,
+.samoocena-shell span,
+.samoocena-shell li,
+.samoocena-shell dt,
+.samoocena-shell dd {
+  font-family: inherit;
 }
 
 .samoocena-shell::before {
@@ -1464,9 +1490,9 @@
 
 .samoocena-option {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.9rem;
-  padding: 1rem 1.1rem;
+  padding: 0.9rem 1.1rem;
   border: 1px solid var(--samoocena-card-border);
   background: var(--samoocena-card-bg);
   cursor: pointer;

@@ -4,6 +4,21 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.547] — 2026-04-14
+
+Task 2 (Samoocena) — serif font bug + opcje vertical alignment.
+
+### Root cause (MCP DevTools visual check)
+- `.samoocena-shell` nie miał zadeklarowanego `font-family`. Samoocena nie importuje głównego `style.css` (gdzie jest `html { font-family: Inter }`). Browser fallback → serif (Times).
+- Efekt: h1/h2 z explicite Outfit były OK, ale body text, opcje radio, paragraphs bez font-family leciały serif.
+
+### Fix
+- `.samoocena-shell { font-family: 'Inter', system-ui, -apple-system, sans-serif; }` + `line-height: 1.55` + `font-size: 16px` jako baseline
+- `.samoocena-shell * { font-family: inherit; }` oraz explicite dla h1-h6, p, button, input, select, label, span, li, dt, dd — gwarancja że żaden element nie wyślizgnie się na browser default
+- `.samoocena-option`: `align-items: flex-start` → `align-items: center` (tekst vertically centered w 56px min-height boxie)
+
+---
+
 ## [0.546] — 2026-04-14
 
 Task 2 (Samoocena) — FIX: setState nie zaimportowany w app.js.
