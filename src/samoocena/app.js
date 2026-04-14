@@ -24,6 +24,7 @@ import {
   renderResults,
   renderError,
 } from './ui.js';
+import { submitAssessment, fetchBenchmark } from './api.js';
 
 const mainEl = document.getElementById('samoocena-main');
 const versionEl = document.getElementById('app-version');
@@ -66,7 +67,7 @@ function buildRenderContext(state) {
 
   if (state.step === 'results') {
     ctx.scoringResult = scoreAssessment(state.responses);
-    ctx.benchmark = null;
+    ctx.benchmark = state.benchmark || null;
   }
 
   return ctx;
@@ -167,6 +168,8 @@ function handleClick(event) {
     },
     'go-to-results': () => {
       setStep('results');
+      scheduleSubmit();
+      scheduleBenchmark();
     },
     'download-pdf': () => {
       const state = getState();
@@ -202,6 +205,65 @@ function handleChange(event) {
     const questionId = input.dataset.questionId;
     const optionIndex = Number(input.dataset.optionIndex);
     saveResponse(questionId, optionIndex);
+  }
+}
+
+let benchmarkInFlight = false;
+
+async function scheduleBenchmark() {
+  if (benchmarkInFlight) return;
+  const state = getState();
+  if (state.benchmark) return; // już pobrane w tej sesji
+  if (!state.profile?.industry || !state.profile?.size) return;
+  benchmarkInFlight = true;
+  try {
+    const benchmark = await fetchBenchmark(state.profile.industry, state.profile.size);
+    if (benchmark) setState({ benchmark });
+  } finally {
+    benchmarkInFlight = false;
+  }
+}
+
+let submitInFlight = false;
+
+async function scheduleSubmit() {
+  if (submitInFlight) return;
+  const state = getState();
+  if (state.submittedAt) return; // już wysłane w tej sesji
+  submitInFlight = true;
+  showSubmitToast('sending');
+  try {
+    const scoringResult = scoreAssessment(state.responses);
+    const result = await submitAssessment(state, scoringResult);
+    if (result.ok) {
+      setState({ submittedAt: new Date().toISOString() });
+      showSubmitToast('success');
+    } else {
+      showSubmitToast('failed', result.error);
+    }
+  } finally {
+    submitInFlight = false;
+  }
+}
+
+function showSubmitToast(status, errorMsg = '') {
+  const existing = document.querySelector('.samoocena-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = `samoocena-toast samoocena-toast-${status}`;
+  const text =
+    status === 'sending'
+      ? 'Zapisywanie anonimowego wyniku…'
+      : status === 'success'
+        ? '✓ Odpowiedzi zapisane anonimowo (bez danych osobowych).'
+        : `Nie udało się zapisać wyniku. Wynik widoczny lokalnie — spróbuję ponownie przy następnym otwarciu.${errorMsg ? ` [${errorMsg}]` : ''}`;
+  toast.textContent = text;
+  document.body.appendChild(toast);
+
+  if (status !== 'sending') {
+    setTimeout(() => toast.classList.add('samoocena-toast-hide'), 4500);
+    setTimeout(() => toast.remove(), 5000);
   }
 }
 

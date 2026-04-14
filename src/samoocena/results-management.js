@@ -2,16 +2,17 @@ import { escapeHtml } from './charts.js';
 import { topRecommendations } from './recommendations.js';
 import { getCategoriesMeta } from './scoring.js';
 
-// Wstępny benchmark dopóki A5 (Supabase RPC) nie jest gotowe.
-// Reprezentuje "przeciętne MŚP 11-50 os." na podstawie KB (Knowledge Base).
-const MOCKED_BENCHMARK = {
+// Fallback benchmark gdy RPC nie odpowiada albo n=0 (np. pierwsze submity po deploy).
+// Wartości z KB — "przeciętne MŚP 11-50 os.".
+const FALLBACK_BENCHMARK = {
   A: 55,
   B: 48,
   C: 52,
   D: 45,
   E: 58,
   sampleSize: 42,
-  cohortLabel: 'MŚP 11–50 pracowników',
+  cohortLabel: 'MŚP 11–50 pracowników (szacunek wstępny)',
+  scope: 'fallback',
 };
 
 const SIZE_LABELS = {
@@ -22,6 +23,7 @@ const SIZE_LABELS = {
 
 export function renderManagementResults(ctx) {
   const { scoringResult, responses, profile } = ctx;
+  const benchmark = ctx.benchmark || FALLBACK_BENCHMARK;
   const topRecs = topRecommendations(scoringResult, responses, 5);
   const topGaps = topRecommendations(scoringResult, responses, 3);
   const categoriesMeta = getCategoriesMeta();
@@ -31,7 +33,7 @@ export function renderManagementResults(ctx) {
     <article class="samoocena-report">
       ${renderReportCover(scoringResult, today, profile)}
       ${renderExecutiveSummary(scoringResult, topGaps)}
-      ${renderCategoryAnalysis(scoringResult, categoriesMeta, profile)}
+      ${renderCategoryAnalysis(scoringResult, categoriesMeta, profile, benchmark)}
       ${renderTopRecommendations(topRecs)}
       ${renderUpsellSection()}
       ${renderReportCTA()}
@@ -128,22 +130,29 @@ function renderExecutiveSummary(scoringResult, topGaps) {
   `;
 }
 
-function renderCategoryAnalysis(scoringResult, categoriesMeta, profile) {
+function renderCategoryAnalysis(scoringResult, categoriesMeta, profile, benchmark) {
   const entries = categoriesMeta.map((cat) => ({
     id: cat.id,
     name: cat.name,
     pct: scoringResult.categories[cat.id]?.percentage ?? 0,
-    benchmark: MOCKED_BENCHMARK[cat.id] ?? 50,
+    benchmark: Math.round(benchmark[cat.id] ?? 50),
   }));
   const above = entries.filter((e) => e.pct > e.benchmark);
   const below = entries.filter((e) => e.pct < e.benchmark);
   const equal = entries.filter((e) => e.pct === e.benchmark);
+  const isFallback = benchmark.scope === 'fallback';
+  const scopeNote = {
+    industry_size: 'dokładna kohorta (Twoja branża + rozmiar)',
+    size_only: 'kohorta po rozmiarze firmy (wszystkie branże)',
+    all_smb: 'wszystkie MŚP z próby',
+    fallback: 'szacunek wstępny z bazy wiedzy (realne dane spłyną wraz z kolejnymi samoocenami)',
+  }[benchmark.scope] || 'kohorta';
   return `
     <section class="samoocena-report-section">
       <p class="samoocena-kicker">// Analiza kategorii</p>
       <h2 class="samoocena-report-h2">Gdzie jesteś mocny, gdzie słaby</h2>
       <p class="samoocena-report-paragraph samoocena-report-muted">
-        Pionowy znacznik = średnia dla ${escapeHtml(MOCKED_BENCHMARK.cohortLabel)} (n=${MOCKED_BENCHMARK.sampleSize}). <em>Benchmark wstępny — realne dane podłączymy w A5 (Supabase RPC).</em>
+        Pionowy znacznik = średnia dla ${escapeHtml(benchmark.cohortLabel)} (n=${benchmark.sampleSize}).${isFallback ? ' <em>Realne dane podłączą się automatycznie, gdy próba osiągnie wystarczający rozmiar.</em>' : ''}
       </p>
 
       <div class="samoocena-report-bars">
@@ -172,7 +181,7 @@ function renderCategoryAnalysis(scoringResult, categoriesMeta, profile) {
             : ''
         }
         <p class="samoocena-report-footnote">
-          Próba: ${MOCKED_BENCHMARK.sampleSize} firm z kohorty ${escapeHtml(MOCKED_BENCHMARK.cohortLabel)}, wersja kwestionariusza 2026-01.
+          Próba: ${benchmark.sampleSize} firm z kohorty „${escapeHtml(benchmark.cohortLabel)}" — ${escapeHtml(scopeNote)}. Kwestionariusz 2026-01.
         </p>
       </div>
     </section>

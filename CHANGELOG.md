@@ -4,6 +4,48 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.553] — 2026-04-14
+
+Task 2 A5 + A6 — Supabase integracja samooceny + benchmark pipeline. Plus retrofit pierwszego posta bloga i nowy skill `security-blog-post`.
+
+### A5 — Supabase schema + anonymous submit flow
+- Projekt Supabase `aipulse-samoocena` w Frankfurcie (`eu-central-1`), Postgres 17.6.
+- Migracja `20260414210000_self_assessment.sql` — 4 tabele (`assessments`, `responses`, `leads`, `payments`), indeksy, triggery `updated_at`, RLS policies (anon INSERT only, deny-all na leads/payments), RPC `get_benchmark_snapshot` z fallback logic (industry+size → size-only → all_smb).
+- Migracja `20260414210100_self_assessment_security_hardening.sql` — odpowiedź na 4 security advisor lints: `search_path` pinned na `set_updated_at`, citext przeniesiony do schematu `extensions`, explicit deny-all policies na leads/payments.
+- Storage bucket `reports` (private, 10MB, only `application/pdf`) przygotowany dla Fazy 7 (PDF delivery).
+- Nowy dep `@supabase/supabase-js@^2.103.0`.
+- `src/lib/supabase-browser.js` — lazy-init client z nowym formatem kluczy (`sb_publishable_*` + legacy fallback).
+- `src/samoocena/api.js` — `submitAssessment()` z retry exp backoff (3 próby, 500ms/2s/8s); mapping UI 8 branż → schema enum 5 opcji; `fetchBenchmark()` w tym samym module.
+- `src/samoocena/state.js` — auto-gen `assessmentId` (crypto.randomUUID) w `markStarted`.
+- `src/samoocena/app.js` — `scheduleSubmit()` + `scheduleBenchmark()` równolegle po `go-to-results`, non-blocking; toast system (sending / success / failed) z wariantami kolorystycznymi i adapt mobile.
+- `scripts/test-supabase-insert.mjs` — powtarzalny smoke test anon INSERT + RLS SELECT block + RPC call.
+- Nowy klucz `.env.local`: `SUPABASE_SECRET_KEY` (zastępuje legacy `SUPABASE_SERVICE_ROLE_KEY` zgodnie z rekomendacją Supabase — per-key rotation, scope, audit).
+- **MCP Supabase (`ugvexcuybvjlxplltnht`)** wykorzystany do apply migracji, execute_sql, get_advisors (zero lintów), list_tables (weryfikacja). Dokumentacja: [docs/setup/supabase-stripe-setup.md](docs/setup/supabase-stripe-setup.md).
+
+### A6 — Benchmark pipeline
+- `results-management.js` używa `ctx.benchmark` z RPC `get_benchmark_snapshot`; fallback `FALLBACK_BENCHMARK` gdy RPC null (n=0).
+- Footnote pokazuje scope-specific wyjaśnienie (`industry_size` / `size_only` / `all_smb` / `fallback`).
+- Timing: benchmark fetch równolegle do submit, non-blocking dla renderu.
+
+### Blog + skill
+- Post `wyciek-sklepow-polska-130k-2026` — dedykowany cover (violet database tower z wyciekającymi rekordami), retrofit akapitów: bcrypt wyjaśniony po ludzku (bez żargonu „solenia" którego nie było w źródle), allegromail.pl przywrócone jako mechanizm obronny (zgodnie z CyberDefence24), usunięte spekulacje o konkretnych błędach firmy (ryzyko prawne).
+- Post `ubezpieczenie-cyber-underwriter-2026` — wymiana generic cover na dedykowany (tarcza pod pomiarem z violet liniami).
+- `scripts/generate-blog-cover.mjs` — wrapper Nano Banana 2 (gemini-3.1-flash-image-preview) z brand guardrails Security: violet #7E22CE, brutalist, zero tekstu/twarzy.
+- Skill `~/.claude/skills/security-blog-post/` — end-to-end workflow tworzenia postów: WebFetch → draft → walidacja tytułu ≤7 słów (hard block) → generacja coveru → frontmatter → MCP verify. Trzy główne reguły:
+  1. Żargon techniczny zawsze wyjaśniaj przed pierwszym użyciem
+  2. Nie dorzucaj faktów/terminów spoza treści źródła
+  3. Nie spekuluj o błędach nazwanej firmy (ryzyko prawne)
+
+### Decisions
+- **Resend vs MailerSend** — potwierdzony wybór Resend (3k free tier pokrywa wolumen 500-1000/mc, SOC 2 Type II, EU datacenter, React Email). Pełna analiza w [reference_email_provider.md](~/.claude/projects/.../memory/reference_email_provider.md).
+
+### Planowane po tej wersji
+- **DNS enrichment samooceny** (DNSDumpster API via Supabase Edge Function) — wzbogacenie raportu pasywnym skanem ekspozycji
+- **Standalone lead-gen tool** „Sprawdź domenę w 30s" na `/security/`
+- **Phase B** — Stripe hosted checkout gate dla mockup B (149 zł) + Resend email delivery
+
+---
+
 ## [0.552] — 2026-04-14
 
 Task 2 A4 — Client-side PDF raportu + upsell section.

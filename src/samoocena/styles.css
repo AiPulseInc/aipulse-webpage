@@ -1472,6 +1472,70 @@
   justify-content: center;
 }
 
+/* SUBMIT TOAST */
+
+.samoocena-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  max-width: min(420px, calc(100vw - 3rem));
+  padding: 1rem 1.25rem;
+  background: #0A0A0A;
+  color: #fff;
+  border: 1px solid #333;
+  border-left: 4px solid #7E22CE;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  z-index: 9999;
+  animation: samoocena-toast-in 0.35s ease-out;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.samoocena-toast-sending {
+  border-left-color: #7E22CE;
+  color: #B3B3B3;
+}
+
+.samoocena-toast-success {
+  border-left-color: #4ade80;
+}
+
+.samoocena-toast-failed {
+  border-left-color: #f87171;
+}
+
+.samoocena-toast-hide {
+  animation: samoocena-toast-out 0.4s ease-in forwards;
+}
+
+@keyframes samoocena-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes samoocena-toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@media (max-width: 640px) {
+  .samoocena-toast {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+  }
+}
+
 /* ANIMATIONS */
 
 @keyframes samoocena-fadeUp {

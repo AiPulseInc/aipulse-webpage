@@ -19,7 +19,7 @@ Ten dokument = **synteza + decyzje + ryzyka**. Plan Codex jest ready-to-execute;
 | Chart results | Radar | **Horizontal bars w UI, radar tylko w PDF** | Bars honestly pokazują scores, radar efektowny w druku |
 | Chart lib | Chart.js / react-pdf | **CSS bars / inline SVG (zero lib)** | Zgodne z vanilla stack, mały bundle |
 | PDF generation | Playwright headless | **Server-side HTML→PDF w Edge Function** | Preferuje branding fidelity, zgoda że font embedding MUST |
-| Email | Resend/SendGrid | **Resend** (DX, PL friendly) | OK |
+| Email | Resend/SendGrid | **Resend** (DX, PL friendly) | OK · _Zweryfikowane 2026-04-14 vs MailerSend — Resend potwierdzony (free tier 3k/mc pokrywa wolumen 500-1000/mc, SOC 2 Type II, EU datacenter Frankfurt). Trigger conditions re-ewaluacji w memory `reference_email_provider`._ |
 | Save-resume | Email link opcjonalnie | **Tylko localStorage w MVP** | Email resume łamie "no PII before pay" — zgadzam się |
 | Checkout | Stripe | **Hosted Checkout + `automatic_payment_methods`** (BLIK, Przelewy24 gdy dostępne) | Najbezpieczniejsze dla static Vite |
 | Benchmark pojawia się gdy... | Nie wspomniane | `n >= 30` dla industry+size, fallback `n >= 50` dla size, dalej `all_smb`. Zawsze sample size widoczny | To kluczowe dla wiarygodności — Codex plan ma pełną SQL implementation w `get_benchmark_snapshot()` RPC |

@@ -12,8 +12,8 @@ tags:
   - "polisa"
   - "msp"
   - "mfa"
-cover: "/generated/security/audyt-basic.jpg"
-coverAlt: "Underwriter analizujący ryzyko cyfrowe na ekranie komputera w 2026 roku"
+cover: "/generated/security/blog/ubezpieczenie-cyber-underwriter-2026.jpg"
+coverAlt: "Biała izometryczna tarcza na czarnym tle, prześwietlana violetowymi liniami pomiarowymi, z widocznymi drobnymi pęknięciami wewnątrz — blueprint-review cyber-ubezpieczenia."
 featured: false
 draft: false
 author: "Maciej Konieczny"

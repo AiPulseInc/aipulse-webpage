@@ -1,7 +1,7 @@
 {
   "name": "aipulse-webpage",
   "private": true,
-  "version": "0.552",
+  "version": "0.553",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,5 +23,8 @@
     "slugify": "^1.6.9",
     "vite": "^5.0.0",
     "vite-plugin-sitemap": "^0.8.2"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.103.0"
   }
 }

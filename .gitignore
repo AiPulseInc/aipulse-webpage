@@ -144,7 +144,9 @@ dist
 *.sw?
 .env copy
 
-# Security blog — generated files (source of truth is content/security/blog/**/*.md)
+# Security blog — build artifacts (source of truth is content/security/blog/**/*.md)
 security/blog/
 public/security/blog/feed.xml
-public/generated/security/blog/
+
+# Note: public/generated/security/blog/*.jpg (AI-generated covers) ARE commited —
+# deployment-ready per główne CLAUDE.md convention.

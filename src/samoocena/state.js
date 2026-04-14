@@ -73,7 +73,10 @@ export function setCurrentQuestionIndex(index) {
 }
 
 export function markStarted() {
-  if (!state.startedAt) setState({ startedAt: new Date().toISOString() });
+  const patch = {};
+  if (!state.startedAt) patch.startedAt = new Date().toISOString();
+  if (!state.assessmentId) patch.assessmentId = crypto.randomUUID();
+  if (Object.keys(patch).length > 0) setState(patch);
 }
 
 export function markCompleted() {
