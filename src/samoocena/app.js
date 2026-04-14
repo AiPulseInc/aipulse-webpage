@@ -1,16 +1,158 @@
 import './styles.css';
 import { VERSION } from '../version.js';
-import { getCategoriesMeta, getQuestions } from './scoring.js';
-import './recommendations.js';
+import { getQuestions } from './scoring.js';
+import { scoreAssessment } from './scoring.js';
+import {
+  getState,
+  setStep,
+  setProfile,
+  saveResponse,
+  setCurrentQuestionIndex,
+  markStarted,
+  markCompleted,
+  clearState,
+  hasResumableState,
+  subscribe,
+} from './state.js';
+import {
+  renderLanding,
+  renderProfiling,
+  renderQuestion,
+  renderResults,
+  renderError,
+} from './ui.js';
 
+const mainEl = document.getElementById('samoocena-main');
 const versionEl = document.getElementById('app-version');
-if (versionEl) {
-  versionEl.textContent = `v${VERSION}`;
+if (versionEl) versionEl.textContent = `v${VERSION}`;
+
+render();
+subscribe(render);
+bindDelegatedEvents();
+
+function render() {
+  if (!mainEl) return;
+  const state = getState();
+  const ctx = buildRenderContext(state);
+
+  try {
+    const html = routeToRenderer(state.step, ctx);
+    mainEl.innerHTML = `<div class="container-fluid samoocena-viewport">${html}</div>`;
+    mainEl.scrollTo?.({ top: 0, behavior: 'instant' });
+    window.scrollTo?.({ top: 0, behavior: 'instant' });
+  } catch (err) {
+    console.error('[samoocena] render error:', err);
+    mainEl.innerHTML = `<div class="container-fluid samoocena-viewport">${renderError(err.message || 'Nieznany błąd.')}</div>`;
+  }
 }
 
-if (typeof window !== 'undefined') {
-  window.__samoocenaSmoke = {
-    categories: getCategoriesMeta().length,
-    questions: getQuestions().length,
+function buildRenderContext(state) {
+  const ctx = {
+    profile: state.profile,
+    responses: state.responses,
+    currentIndex: state.currentQuestionIndex,
+    hasResume: hasResumableState(),
   };
+
+  if (state.step === 'results') {
+    ctx.scoringResult = scoreAssessment(state.responses);
+    ctx.benchmark = null;
+  }
+
+  return ctx;
+}
+
+function routeToRenderer(step, ctx) {
+  switch (step) {
+    case 'landing':
+      return renderLanding(ctx);
+    case 'profiling':
+      return renderProfiling(ctx);
+    case 'question':
+      return renderQuestion(ctx);
+    case 'results':
+      return renderResults(ctx);
+    default:
+      return renderLanding(ctx);
+  }
+}
+
+function bindDelegatedEvents() {
+  mainEl.addEventListener('click', handleClick);
+  mainEl.addEventListener('change', handleChange);
+  mainEl.addEventListener('submit', handleSubmit);
+}
+
+function handleClick(event) {
+  const btn = event.target.closest('[data-action]');
+  if (!btn) return;
+  const action = btn.dataset.action;
+
+  const actions = {
+    start: () => {
+      clearState();
+      markStarted();
+      setStep('profiling');
+    },
+    resume: () => {
+      const state = getState();
+      if (state.step === 'landing') setStep('question');
+    },
+    restart: () => {
+      if (!confirm('Zacznij od nowa? Aktualne odpowiedzi zostaną usunięte.')) return;
+      clearState();
+      setStep('landing');
+    },
+    'back-to-landing': () => setStep('landing'),
+    'prev-question': () => {
+      const state = getState();
+      if (state.currentQuestionIndex > 0) {
+        setCurrentQuestionIndex(state.currentQuestionIndex - 1);
+      }
+    },
+    'next-question': () => {
+      const state = getState();
+      const questions = getQuestions();
+      if (state.currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex(state.currentQuestionIndex + 1);
+      }
+    },
+    finish: () => {
+      markCompleted();
+    },
+    'download-pdf': () => {
+      // Placeholder do A6 — Edge Function generate-report
+      alert('Generowanie PDF zostanie podpięte w A6 (Edge Function + Supabase Storage).');
+    },
+  };
+
+  const handler = actions[action];
+  if (handler) {
+    event.preventDefault();
+    handler();
+  }
+}
+
+function handleChange(event) {
+  const input = event.target;
+  if (input.matches('input[type="radio"][data-question-id]')) {
+    const questionId = input.dataset.questionId;
+    const optionIndex = Number(input.dataset.optionIndex);
+    saveResponse(questionId, optionIndex);
+  }
+}
+
+function handleSubmit(event) {
+  const form = event.target.closest('[data-form]');
+  if (!form) return;
+  event.preventDefault();
+
+  if (form.dataset.form === 'profiling') {
+    const formData = new FormData(form);
+    const industry = formData.get('industry');
+    const size = formData.get('size');
+    if (!industry || !size) return;
+    setProfile({ industry, size });
+    setStep('question');
+  }
 }

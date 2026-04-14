@@ -4,6 +4,41 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.535] — 2026-04-14
+
+Task 2 (Samoocena) — A3: UX flow + on-screen results (mockup A).
+
+### Flow
+- Landing → Profiling (branża/wielkość) → 35 pytań (1 per ekran) → Results
+- LocalStorage resume: zamkniesz kartę — wrócisz do tego samego miejsca
+- Progress bar X/35, kategorie widoczne na górze, mapping CIS/NIST pod pytaniem
+- Pytania critical (MFA, backup) oznaczone wizualnie
+
+### Results screen (mockup A adaptacja)
+- Overall score + maturity label (Initial/Developing/Managed/Optimized) z kolorami
+- 5 horizontal bars per kategoria, kolor zależny od poziomu
+- Benchmark line (placeholder do A5 — Supabase RPC)
+- Top-3 rekomendacje z kartami (cost/effort/impact)
+- CTA "Pobierz PDF" disabled (podłączymy w A6)
+- CTA do /security/#contact dla konsultacji
+
+### Moduły
+- `state.js` — state store + localStorage + observer pattern
+- `charts.js` — CSS bars, overall score, progress bar, benchmark line
+- `ui.js` — renderery (landing/profiling/question/results/error)
+- `results-management.js` — dedicated mockup A renderer
+- `app.js` — orchestrator, delegated event handlers
+- `styles.css` — ~550 linii, mobile-first, theme-security violet
+
+### Status
+- ✅ Build czysty (bundle 39.79 KB, 14.28 KB gzip)
+- ✅ Safari backdrop-filter prefix
+- [ ] Smoke test przez człowieka: desktop + mobile 375px przeklik 35 pytań
+- [ ] Merytoryczna recenzja pytań (do zrobienia przed live)
+- A4 podepnie Supabase insert po markCompleted
+
+---
+
 ## [0.534] — 2026-04-14
 
 Task 2 (Samoocena) — A2: question bank + scoring engine + rekomendacje.
