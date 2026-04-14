@@ -82,6 +82,19 @@ function renderExecutiveSummary(scoringResult, topGaps) {
       <p class="samoocena-kicker">// Executive summary</p>
       <h2 class="samoocena-report-h2">Jedna strona, którą musi przeczytać właściciel firmy</h2>
 
+      ${
+        scoringResult.guardrailTriggered
+          ? `
+        <div class="samoocena-guardrail-callout">
+          <p class="samoocena-guardrail-label">⚠ Wynik ograniczony</p>
+          <p>
+            Twój wynik jest ograniczony do <strong>"Developing"</strong> niezależnie od pozostałych odpowiedzi, ponieważ brak MFA oraz brak testowanego backupu to <strong>warunki minimalne</strong> w certyfikacjach CIS Controls v8 i większości polis cyber insurance. Bez tych dwóch elementów żadne inne zabezpieczenia nie kompensują ryzyka paraliżu działalności po incydencie ransomware.
+          </p>
+        </div>
+      `
+          : ''
+      }
+
       <div class="samoocena-exec-highlight">
         <p>
           <strong>Twoja firma jest na poziomie "${escapeHtml(maturity.label)}" (${pct}/100)</strong> — ${escapeHtml(maturity.description)} Ryzyko paraliżu działalności w razie incydentu ransomware wynosi <strong>${risk.riskPct}</strong>.

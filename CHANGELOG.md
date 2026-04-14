@@ -4,6 +4,43 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.548] — 2026-04-14
+
+Task 2 (Samoocena) — sticky footers + flex viewport + A3c-7 (banner removal, box stability, 75vw desktop) + podpięcie z /security/.
+
+### Sticky footers na każdym screenie
+- `.samoocena-viewport` — flex column + `min-height: calc(100dvh - 5rem)`
+- `.samoocena-question-shell`, `.samoocena-category-intro`, `.samoocena-thank-you`, `.samoocena-profiling` — flex column + flex: 1 1 auto
+- Action footery (question-nav, category-actions, thank-you-actions, form-actions) — `margin-top: auto` + `position: sticky; bottom: 0` + gradient background
+- Efekt: przyciski zawsze na dolnej krawędzi viewportu, nie skaczą w zależności od długości contentu
+- Single-button screens (category-intro, thank-you) — `justify-content: flex-end` (przyciski po prawej)
+
+### Zmniejszone odstępy na category-intro
+- Display 02/05: clamp 4.5-8rem → 3.5-6rem
+- Title: 2-3rem → 1.7-2.4rem
+- Transition margin 3rem → 1.75rem, meta 1.5rem → 1rem, description 2.5rem → 1.5rem, meta-grid padding 1.2rem → 0.9rem
+
+### A3c-7 — banner removal + guardrail callout
+- Usunięty banner "⚠ Pytanie krytyczne — odpowiedź wpływa na poziom dojrzałości" z `renderQuestion()` — implicite dewaluował 33 pytania, których nie oznaczono jako critical
+- Dodany czerwony `.samoocena-guardrail-callout` w `renderExecutiveSummary()` (results-management.js) — pokazuje się TYLKO gdy `scoringResult.guardrailTriggered === true`. Komunikat: "Twój wynik jest ograniczony do 'Developing' niezależnie od pozostałych odpowiedzi, ponieważ brak MFA oraz brak testowanego backupu to warunki minimalne w certyfikacjach CIS Controls v8 i większości polis cyber insurance."
+- Waga 2.0 i guardrail zostają w silniku bez zmian — tylko UI komunikacja przeniesiona z per-pytanie na per-wynik
+
+### Box stability na question screen
+- `.samoocena-question-text` dostaje `min-height: calc(2 * 1.3em)` — pytanie zawsze rezerwuje miejsce na 2 linie, opcje radio nie skaczą między krótkimi i długimi pytaniami
+
+### Desktop 75vw z cap 1100px
+- Mobile (<1024px): `max-width: 100%` (bez zmian)
+- Desktop (≥1024px): `max-width: min(75vw, 1100px)` dla question-shell, category-intro, thank-you, profiling — 75% viewportu ale ultrawide capped na 1100px żeby tekst zostawał czytelny
+
+### Podpięcie z /security/
+- Karta `_00 · SAMOOCENA` na `/security/` w sekcji Oferta: CTA `Zapytaj o samoocenę` (href="#contact") → `Zrób audyt →` (href="/bezpieczenstwo-samoocena/")
+- Opis karty uproszczony: "Bezpłatny audyt uproszczony online. Kwestionariusz 35 pytań w 5 kategoriach, wynik natychmiastowy, top 5 rekomendacji." (usunięte "199 zł / 149 zł early adopters / narzędzie wkrótce dostępne" — bo narzędzie jest dostępne i bezpłatne w becie)
+
+### TODO na później (Phase B lead capture)
+- Na końcu raportu dodać "haczyk" dla paid PDF: CTA "Chcesz pełnej wersji audytu PDF?" + email capture + Stripe 149 zł — po ukończonym teście, gdy user widzi już wartość. Wymaga Stripe + Supabase + Resend (A4-A6 + Phase B).
+
+---
+
 ## [0.547] — 2026-04-14
 
 Task 2 (Samoocena) — serif font bug + opcje vertical alignment.

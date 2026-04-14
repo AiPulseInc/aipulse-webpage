@@ -172,6 +172,9 @@
   margin: 0 auto;
   padding-top: 2.5rem;
   padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - 5rem);
 }
 
 .samoocena-kicker {
@@ -657,16 +660,20 @@
 /* CATEGORY INTRO */
 
 .samoocena-category-intro {
-  max-width: 720px;
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
-  padding: 1rem 0 2rem;
+  padding: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .samoocena-category-transition {
-  padding: 1.2rem 1.4rem;
+  padding: 1rem 1.3rem;
   border-left: 3px solid var(--samoocena-accent);
   background: rgba(126, 34, 206, 0.07);
-  margin: 0 0 3rem;
+  margin: 0 0 1.75rem;
 }
 
 .samoocena-category-transition .samoocena-kicker {
@@ -691,8 +698,8 @@
   display: flex;
   align-items: baseline;
   gap: 0.1em;
-  margin: 0 0 1.5rem;
-  font: 800 clamp(4.5rem, 11vw, 8rem)/0.9 'Outfit', sans-serif;
+  margin: 0 0 1rem;
+  font: 800 clamp(3.5rem, 9vw, 6rem)/0.9 'Outfit', sans-serif;
   letter-spacing: -0.04em;
   color: var(--samoocena-accent);
   font-variant-numeric: tabular-nums;
@@ -714,20 +721,20 @@
 }
 
 .samoocena-category-title {
-  margin: 0.3rem 0 0.5rem;
+  margin: 0.2rem 0 0.4rem;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
   line-height: 1;
   letter-spacing: -0.02em;
   color: #fff;
 }
 
 .samoocena-category-subtitle {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
   font-family: 'Space Grotesk', monospace;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--samoocena-muted);
@@ -735,10 +742,10 @@
 
 .samoocena-category-description {
   max-width: 60ch;
-  margin: 0 0 2.5rem;
+  margin: 0 0 1.5rem;
   color: var(--samoocena-muted);
-  line-height: 1.7;
-  font-size: 1.02rem;
+  line-height: 1.65;
+  font-size: 1rem;
 }
 
 .samoocena-category-meta-grid {
@@ -748,15 +755,15 @@
   padding: 0;
   border-top: 1px solid var(--samoocena-card-border);
   border-bottom: 1px solid var(--samoocena-card-border);
-  margin: 0 0 2.5rem;
+  margin: 0 0 1.5rem;
 }
 
 .samoocena-category-meta-grid > div {
-  padding: 1.2rem 0.8rem;
+  padding: 0.9rem 0.8rem;
   border-right: 1px solid var(--samoocena-card-border);
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.3rem;
 }
 
 .samoocena-category-meta-grid > div:last-child {
@@ -780,15 +787,41 @@
 }
 
 .samoocena-category-actions {
+  position: sticky;
+  bottom: 0;
   display: flex;
+  justify-content: flex-end;
+  margin: auto -1rem 0;
+  padding: 1rem 1rem 0.8rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.9) 25%,
+    #000 60%
+  );
+  z-index: 10;
+}
+
+.samoocena-category-actions::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: 0.85rem;
+  height: 1px;
+  background: var(--samoocena-card-border);
 }
 
 /* THANK YOU */
 
 .samoocena-thank-you {
-  max-width: 720px;
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 1.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .samoocena-thank-you .samoocena-kicker {
@@ -853,7 +886,29 @@
 }
 
 .samoocena-thank-you-actions {
+  position: sticky;
+  bottom: 0;
   display: flex;
+  justify-content: flex-end;
+  margin: auto -1rem 0;
+  padding: 1rem 1rem 0.8rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.9) 25%,
+    #000 60%
+  );
+  z-index: 10;
+}
+
+.samoocena-thank-you-actions::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: 0.85rem;
+  height: 1px;
+  background: var(--samoocena-card-border);
 }
 
 /* REPORT — full 4-section management report (mockup A adaptation) */
@@ -1047,6 +1102,35 @@
   padding: 1.2rem 1.4rem;
   border-left: 4px solid var(--samoocena-accent);
   background: rgba(126, 34, 206, 0.08);
+}
+
+.samoocena-guardrail-callout {
+  margin: 0 0 1.5rem;
+  padding: 1.2rem 1.4rem;
+  border-left: 4px solid #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.samoocena-guardrail-label {
+  margin: 0 0 0.5rem;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ef4444;
+}
+
+.samoocena-guardrail-callout p:last-child {
+  margin: 0;
+  color: #fff;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.samoocena-guardrail-callout strong {
+  color: #ef4444;
+  font-weight: 700;
 }
 
 .samoocena-exec-highlight p {
@@ -1369,8 +1453,12 @@
 }
 
 .samoocena-profiling {
-  max-width: 720px;
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .samoocena-form {
@@ -1408,18 +1496,42 @@
 }
 
 .samoocena-form-actions {
+  position: sticky;
+  bottom: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.8rem;
-  margin-top: 0.5rem;
+  margin: auto -1rem 0;
+  padding: 1rem 1rem 0.8rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.9) 25%,
+    #000 60%
+  );
+  z-index: 10;
+}
+
+.samoocena-form-actions::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: 0.85rem;
+  height: 1px;
+  background: var(--samoocena-card-border);
 }
 
 /* QUESTION */
 
 .samoocena-question-shell {
-  max-width: 720px;
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .samoocena-progress-wrap {
@@ -1427,7 +1539,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
 }
 
 .samoocena-progress-counter {
@@ -1469,35 +1581,38 @@
 }
 
 .samoocena-question-category {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .samoocena-question-text {
-  margin: 0 0 2rem;
+  margin: 0 0 1.5rem;
   font-family: 'Outfit', 'Inter', sans-serif;
   font-weight: 700;
-  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
-  line-height: 1.25;
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  line-height: 1.3;
   letter-spacing: -0.01em;
   color: #fff;
+  min-height: calc(2 * 1.3em);
+  display: flex;
+  align-items: flex-start;
 }
 
 .samoocena-options {
   display: grid;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
 }
 
 .samoocena-option {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 0.9rem 1.1rem;
+  gap: 0.8rem;
+  padding: 0.7rem 1rem;
   border: 1px solid var(--samoocena-card-border);
   background: var(--samoocena-card-bg);
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
-  min-height: 56px;
+  min-height: 48px;
 }
 
 .samoocena-option:hover {
@@ -1533,23 +1648,41 @@
   background: rgba(126, 34, 206, 0.05);
 }
 
+.samoocena-question-meta {
+  margin: 1.2rem 0 0;
+  color: var(--samoocena-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  font-family: 'Space Grotesk', monospace;
+  text-transform: uppercase;
+}
+
 .samoocena-question-nav {
+  position: sticky;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--samoocena-card-border);
+  margin: auto -1rem 0;
+  padding: 1rem 1rem 0.8rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.9) 25%,
+    #000 60%
+  );
+  z-index: 10;
 }
 
-.samoocena-question-meta {
-  margin: 1rem 0 0;
-  color: var(--samoocena-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  font-family: 'Space Grotesk', monospace;
-  text-transform: uppercase;
+.samoocena-question-nav::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: 0.85rem;
+  height: 1px;
+  background: var(--samoocena-card-border);
 }
 
 /* RESULTS */
@@ -1846,6 +1979,15 @@
 }
 
 /* MOBILE */
+
+@media (min-width: 1024px) {
+  .samoocena-question-shell,
+  .samoocena-category-intro,
+  .samoocena-thank-you,
+  .samoocena-profiling {
+    max-width: min(75vw, 1100px);
+  }
+}
 
 @media (max-width: 1023px) {
   .samoocena-stats {

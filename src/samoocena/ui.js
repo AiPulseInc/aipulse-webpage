@@ -218,11 +218,7 @@ export function renderQuestion(ctx) {
             )
             .join('')}
         </div>
-        ${
-          question.critical
-            ? `<p class="samoocena-question-critical">⚠ Pytanie krytyczne — odpowiedź wpływa na poziom dojrzałości.</p>`
-            : ''
-        }
+        <p class="samoocena-question-meta">${escapeHtml(question.mapping)}</p>
       </article>
       <footer class="samoocena-question-nav">
         <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="prev-question"${
@@ -234,7 +230,6 @@ export function renderQuestion(ctx) {
           ${isLast ? 'Zakończ i pokaż wynik' : 'Następne →'}
         </button>
       </footer>
-      <p class="samoocena-question-meta">${escapeHtml(question.mapping)}</p>
     </section>
   `;
 }
