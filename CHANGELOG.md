@@ -4,6 +4,20 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.545] — 2026-04-14
+
+Task 2 (Samoocena) — fix profiling button (klik nie działał).
+
+### Root cause
+- Submit event przez `mainEl.addEventListener('submit', ...)` nie łapał się na delegated listener w niektórych konfiguracjach. Click na button z `type="submit"` wywoływał reload strony zamiast handlera. User w incognito (czysty stan) potwierdził że nic się nie dzieje po kliku.
+
+### Fix
+- `type="submit"` → `type="button"` + `data-action="submit-profiling"`
+- Handler przez `handleClick` dispatch (spójne z resztą akcji: start, resume, restart, begin-category, finish, go-to-results)
+- Walidacja: jeśli branża lub wielkość niewybrane, fokus na pierwszy pusty select + `reportValidity()` pokazuje browser tooltip "Wybierz element z listy"
+
+---
+
 ## [0.544] — 2026-04-14
 
 Task 2 (Samoocena) — fix profiling submit + rename button.

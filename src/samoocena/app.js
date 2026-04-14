@@ -139,6 +139,26 @@ function handleClick(event) {
         completedAt: new Date().toISOString(),
       });
     },
+    'submit-profiling': () => {
+      const form = mainEl.querySelector('[data-form="profiling"]');
+      if (!form) return;
+      const formData = new FormData(form);
+      const industry = formData.get('industry');
+      const size = formData.get('size');
+      if (!industry || !size) {
+        const firstEmpty =
+          form.querySelector('select[name="industry"]').value === ''
+            ? form.querySelector('select[name="industry"]')
+            : form.querySelector('select[name="size"]');
+        firstEmpty?.focus();
+        if (typeof firstEmpty?.reportValidity === 'function') {
+          firstEmpty.reportValidity();
+        }
+        return;
+      }
+      setProfile({ industry, size });
+      setState({ step: 'category-intro', currentQuestionIndex: 0 });
+    },
     'go-to-results': () => {
       setStep('results');
     },

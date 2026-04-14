@@ -175,7 +175,7 @@ export function renderProfiling(ctx) {
         </label>
         <div class="samoocena-form-actions">
           <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="back-to-landing">Wstecz</button>
-          <button type="submit" class="samoocena-cta samoocena-cta-primary">
+          <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="submit-profiling">
             <span class="samoocena-cta-label">Rozpocznij audyt</span>
             <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
           </button>
