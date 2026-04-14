@@ -4,6 +4,26 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.552] — 2026-04-14
+
+Task 2 A4 — Client-side PDF raportu + upsell section.
+
+### Zakres
+- Nowa Vite MPA entry `raport-audit/index.html` — renderuje pełny 10-stronicowy raport audytu (mockup B) z dynamicznymi danymi usera albo przykładową organizacją (`?example=1`).
+- `src/raport/app.js` czyta `sessionStorage.raportData`, auto-triggeruje `window.print()` po 800ms — user zapisuje jako PDF przez natywny dialog przeglądarki.
+- `src/raport/template.js` generuje: cover + TOC/methodology/scope + radar SVG + category narratives (dynamic per score) + findings + compliance grid + CTA.
+- `src/raport/example.js` — hardcoded TwojaFirma Sp. z o.o. 58/100 Developing dla "Zobacz przykładowy raport".
+- Sekcja upsell w `results-management.js` między Top 5 rekomendacji a konsultacją: H2 "Rozszerzona wersja raportu — 10 stron gotowych do druku", 5 benefitów, 2 przyciski `[Pobierz swój raport]` (otwiera nową kartę z realnymi danymi) + `[Zobacz przykładowy raport]` (z example data), note "W wersji beta oba raporty są darmowe. Docelowo 149 zł."
+- `app.js` action handlers: `download-pdf` zapisuje `sessionStorage.raportData` (profile + responses + scoringResult) i otwiera `/raport-audit/`; `view-example-report` otwiera `/raport-audit/?example=1`.
+
+### Reorder
+Oryginalnie A4 miał być Supabase schema. Przereorderowane: **A4 client-side PDF → A5 Supabase → A6 Benchmark**, bo Supabase credentials nie są jeszcze gotowe, a PDF dawał największą wartość lead-gen teraz.
+
+### Fix
+`makeRefNumber()` w `raport/app.js` wyciąga tylko cyfry z seedu (ISO string po `.replace(/\D/g, '')`) zamiast `slice(-5)` na surowym stringu — ref wyglądało jak `AP-SA-...-.382Z`.
+
+---
+
 ## [0.551] — 2026-04-14
 
 Task 2 (Samoocena) — auto-clear cache po zakończonym teście.

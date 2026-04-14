@@ -17,6 +17,7 @@ function getHtmlInputs() {
       'security/blog/**/index.html',
       'polityka-cookies/index.html',
       'bezpieczenstwo-samoocena/index.html',
+      'raport-audit/index.html',
     ],
     {
       cwd: __dirname,

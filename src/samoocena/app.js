@@ -169,8 +169,23 @@ function handleClick(event) {
       setStep('results');
     },
     'download-pdf': () => {
-      // Placeholder do A6 — Edge Function generate-report
-      alert('Generowanie PDF zostanie podpięte w A6 (Edge Function + Supabase Storage).');
+      const state = getState();
+      const scoringResult = scoreAssessment(state.responses);
+      const payload = {
+        profile: state.profile,
+        responses: state.responses,
+        scoringResult,
+        assessmentId: state.startedAt || Date.now(),
+      };
+      try {
+        sessionStorage.setItem('raportData', JSON.stringify(payload));
+      } catch (err) {
+        console.error('[samoocena] sessionStorage failed:', err);
+      }
+      window.open('/raport-audit/', '_blank', 'noopener');
+    },
+    'view-example-report': () => {
+      window.open('/raport-audit/?example=1', '_blank', 'noopener');
     },
   };
 

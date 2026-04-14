@@ -33,6 +33,7 @@ export function renderManagementResults(ctx) {
       ${renderExecutiveSummary(scoringResult, topGaps)}
       ${renderCategoryAnalysis(scoringResult, categoriesMeta, profile)}
       ${renderTopRecommendations(topRecs)}
+      ${renderUpsellSection()}
       ${renderReportCTA()}
       <footer class="samoocena-report-restart">
         <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="restart">Zacznij nową samoocenę</button>
@@ -223,6 +224,39 @@ function renderReportRec(rec, num) {
         ${rec.impact ? `<p class="samoocena-report-rec-why">${escapeHtml(rec.impact)}</p>` : ''}
       </div>
     </li>
+  `;
+}
+
+function renderUpsellSection() {
+  return `
+    <section class="samoocena-report-upsell">
+      <p class="samoocena-kicker">// Pełny raport audytowy</p>
+      <h2 class="samoocena-report-h2">Rozszerzona wersja raportu — 10 stron gotowych do druku</h2>
+      <p class="samoocena-report-paragraph samoocena-report-muted">
+        Wersja audit, którą możesz zapisać jako PDF, przekazać zarządowi albo dołączyć do wniosku ubezpieczeniowego.
+      </p>
+
+      <ul class="samoocena-report-upsell-benefits">
+        <li><strong>Szczegółowa analiza</strong> wszystkich 35 pytań z Twoimi odpowiedziami i interpretacją</li>
+        <li><strong>Mapowanie compliance</strong>: CIS Controls v8, NIST CSF 2.0, NIS2, RODO</li>
+        <li><strong>Executive briefing</strong> dla zarządu + roadmap 30/60/90 dni</li>
+        <li><strong>Gotowy materiał</strong> do rozmowy z ubezpieczycielem cyber lub audytorem</li>
+        <li><strong>Wersja print-ready A4</strong> + PDF do archiwum</li>
+      </ul>
+
+      <div class="samoocena-report-upsell-cta">
+        <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="download-pdf">
+          Pobierz swój raport
+        </button>
+        <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="view-example-report">
+          Zobacz przykładowy raport
+        </button>
+      </div>
+
+      <p class="samoocena-report-upsell-note">
+        <em>W wersji beta oba raporty są darmowe. Docelowo raport rozszerzony: <strong>149 zł</strong>.</em>
+      </p>
+    </section>
   `;
 }
 
