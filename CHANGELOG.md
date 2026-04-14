@@ -4,6 +4,32 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.543] — 2026-04-14
+
+Task 2 (Samoocena) — questions rewrite: "Nie wiem" opcja + gramatyka.
+
+### Nowa struktura (35 pytań, 4 opcje każde)
+- Opcja 1 (zawsze pierwsza): "Nie wiem / nie jestem pewny" — score 0 (blind spot = luka kontrolna w cyberbezpieczeństwie)
+- Opcje 2-4: zachowany scoring 0/1/3 lub 0/2/3 z poprzedniej wersji (najgorsza → najlepsza)
+- User nie musi się już "zgadywać" gdy nie wie — ma jawną opcję, która nie udaje pewności
+
+### Gramatyczna rewizja
+- Ujednolicenie osoby gramatycznej — wszystkie pytania w trzeciej osobie ("Czy firma...", "Jak firma..."), bez mieszania z 2. os. mn. ("zarządzacie", "udostępniacie")
+- Konkretne fixy: "Czy wiesz KTO ma dostęp" → "Czy firma prowadzi aktualną listę osób z dostępem"; "kogo dzwonisz pierwsze" → "do kogo firma zadzwoni najpierw"; "przeszkolony z ataków" → "przeszkolony w zakresie ataków"; "admin access" → "konto administratora"
+- Opisy kategorii rozszerzone — konkretniejsza narracja "dlaczego to ważne" dla każdej z 5 kategorii
+- Mapowanie CIS Controls + NIST CSF zachowane na każde pytanie
+
+### Category descriptions
+- "Ludzie": 82% ataków zaczyna się od człowieka, dlaczego trening > narzędzia
+- "Dane": backup, szyfrowanie, retencja, access — cztery filary
+- "Infrastruktura": MFA, patche, EDR, hardening
+- "Procesy": IR plan, logi, testy, odpowiedzialność
+- "Compliance": KSC, NIS2, RODO + łańcuch dostaw
+
+Bundle: 53.85 KB / 17.74 KB gzip.
+
+---
+
 ## [0.542] — 2026-04-14
 
 Task 2 (Samoocena) — results screen 1:1 mockup A (management report, scrollable).
