@@ -4,6 +4,18 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.538] — 2026-04-14
+
+Task 2 (Samoocena) — stat cards czytelność. Pojedynczy stat ("0 zł") był nieczytelny bez kontekstu.
+
+- Dodane kickers `// ZAKRES / CZAS / KOSZT / DANE` nad każdą liczbą (Space Grotesk uppercase, violet)
+- Numery (35, 10, 0, 0) teraz VIOLET `#7E22CE` zamiast białych — spójne z mockupami PDF (score w violet)
+- Suffixy (`pytań`, `min`, `zł`, `e-maili`) w Space Grotesk muted zamiast niezrozumiałych symboli
+- Czwarty stat: ezoteryczny symbol `∅` → zwykłe "0 e-maili" + label "Bez rejestracji, bez spamu"
+- Drugi label stat'u doprecyzowany: "W 5 kategoriach (CIS + NIST)" zamiast "Pytań w 5 kategoriach"
+
+---
+
 ## [0.537] — 2026-04-14
 
 Task 2 (Samoocena) — A3b: visual cohesion pass. Landing był niespójny z resztą strony AI Puls Security i z mockupami PDF.

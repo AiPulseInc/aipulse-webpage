@@ -68,20 +68,24 @@ export function renderLanding(ctx) {
 
       <div class="samoocena-stats" aria-label="Statystyki samooceny">
         <div class="samoocena-stat">
-          <span class="samoocena-stat-num">35</span>
-          <span class="samoocena-stat-label">Pytań w 5 kategoriach</span>
+          <span class="samoocena-stat-kicker">// Zakres</span>
+          <span class="samoocena-stat-num">35<em>pytań</em></span>
+          <span class="samoocena-stat-label">W 5 kategoriach (CIS + NIST)</span>
         </div>
         <div class="samoocena-stat">
+          <span class="samoocena-stat-kicker">// Czas</span>
           <span class="samoocena-stat-num">10<em>min</em></span>
-          <span class="samoocena-stat-label">Średni czas ukończenia</span>
+          <span class="samoocena-stat-label">Średnio do ukończenia</span>
         </div>
         <div class="samoocena-stat">
+          <span class="samoocena-stat-kicker">// Koszt</span>
           <span class="samoocena-stat-num">0<em>zł</em></span>
-          <span class="samoocena-stat-label">Beta do końca Q2 2026</span>
+          <span class="samoocena-stat-label">Beta darmowa do końca Q2 2026</span>
         </div>
         <div class="samoocena-stat">
-          <span class="samoocena-stat-num">∅</span>
-          <span class="samoocena-stat-label">Bez rejestracji · bez emaili</span>
+          <span class="samoocena-stat-kicker">// Dane</span>
+          <span class="samoocena-stat-num">0<em>e-maili</em></span>
+          <span class="samoocena-stat-label">Bez rejestracji, bez spamu</span>
         </div>
       </div>
 

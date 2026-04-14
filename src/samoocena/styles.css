@@ -358,15 +358,23 @@
 }
 
 .samoocena-stat {
-  padding: 2rem 1.6rem;
+  padding: 1.5rem 1.4rem;
   border-right: 1px solid var(--samoocena-card-border);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 1.5rem;
-  min-height: 180px;
+  gap: 0.8rem;
+  min-height: 170px;
   position: relative;
   overflow: hidden;
+}
+
+.samoocena-stat-kicker {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--samoocena-accent);
 }
 
 .samoocena-stat:last-child {
@@ -384,8 +392,9 @@
 }
 
 .samoocena-stat-num {
-  font: 800 clamp(2.8rem, 5vw, 4.2rem)/0.9 'Outfit', 'Inter', sans-serif;
-  color: #fff;
+  margin-top: auto;
+  font: 800 clamp(2.6rem, 4.5vw, 3.8rem)/0.95 'Outfit', 'Inter', sans-serif;
+  color: var(--samoocena-accent);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
 }
@@ -393,13 +402,14 @@
 .samoocena-stat-num em {
   display: inline-block;
   font-style: normal;
-  font-size: 0.32em;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.3em;
   font-weight: 700;
-  color: var(--samoocena-accent);
-  letter-spacing: 0.1em;
+  color: var(--samoocena-muted);
+  letter-spacing: 0.08em;
   text-transform: lowercase;
-  margin-left: 0.2em;
-  vertical-align: 0.4em;
+  margin-left: 0.3em;
+  vertical-align: 0.45em;
 }
 
 .samoocena-stat-label {
