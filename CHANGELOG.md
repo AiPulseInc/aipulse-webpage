@@ -4,6 +4,20 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.544] — 2026-04-14
+
+Task 2 (Samoocena) — fix profiling submit + rename button.
+
+### Bug
+- Przycisk "Rozpocznij pytania" na profiling screen wyglądał na nieaktywny — klikał się bez efektu gdy dropdowny (branża/wielkość) nie były wybrane. Handler `if (!industry || !size) return;` cichaczem się kończył, bez sygnału dla usera.
+
+### Fix
+- Usunięty atrybut `novalidate` z `<form data-form="profiling">` — HTML5 validation na `<select required>` teraz pokazuje browser tooltip "Wybierz element z listy" gdy user spróbuje submitować bez wyboru.
+- Rename buttonu: `Rozpocznij pytania →` → `Rozpocznij audyt` (nazewnictwo spójne z landingiem gdzie CTA to też "Rozpocznij audyt").
+- Zmienione klasy `samoocena-btn` → `samoocena-cta` + nowa struktura z `.samoocena-cta-label` + `.samoocena-cta-arrow` — spójność z CTA na landingu.
+
+---
+
 ## [0.543] — 2026-04-14
 
 Task 2 (Samoocena) — questions rewrite: "Nie wiem" opcja + gramatyka.

@@ -149,7 +149,7 @@ export function renderProfiling(ctx) {
       <p class="samoocena-lead">
         Potrzebujemy tego, żeby pokazać Ci benchmark z podobnych firm. Nie zbieramy nazwy firmy ani danych identyfikacyjnych.
       </p>
-      <form class="samoocena-form" data-form="profiling" novalidate>
+      <form class="samoocena-form" data-form="profiling">
         <label class="samoocena-field">
           <span class="samoocena-field-label">Branża</span>
           <select name="industry" required>
@@ -174,8 +174,11 @@ export function renderProfiling(ctx) {
           </select>
         </label>
         <div class="samoocena-form-actions">
-          <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="back-to-landing">Wstecz</button>
-          <button type="submit" class="samoocena-btn samoocena-btn-primary">Rozpocznij pytania →</button>
+          <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="back-to-landing">Wstecz</button>
+          <button type="submit" class="samoocena-cta samoocena-cta-primary">
+            <span class="samoocena-cta-label">Rozpocznij audyt</span>
+            <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+          </button>
         </div>
       </form>
     </section>
