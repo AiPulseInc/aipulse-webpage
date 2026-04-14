@@ -4,6 +4,38 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.537] — 2026-04-14
+
+Task 2 (Samoocena) — A3b: visual cohesion pass. Landing był niespójny z resztą strony AI Puls Security i z mockupami PDF.
+
+### Root causes znalezione
+
+- `#a855f7` (violet-500) zamiast globalnego `#7E22CE` (`--brand-accent-security`) — samoocena/styles.css nie importuje `style.css`, więc `var(--brand-accent)` niezdefiniowany, fallback się trzymał
+- Outfit 800 mixed-case dla h1 — globalne h1-h4 używają Inter 700 uppercase letter-spacing 0.05em; Outfit jest zarezerwowany dla `.landing-logo` i numerów/scores w mockupach
+- Brak content-width constraint — `.container-fluid` ma max-width 1920px, tekst lał się od krawędzi na 16:9
+
+### Sacred rules egzekwowane
+
+- Accent: `#7E22CE` hardcoded w `.samoocena-shell` (+ `--samoocena-accent-rgb: 126, 34, 206`)
+- Fonts: h1/h2/h3 = Inter 700 uppercase letter-spacing 0.02-0.05em. Outfit 800 TYLKO dla numerów (stat grid, overall score, rec-num, deliverable-index). Space Grotesk dla meta/labels/CTA
+- Content constraint: `.samoocena-viewport` max-width 1200px + max-width 18-24ch na h1/h2
+- 4px violet top accent bar nad całym shellem (jak strony raportów PDF)
+- Box-shadow offset na CTA usunięty — flat hover inversion (filled → ghost)
+- Border-radius: zero na progress bar i category bars
+
+### HTML changes
+
+- `renderLanding()`: h1 zmieniony z 3-liniowego display `<em>35</em> pytań.` na zwięzły `Samoocena cyberbezpieczeństwa` (uppercase Inter) + sub-line Space Grotesk `35 pytań · 5 kategorii · 10 minut · Bezpłatnie`
+- Hero lead skrócony
+
+### Verification
+
+- `grep` samoocena dir: 0 wystąpień `#a855f7`, 0 wystąpień `rgba(168, 85, 247)`
+- Outfit pozostaje tylko w 4 miejscach: stat-num, deliverable-index, overall-number, rec-num (wszystkie numery)
+- Build czysty, bundle 43.54 KB / 15.11 KB gzip
+
+---
+
 ## [0.536] — 2026-04-14
 
 Task 2 (Samoocena) — A3 redesign landing (editorial audit chamber aesthetic).

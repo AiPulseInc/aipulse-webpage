@@ -42,14 +42,11 @@ export function renderLanding(ctx) {
           <span>Audyt wstępny · Dokument #${today.replace(/\./g, '')}</span>
         </div>
 
-        <h1 class="samoocena-display">
-          <span class="samoocena-display-line"><em>35</em> pytań.</span>
-          <span class="samoocena-display-line"><em>10</em> minut.</span>
-          <span class="samoocena-display-line">Twój stan bezpieczeństwa.</span>
-        </h1>
+        <h1 class="samoocena-display">Samoocena<br>cyberbezpieczeństwa</h1>
+        <p class="samoocena-display-sub">35 pytań · 5 kategorii · 10 minut · Bezpłatnie</p>
 
         <p class="samoocena-hero-lead">
-          Narzędzie, które w 10 minut odpowie na pytanie, które zarząd zadaje co miesiąc — <strong>gdzie tak naprawdę stoi nasze cyberbezpieczeństwo</strong>. Framework CIS Controls v8 + NIST CSF 2.0. Bez jargonu, bez pytań o pentesty Red Team.
+          Odpowiedź na pytanie, które zarząd zadaje co miesiąc — <strong>gdzie stoimy z cyberbezpieczeństwem</strong>. Framework CIS Controls v8 + NIST CSF 2.0. Bez jargonu, bez pytań o Red Team.
         </p>
 
         <div class="samoocena-hero-actions">
