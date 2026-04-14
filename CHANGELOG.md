@@ -4,6 +4,26 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.551] — 2026-04-14
+
+Task 2 (Samoocena) — auto-clear cache po zakończonym teście.
+
+### Problem
+User wchodził ponownie na `/bezpieczenstwo-samoocena/` i widział stare wyniki z poprzedniej sesji — localStorage zapamiętywał state 'results' z kompletem odpowiedzi. Intended "resume after interrupt" feature, ale dla zakończonego testu (step='results' lub 'thank-you') to nie ma sensu.
+
+### Fix (app.js init)
+```js
+const initial = getState();
+if (initial.step === 'results' || initial.step === 'thank-you') {
+  clearState();
+}
+```
+
+- Resume w połowie testu (step='question' / 'category-intro' / 'profiling') zachowany — user może kontynuować od miejsca gdzie skończył
+- Po zakończeniu testu (thank-you lub results), następne wejście = świeży landing
+
+---
+
 ## [0.550] — 2026-04-14
 
 /security/ — rename nazwy karty SAMOOCENA: `Online · Bezpłatnie` → `Audyt uproszczony` (spójne z opisem, lepiej pokazuje produkt).

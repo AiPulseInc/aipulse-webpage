@@ -29,6 +29,11 @@ const mainEl = document.getElementById('samoocena-main');
 const versionEl = document.getElementById('app-version');
 if (versionEl) versionEl.textContent = `v${VERSION}`;
 
+const initial = getState();
+if (initial.step === 'results' || initial.step === 'thank-you') {
+  clearState();
+}
+
 render();
 subscribe(render);
 bindDelegatedEvents();
