@@ -23,11 +23,11 @@ export function showConfirmModal({
         <p class="samoocena-modal-message">${escape(message)}</p>
       </div>
       <footer class="samoocena-modal-footer">
-        <button type="button" class="samoocena-modal-btn samoocena-modal-btn-ghost" data-modal-action="cancel">
-          ${escape(cancelLabel)}
-        </button>
-        <button type="button" class="samoocena-modal-btn samoocena-modal-btn-primary" data-modal-action="confirm">
+        <button type="button" class="samoocena-modal-btn samoocena-modal-btn-ghost" data-modal-action="confirm">
           ${escape(confirmLabel)}
+        </button>
+        <button type="button" class="samoocena-modal-btn samoocena-modal-btn-primary" data-modal-action="cancel">
+          ${escape(cancelLabel)}
         </button>
       </footer>
     </div>
@@ -39,8 +39,9 @@ export function showConfirmModal({
   const confirmBtn = overlay.querySelector('[data-modal-action="confirm"]');
   const cancelBtn = overlay.querySelector('[data-modal-action="cancel"]');
 
-  // Focus confirm button po animacji
-  setTimeout(() => confirmBtn.focus(), 50);
+  // Focus cancel (primary, non-destructive) po animacji —
+  // żeby Enter = „kontynuuj", nie = „wyjdź i zresetuj"
+  setTimeout(() => cancelBtn.focus(), 50);
 
   const close = () => {
     document.removeEventListener('keydown', onKey);
@@ -69,6 +70,7 @@ export function showConfirmModal({
 
   const onKey = (e) => {
     if (e.key === 'Escape') handleCancel();
+    if (e.key === 'Enter' && document.activeElement === cancelBtn) handleCancel();
     if (e.key === 'Enter' && document.activeElement === confirmBtn) handleConfirm();
   };
   document.addEventListener('keydown', onKey);

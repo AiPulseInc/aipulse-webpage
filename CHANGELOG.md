@@ -4,6 +4,16 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5591] — 2026-04-15
+
+Nano-fixy modal exit (korekta do v0.557 modal).
+
+- **Font**: `.samoocena-modal-message` brak `font-family` — modal jest poza `.samoocena-shell` więc dziedziczył serif z user agent. Dopisany `Inter` + universal `.samoocena-modal *` inherit.
+- **CSS custom properties**: `--samoocena-accent` zdefiniowane na `.samoocena-shell`, ale modal w `document.body` — przyciski miały `undefined` variable → transparent tło. Redeklarowane lokalnie w `.samoocena-modal-overlay`.
+- **Hierarchia przycisków**: swap kolorystyki — „Kontynuuj samoocenę" (non-destructive) teraz primary violet, „Wyjdź i zresetuj" (destructive) ghost. Focus default = cancel. Zgodne z UX best practices dla destruktywnych akcji.
+
+---
+
 ## [0.559] — 2026-04-15
 
 Awareness quiz — każde pytanie + 5 opcji + nav mieści się w viewport 1280×800 bez scrolla.

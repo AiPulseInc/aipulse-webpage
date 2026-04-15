@@ -1475,6 +1475,12 @@
 /* MODAL — global confirm dialog w stylu Ai Puls. */
 
 .samoocena-modal-overlay {
+  /* Modal appendowany do document.body (poza .samoocena-shell),
+     więc CSS custom properties musimy redeklarować tutaj. */
+  --samoocena-accent: #7E22CE;
+  --samoocena-muted: #B3B3B3;
+  --samoocena-card-border: #333;
+
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.78);
@@ -1499,7 +1505,12 @@
   border: 1px solid var(--samoocena-card-border);
   border-top: 4px solid var(--samoocena-accent);
   color: #fff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   animation: samoocena-modal-scale-in 0.22s ease-out;
+}
+
+.samoocena-modal * {
+  font-family: inherit;
 }
 
 .samoocena-modal-body {
@@ -1519,6 +1530,8 @@
 
 .samoocena-modal-message {
   margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
   font-size: 0.92rem;
   line-height: 1.55;
   color: #e5e5e5;
