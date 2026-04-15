@@ -308,20 +308,27 @@ export function renderAwarenessSummary(ctx) {
 
   return `
     <section class="samoocena-awareness-summary-screen ${scoreClass}">
-      <p class="samoocena-kicker">// Wynik świadomości regulacyjnej</p>
+      <div class="samoocena-awareness-summary-grid">
+        <div class="samoocena-awareness-summary-left">
+          <p class="samoocena-kicker">// Wynik świadomości regulacyjnej</p>
 
-      <div class="samoocena-awareness-summary-score">
-        <span class="samoocena-awareness-summary-num">${result.correct}</span>
-        <span class="samoocena-awareness-summary-divider">/</span>
-        <span class="samoocena-awareness-summary-total">${result.total}</span>
-      </div>
+          <div class="samoocena-awareness-summary-score">
+            <span class="samoocena-awareness-summary-num">${result.correct}</span>
+            <span class="samoocena-awareness-summary-divider">/</span>
+            <span class="samoocena-awareness-summary-total">${result.total}</span>
+          </div>
 
-      <h1 class="samoocena-awareness-summary-level">${escapeHtml(result.level.label)}</h1>
+          <h1 class="samoocena-awareness-summary-level">${escapeHtml(result.level.label)}</h1>
 
-      <p class="samoocena-awareness-summary-bridge">${escapeHtml(bridgeComment)}</p>
+          <p class="samoocena-awareness-summary-bridge">${escapeHtml(bridgeComment)}</p>
+        </div>
 
-      <div class="samoocena-awareness-summary-meta">
-        <span>Pełne wyjaśnienia 4 pytań pojawią się na końcu, w raporcie z wynikami.</span>
+        <div class="samoocena-awareness-summary-right">
+          <p class="samoocena-kicker">// Twoje odpowiedzi</p>
+          <ol class="samoocena-awareness-summary-list">
+            ${result.breakdown.map((item, i) => renderAwarenessSummaryItem(item, i + 1)).join('')}
+          </ol>
+        </div>
       </div>
 
       <footer class="samoocena-awareness-summary-actions">
@@ -329,9 +336,31 @@ export function renderAwarenessSummary(ctx) {
           <span class="samoocena-cta-label">Przejdź do samooceny</span>
           <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
         </button>
-        <p class="samoocena-awareness-summary-meta-second">35 pytań · 5 kategorii · ok. 8 minut</p>
+        <p class="samoocena-awareness-summary-meta">Pełne wyjaśnienia w raporcie końcowym</p>
       </footer>
     </section>
+  `;
+}
+
+function renderAwarenessSummaryItem(item, num) {
+  const statusClass = item.isCorrect
+    ? 'is-correct'
+    : item.isUnknown
+      ? 'is-unknown'
+      : 'is-wrong';
+  const statusIcon = item.isCorrect ? '✓' : item.isUnknown ? '?' : '✗';
+  return `
+    <li class="samoocena-awareness-summary-item ${statusClass}">
+      <span class="samoocena-awareness-summary-item-num">${String(num).padStart(2, '0')}</span>
+      <span class="samoocena-awareness-summary-item-icon" aria-hidden="true">${statusIcon}</span>
+      <div class="samoocena-awareness-summary-item-body">
+        <p class="samoocena-awareness-summary-item-q">${escapeHtml(item.questionText)}</p>
+        <p class="samoocena-awareness-summary-item-correct">
+          <span class="samoocena-awareness-summary-item-correct-label">Poprawnie:</span>
+          ${escapeHtml(item.correctAnswerLabel)}
+        </p>
+      </div>
+    </li>
   `;
 }
 

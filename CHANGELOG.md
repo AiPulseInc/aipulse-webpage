@@ -4,6 +4,37 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.556] — 2026-04-15
+
+Awareness intermediate summary — closure z listą 4 pytań na jednym ekranie.
+
+### Co nowego
+Po feedback'u: dodana lista 4 pytań w summary screen z pokazaniem poprawnej odpowiedzi i statusu (✓/✗/?). User dostaje **closure**: wie nie tylko że odpowiedział X/4, ale również KTÓRE pytania trafił poprawnie i co jest poprawną odpowiedzią. Zero frustration „wiedziałem 1, ale którego?".
+
+**Bez explanations** — pełne wyjaśnienia zostają w finalnych results jako reward za przejście samooceny.
+
+### Layout
+- **Two-column desktop**: lewa = score+label+bridge, prawa = lista 4 pytań
+- **Single-column mobile** (≤900px): score na górze, lista pod, CTA na dole
+- Cała sekcja mieści się **w viewport 1280×800 bez scroll** (576px height)
+- Kompaktyfikacja: mniejszy score num (3.5→6rem clamp), tighter spacing, status icons 1.5rem
+
+### Layout per pytanie
+```
+01 ✓  W ciągu jakiego czasu od wykrycia naruszenia...?
+       POPRAWNIE: 72 godziny
+02 ✗  Twoja firma padła ofiarą ransomware...
+       POPRAWNIE: CERT Polska + (CSIRT NASK / GOV / MON...)
+```
+
+Status colors: ✓ green border + green icon, ✗ red border + red icon, ? neutral border + neutral icon.
+
+### Naprawione
+- max-width container z 72ch → 1100px (potrzebne dla two-column)
+- usunięte „35 pytań · 5 kategorii · ok. 8 minut" z meta-second (user widział to na landing — duplikat)
+
+---
+
 ## [0.555] — 2026-04-15
 
 Quiz świadomości — intermediate summary screen (motywacyjny moment przed samooceną).
