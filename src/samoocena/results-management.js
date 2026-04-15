@@ -1,6 +1,7 @@
 import { escapeHtml } from './charts.js';
 import { topRecommendations } from './recommendations.js';
 import { getCategoriesMeta } from './scoring.js';
+import { scoreAwareness } from './awareness.js';
 
 // Fallback benchmark gdy RPC nie odpowiada albo n=0 (np. pierwsze submity po deploy).
 // Wartości z KB — "przeciętne MŚP 11-50 os.".
@@ -22,17 +23,20 @@ const SIZE_LABELS = {
 };
 
 export function renderManagementResults(ctx) {
-  const { scoringResult, responses, profile } = ctx;
+  const { scoringResult, responses, profile, awarenessAnswers } = ctx;
   const benchmark = ctx.benchmark || FALLBACK_BENCHMARK;
   const topRecs = topRecommendations(scoringResult, responses, 5);
   const topGaps = topRecommendations(scoringResult, responses, 3);
   const categoriesMeta = getCategoriesMeta();
   const today = new Date().toLocaleDateString('pl-PL');
+  const hasAwareness = awarenessAnswers && Object.keys(awarenessAnswers).length > 0;
+  const awareness = hasAwareness ? scoreAwareness(awarenessAnswers) : null;
 
   return `
     <article class="samoocena-report">
       ${renderReportCover(scoringResult, today, profile)}
       ${renderExecutiveSummary(scoringResult, topGaps)}
+      ${awareness ? renderAwarenessSection(awareness) : ''}
       ${renderCategoryAnalysis(scoringResult, categoriesMeta, profile, benchmark)}
       ${renderTopRecommendations(topRecs)}
       ${renderUpsellSection()}
@@ -42,6 +46,77 @@ export function renderManagementResults(ctx) {
       </footer>
     </article>
   `;
+}
+
+function renderAwarenessSection(awareness) {
+  const { correct, total, breakdown, level } = awareness;
+  const scoreLevelClass =
+    correct === total
+      ? 'awareness-perfect'
+      : correct >= total / 2
+        ? 'awareness-mid'
+        : 'awareness-low';
+  return `
+    <section class="samoocena-report-section">
+      <p class="samoocena-kicker">// Świadomość regulacyjna</p>
+      <h2 class="samoocena-report-h2">Co wiesz o przepisach (zanim zaczęliśmy oceniać)</h2>
+
+      <div class="samoocena-awareness-summary ${scoreLevelClass}">
+        <div class="samoocena-awareness-score">
+          <span class="samoocena-awareness-score-num">${correct}</span>
+          <span class="samoocena-awareness-score-total">/${total}</span>
+        </div>
+        <div class="samoocena-awareness-level">
+          <p class="samoocena-awareness-level-label">${escapeHtml(level.label)}</p>
+          <p class="samoocena-awareness-level-comment">${escapeHtml(level.comment)}</p>
+        </div>
+      </div>
+
+      <p class="samoocena-report-paragraph samoocena-report-muted">
+        Niezależnie od wyniku — poniżej pełne wyjaśnienia. Każdy punkt to fragment polskiego prawa, którego znajomość ratuje firmę przed karą i chaosem w 72-godzinnym oknie.
+      </p>
+
+      <ol class="samoocena-awareness-list">
+        ${breakdown.map((item) => renderAwarenessItem(item)).join('')}
+      </ol>
+    </section>
+  `;
+}
+
+function renderAwarenessItem(item) {
+  const statusClass = item.isCorrect
+    ? 'samoocena-awareness-item-correct'
+    : item.isUnknown
+      ? 'samoocena-awareness-item-unknown'
+      : 'samoocena-awareness-item-wrong';
+  const statusIcon = item.isCorrect ? '✓' : item.isUnknown ? '?' : '✗';
+  const statusLabel = item.isCorrect
+    ? 'Poprawnie'
+    : item.isUnknown
+      ? 'Brak odpowiedzi'
+      : 'Niepoprawnie';
+  return `
+    <li class="samoocena-awareness-item ${statusClass}">
+      <div class="samoocena-awareness-item-head">
+        <span class="samoocena-awareness-item-icon" aria-hidden="true">${statusIcon}</span>
+        <span class="samoocena-awareness-item-status">${statusLabel}</span>
+        <span class="samoocena-awareness-item-ref">${escapeHtml(item.reference)}</span>
+      </div>
+      <p class="samoocena-awareness-item-question"><strong>${escapeHtml(item.questionText)}</strong></p>
+      ${
+        item.userAnswerLabel && !item.isCorrect && !item.isUnknown
+          ? `<p class="samoocena-awareness-item-user">Twoja odpowiedź: <em>${escapeHtml(item.userAnswerLabel)}</em></p>`
+          : ''
+      }
+      <p class="samoocena-awareness-item-correct-answer">Poprawna odpowiedź: <strong>${escapeHtml(item.correctAnswerLabel)}</strong></p>
+      <p class="samoocena-awareness-item-explanation">${formatExplanation(item.explanation)}</p>
+    </li>
+  `;
+}
+
+function formatExplanation(text) {
+  // Markdown-light: **bold** → <strong>
+  return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 
 function renderReportCover(scoringResult, date, profile) {

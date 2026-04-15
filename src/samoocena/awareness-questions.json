@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "title": "Świadomość regulacyjna",
+  "subtitle": "Co wiesz o zgłaszaniu incydentów i karach",
+  "intro": "Zanim ocenisz stan techniczny firmy, sprawdźmy szybko Twoją wiedzę o przepisach. To 4 pytania — krótko, konkretnie. Niezależnie od wyniku otrzymasz pełne wyjaśnienia.",
+  "questions": [
+    {
+      "id": "AW1",
+      "text": "W ciągu jakiego czasu od wykrycia naruszenia ochrony danych osobowych musisz zgłosić incydent do Prezesa UODO?",
+      "options": [
+        { "id": "AW1_24h", "label": "24 godziny", "correct": false },
+        { "id": "AW1_48h", "label": "48 godzin", "correct": false },
+        { "id": "AW1_72h", "label": "72 godziny", "correct": true },
+        { "id": "AW1_7d", "label": "7 dni", "correct": false },
+        { "id": "AW1_idk", "label": "Nie wiem / nie jestem pewny", "correct": false }
+      ],
+      "reference": "RODO Art. 33",
+      "explanation": "Termin to **72 godziny od momentu wykrycia naruszenia** — nie od samego zdarzenia. Liczy się chwila, w której dowiadujesz się, że coś poszło nie tak (np. po telefonie od pracownika, który zobaczył coś podejrzanego). Jeśli nie zdążysz w 72h, musisz dodatkowo wyjaśnić Prezesowi UODO przyczynę opóźnienia. Skomplikowane przypadki można zgłaszać etapami (zgłoszenie wstępne + uzupełnienia), ale ten 72h zegar tyka od pierwszej informacji."
+    },
+    {
+      "id": "AW2",
+      "text": "Twoja firma padła ofiarą ransomware. Komu OPRÓCZ Prezesa UODO musisz / powinieneś zgłosić incydent?",
+      "options": [
+        { "id": "AW2_police", "label": "Tylko Policji", "correct": false },
+        { "id": "AW2_cert", "label": "CERT Polska + (CSIRT NASK / GOV / MON właściwy dla sektora)", "correct": true },
+        { "id": "AW2_insurer", "label": "Tylko swojemu ubezpieczycielowi cyber", "correct": false },
+        { "id": "AW2_none", "label": "Nikomu poza UODO", "correct": false },
+        { "id": "AW2_idk", "label": "Nie wiem / nie jestem pewny", "correct": false }
+      ],
+      "reference": "Ustawa o KSC, NIS2 Art. 23",
+      "explanation": "Pełen łańcuch zgłoszenia poważnego incydentu cyber w Polsce (2026): **CERT Polska (NASK)** — punkt kontaktowy dla MŚP i podmiotów spoza administracji; **CSIRT GOV** — administracja publiczna; **CSIRT MON** — sektor obronny; **CSIRT sektorowy** (np. KNF dla finansów) — jeśli dotyczy. Dodatkowo: UODO (gdy są dane osobowe), ubezpieczyciel cyber (jeśli masz polisę — często obowiązek umowny w 24h), Policja/CBZC (gdy podejrzewamy czyn karalny ścigany z urzędu — wymuszenie, oszustwo). NIS2 wymaga zgłoszenia wstępnego w 24h i pełnego raportu w 72h."
+    },
+    {
+      "id": "AW3",
+      "text": "Jaka jest maksymalna kara za poważne naruszenie RODO dla średniej firmy w Polsce?",
+      "options": [
+        { "id": "AW3_100k", "label": "100 tysięcy złotych", "correct": false },
+        { "id": "AW3_1m", "label": "1 milion złotych", "correct": false },
+        { "id": "AW3_4pct", "label": "Do 4% rocznego globalnego obrotu lub 20 milionów EUR (kwota wyższa)", "correct": true },
+        { "id": "AW3_damage", "label": "Do wysokości udokumentowanej szkody klientów", "correct": false },
+        { "id": "AW3_idk", "label": "Nie wiem / nie jestem pewny", "correct": false }
+      ],
+      "reference": "RODO Art. 83",
+      "explanation": "**4% rocznego globalnego obrotu LUB 20 milionów EUR — kwota wyższa.** To górna granica dla najpoważniejszych naruszeń (np. brak podstawy prawnej przetwarzania, naruszenie praw osób). Mniejsze naruszenia: do 2% obrotu lub 10 mln EUR. Realne polskie kary 2024-2025: Morele.net 2,8 mln zł, ID Finance 1 mln zł, Toyota Bank 1 mln zł — i to wszystko za błędy bezpieczeństwa technicznego, nie za zaniechanie zgłoszenia. Plus: kara dla MŚP nie jest „wirtualna” — UODO konsekwentnie wymierza kary proporcjonalne do możliwości finansowych firmy."
+    },
+    {
+      "id": "AW4",
+      "text": "Pracownik zgubił służbowy laptop z bazą klientów. Laptop NIE był szyfrowany. Czy to wymaga zgłoszenia do UODO?",
+      "options": [
+        { "id": "AW4_no", "label": "Nie, to drobny incydent operacyjny", "correct": false },
+        { "id": "AW4_confirm", "label": "Tylko jeśli laptop trafi w niepowołane ręce (potwierdzony fakt)", "correct": false },
+        { "id": "AW4_yes", "label": "Tak — utrata kontroli nad nośnikiem z danymi osobowymi to naruszenie wymagające oceny i zgłoszenia", "correct": true },
+        { "id": "AW4_size", "label": "Tylko jeśli baza miała ponad 1000 osób", "correct": false },
+        { "id": "AW4_idk", "label": "Nie wiem / nie jestem pewny", "correct": false }
+      ],
+      "reference": "RODO Art. 4(12) + Art. 33",
+      "explanation": "**Tak.** Naruszenie ochrony danych (RODO Art. 4(12)) to **utrata kontroli, dostępności, integralności lub poufności danych** — niezależnie od tego, czy ktoś faktycznie z nich skorzystał. Brak szyfrowania = brak skutecznych środków technicznych = wysokie prawdopodobieństwo ryzyka dla osób. Zgłoszenie: 72h do UODO + powiadomienie samych osób, jeśli ryzyko jest „wysokie”. Polityka „nie zgłaszamy, bo może nikt nie znajdzie” = **dodatkowe naruszenie obowiązku informacyjnego** — kara potrafi być wyższa niż za samo wycieknięcie. Gdyby laptop był zaszyfrowany silnym hasłem (FileVault, BitLocker), zgłoszenie wciąż jest wymagane, ale ryzyko jest niskie i często wystarczy wpis do wewnętrznego rejestru."
+    }
+  ],
+  "scoring_levels": [
+    {
+      "min": 0,
+      "max": 0,
+      "label": "Krytycznie niska świadomość",
+      "comment": "Większość polskich MŚP też tu jest — ale to nie usprawiedliwia. To są fakty regulacyjne, nie pytania trickowe."
+    },
+    {
+      "min": 1,
+      "max": 1,
+      "label": "Niska świadomość",
+      "comment": "Brakuje fundamentów. W razie incydentu twoja firma będzie reagować chaotycznie i prawdopodobnie nie zdąży z 72h."
+    },
+    {
+      "min": 2,
+      "max": 2,
+      "label": "Średnia świadomość",
+      "comment": "Znasz część przepisów. Sporo do uzupełnienia, ale dobry punkt startowy."
+    },
+    {
+      "min": 3,
+      "max": 3,
+      "label": "Dobra świadomość",
+      "comment": "Niewiele Ci brakuje do pełnej znajomości obowiązków regulacyjnych."
+    },
+    {
+      "min": 4,
+      "max": 4,
+      "label": "Wysoka świadomość regulacyjna",
+      "comment": "Świetnie. Sprawdź teraz, czy procesy w firmie nadążają za Twoją wiedzą — bo świadomość bez egzekucji nie chroni przed karą."
+    }
+  ]
+}

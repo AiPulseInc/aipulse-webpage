@@ -4,6 +4,7 @@
 
 import { getSupabaseBrowser } from '../lib/supabase-browser.js';
 import { getQuestions } from './scoring.js';
+import { scoreAwareness } from './awareness.js';
 
 const QUESTIONNAIRE_VERSION = '2026-01';
 
@@ -46,6 +47,9 @@ function mapIndustry(raw) {
 
 function buildAssessmentRow(state, scoringResult) {
   const overallPct = scoringResult.overall.percentage;
+  const awareness = scoreAwareness(state.awarenessAnswers || {});
+  const hasAwarenessAnswers = Object.keys(state.awarenessAnswers || {}).length > 0;
+
   const row = {
     id: state.assessmentId,
     questionnaire_version: QUESTIONNAIRE_VERSION,
@@ -62,6 +66,8 @@ function buildAssessmentRow(state, scoringResult) {
     score_systems: 0,
     score_governance: 0,
     score_compliance: 0,
+    awareness_score: hasAwarenessAnswers ? awareness.correct : null,
+    awareness_answers: hasAwarenessAnswers ? state.awarenessAnswers : null,
   };
 
   for (const [categoryId, column] of Object.entries(CATEGORY_TO_COLUMN)) {

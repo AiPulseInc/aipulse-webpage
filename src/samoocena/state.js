@@ -8,6 +8,8 @@ const INITIAL_STATE = {
   startedAt: null,
   completedAt: null,
   assessmentId: null,
+  awarenessAnswers: {},
+  currentAwarenessIndex: 0,
 };
 
 let state = loadState();
@@ -66,6 +68,19 @@ export function saveResponse(questionId, optionIndex) {
   };
   persist();
   notify();
+}
+
+export function saveAwarenessAnswer(questionId, optionId) {
+  state = {
+    ...state,
+    awarenessAnswers: { ...state.awarenessAnswers, [questionId]: optionId },
+  };
+  persist();
+  notify();
+}
+
+export function setCurrentAwarenessIndex(index) {
+  setState({ currentAwarenessIndex: index });
 }
 
 export function setCurrentQuestionIndex(index) {

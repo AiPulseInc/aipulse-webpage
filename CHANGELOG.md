@@ -4,6 +4,33 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.554] — 2026-04-15
+
+Task 2 — pre-assessment quiz świadomości regulacyjnej (compliance literacy).
+
+### Co nowego
+- **4 pytania quiz** PRZED 35 pytaniami samooceny: termin zgłoszenia naruszenia (RODO Art. 33 — 72h), punkt kontaktowy incydentu (CERT Polska + sektorowy CSIRT), maksymalna kara RODO (4% obrotu lub 20 mln EUR), kwalifikacja utraty laptopa (RODO Art. 4(12) + 33).
+- **Każde pytanie ma 5 opcji** (4 odpowiedzi + „Nie wiem / nie jestem pewny" jako pełna 5-ta opcja).
+- **Quiz NIE wpływa na overall_score samooceny** — osobna metryka `awareness_score` (0-4) zachowana w schema.
+- **Wyniki w Executive Summary** — sekcja „Świadomość regulacyjna" pokazuje score X/4 + label poziomu (5 poziomów od „Krytycznie niska" do „Wysoka") + pełna lista 4 pytań z wyjaśnieniami (zawsze, niezależnie od wyniku — wartość edukacyjna dla wszystkich).
+- **Status visual:** ✓ correct (green border), ✗ wrong (red border), ? unknown (neutral).
+
+### Architektura
+- Nowy step `'awareness-quiz'` w state, między `profiling` a `category-intro`.
+- `src/samoocena/awareness-questions.json` (4 pytania + długie wyjaśnienia z mappingiem na konkretne artykuły RODO/NIS2/KSC).
+- `src/samoocena/awareness.js` (`scoreAwareness` + breakdown).
+- Migracja Supabase: `assessments.awareness_score smallint (0-4)` + `awareness_answers jsonb`. RLS policy zaktualizowana o validation nowych kolumn.
+- `src/samoocena/results-management.js` — `renderAwarenessSection` z hardcoded explanations (poprawne/niepoprawne/brak odpowiedzi → różne wizualizacje).
+
+### Cel biznesowy
+- **Lead-gen + content marketing**: agregowane dane do postów na bloga („X% polskich MŚP nie zna deadline RODO 72h").
+- **Edukacja jako trust signal**: user zawsze wychodzi z konkretną wiedzą o przepisach, niezależnie czy odpowiedział poprawnie.
+
+### Naprawione przy okazji
+- Build error JSON: polskie cudzysłowy „..." wewnątrz explanation Q3/Q4 powodowały niezgodność z parserem (mieszane „...” vs „...") — naprawione.
+
+---
+
 ## [0.553] — 2026-04-14
 
 Task 2 A5 + A6 — Supabase integracja samooceny + benchmark pipeline. Plus retrofit pierwszego posta bloga i nowy skill `security-blog-post`.

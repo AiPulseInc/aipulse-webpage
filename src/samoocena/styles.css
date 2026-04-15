@@ -1472,6 +1472,218 @@
   justify-content: center;
 }
 
+/* AWARENESS QUIZ — pre-assessment */
+
+.samoocena-awareness-shell {
+  /* używa wszystkiego z .samoocena-question-shell, tu tylko dodatki */
+}
+
+.samoocena-awareness-intro {
+  border: 1px solid var(--samoocena-card-border);
+  border-left: 4px solid var(--samoocena-accent);
+  padding: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: 1.5rem;
+  background: rgba(126, 34, 206, 0.04);
+}
+
+.samoocena-awareness-intro-text {
+  margin: 0.6rem 0 0;
+  color: #B3B3B3;
+  line-height: 1.55;
+  font-size: 0.95rem;
+  max-width: 70ch;
+}
+
+/* AWARENESS RESULTS — Executive Summary box */
+
+.samoocena-awareness-summary {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--samoocena-card-bg);
+  border: 1px solid var(--samoocena-card-border);
+  border-left-width: 4px;
+  margin: 1rem 0 1.5rem;
+}
+
+.samoocena-awareness-summary.awareness-perfect {
+  border-left-color: #4ade80;
+}
+
+.samoocena-awareness-summary.awareness-mid {
+  border-left-color: #facc15;
+}
+
+.samoocena-awareness-summary.awareness-low {
+  border-left-color: #f87171;
+}
+
+.samoocena-awareness-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+.samoocena-awareness-score-num {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1;
+  color: var(--samoocena-accent);
+}
+
+.samoocena-awareness-score-total {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--samoocena-muted);
+}
+
+.samoocena-awareness-level {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.samoocena-awareness-level-label {
+  margin: 0 0 0.3rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+.samoocena-awareness-level-comment {
+  margin: 0;
+  color: var(--samoocena-muted);
+  line-height: 1.5;
+  font-size: 0.92rem;
+  max-width: 60ch;
+}
+
+.samoocena-awareness-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.samoocena-awareness-item {
+  padding: 1.2rem 1.4rem;
+  background: var(--samoocena-card-bg);
+  border: 1px solid var(--samoocena-card-border);
+  border-left-width: 4px;
+}
+
+.samoocena-awareness-item-correct {
+  border-left-color: #4ade80;
+}
+
+.samoocena-awareness-item-wrong {
+  border-left-color: #f87171;
+}
+
+.samoocena-awareness-item-unknown {
+  border-left-color: #B3B3B3;
+}
+
+.samoocena-awareness-item-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.samoocena-awareness-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  background: var(--samoocena-card-border);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.samoocena-awareness-item-correct .samoocena-awareness-item-icon {
+  background: #4ade80;
+  color: #000;
+}
+
+.samoocena-awareness-item-wrong .samoocena-awareness-item-icon {
+  background: #f87171;
+  color: #000;
+}
+
+.samoocena-awareness-item-status {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-awareness-item-ref {
+  margin-left: auto;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--samoocena-accent);
+}
+
+.samoocena-awareness-item-question {
+  margin: 0 0 0.6rem;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.samoocena-awareness-item-user,
+.samoocena-awareness-item-correct-answer {
+  margin: 0 0 0.4rem;
+  font-size: 0.92rem;
+  color: var(--samoocena-muted);
+}
+
+.samoocena-awareness-item-correct-answer strong {
+  color: #fff;
+}
+
+.samoocena-awareness-item-explanation {
+  margin: 0.6rem 0 0;
+  color: #e5e5e5;
+  line-height: 1.6;
+  font-size: 0.93rem;
+}
+
+.samoocena-awareness-item-explanation strong {
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .samoocena-awareness-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+  }
+  .samoocena-awareness-item-ref {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 /* SUBMIT TOAST */
 
 .samoocena-toast {

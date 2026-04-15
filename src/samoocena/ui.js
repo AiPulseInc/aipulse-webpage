@@ -1,4 +1,5 @@
 import { getQuestions, getCategoriesMeta } from './scoring.js';
+import { getAwarenessQuestions, getAwarenessMeta } from './awareness.js';
 import { renderProgressBar, escapeHtml } from './charts.js';
 import { renderManagementResults } from './results-management.js';
 
@@ -228,6 +229,64 @@ export function renderQuestion(ctx) {
           isLast ? 'finish' : 'next-question'
         }"${currentResponse === undefined ? ' disabled' : ''}>
           ${isLast ? 'Zakończ i pokaż wynik' : 'Następne →'}
+        </button>
+      </footer>
+    </section>
+  `;
+}
+
+export function renderAwarenessQuestion(ctx) {
+  const { currentAwarenessIndex, awarenessAnswers } = ctx;
+  const questions = getAwarenessQuestions();
+  const meta = getAwarenessMeta();
+  const question = questions[currentAwarenessIndex];
+  const currentAnswer = awarenessAnswers[question.id];
+  const isFirst = currentAwarenessIndex === 0;
+  const isLast = currentAwarenessIndex === questions.length - 1;
+  const progressNum = currentAwarenessIndex + 1;
+
+  const introBlock = isFirst
+    ? `
+      <div class="samoocena-awareness-intro">
+        <p class="samoocena-kicker">// ${escapeHtml(meta.title.toUpperCase())}</p>
+        <p class="samoocena-awareness-intro-text">${escapeHtml(meta.intro)}</p>
+      </div>
+    `
+    : '';
+
+  return `
+    <section class="samoocena-question-shell samoocena-awareness-shell">
+      ${renderProgressBar(progressNum, questions.length, 'Świadomość regulacyjna')}
+      ${introBlock}
+      <div class="samoocena-question-category">
+        <span class="samoocena-kicker">${escapeHtml(meta.subtitle)}</span>
+      </div>
+      <article class="samoocena-question">
+        <h2 class="samoocena-question-text">${escapeHtml(question.text)}</h2>
+        <div class="samoocena-options" role="radiogroup" aria-label="Opcje odpowiedzi">
+          ${question.options
+            .map(
+              (opt) => `
+              <label class="samoocena-option${currentAnswer === opt.id ? ' is-selected' : ''}">
+                <input type="radio" name="awareness-${question.id}" value="${escapeHtml(opt.id)}"${
+                  currentAnswer === opt.id ? ' checked' : ''
+                } data-awareness-question-id="${question.id}" data-option-id="${escapeHtml(opt.id)}">
+                <span class="samoocena-option-label">${escapeHtml(opt.label)}</span>
+              </label>
+            `
+            )
+            .join('')}
+        </div>
+        <p class="samoocena-question-meta">${escapeHtml(question.reference)}</p>
+      </article>
+      <footer class="samoocena-question-nav">
+        <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="prev-awareness"${
+          isFirst ? ' disabled' : ''
+        }>← Poprzednie</button>
+        <button type="button" class="samoocena-btn samoocena-btn-primary" data-action="next-awareness"${
+          currentAnswer === undefined ? ' disabled' : ''
+        }>
+          ${isLast ? 'Przejdź do samooceny →' : 'Następne →'}
         </button>
       </footer>
     </section>

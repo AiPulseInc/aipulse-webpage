@@ -8,6 +8,8 @@ import {
   setStep,
   setProfile,
   saveResponse,
+  saveAwarenessAnswer,
+  setCurrentAwarenessIndex,
   setCurrentQuestionIndex,
   markStarted,
   markCompleted,
@@ -20,10 +22,12 @@ import {
   renderProfiling,
   renderCategoryIntro,
   renderQuestion,
+  renderAwarenessQuestion,
   renderThankYou,
   renderResults,
   renderError,
 } from './ui.js';
+import { getAwarenessQuestions } from './awareness.js';
 import { submitAssessment, fetchBenchmark } from './api.js';
 
 const mainEl = document.getElementById('samoocena-main');
@@ -63,6 +67,8 @@ function buildRenderContext(state) {
     startedAt: state.startedAt,
     completedAt: state.completedAt,
     hasResume: hasResumableState(),
+    awarenessAnswers: state.awarenessAnswers || {},
+    currentAwarenessIndex: state.currentAwarenessIndex || 0,
   };
 
   if (state.step === 'results') {
@@ -79,6 +85,8 @@ function routeToRenderer(step, ctx) {
       return renderLanding(ctx);
     case 'profiling':
       return renderProfiling(ctx);
+    case 'awareness-quiz':
+      return renderAwarenessQuestion(ctx);
     case 'category-intro':
       return renderCategoryIntro(ctx);
     case 'question':
@@ -164,7 +172,23 @@ function handleClick(event) {
         return;
       }
       setProfile({ industry, size });
-      setState({ step: 'category-intro', currentQuestionIndex: 0 });
+      setState({ step: 'awareness-quiz', currentAwarenessIndex: 0 });
+    },
+    'next-awareness': () => {
+      const state = getState();
+      const awarenessQuestions = getAwarenessQuestions();
+      const next = state.currentAwarenessIndex + 1;
+      if (next < awarenessQuestions.length) {
+        setCurrentAwarenessIndex(next);
+      } else {
+        setState({ step: 'category-intro', currentQuestionIndex: 0 });
+      }
+    },
+    'prev-awareness': () => {
+      const state = getState();
+      if (state.currentAwarenessIndex > 0) {
+        setCurrentAwarenessIndex(state.currentAwarenessIndex - 1);
+      }
     },
     'go-to-results': () => {
       setStep('results');
@@ -205,6 +229,11 @@ function handleChange(event) {
     const questionId = input.dataset.questionId;
     const optionIndex = Number(input.dataset.optionIndex);
     saveResponse(questionId, optionIndex);
+  }
+  if (input.matches('input[type="radio"][data-awareness-question-id]')) {
+    const questionId = input.dataset.awarenessQuestionId;
+    const optionId = input.dataset.optionId;
+    saveAwarenessAnswer(questionId, optionId);
   }
 }
 
