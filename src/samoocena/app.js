@@ -30,7 +30,7 @@ import {
 } from './ui.js';
 import { getAwarenessQuestions } from './awareness.js';
 import { submitAssessment, fetchBenchmark } from './api.js';
-import { showConfirmModal } from './modal.js';
+import { showConfirmModal, showInputModal } from './modal.js';
 
 const mainEl = document.getElementById('samoocena-main');
 const versionEl = document.getElementById('app-version');
@@ -245,23 +245,40 @@ function handleClick(event) {
     },
     'download-pdf': () => {
       const state = getState();
-      const scoringResult = scoreAssessment(state.responses);
-      const payload = {
-        profile: state.profile,
-        responses: state.responses,
-        scoringResult,
-        awarenessAnswers: state.awarenessAnswers || {},
-        assessmentId: state.assessmentId || state.startedAt || Date.now(),
+
+      const openReport = (companyName) => {
+        if (companyName) setProfile({ companyName });
+        const freshState = getState();
+        const scoringResult = scoreAssessment(freshState.responses);
+        const payload = {
+          profile: freshState.profile,
+          responses: freshState.responses,
+          scoringResult,
+          awarenessAnswers: freshState.awarenessAnswers || {},
+          assessmentId: freshState.assessmentId || freshState.startedAt || Date.now(),
+        };
+        try {
+          // localStorage — sessionStorage nie jest współdzielony między nowymi tabami
+          // ('target=_blank' tworzy izolowany session context w nowoczesnych browserach).
+          // raport/app.js usuwa ten klucz po odczytaniu.
+          localStorage.setItem('raportData', JSON.stringify(payload));
+        } catch (err) {
+          console.error('[samoocena] localStorage failed:', err);
+        }
+        window.open('/raport-audit/', '_blank', 'noopener');
       };
-      try {
-        // localStorage — sessionStorage nie jest współdzielony między nowymi tabami
-        // ('target=_blank' tworzy izolowany session context w nowoczesnych browserach).
-        // raport/app.js usuwa ten klucz po odczytaniu.
-        localStorage.setItem('raportData', JSON.stringify(payload));
-      } catch (err) {
-        console.error('[samoocena] localStorage failed:', err);
-      }
-      window.open('/raport-audit/', '_blank', 'noopener');
+
+      showInputModal({
+        title: 'Nazwa firmy',
+        message:
+          'Podaj nazwę firmy, która pojawi się na okładce raportu. Dane pozostają lokalne — nie wysyłamy ich nigdzie poza Twoją przeglądarką.',
+        placeholder: 'np. Twoja Firma Sp. z o.o.',
+        defaultValue: state.profile?.companyName || '',
+        required: true,
+        confirmLabel: 'Pobierz raport',
+        cancelLabel: 'Anuluj',
+        onConfirm: (companyName) => openReport(companyName),
+      });
     },
     'view-example-report': () => {
       window.open('/raport-audit/?example=1', '_blank', 'noopener');

@@ -4,6 +4,22 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5592] — 2026-04-15
+
+Modal promptu nazwy firmy przed pobraniem PDF raportu.
+
+Po kliknięciu „Pobierz swój raport" w sekcji upsell pojawia się modal z inputem na nazwę firmy (np. „Testowa Firma Sp. z o.o."). Wartość zapisywana w `state.profile.companyName` i wklejana do payload raportu — pojawia się na okładce mockup B („Raport przygotowany dla: ...").
+
+Zmiany:
+- `modal.js` rozszerzony o `showInputModal({title, message, placeholder, defaultValue, required, confirmLabel, cancelLabel, onConfirm(value)})` — generic text input dialog z walidacją required, Enter = confirm, Escape = cancel, focus input on open.
+- `app.js` `download-pdf` action — prompt przed download. Prefilled z `state.profile.companyName` (jeśli user wcześniej podawał). Po confirm → `setProfile({ companyName })` + openReport.
+- `styles.css` — `.samoocena-modal-input` (input w brand stylu, violet focus border, error shake animation).
+- Raport PDF (mockup B) już używał `profile.companyName` — teraz działa bo payload niesie wartość.
+
+Co-kontekst v0.557 modal + v0.5591 nano-fixy — nano-bump +0.0001.
+
+---
+
 ## [0.5591] — 2026-04-15
 
 Nano-fixy modal exit (korekta do v0.557 modal).
