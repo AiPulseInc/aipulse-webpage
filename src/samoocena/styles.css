@@ -1823,26 +1823,55 @@
   }
 }
 
-/* AWARENESS QUIZ — pre-assessment */
+/* AWARENESS QUIZ — pre-assessment.
+   Każde pytanie + 5 opcji (4 answers + "Nie wiem") + nav MUSI się zmieścić
+   w viewport 1280×800 bez scrolla. Kompakt padding vs standardowe question. */
 
 .samoocena-awareness-shell {
-  /* używa wszystkiego z .samoocena-question-shell, tu tylko dodatki */
+  min-height: 0 !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
-.samoocena-awareness-intro {
-  border: 1px solid var(--samoocena-card-border);
-  border-left: 4px solid var(--samoocena-accent);
-  padding: clamp(1rem, 2vw, 1.5rem);
-  margin-bottom: 1.5rem;
-  background: rgba(126, 34, 206, 0.04);
+.samoocena-awareness-shell .samoocena-question {
+  padding: 0.5rem 0;
+  margin-bottom: 0;
 }
 
-.samoocena-awareness-intro-text {
-  margin: 0.6rem 0 0;
-  color: #B3B3B3;
-  line-height: 1.55;
-  font-size: 0.95rem;
-  max-width: 70ch;
+.samoocena-awareness-shell .samoocena-question-text {
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+  min-height: 0;
+}
+
+.samoocena-awareness-shell .samoocena-options {
+  gap: 0.4rem;
+}
+
+.samoocena-awareness-shell .samoocena-option {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  min-height: 0;
+}
+
+.samoocena-awareness-shell .samoocena-option-label {
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.samoocena-awareness-shell .samoocena-question-category {
+  margin-bottom: 0.4rem;
+}
+
+.samoocena-awareness-shell .samoocena-question-meta {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+}
+
+.samoocena-awareness-shell .samoocena-progress {
+  margin-bottom: 0.8rem;
 }
 
 /* AWARENESS RESULTS — Executive Summary box */

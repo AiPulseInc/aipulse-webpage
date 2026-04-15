@@ -4,6 +4,21 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.559] — 2026-04-15
+
+Awareness quiz — każde pytanie + 5 opcji + nav mieści się w viewport 1280×800 bez scrolla.
+
+Root cause: 5 opcji (o 1 więcej niż standardowe 4) + długie teksty (szczególnie Q2 „CERT Polska + CSIRT NASK / GOV / MON") + dodatkowy intro box „Zanim ocenisz…" generowały shell height 890px przy 800 viewport — user musiał scrollować żeby zobaczyć „7 dni" i „Nie wiem".
+
+Fix:
+- Usunięty intro box z Q1 (user widział opis quizu już na landing)
+- Kompakt option padding 0.9→0.55rem, font-size 0.95→0.9rem
+- Question text 1.1→1.0rem, mniejszy margin-bottom
+- Tighter gap (0.7→0.4rem) + kicker/meta mniejsze
+- Test: Q1 lastOptionBottom 547, Q2 521 — dużo poniżej navTop 732. Zero overlap.
+
+---
+
 ## [0.558] — 2026-04-15
 
 Nav samooceny wraca na `/security/` zamiast brand selector `/`.

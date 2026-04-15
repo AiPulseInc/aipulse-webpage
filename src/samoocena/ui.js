@@ -245,19 +245,9 @@ export function renderAwarenessQuestion(ctx) {
   const isLast = currentAwarenessIndex === questions.length - 1;
   const progressNum = currentAwarenessIndex + 1;
 
-  const introBlock = isFirst
-    ? `
-      <div class="samoocena-awareness-intro">
-        <p class="samoocena-kicker">// ${escapeHtml(meta.title.toUpperCase())}</p>
-        <p class="samoocena-awareness-intro-text">${escapeHtml(meta.intro)}</p>
-      </div>
-    `
-    : '';
-
   return `
     <section class="samoocena-question-shell samoocena-awareness-shell">
       ${renderProgressBar(progressNum, questions.length, 'Świadomość regulacyjna')}
-      ${introBlock}
       <div class="samoocena-question-category">
         <span class="samoocena-kicker">${escapeHtml(meta.subtitle)}</span>
       </div>
