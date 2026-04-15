@@ -1,5 +1,5 @@
 import { getQuestions, getCategoriesMeta } from './scoring.js';
-import { getAwarenessQuestions, getAwarenessMeta } from './awareness.js';
+import { getAwarenessQuestions, getAwarenessMeta, scoreAwareness, getBridgeComment } from './awareness.js';
 import { renderProgressBar, escapeHtml } from './charts.js';
 import { renderManagementResults } from './results-management.js';
 
@@ -288,6 +288,48 @@ export function renderAwarenessQuestion(ctx) {
         }>
           ${isLast ? 'Przejdź do samooceny →' : 'Następne →'}
         </button>
+      </footer>
+    </section>
+  `;
+}
+
+export function renderAwarenessSummary(ctx) {
+  const { awarenessAnswers } = ctx;
+  const result = scoreAwareness(awarenessAnswers || {});
+  const bridgeComment = getBridgeComment(result.correct);
+  const scoreClass =
+    result.correct === result.total
+      ? 'awareness-summary-perfect'
+      : result.correct >= 3
+        ? 'awareness-summary-high'
+        : result.correct >= 2
+          ? 'awareness-summary-mid'
+          : 'awareness-summary-low';
+
+  return `
+    <section class="samoocena-awareness-summary-screen ${scoreClass}">
+      <p class="samoocena-kicker">// Wynik świadomości regulacyjnej</p>
+
+      <div class="samoocena-awareness-summary-score">
+        <span class="samoocena-awareness-summary-num">${result.correct}</span>
+        <span class="samoocena-awareness-summary-divider">/</span>
+        <span class="samoocena-awareness-summary-total">${result.total}</span>
+      </div>
+
+      <h1 class="samoocena-awareness-summary-level">${escapeHtml(result.level.label)}</h1>
+
+      <p class="samoocena-awareness-summary-bridge">${escapeHtml(bridgeComment)}</p>
+
+      <div class="samoocena-awareness-summary-meta">
+        <span>Pełne wyjaśnienia 4 pytań pojawią się na końcu, w raporcie z wynikami.</span>
+      </div>
+
+      <footer class="samoocena-awareness-summary-actions">
+        <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="awareness-to-samoocena">
+          <span class="samoocena-cta-label">Przejdź do samooceny</span>
+          <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+        </button>
+        <p class="samoocena-awareness-summary-meta-second">35 pytań · 5 kategorii · ok. 8 minut</p>
       </footer>
     </section>
   `;

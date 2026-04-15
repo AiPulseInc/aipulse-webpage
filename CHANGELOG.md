@@ -4,6 +4,39 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.555] — 2026-04-15
+
+Quiz świadomości — intermediate summary screen (motywacyjny moment przed samooceną).
+
+### Co nowego
+Po 4 pytaniach quiz user widzi **krótki ekran wyniku** zanim wejdzie w 35 pytań samooceny:
+- Duży score X/4 (kolor matchuje level: green dla 3-4, yellow dla 2, red dla 0-1)
+- Label poziomu („ŚREDNIA ŚWIADOMOŚĆ", „WYSOKA", itd.)
+- **Bridge comment** — 1-2 zdania kierujące do samooceny, dostosowane do score (5 wariantów):
+  - 0/4: „Tak jak większość polskich MŚP. Dlatego właśnie robisz ten audyt."
+  - 4/4: „Świetnie znasz prawo. Ale wiedza ≠ wdrożenie — następne 35 pytań pokaże gdzie firma faktycznie stoi."
+- Meta info: „Pełne wyjaśnienia 4 pytań pojawią się na końcu, w raporcie"
+- Jeden CTA „Przejdź do samooceny →"
+
+### Behavioralna logika
+Win-win z dwóch przeciwnych emocji, obie zbieżne w kierunku „dalej":
+- Niski score → loss aversion („boję się czego jeszcze nie wiem")
+- Wysoki score → competence motivation („udowodnię że i resztę ogarniam")
+
+Plus micro-reward loop (feedback po 4 pytaniach, nie po 35) zmniejsza abandon rate.
+
+### Architektura
+- Nowy step `'awareness-summary'` między `awareness-quiz` a `category-intro`
+- `awareness-questions.json` rozszerzony o `bridge_comments` (5 wariantów)
+- `awareness.js` — `getBridgeComment(correctCount)`
+- `ui.js` — `renderAwarenessSummary` (intermediate, lakoniczny, bez explanations)
+- `app.js` — nowa akcja `awareness-to-samoocena`
+- `styles.css` — ~120 linii dla summary screen
+
+Pełne explanations zostają w finalnych results — dwustopniowy reveal jako tease/reward.
+
+---
+
 ## [0.554] — 2026-04-15
 
 Task 2 — pre-assessment quiz świadomości regulacyjnej (compliance literacy).

@@ -16,6 +16,10 @@ export function getAwarenessMeta() {
   };
 }
 
+export function getBridgeComment(correctCount) {
+  return data.bridge_comments?.[String(correctCount)] || data.bridge_comments?.['0'] || '';
+}
+
 /**
  * Score quiz answers.
  * @param {Object<string, string>} answers — { questionId: optionId }

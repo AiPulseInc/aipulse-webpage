@@ -57,6 +57,13 @@
       "explanation": "**Tak.** Naruszenie ochrony danych (RODO Art. 4(12)) to **utrata kontroli, dostępności, integralności lub poufności danych** — niezależnie od tego, czy ktoś faktycznie z nich skorzystał. Brak szyfrowania = brak skutecznych środków technicznych = wysokie prawdopodobieństwo ryzyka dla osób. Zgłoszenie: 72h do UODO + powiadomienie samych osób, jeśli ryzyko jest „wysokie”. Polityka „nie zgłaszamy, bo może nikt nie znajdzie” = **dodatkowe naruszenie obowiązku informacyjnego** — kara potrafi być wyższa niż za samo wycieknięcie. Gdyby laptop był zaszyfrowany silnym hasłem (FileVault, BitLocker), zgłoszenie wciąż jest wymagane, ale ryzyko jest niskie i często wystarczy wpis do wewnętrznego rejestru."
     }
   ],
+  "bridge_comments": {
+    "0": "Tak jak większość polskich MŚP. Dlatego właśnie robisz ten audyt. Następne 35 pytań pokaże gdzie konkretnie są luki w Twojej firmie — i co naprawić w pierwszej kolejności.",
+    "1": "Coś już wiesz — ale to dopiero początek. Sprawdźmy teraz, czy procesy w firmie są w stanie zrekompensować braki w wiedzy regulacyjnej.",
+    "2": "Solidna baza świadomości. Następne 35 pytań sprawdzi, czy ta wiedza przekłada się na praktykę operacyjną.",
+    "3": "Dobra znajomość przepisów. Czas zobaczyć, czy procesy operacyjne w firmie nadążają za Twoją wiedzą.",
+    "4": "Świetnie znasz prawo. Ale wiedza ≠ wdrożenie — następne 35 pytań pokaże gdzie firma faktycznie stoi w praktyce."
+  },
   "scoring_levels": [
     {
       "min": 0,

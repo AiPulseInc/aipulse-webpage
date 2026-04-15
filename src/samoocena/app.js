@@ -23,6 +23,7 @@ import {
   renderCategoryIntro,
   renderQuestion,
   renderAwarenessQuestion,
+  renderAwarenessSummary,
   renderThankYou,
   renderResults,
   renderError,
@@ -87,6 +88,8 @@ function routeToRenderer(step, ctx) {
       return renderProfiling(ctx);
     case 'awareness-quiz':
       return renderAwarenessQuestion(ctx);
+    case 'awareness-summary':
+      return renderAwarenessSummary(ctx);
     case 'category-intro':
       return renderCategoryIntro(ctx);
     case 'question':
@@ -181,8 +184,11 @@ function handleClick(event) {
       if (next < awarenessQuestions.length) {
         setCurrentAwarenessIndex(next);
       } else {
-        setState({ step: 'category-intro', currentQuestionIndex: 0 });
+        setStep('awareness-summary');
       }
+    },
+    'awareness-to-samoocena': () => {
+      setState({ step: 'category-intro', currentQuestionIndex: 0 });
     },
     'prev-awareness': () => {
       const state = getState();

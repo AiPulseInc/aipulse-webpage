@@ -1472,6 +1472,115 @@
   justify-content: center;
 }
 
+/* AWARENESS SUMMARY — intermediate screen po quiz, przed samooceną */
+
+.samoocena-awareness-summary-screen {
+  max-width: min(72ch, 90vw);
+  margin: clamp(2rem, 5vw, 4rem) auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  display: grid;
+  gap: 1.2rem;
+  text-align: left;
+  border: 1px solid var(--samoocena-card-border);
+  border-left: 4px solid var(--samoocena-accent);
+  background: var(--samoocena-card-bg);
+}
+
+.samoocena-awareness-summary-screen.awareness-summary-perfect {
+  border-left-color: #4ade80;
+}
+
+.samoocena-awareness-summary-screen.awareness-summary-high {
+  border-left-color: #4ade80;
+}
+
+.samoocena-awareness-summary-screen.awareness-summary-mid {
+  border-left-color: #facc15;
+}
+
+.samoocena-awareness-summary-screen.awareness-summary-low {
+  border-left-color: #f87171;
+}
+
+.samoocena-awareness-summary-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  margin: 0.5rem 0 0;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  line-height: 0.95;
+}
+
+.samoocena-awareness-summary-num {
+  font-size: clamp(4.5rem, 14vw, 8rem);
+  color: var(--samoocena-accent);
+}
+
+.samoocena-awareness-summary-perfect .samoocena-awareness-summary-num,
+.samoocena-awareness-summary-high .samoocena-awareness-summary-num {
+  color: #4ade80;
+}
+
+.samoocena-awareness-summary-mid .samoocena-awareness-summary-num {
+  color: #facc15;
+}
+
+.samoocena-awareness-summary-low .samoocena-awareness-summary-num {
+  color: #f87171;
+}
+
+.samoocena-awareness-summary-divider,
+.samoocena-awareness-summary-total {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--samoocena-muted);
+}
+
+.samoocena-awareness-summary-level {
+  margin: 0.3rem 0 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1.15;
+}
+
+.samoocena-awareness-summary-bridge {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  line-height: 1.6;
+  color: #e5e5e5;
+  max-width: 60ch;
+}
+
+.samoocena-awareness-summary-meta {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--samoocena-card-border);
+  font-size: 0.82rem;
+  color: var(--samoocena-muted);
+  font-style: italic;
+}
+
+.samoocena-awareness-summary-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+
+.samoocena-awareness-summary-meta-second {
+  margin: 0;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--samoocena-muted);
+}
+
 /* AWARENESS QUIZ — pre-assessment */
 
 .samoocena-awareness-shell {
