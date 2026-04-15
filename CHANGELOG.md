@@ -4,6 +4,14 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.558] — 2026-04-15
+
+Nav samooceny wraca na `/security/` zamiast brand selector `/`.
+
+Samoocena to sub-feature Security line — wyjście z formularza powinno sprowadzać usera na stronę Security, a nie na selektor Business/Security. Oba linki w headerze (logo Ai Puls + „Powrót…") teraz `href="/security/"`. Tekst link: „Powrót do Ai Puls Security".
+
+---
+
 ## [0.557] — 2026-04-15
 
 Dwa krytyczne fixy UX zgłoszone przez usera.
