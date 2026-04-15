@@ -10,9 +10,14 @@ function getData() {
     return EXAMPLE_DATA;
   }
   try {
-    const raw = sessionStorage.getItem('raportData');
+    // localStorage — sessionStorage nie jest dzielony między nowymi tabami
+    // (target=_blank w samoocena/app.js otwiera w izolowanym session context)
+    const raw = localStorage.getItem('raportData');
     if (!raw) return null;
-    return JSON.parse(raw);
+    const data = JSON.parse(raw);
+    // Cleanup po odczycie — nie zostawiamy danych na długo w localStorage
+    localStorage.removeItem('raportData');
+    return data;
   } catch {
     return null;
   }

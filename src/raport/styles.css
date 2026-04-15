@@ -535,3 +535,168 @@ table.scope tr:nth-child(even) td { background: #FAFAFA; }
   text-decoration: none;
   font-weight: 700;
 }
+
+/* AWARENESS PAGE — compliance literacy w raporcie PDF.
+   Print-safe: pełne kolory (nie transparent), precyzyjny layout A4. */
+
+.awareness-intro {
+  margin: 4mm 0 6mm;
+  font-size: 10pt;
+  line-height: 1.55;
+  color: #333;
+  max-width: 160mm;
+}
+
+.awareness-score-summary {
+  display: flex;
+  align-items: center;
+  gap: 6mm;
+  padding: 5mm;
+  background: #F7F3FA;
+  border-left: 2mm solid #7E22CE;
+  margin: 2mm 0 6mm;
+}
+
+.awareness-score-big {
+  font-family: ""'Outfit'"", sans-serif;
+  font-weight: 800;
+  font-size: 40pt;
+  line-height: 1;
+  color: #7E22CE;
+  flex-shrink: 0;
+}
+
+.awareness-score-big span {
+  font-size: 18pt;
+  color: #999;
+  font-weight: 700;
+}
+
+.awareness-score-level {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 12pt;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #000;
+  margin-bottom: 1mm;
+}
+
+.awareness-score-comment {
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #555;
+  max-width: 120mm;
+}
+
+.awareness-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4mm;
+}
+
+.awareness-item {
+  padding: 4mm 5mm;
+  border: 0.3mm solid #ddd;
+  border-left: 2mm solid #ddd;
+  page-break-inside: avoid;
+}
+
+.awareness-item.awareness-correct {
+  border-left-color: #2E7D32;
+}
+
+.awareness-item.awareness-wrong {
+  border-left-color: #C62828;
+}
+
+.awareness-item.awareness-unknown {
+  border-left-color: #888;
+}
+
+.awareness-item-head {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+  margin-bottom: 2.5mm;
+  font-family: "Space Grotesk", monospace;
+}
+
+.awareness-item-num {
+  font-weight: 700;
+  font-size: 8pt;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+.awareness-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5mm;
+  height: 5mm;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 9pt;
+  background: #ddd;
+  color: #333;
+}
+
+.awareness-correct .awareness-item-icon {
+  background: #2E7D32;
+  color: #fff;
+}
+
+.awareness-wrong .awareness-item-icon {
+  background: #C62828;
+  color: #fff;
+}
+
+.awareness-item-status {
+  font-weight: 700;
+  font-size: 8pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.awareness-item-ref {
+  margin-left: auto;
+  font-weight: 500;
+  font-size: 7.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7E22CE;
+}
+
+.awareness-item-q {
+  margin: 0 0 2mm;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #000;
+}
+
+.awareness-item-user,
+.awareness-item-correct-answer {
+  margin: 0 0 1.5mm;
+  font-size: 9.5pt;
+  line-height: 1.4;
+  color: #555;
+}
+
+.awareness-item-correct-answer strong {
+  color: #000;
+}
+
+.awareness-item-explanation {
+  margin: 2mm 0 0;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  color: #333;
+}
+
+.awareness-item-explanation strong {
+  color: #000;
+  font-weight: 700;
+}
+

@@ -30,6 +30,7 @@ import {
 } from './ui.js';
 import { getAwarenessQuestions } from './awareness.js';
 import { submitAssessment, fetchBenchmark } from './api.js';
+import { showConfirmModal } from './modal.js';
 
 const mainEl = document.getElementById('samoocena-main');
 const versionEl = document.getElementById('app-version');
@@ -107,6 +108,47 @@ function bindDelegatedEvents() {
   mainEl.addEventListener('click', handleClick);
   mainEl.addEventListener('change', handleChange);
   mainEl.addEventListener('submit', handleSubmit);
+  // Global interceptor dla klików na nav linki podczas aktywnej samooceny —
+  // modal „stracisz odpowiedzi" + reset state po potwierdzeniu.
+  document.addEventListener('click', handleExitAttempt, true);
+}
+
+const BLOCKING_STEPS = new Set([
+  'profiling',
+  'awareness-quiz',
+  'awareness-summary',
+  'category-intro',
+  'question',
+]);
+
+function handleExitAttempt(event) {
+  // Interesuje nas tylko klik na nav links wyprowadzający z samooceny
+  const link = event.target.closest('a[href]');
+  if (!link) return;
+  // Jeśli link prowadzi gdzieś w ramach samooceny (np. hash#, /bezpieczenstwo-samoocena/...) — nic nie robimy
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#')) return;
+  if (href.includes('/bezpieczenstwo-samoocena')) return;
+  // Nowa karta — nie przerywa obecnej sesji, nie interceptujemy
+  if (link.target === '_blank') return;
+
+  const state = getState();
+  if (!BLOCKING_STEPS.has(state.step)) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  showConfirmModal({
+    title: 'Stracisz wprowadzone odpowiedzi',
+    message:
+      'Jeśli teraz wyjdziesz, cała samoocena zostanie zresetowana. Przy następnym wejściu zaczniesz od nowa — nic nie zostanie zapisane.',
+    confirmLabel: 'Wyjdź i zresetuj',
+    cancelLabel: 'Kontynuuj samoocenę',
+    onConfirm: () => {
+      clearState();
+      window.location.href = href;
+    },
+  });
 }
 
 function handleClick(event) {
@@ -208,12 +250,16 @@ function handleClick(event) {
         profile: state.profile,
         responses: state.responses,
         scoringResult,
-        assessmentId: state.startedAt || Date.now(),
+        awarenessAnswers: state.awarenessAnswers || {},
+        assessmentId: state.assessmentId || state.startedAt || Date.now(),
       };
       try {
-        sessionStorage.setItem('raportData', JSON.stringify(payload));
+        // localStorage — sessionStorage nie jest współdzielony między nowymi tabami
+        // ('target=_blank' tworzy izolowany session context w nowoczesnych browserach).
+        // raport/app.js usuwa ten klucz po odczytaniu.
+        localStorage.setItem('raportData', JSON.stringify(payload));
       } catch (err) {
-        console.error('[samoocena] sessionStorage failed:', err);
+        console.error('[samoocena] localStorage failed:', err);
       }
       window.open('/raport-audit/', '_blank', 'noopener');
     },

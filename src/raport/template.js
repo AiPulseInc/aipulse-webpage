@@ -1,3 +1,5 @@
+import { scoreAwareness } from '../samoocena/awareness.js';
+
 const SIZE_LABELS = {
   '1-10': '1–10 pracowników',
   '11-50': '11–50 pracowników',
@@ -64,18 +66,21 @@ const FINDINGS = [
 ];
 
 export function renderRaportB(data) {
-  const { profile, scoringResult, date, refNumber, topRecs = [] } = data;
+  const { profile, scoringResult, date, refNumber, awarenessAnswers } = data;
   const overall = scoringResult?.overall?.percentage ?? 0;
   const maturityLabel = scoringResult?.maturity?.label ?? '—';
   const companyName = profile.companyName || 'Nazwa firmy (do uzupełnienia)';
   const industry = profile.industry || '—';
   const size = SIZE_LABELS[profile.size] || profile.size || '—';
+  const hasAwareness = awarenessAnswers && Object.keys(awarenessAnswers).length > 0;
+  const awareness = hasAwareness ? scoreAwareness(awarenessAnswers) : null;
 
   return [
     renderCover({ companyName, industry, size, overall, maturityLabel, date }),
-    renderTocMethodology({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel }),
+    renderTocMethodology({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness }),
     renderRadarAndCategoryBreakdown({ refNumber, categoryScores: scoringResult?.categories, industry, size }),
     renderFindings({ refNumber }),
+    awareness ? renderAwarenessPage({ refNumber, awareness }) : '',
     renderComplianceAndCta({ refNumber, overall, maturityLabel }),
   ].join('\n');
 }
@@ -125,7 +130,7 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
   `;
 }
 
-function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel }) {
+function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, hasAwareness }) {
   const catRows = CATEGORIES.map((cat, i) => {
     const pct = categoryScores?.[cat.id]?.percentage ?? 0;
     return `<li>5.${i + 1} ${escape(cat.name)} (${escape(cat.subtitle)}) — ${pct}/100</li>`;
@@ -161,8 +166,9 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel }
             <ol>${catRows}</ol>
           </li>
           <li><span>6. Lista findings (identyfikacja luk)</span><span>str. 6</span></li>
-          <li><span>7. Mapa zgodności z regulacjami</span><span>str. 8</span></li>
-          <li><span>8. Następne kroki + kontakt audytora</span><span>str. 10</span></li>
+          ${hasAwareness ? `<li><span>7. Świadomość regulacyjna (compliance literacy)</span><span>str. 8</span></li>` : ''}
+          <li><span>${hasAwareness ? '8' : '7'}. Mapa zgodności z regulacjami</span><span>str. ${hasAwareness ? '9' : '8'}</span></li>
+          <li><span>${hasAwareness ? '9' : '8'}. Następne kroki + kontakt audytora</span><span>str. ${hasAwareness ? '11' : '10'}</span></li>
         </ol>
       </div>
 
@@ -294,6 +300,77 @@ function renderFindings({ refNumber }) {
       <div class="page-footer">
         <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
         <span>Strona 4 z 10</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderAwarenessPage({ refNumber, awareness }) {
+  const { correct, total, breakdown, level } = awareness;
+  const items = breakdown
+    .map((item, i) => {
+      const statusClass = item.isCorrect
+        ? 'awareness-correct'
+        : item.isUnknown
+          ? 'awareness-unknown'
+          : 'awareness-wrong';
+      const statusIcon = item.isCorrect ? '✓' : item.isUnknown ? '?' : '✗';
+      const statusLabel = item.isCorrect
+        ? 'Poprawnie'
+        : item.isUnknown
+          ? 'Brak odpowiedzi'
+          : 'Niepoprawnie';
+      const explanation = escape(item.explanation).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      const userLine =
+        item.userAnswerLabel && !item.isCorrect && !item.isUnknown
+          ? `<div class="awareness-user">Twoja odpowiedź: <em>${escape(item.userAnswerLabel)}</em></div>`
+          : '';
+      return `
+        <div class="awareness-item ${statusClass}">
+          <div class="awareness-item-head">
+            <span class="awareness-item-num">${String(i + 1).padStart(2, '0')}</span>
+            <span class="awareness-item-icon">${statusIcon}</span>
+            <span class="awareness-item-status">${statusLabel}</span>
+            <span class="awareness-item-ref">${escape(item.reference)}</span>
+          </div>
+          <div class="awareness-item-q"><strong>${escape(item.questionText)}</strong></div>
+          ${userLine}
+          <div class="awareness-item-correct-answer">Poprawna odpowiedź: <strong>${escape(item.correctAnswerLabel)}</strong></div>
+          <div class="awareness-item-explanation">${explanation}</div>
+        </div>
+      `;
+    })
+    .join('');
+
+  return `
+    <div class="page">
+      <div class="page-header">
+        <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+        <span>REF: ${escape(refNumber)}</span>
+      </div>
+
+      <h2>7. Świadomość regulacyjna (compliance literacy)</h2>
+
+      <p class="awareness-intro">
+        Przed właściwą samooceną sprawdziliśmy Twoją znajomość podstawowych przepisów — terminów zgłoszenia incydentu, punktów kontaktowych i wysokości kar. Wynik to wskaźnik <strong>literacy</strong>, nie działania: wiedza nie zastępuje wdrożonych procesów, ale pokazuje, na ile jesteś w stanie szybko reagować w razie incydentu.
+      </p>
+
+      <div class="awareness-score-summary">
+        <div class="awareness-score-big">${correct}<span>/${total}</span></div>
+        <div class="awareness-score-label">
+          <div class="awareness-score-level">${escape(level.label)}</div>
+          <div class="awareness-score-comment">${escape(level.comment)}</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 8mm;">Wszystkie pytania z wyjaśnieniami</h3>
+      <div class="awareness-list">
+        ${items}
+      </div>
+
+      <div class="page-footer">
+        <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+        <span>Strona 8 z 11</span>
       </div>
     </div>
   `;

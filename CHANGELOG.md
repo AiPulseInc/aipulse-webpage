@@ -4,6 +4,44 @@ Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.557] — 2026-04-15
+
+Dwa krytyczne fixy UX zgłoszone przez usera.
+
+### Bug 1 — Pusty raport PDF (CRITICAL)
+**Root cause:** `sessionStorage` NIE jest współdzielony między oryginalną zakładką a nową (`target="_blank"`) w nowoczesnych browserach. Każdy nowy tab dostaje świeży session context. User klikał „Pobierz swój raport" → nowa karta `/raport-audit/` → `sessionStorage.getItem('raportData')` → `null` → raport pokazywał stronę błędu „Brak danych".
+
+**Fix:** `localStorage` zamiast `sessionStorage` (współdzielony per-origin między tabami). Cleanup: `raport/app.js` robi `localStorage.removeItem('raportData')` po odczycie — nie zostawiamy danych w localStorage na długo.
+
+### Bug 2 — Brak sekcji awareness w raporcie (MISSING FEATURE)
+Quiz świadomości regulacyjnej zbierany był tylko dla mockup A (on-screen). Mockup B PDF audytowy nie zawierał tej sekcji.
+
+**Fix:**
+- `download-pdf` action w samoocena dorzuca `awarenessAnswers` do payload
+- Nowa funkcja `renderAwarenessPage` w `raport/template.js` generuje stronę 8 raportu z:
+  - Score X/4 + level label + comment
+  - Intro wyjaśniające rolę metryki (literacy ≠ wdrożenie)
+  - 4 pytania z status ✓/✗/? + poprawna odpowiedź + pełne wyjaśnienia (RODO/NIS2/KSC references)
+- TOC zaktualizowane: 7. Świadomość regulacyjna → 8. Mapa zgodności → 9. Następne kroki (renumerowane gdy awareness dostępne)
+- Print-safe CSS: pełne kolory (#2E7D32 green, #C62828 red), page-break-inside: avoid, A4-ready
+
+### Fix 3 — Reset-on-exit z custom modalem (UX)
+**Problem:** Klik „POWRÓT NA STRONĘ GŁÓWNĄ" w trakcie samooceny nawigował na home ale state w localStorage zostawał — user wracał i lądował w środku starego testu bez sposobu na start od nowa.
+
+**Fix:**
+- Nowy `src/samoocena/modal.js` — lightweight confirm dialog w stylu strony (violet top stripe, dark #0A0A0A, uppercase title, blur overlay, focus trap, ESC/Enter keyboard, click-overlay-cancel)
+- Global click interceptor w `app.js` intercept linki nav (href="/" albo zewnętrzne) gdy step ∈ {profiling, awareness-quiz, awareness-summary, category-intro, question}
+- Modal: „Stracisz wprowadzone odpowiedzi" → [Kontynuuj samoocenę] [Wyjdź i zresetuj]. Klik confirm → `clearState()` + nav.
+- Nie interceptujemy: linki hash, `/bezpieczenstwo-samoocena/...`, `target="_blank"`, terminal steps (results/thank-you).
+- Safari compat: `-webkit-backdrop-filter` prefix dla blur.
+
+### Impact
+- Raport PDF działa z real user data + nową sekcją awareness (11 stron zamiast 10)
+- Exit flow przestaje być frustrujący — modal w stylu strony, pełne zachowanie UX conventions
+- Zero regresji na istniejącym flow (results/thank-you zostają terminal states)
+
+---
+
 ## [0.556] — 2026-04-15
 
 Awareness intermediate summary — closure z listą 4 pytań na jednym ekranie.
