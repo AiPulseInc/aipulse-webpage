@@ -31,8 +31,8 @@ import {
   renderError,
 } from './ui.js';
 import { getAwarenessQuestions } from './awareness.js';
-import { submitAssessment, fetchBenchmark, scanDomain } from './api.js';
-import { showConfirmModal, showInputModal } from './modal.js';
+import { submitAssessment, fetchBenchmark, scanDomain, recordRaportRequest } from './api.js';
+import { showConfirmModal, showInputModal, showRaportRequestModal } from './modal.js';
 
 const mainEl = document.getElementById('samoocena-main');
 const versionEl = document.getElementById('app-version');
@@ -289,16 +289,22 @@ function handleClick(event) {
         window.open('/raport-audit/', '_blank', 'noopener');
       };
 
-      showInputModal({
-        title: 'Nazwa firmy',
-        message:
-          'Podaj nazwę firmy, która pojawi się na okładce raportu. Dane pozostają lokalne — nie wysyłamy ich nigdzie poza Twoją przeglądarką.',
-        placeholder: 'np. Twoja Firma Sp. z o.o.',
-        defaultValue: state.profile?.companyName || '',
-        required: true,
-        confirmLabel: 'Pobierz raport',
-        cancelLabel: 'Anuluj',
-        onConfirm: (companyName) => openReport(companyName),
+      showRaportRequestModal({
+        defaultCompanyName: state.profile?.companyName || '',
+        defaultEmail: state.profile?.email || '',
+        defaultMarketingConsent: state.profile?.marketingConsent ?? true,
+        onConfirm: async ({ companyName, email, marketingConsent }) => {
+          // Save email + consent locally (in case user re-downloads in same session)
+          setProfile({ email, marketingConsent });
+          // Fire-and-forget UPDATE — nie blokuje otwarcia raportu, ale loguje błędy.
+          // Assessment row już został wstawiony przy go-to-results, więc UPDATE jest bezpieczny.
+          if (state.assessmentId) {
+            recordRaportRequest(state.assessmentId, { email, marketingConsent }).then((res) => {
+              if (!res.ok) console.warn('[samoocena] raport request not recorded:', res.error);
+            });
+          }
+          openReport(companyName);
+        },
       });
     },
     'view-example-report': () => {

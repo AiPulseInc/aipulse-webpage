@@ -160,6 +160,34 @@ export async function submitAssessment(state, scoringResult) {
 }
 
 /**
+ * Zapisuje email + zgodę marketingową do istniejącego assessment row (UPDATE).
+ * Wywoływane przy „Pobierz raport" — leadgen capture za PDF.
+ * @param {string} assessmentId
+ * @param {{ email: string, marketingConsent: boolean }} payload
+ * @returns {Promise<{ ok: true } | { ok: false, error: string }>}
+ */
+export async function recordRaportRequest(assessmentId, { email, marketingConsent }) {
+  try {
+    if (!assessmentId) return { ok: false, error: 'brak assessmentId' };
+    if (!email) return { ok: false, error: 'brak email' };
+
+    const supabase = getSupabaseBrowser();
+    await withRetry(async () => {
+      const { error } = await supabase
+        .from('assessments')
+        .update({ email, marketing_consent: !!marketingConsent })
+        .eq('id', assessmentId);
+      if (error) throw new Error(`raport request update: ${error.message}`);
+    }, 'raport-request');
+
+    return { ok: true };
+  } catch (err) {
+    console.error('[samoocena] recordRaportRequest failed:', err);
+    return { ok: false, error: err.message || 'unknown' };
+  }
+}
+
+/**
  * Pobiera benchmark snapshot z RPC. Zwraca obiekt zgodny z tym co renderuje mocked MOCKED_BENCHMARK
  * w results-management.js (żeby można było swap z minimalną zmianą).
  * @param {string} rawIndustry — oryginalny label z profilingu (8 opcji)

@@ -338,7 +338,7 @@ function renderUpsellSection() {
       </div>
 
       <p class="samoocena-report-upsell-note">
-        <em>W wersji beta oba raporty są darmowe. Docelowo raport rozszerzony: <strong>149 zł</strong>.</em>
+        <em>Bezpłatnie dla 100 pierwszych użytkowników. Docelowo raport rozszerzony: <strong>149 zł</strong>.</em>
       </p>
     </section>
   `;

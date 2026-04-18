@@ -47,7 +47,7 @@ export function renderLanding(ctx) {
         <p class="samoocena-display-sub">35 pytań · 5 kategorii · 10 minut · Bezpłatnie</p>
 
         <p class="samoocena-hero-lead">
-          Odpowiedź na pytanie, które zarząd zadaje co miesiąc — <strong>gdzie stoimy z cyberbezpieczeństwem</strong>. Framework CIS Controls v8 + NIST CSF 2.0. Bez jargonu, bez pytań o Red Team.
+          Odpowiedź na pytanie, które zarząd zadaje co miesiąc — <strong>gdzie stoimy z cyberbezpieczeństwem</strong>. Framework CIS Controls v8 + NIST CSF 2.0. Bez żargonu, bez pytań o Red Team.
         </p>
 
         <div class="samoocena-hero-actions">
@@ -81,12 +81,12 @@ export function renderLanding(ctx) {
         <div class="samoocena-stat">
           <span class="samoocena-stat-kicker">// Koszt</span>
           <span class="samoocena-stat-num">0<em>zł</em></span>
-          <span class="samoocena-stat-label">Beta darmowa do końca Q2 2026</span>
+          <span class="samoocena-stat-label">Bezpłatnie dla 100 pierwszych użytkowników</span>
         </div>
         <div class="samoocena-stat">
           <span class="samoocena-stat-kicker">// Dane</span>
-          <span class="samoocena-stat-num">0<em>e-maili</em></span>
-          <span class="samoocena-stat-label">Bez rejestracji, bez spamu</span>
+          <span class="samoocena-stat-num">1<em>email</em></span>
+          <span class="samoocena-stat-label">Tylko do dostarczenia raportu PDF</span>
         </div>
       </div>
 
@@ -100,7 +100,7 @@ export function renderLanding(ctx) {
             <span class="samoocena-deliverable-index">01</span>
             <div class="samoocena-deliverable-body">
               <h3>Wynik dojrzałości</h3>
-              <p>Maturity score 0–100 + benchmark na tle firm z Twojej branży i rozmiaru. Cztery poziomy: Initial, Developing, Managed, Optimized.</p>
+              <p>Wynik 0–100 + benchmark na tle firm z Twojej branży i rozmiaru. Cztery poziomy dojrzałości: Wstępny, Rozwijający się, Zarządzany, Zoptymalizowany.</p>
               <span class="samoocena-deliverable-meta">// Per kategoria · Per pytanie krytyczne</span>
             </div>
           </li>
@@ -117,7 +117,7 @@ export function renderLanding(ctx) {
             <div class="samoocena-deliverable-body">
               <h3>Raport PDF</h3>
               <p>Dokument gotowy do wysłania zarządowi, ubezpieczycielowi albo audytorowi NIS2. Wersja audytowa, ~10 stron.</p>
-              <span class="samoocena-deliverable-meta">// Darmowa w becie · Płatna od Q3 2026</span>
+              <span class="samoocena-deliverable-meta">// Bezpłatnie dla 100 pierwszych użytkowników</span>
             </div>
           </li>
         </ol>
@@ -125,7 +125,7 @@ export function renderLanding(ctx) {
 
       <footer class="samoocena-landing-footer">
         <p class="samoocena-landing-smallprint">
-          Dane są anonimizowane i używane wyłącznie do zagregowanych benchmarków. Żadnych nazw firm, nazwisk, e-maili.
+          Sama samoocena (35 pytań) jest anonimowa i służy do zagregowanych benchmarków. Pobranie raportu PDF wymaga nazwy firmy i adresu email — wyłącznie do dostarczenia raportu i ewentualnej komunikacji marketingowej za Twoją zgodą.
           <a href="/polityka-cookies/">Polityka prywatności</a>.
         </p>
         <div class="samoocena-landing-credits">

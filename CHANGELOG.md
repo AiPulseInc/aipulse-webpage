@@ -4,6 +4,36 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5643] — 2026-04-18
+
+Pre-go-live: leadgen capture przy raporcie PDF + promocja „100 pierwszych" + drobne korekty copy + nowy numer telefonu.
+
+**Leadgen flow (raport PDF):**
+- Nowy multi-field modal `showRaportRequestModal` — nazwa firmy + email (z walidacją) + zgoda marketingowa (pre-checked, opt-out RODO-friendly)
+- DB: `assessments` + kolumny `email text`, `marketing_consent boolean`
+- RLS policy `assessments_anon_set_email` — anon UPDATE tylko gdy email IS NULL (one-time set), z walidacją regex'em
+- Nowa funkcja `recordRaportRequest(assessmentId, { email, marketingConsent })` w api.js — UPDATE z retry
+- `download-pdf` action gather → save do DB (fire-and-forget) → otwiera raport tab
+- Stat tile „Dane: 0 e-maili / Bez rejestracji" → „Dane: 1 email / Tylko do dostarczenia raportu PDF" (truthful po Stage 2)
+- Footer copy o „bez nazw firm, bez e-maili" zaktualizowany — samoocena anonimowa, raport wymaga emaila
+
+**Promocja go-live (zamiast „BETA do końca Q2"):**
+- Stat tile Koszt: „Bezpłatnie dla 100 pierwszych użytkowników"
+- Deliverable Raport PDF meta: „Bezpłatnie dla 100 pierwszych użytkowników"
+- Results upsell note: „Bezpłatnie dla 100 pierwszych użytkowników. Docelowo raport rozszerzony: 149 zł"
+- Liczenie po stronie Supabase (manual count gdy chce sprawdzić ile zostało) — bez UI counter na razie
+
+**Drobne korekty copy:**
+- „Bez jargonu" → „Bez żargonu" (typo)
+- „Maturity score 0–100... Cztery poziomy: Initial, Developing..." → „Wynik 0–100... Cztery poziomy dojrzałości: Wstępny, Rozwijający się, Zarządzany, Zoptymalizowany" (Polish, no English jargon)
+
+**Numer telefonu (mobile call-FAB):**
+- 502 333 645 → 508 406 948 (security/, business/, scripts/build-security-blog.mjs — propagated do wszystkich blog stron przy build)
+
+**Bump:** micro +0.001.
+
+---
+
 ## [0.5633] — 2026-04-18
 
 A7 Phase 3 — raport PDF z sekcją „Twoja rzeczywista ekspozycja" + cover layout + blog refresh.
