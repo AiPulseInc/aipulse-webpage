@@ -10,7 +10,127 @@ document.addEventListener('DOMContentLoaded', () => {
   if (versionEl) versionEl.textContent = `v${VERSION}`;
   initMobileNav();
   initNavHeightTracking();
+  initContactForms();
 });
+
+// --- Contact form handler (security + business) ---
+
+const CONTACT_ENDPOINT = `${import.meta.env.VITE_SUPABASE_URL || ''}/functions/v1/contact`;
+const SUPABASE_ANON =
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  '';
+
+function initContactForms() {
+  const forms = document.querySelectorAll('form.contact-form[data-source]');
+  forms.forEach((form) => form.addEventListener('submit', handleContactSubmit));
+}
+
+async function handleContactSubmit(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const submitBtn = form.querySelector('.form-submit');
+  const statusEl = form.querySelector('[data-form-status]');
+  const source = form.dataset.source;
+
+  const data = {
+    source,
+    name: form.elements.name.value.trim(),
+    company: form.elements.company.value.trim() || null,
+    email: form.elements.email.value.trim(),
+    phone: form.elements.phone.value.trim() || null,
+    message: form.elements.message.value.trim() || null,
+    consent: form.elements.consent.checked,
+    website: form.elements.website.value, // honeypot
+  };
+
+  // Client-side walidacja (defence in depth; serwer i tak waliduje)
+  if (!data.name || data.name.length < 2) {
+    return showFormStatus(statusEl, 'error', 'Podaj imię i nazwisko.');
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    return showFormStatus(statusEl, 'error', 'Podaj poprawny adres email.');
+  }
+  if (!data.consent) {
+    return showFormStatus(statusEl, 'error', 'Zaznacz zgodę na przetwarzanie danych.');
+  }
+
+  setFormLoading(form, submitBtn, true);
+  hideFormStatus(statusEl);
+
+  try {
+    const res = await fetch(CONTACT_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SUPABASE_ANON,
+        Authorization: `Bearer ${SUPABASE_ANON}`,
+        'x-application': 'aipulse-webpage',
+      },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json().catch(() => ({ ok: false, error: 'service_unavailable' }));
+
+    if (json.ok) {
+      form.reset();
+      showFormStatus(
+        statusEl,
+        'success',
+        'Dziękujemy! Skontaktujemy się w ciągu 24h roboczych.',
+      );
+    } else {
+      showFormStatus(
+        statusEl,
+        'error',
+        errorMessage(json.error) || 'Coś poszło nie tak. Spróbuj ponownie lub napisz na maciek@aipulse.pl.',
+      );
+    }
+  } catch {
+    showFormStatus(
+      statusEl,
+      'error',
+      'Brak połączenia. Spróbuj ponownie lub napisz na maciek@aipulse.pl.',
+    );
+  } finally {
+    setFormLoading(form, submitBtn, false);
+  }
+}
+
+function errorMessage(code) {
+  switch (code) {
+    case 'invalid_email': return 'Email jest niepoprawny.';
+    case 'missing_consent': return 'Zaznacz zgodę na przetwarzanie danych.';
+    case 'invalid_payload':
+    case 'invalid_source': return 'Formularz zawiera błędne dane.';
+    default: return null;
+  }
+}
+
+function setFormLoading(form, btn, loading) {
+  form.classList.toggle('is-submitting', loading);
+  if (btn) {
+    btn.disabled = loading;
+    if (loading) {
+      btn.dataset.originalText = btn.textContent;
+      btn.textContent = 'Wysyłam...';
+    } else if (btn.dataset.originalText) {
+      btn.textContent = btn.dataset.originalText;
+    }
+  }
+}
+
+function showFormStatus(el, kind, text) {
+  if (!el) return;
+  el.hidden = false;
+  el.dataset.kind = kind;
+  el.textContent = text;
+}
+
+function hideFormStatus(el) {
+  if (!el) return;
+  el.hidden = true;
+  el.textContent = '';
+}
 
 // --- Mobile Nav (hamburger toggle + close behaviors) ---
 

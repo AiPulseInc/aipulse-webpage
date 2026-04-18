@@ -4,6 +4,24 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5646] — 2026-04-18
+
+Formularz kontaktowy (security + business) — backend + frontend (fix 405).
+
+**Backend:**
+- Migration `20260418000003_leads.sql` — tabela `leads` (source, name, company, email, phone, message, consent, timestamps). RLS włączone, brak policy anon (INSERT tylko przez service role).
+- Edge Function `contact` (POST /functions/v1/contact) — walidacja + zapis do DB + email do `maciek@aipulse.pl` przez Resend (fire-and-forget). Honeypot anti-spam (pole `website`). Lazy-init klienta Supabase, zero sekretów w logach.
+
+**Frontend:**
+- Form w `security/index.html` i `business/index.html`: dodane `name` attrs, `data-source`, honeypot, status element, usunięte `action="#"` + method=POST
+- `main.js`: `initContactForms` — walidacja client-side, POST do edge fn, loading state, inline status, reset po sukcesie
+- CSS: `.form-honeypot` (hidden), `.form-status[data-kind=success/error]`, `.form-submit:disabled`
+
+**Wymagane kroki deployment (user):**
+1. `supabase db push --linked` — apply migration
+2. `supabase functions deploy contact` — deploy edge function
+3. `supabase secrets set RESEND_API_KEY=<key>` — jeśli nie ustawione
+
 ## [0.5645] — 2026-04-18
 
 Drobne korekty:

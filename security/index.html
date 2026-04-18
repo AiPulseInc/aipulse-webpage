@@ -542,23 +542,26 @@
           </p>
         </div>
         <div class="col-6" style="padding: 2rem 4rem;">
-          <form class="contact-form" action="#" method="POST">
+          <form class="contact-form" data-source="security" novalidate>
             <div class="form-row">
-              <input type="text" class="form-input" placeholder="Imię i nazwisko" required />
-              <input type="text" class="form-input" placeholder="Firma" />
+              <input type="text" name="name" class="form-input" placeholder="Imię i nazwisko" required autocomplete="name" />
+              <input type="text" name="company" class="form-input" placeholder="Firma" autocomplete="organization" />
             </div>
             <div class="form-row">
-              <input type="email" class="form-input" placeholder="Email" required />
-              <input type="tel" class="form-input" placeholder="Telefon" />
+              <input type="email" name="email" class="form-input" placeholder="Email" required autocomplete="email" />
+              <input type="tel" name="phone" class="form-input" placeholder="Telefon" autocomplete="tel" />
             </div>
-            <textarea class="form-input form-textarea"
+            <textarea name="message" class="form-input form-textarea"
               placeholder="Krótki opis — czym się zajmujecie i co Was martwi w kontekście bezpieczeństwa?"></textarea>
             <label class="form-consent">
-              <input type="checkbox" required />
+              <input type="checkbox" name="consent" required />
               <span>Wyrażam zgodę na przetwarzanie moich danych osobowych przez Ai Pulse w celu odpowiedzi na moje
                 zapytanie. <a href="/privacy/" class="privacy-link">Polityka prywatności</a></span>
             </label>
-            <button type="submit" class="btn btn-accent" style="width: 100%;">Umów bezpłatną konsultację</button>
+            <!-- Honeypot: ukryte przed ludźmi, boty wypełniają -->
+            <input type="text" name="website" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button type="submit" class="btn btn-accent form-submit" style="width: 100%;">Umów bezpłatną konsultację</button>
+            <div class="form-status" data-form-status hidden></div>
           </form>
         </div>
       </div>
