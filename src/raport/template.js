@@ -75,20 +75,39 @@ export function renderRaportB(data) {
   const hasAwareness = awarenessAnswers && Object.keys(awarenessAnswers).length > 0;
   const awareness = hasAwareness ? scoreAwareness(awarenessAnswers) : null;
 
+  // A7 — DNS scan logic
+  const dnsVariant = pickDnsVariant(profile, data.dnsScan);
+  const hasDnsScan = dnsVariant !== null;
+  const dnsFindings = (dnsVariant === 'success' && data.dnsScan)
+    ? deriveDnsFindings(data.dnsScan)
+    : [];
+
+  // Physical page count: cover (1) + TOC (2) + radar (3) + findings (4) + optional DNS + optional awareness + compliance
+  const totalPages = 5 + (hasDnsScan ? 1 : 0) + (hasAwareness ? 1 : 0);
+
   return [
     renderCover({ companyName, industry, size, overall, maturityLabel, date }),
-    renderTocMethodology({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness }),
-    renderRadarAndCategoryBreakdown({ refNumber, categoryScores: scoringResult?.categories, industry, size }),
-    renderFindings({ refNumber }),
-    awareness ? renderAwarenessPage({ refNumber, awareness }) : '',
-    renderComplianceAndCta({ refNumber, overall, maturityLabel }),
+    renderTocMethodology({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness, hasDnsScan, totalPages }),
+    renderRadarAndCategoryBreakdown({ refNumber, categoryScores: scoringResult?.categories, industry, size, totalPages }),
+    renderFindings({ refNumber, dynamicFindings: dnsFindings, totalPages }),
+    hasDnsScan ? renderDnsExposure({ refNumber, variant: dnsVariant, scan: data.dnsScan, profile, hasAwareness, totalPages }) : '',
+    awareness ? renderAwarenessPage({ refNumber, awareness, hasDnsScan, totalPages }) : '',
+    renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan: data.dnsScan, dnsVariant, hasDnsScan, hasAwareness, totalPages }),
   ].join('\n');
+}
+
+// A7 — wybór wariantu sekcji 7 per spec
+function pickDnsVariant(profile, dnsScan) {
+  if (profile?.dnsScanOptOut) return 'optout';
+  if (dnsScan?.ok && dnsScan.data) return 'success';
+  if (profile?.companyDomain && dnsScan && dnsScan.ok === false) return 'fail';
+  return null;  // backward compat — assessment sprzed A7 → omit section
 }
 
 function renderCover({ companyName, industry, size, overall, maturityLabel, date }) {
   return `
     <div class="page cover">
-      <div style="text-align:center; padding: 35mm 16mm 0;">
+      <div style="text-align:center; padding: 20mm 16mm 0;">
         <div style="font-family:'Space Grotesk',monospace; font-size:9pt; letter-spacing:0.3em; color:#666; text-transform:uppercase;">Ai Pulse Security · Cyber Audit Division</div>
         <div style="margin-top:3mm; font-family:'Space Grotesk',monospace; font-size:8pt; letter-spacing:0.2em; color:#999; text-transform:uppercase;">Dokument poufny · Nie do redystrybucji bez zgody autora</div>
       </div>
@@ -112,29 +131,50 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
           <div class="seal-maturity">${escape(maturityLabel)}</div>
           <div class="seal-scope">Kwestionariusz v2026-01 · 35 pytań · 5 kategorii kontroli</div>
         </div>
+      </div>
 
-        <div class="auditor-signature">
-          <div class="sig-block">
-            <div class="sig-line sig-signed"></div>
-            <div class="sig-name">Maciej Konieczny</div>
-            <div class="sig-title">Lead Security Auditor · Ai Pulse Security</div>
-          </div>
-          <div class="sig-block">
-            <div class="sig-line"></div>
-            <div class="sig-name">Data audytu</div>
-            <div class="sig-title">${escape(date)}</div>
-          </div>
+      <div class="auditor-signature">
+        <div class="sig-block">
+          <div class="sig-line sig-signed"></div>
+          <div class="sig-name">Maciej Konieczny</div>
+          <div class="sig-title">Lead Security Auditor · Ai Pulse Security</div>
         </div>
       </div>
     </div>
   `;
 }
 
-function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, hasAwareness }) {
+function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, hasAwareness, hasDnsScan, totalPages }) {
   const catRows = CATEGORIES.map((cat, i) => {
     const pct = categoryScores?.[cat.id]?.percentage ?? 0;
     return `<li>5.${i + 1} ${escape(cat.name)} (${escape(cat.subtitle)}) — ${pct}/100</li>`;
   }).join('');
+
+  // Per spec section numbering matrix:
+  // hasDnsScan + hasAwareness: 7=DNS, 8=Awareness, 9=Compliance, 10=Next steps
+  // hasDnsScan only:           7=DNS, 8=Compliance, 9=Next steps
+  // hasAwareness only:         7=Awareness, 8=Compliance, 9=Next steps (current)
+  // neither:                   7=Compliance, 8=Next steps
+  let sec = 6;
+  const tocItems = [
+    `<li><span>2. Podsumowanie zarządcze</span><span>str. 3</span></li>`,
+    `<li><span>3. Metodyka audytu</span><span>str. 4</span></li>`,
+    `<li><span>4. Zakres i ograniczenia</span><span>str. 4</span></li>`,
+    `<li><span>5. Wyniki szczegółowe per kategoria</span><span>str. 5</span><ol>${catRows}</ol></li>`,
+    `<li><span>6. Lista findings (identyfikacja luk)</span><span>str. 6</span></li>`,
+  ];
+  if (hasDnsScan) {
+    sec++;
+    tocItems.push(`<li><span>${sec}. Twoja rzeczywista ekspozycja (DNS)</span><span>str. 7</span></li>`);
+  }
+  if (hasAwareness) {
+    sec++;
+    tocItems.push(`<li><span>${sec}. Świadomość regulacyjna (compliance literacy)</span><span>str. 8</span></li>`);
+  }
+  sec++;
+  tocItems.push(`<li><span>${sec}. Mapa zgodności z regulacjami</span><span>str. 9</span></li>`);
+  sec++;
+  tocItems.push(`<li><span>${sec}. Następne kroki + kontakt audytora</span><span>str. 10</span></li>`);
 
   return `
     <div class="page">
@@ -157,20 +197,7 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
       </div>
 
       <h2>1. Spis treści</h2>
-      <div class="toc">
-        <ol>
-          <li><span>2. Podsumowanie zarządcze</span><span>str. 3</span></li>
-          <li><span>3. Metodyka audytu</span><span>str. 4</span></li>
-          <li><span>4. Zakres i ograniczenia</span><span>str. 4</span></li>
-          <li><span>5. Wyniki szczegółowe per kategoria</span><span>str. 5</span>
-            <ol>${catRows}</ol>
-          </li>
-          <li><span>6. Lista findings (identyfikacja luk)</span><span>str. 6</span></li>
-          ${hasAwareness ? `<li><span>7. Świadomość regulacyjna (compliance literacy)</span><span>str. 8</span></li>` : ''}
-          <li><span>${hasAwareness ? '8' : '7'}. Mapa zgodności z regulacjami</span><span>str. ${hasAwareness ? '9' : '8'}</span></li>
-          <li><span>${hasAwareness ? '9' : '8'}. Następne kroki + kontakt audytora</span><span>str. ${hasAwareness ? '11' : '10'}</span></li>
-        </ol>
-      </div>
+      <div class="toc"><ol>${tocItems.join('')}</ol></div>
 
       <h2 style="margin-top:10mm;">3. Metodyka audytu</h2>
       <div class="methodology">
@@ -197,14 +224,14 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
       <p style="margin-top:3mm; font-style:italic; color:#666; font-size:9pt;">W celu uzyskania oceny z rygorystyczną weryfikacją techniczną, zaleca się przeprowadzenie pełnego audytu technicznego (oferta Ai Pulse Security: Audyt Basic / Standard / Premium).</p>
 
       <div class="page-footer">
-        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
-        <span>Strona 2 z 10</span>
+        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
+        <span>Strona 2 z ${totalPages}</span>
       </div>
     </div>
   `;
 }
 
-function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, size }) {
+function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, size, totalPages }) {
   const catsList = CATEGORIES.map((cat) => {
     const pct = categoryScores?.[cat.id]?.percentage ?? 0;
     const maturity = pctToMaturity(pct);
@@ -265,15 +292,19 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
       ${categorySections}
 
       <div class="page-footer">
-        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
-        <span>Strona 3 z 10</span>
+        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
+        <span>Strona 3 z ${totalPages}</span>
       </div>
     </div>
   `;
 }
 
-function renderFindings({ refNumber }) {
-  const findingsHtml = FINDINGS.map(f => `
+function renderFindings({ refNumber, dynamicFindings = [], totalPages }) {
+  // FINDINGS = hardcoded baseline (F-001..F-007 dla typowych MŚP)
+  // dynamicFindings = derived from DNS scan (F-DNS-01..05)
+  const allFindings = [...FINDINGS, ...dynamicFindings];
+
+  const findingsHtml = allFindings.map(f => `
     <div class="finding ${f.severity}">
       <div class="finding-header">
         <span class="finding-id">${f.id}</span>
@@ -293,19 +324,19 @@ function renderFindings({ refNumber }) {
       </div>
 
       <h2>6. Lista findings (identyfikacja luk)</h2>
-      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej lista przykładowych luk posortowanych według krytyczności. W wersji beta findings bazują na typowych problemach MŚP — w finalnej wersji będą generowane dynamicznie z Twoich odpowiedzi.</p>
+      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej lista przykładowych luk posortowanych według krytyczności. W wersji beta findings hardcoded bazują na typowych problemach MŚP — dynamiczne findings (F-DNS-*) wynikają z faktycznego skanu Twojej domeny.</p>
 
       ${findingsHtml}
 
       <div class="page-footer">
-        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
-        <span>Strona 4 z 10</span>
+        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
+        <span>Strona 4 z ${totalPages}</span>
       </div>
     </div>
   `;
 }
 
-function renderAwarenessPage({ refNumber, awareness }) {
+function renderAwarenessPage({ refNumber, awareness, hasDnsScan, totalPages }) {
   const { correct, total, breakdown, level } = awareness;
   const items = breakdown
     .map((item, i) => {
@@ -349,7 +380,7 @@ function renderAwarenessPage({ refNumber, awareness }) {
         <span>REF: ${escape(refNumber)}</span>
       </div>
 
-      <h2>7. Świadomość regulacyjna (compliance literacy)</h2>
+      <h2>${hasDnsScan ? 8 : 7}. Świadomość regulacyjna (compliance literacy)</h2>
 
       <p class="awareness-intro">
         Przed właściwą samooceną sprawdziliśmy Twoją znajomość podstawowych przepisów — terminów zgłoszenia incydentu, punktów kontaktowych i wysokości kar. Wynik to wskaźnik <strong>literacy</strong>, nie działania: wiedza nie zastępuje wdrożonych procesów, ale pokazuje, na ile jesteś w stanie szybko reagować w razie incydentu.
@@ -369,14 +400,14 @@ function renderAwarenessPage({ refNumber, awareness }) {
       </div>
 
       <div class="page-footer">
-        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
-        <span>Strona 8 z 11</span>
+        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
+        <span>Strona ${5 + (hasDnsScan ? 1 : 0)} z ${totalPages}</span>
       </div>
     </div>
   `;
 }
 
-function renderComplianceAndCta({ refNumber, overall, maturityLabel }) {
+function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dnsVariant, hasDnsScan, hasAwareness, totalPages }) {
   return `
     <div class="page">
       <div class="page-header">
@@ -384,7 +415,12 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel }) {
         <span>REF: ${escape(refNumber)}</span>
       </div>
 
-      <h2>7. Mapa zgodności z regulacjami</h2>
+      <h2>${(() => {
+        let n = 7;
+        if (hasDnsScan) n++;
+        if (hasAwareness) n++;
+        return n;
+      })()}. Mapa zgodności z regulacjami</h2>
       <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Jak Twój wynik przekłada się na konkretne wymogi NIS2, RODO oraz wymogi ubezpieczycieli cyber 2026.</p>
 
       <div class="compliance-grid">
@@ -413,6 +449,19 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel }) {
           <div class="compliance-item"><span>Tested backup</span><span class="compliance-status status-missing">Brak</span></div>
           <div class="compliance-item"><span>User awareness training</span><span class="compliance-status status-partial">Częściowo</span></div>
           <div class="compliance-item"><span>Incident Response Plan</span><span class="compliance-status status-missing">Brak</span></div>
+          ${(() => {
+  let dmarcStatus, dmarcLabel;
+  if (dnsVariant === 'optout' || dnsVariant === 'fail' || !hasDnsScan) {
+    dmarcStatus = 'status-missing'; dmarcLabel = '—';
+  } else if (dnsScan?.data?.summary?.has_dmarc && dnsScan.data.summary.has_spf && dnsScan.data.summary.dmarc_enforcing) {
+    dmarcStatus = 'status-ok'; dmarcLabel = 'Tak';
+  } else if (dnsScan?.data?.summary?.has_dmarc || dnsScan?.data?.summary?.has_spf) {
+    dmarcStatus = 'status-partial'; dmarcLabel = 'Częściowo';
+  } else {
+    dmarcStatus = 'status-missing'; dmarcLabel = 'Brak';
+  }
+  return `<div class="compliance-item"><span>SPF + DMARC dla email security</span><span class="compliance-status ${dmarcStatus}">${dmarcLabel}</span></div>`;
+})()}
         </div>
 
         <div class="compliance-card">
@@ -443,11 +492,329 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel }) {
       </div>
 
       <div class="page-footer">
-        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
-        <span>Strona 5 z 10</span>
+        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
+        <span>Strona ${(() => {
+          let p = 5;
+          if (hasDnsScan) p++;
+          if (hasAwareness) p++;
+          return p;
+        })()} z ${totalPages}</span>
       </div>
     </div>
   `;
+}
+
+// A7 — derive dynamic findings z DNS scan data (per spec F-DNS-01..05)
+function deriveDnsFindings(scanData) {
+  const findings = [];
+  const summary = scanData?.data?.summary;
+  if (!summary) return findings;
+
+  // SPF
+  if (!summary.has_spf) {
+    findings.push({
+      id: 'F-DNS-01', severity: 'high', label: 'HIGH',
+      title: 'Brak rekordu SPF dla domeny pocztowej',
+      detail: 'Domena nie ma rekordu SPF — pozwala dowolnemu serwerowi na świecie wysyłać email "od" Twojej firmy. Klient widzi prawdziwy adres, ufa, klika fakturę z fałszywego źródła.',
+      mapping: 'CIS 9.5 · NIST PR.AC-3 · NIS2 Art. 21',
+    });
+  } else if (!summary.spf_strict) {
+    findings.push({
+      id: 'F-DNS-02', severity: 'low', label: 'LOW',
+      title: 'SPF w trybie soft-fail (~all)',
+      detail: 'SPF istnieje ale w trybie "soft" — emaile spoof przejdą jako "podejrzane" zamiast być odrzucone. Rozważ zaostrzenie do -all po sprawdzeniu logów DMARC.',
+      mapping: 'CIS 9.5 · NIST PR.AC-3',
+    });
+  }
+
+  // DMARC
+  if (!summary.has_dmarc) {
+    findings.push({
+      id: 'F-DNS-03', severity: 'high', label: 'HIGH',
+      title: 'Brak rekordu DMARC',
+      detail: 'Bez DMARC nie wiesz że ktoś próbuje podszywać się pod Twoją domenę. Wymóg ubezpieczycieli cyber 2026.',
+      mapping: 'CIS 9.6 · NIST PR.AC-3 · NIS2 Art. 21',
+    });
+  } else if (!summary.dmarc_enforcing) {
+    findings.push({
+      id: 'F-DNS-04', severity: 'med', label: 'MEDIUM',
+      title: 'DMARC w trybie p=none — nie egzekwuje',
+      detail: 'DMARC istnieje ale tylko monitoruje. Dla realnej ochrony przed spoofingiem przejdź do p=quarantine (po analizie raportów).',
+      mapping: 'CIS 9.6 · NIST PR.AC-3',
+    });
+  }
+
+  // Subdomeny dev/stage publicznie widoczne
+  const subs = scanData?.data?.subdomains || [];
+  const dev = subs.filter(s =>
+    /^(dev|stage|stg|test|qa|uat|beta|preview)\./i.test(s.hostname)
+  );
+  if (dev.length > 0) {
+    findings.push({
+      id: 'F-DNS-05', severity: 'med', label: 'MEDIUM',
+      title: `${dev.length} subdomen dev/staging publicznie widoczne`,
+      detail: `Wykryto subdomeny: ${dev.map(d => escape(d.hostname)).join(', ')}. Typowy wektor wycieku — wersje testowe z realnymi danymi.`,
+      mapping: 'CIS 4.1 · NIST PR.IP-1',
+    });
+  }
+
+  return findings;
+}
+
+// A7 — sekcja "X. Twoja rzeczywista ekspozycja" w 3 wariantach.
+function renderDnsExposure({ refNumber, variant, scan, profile, hasAwareness, totalPages }) {
+  // Sekcja numerowana — 7 zawsze, niezależnie od awareness
+  // (awareness zawsze idzie PO niej w pipeline → patrz spec section numbering matrix)
+  const sectionNum = 7;
+
+  let body = '';
+  if (variant === 'optout') {
+    body = renderDnsOptout();
+  } else if (variant === 'success') {
+    body = renderDnsSuccess(scan, profile);
+  } else if (variant === 'fail') {
+    body = renderDnsFail(profile);
+  }
+
+  return `
+    <div class="page">
+      <div class="page-header">
+        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
+        <span>REF: ${escape(refNumber)}</span>
+      </div>
+
+      <h2>${sectionNum}. Twoja rzeczywista ekspozycja</h2>
+      ${body}
+
+      <div class="page-footer">
+        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
+        <span>Strona 5 z ${totalPages}</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderDnsOptout() {
+  return `
+    <div class="dns-notice dns-notice-optout">
+      <div class="dns-notice-header">⚠ AUDYT POMINIĘTY ZGODNIE Z DECYZJĄ UCZESTNIKA</div>
+      <p>Niniejszy obszar (publiczna ekspozycja DNS: subdomeny, email security SPF/DMARC) nie został audytowany — uczestnik samodzielnie zrezygnował z tej części audytu na etapie profilowania.</p>
+    </div>
+    <table class="scope" style="margin-top:5mm;">
+      <tr><th>Typ</th><th>Stan</th></tr>
+      <tr><td>Subdomeny</td><td>—</td></tr>
+      <tr><td>SPF</td><td>—</td></tr>
+      <tr><td>DMARC</td><td>—</td></tr>
+      <tr><td>Mail provider</td><td>—</td></tr>
+    </table>
+  `;
+}
+
+function renderDnsFail(profile) {
+  const domain = escape(profile?.companyDomain || '—');
+  return `
+    <div class="dns-notice dns-notice-fail">
+      <div class="dns-notice-header">⚠ SKAN NIE ZAKOŃCZONY POMYŚLNIE</div>
+      <p>Próba pasywnego skanowania domeny <code>${domain}</code> nie powiodła się w momencie audytu. Możliwe przyczyny: tymczasowy timeout API, rate limit, domena niedostępna z naszych endpointów.</p>
+    </div>
+    <table class="scope" style="margin-top:5mm;">
+      <tr><th>Typ</th><th>Stan</th></tr>
+      <tr><td>Subdomeny</td><td>—</td></tr>
+      <tr><td>SPF</td><td>—</td></tr>
+      <tr><td>DMARC</td><td>—</td></tr>
+      <tr><td>Mail provider</td><td>—</td></tr>
+    </table>
+  `;
+}
+
+function renderDnsSuccess(scan, profile) {
+  const data = scan?.data;
+  if (!data) return renderDnsOptout(); // safety fallback
+  const domain = escape(data.domain || profile?.companyDomain || '—');
+  const scannedAt = formatScanTime(scan.scanned_at || scan.fetched_at);
+
+  // 7.1 Email security
+  const spf = data.summary.has_spf
+    ? `<span style="color:#2E7D32;">${data.summary.spf_strict ? '✓ Strict (-all)' : '⚠ Soft (~all)'}</span>`
+    : '<span style="color:#C62828;">✗ Brak</span>';
+  const spfRecord = data.txt?.spf ? `<br><code style="font-size:8pt;color:#666;">${escape(data.txt.spf.substring(0, 70))}${data.txt.spf.length > 70 ? '…' : ''}</code>` : '';
+  const spfInterp = !data.summary.has_spf
+    ? 'Domena bez SPF — totalnie otwarta na phishing przez podszywanie. Wymóg ubezpieczycieli cyber 2026.'
+    : data.summary.spf_strict
+      ? 'Domena chroniona — atakujący nie może wysyłać emaili "od" Twojej firmy.'
+      : 'Soft fail — emaile spoof oznaczane jako "podejrzane" zamiast odrzucane. Rozważ zaostrzenie do -all.';
+
+  const dmarcStatus = data.summary.has_dmarc
+    ? (data.summary.dmarc_enforcing
+        ? `<span style="color:#2E7D32;">✓ ${data.txt.dmarc.policy}</span>`
+        : '<span style="color:#C77700;">⚠ p=none</span>')
+    : '<span style="color:#C62828;">✗ Brak</span>';
+  const dmarcInterp = !data.summary.has_dmarc
+    ? 'Bez DMARC nie wiesz że ktoś próbuje podszywać się pod Twoją domenę.'
+    : data.summary.dmarc_enforcing
+      ? 'Polityka egzekwowana — phishing emails są blokowane lub kierowane do spamu.'
+      : 'Polityka p=none — DMARC istnieje, ale nie egzekwuje (raporty bez blokowania).';
+
+  const provider = data.summary.mail_provider || '—';
+  const providerInterp = providerInterpretation(provider);
+
+  // 7.2 Subdomain mapping
+  const subs = data.subdomains || [];
+  const cap = subs.length >= 50 ? `<strong>co najmniej ${subs.length}</strong>` : `<strong>${subs.length}</strong>`;
+  const grouped = groupSubdomains(subs);
+  const subRows = ['mail', 'web', 'dev', 'api', 'other'].map(cat => {
+    const items = grouped[cat] || [];
+    if (items.length === 0) return `<tr><td>${categoryLabel(cat)} (0)</td><td>—</td></tr>`;
+    const display = items.length > 8
+      ? items.slice(0, 8).map(s => s.hostname.split('.')[0]).join(' · ') + ` · …i ${items.length - 8} więcej`
+      : items.map(s => s.hostname.split('.')[0]).join(' · ');
+    return `<tr><td>${categoryLabel(cat)} (${items.length})</td><td>${escape(display)}</td></tr>`;
+  }).join('');
+
+  const devSubs = grouped.dev || [];
+  const devWarning = devSubs.length > 0 ? `
+    <div class="dns-warning" style="margin-top:4mm;">
+      <strong>⚠ UWAGA:</strong> ${devSubs.length} subdomen dev/stage publicznie widoczne.
+      Typowy wektor wycieku — wersje testowe z realnymi danymi klientów. Sprawdź czy wymagają autentykacji,
+      są oznaczone noindex, i logują dostęp.
+    </div>
+  ` : '';
+
+  return `
+    <p style="font-size:9pt; color:#666; margin-bottom:5mm;">Domena: <strong>${domain}</strong> · skan: ${scannedAt} · pasywny (DNS records, bez aktywnego skanowania)</p>
+
+    <h3 style="margin-top:6mm;">7.1 Email security (anti-spoofing)</h3>
+    <table class="scope">
+      <tr><th style="width:25%;">Typ</th><th style="width:25%;">Stan</th><th>Interpretacja</th></tr>
+      <tr><td>SPF</td><td>${spf}${spfRecord}</td><td>${spfInterp}</td></tr>
+      <tr><td>DMARC</td><td>${dmarcStatus}</td><td>${dmarcInterp}</td></tr>
+      <tr><td>Mail provider</td><td>${escape(provider)}</td><td>${providerInterp}</td></tr>
+    </table>
+    <p style="margin-top:3mm; font-size:9pt; color:#666;">
+      <strong>Kontekst:</strong> Wymogi ubezpieczycieli cyber 2026 zwykle oczekują DMARC w trybie
+      p=quarantine|reject. p=none to brak realnej ochrony — tylko logowanie.
+    </p>
+
+    <h3 style="margin-top:8mm;">7.2 Subdomain mapping (publicznie widoczne)</h3>
+    <p style="font-size:9.5pt;">Wykryto: ${cap} subdomen${subs.length >= 50 ? ' (limit Free tier API — pełna lista wymaga Plus)' : ''}.</p>
+    <table class="scope">
+      ${subRows}
+    </table>
+    ${devWarning}
+
+    ${renderDnsSummary(data, devSubs.length)}
+  `;
+}
+
+// 7.3 — narrative summary + priorities + educational note (success variant only)
+function renderDnsSummary(data, devCount) {
+  const s = data.summary;
+  const priorities = [];
+
+  if (!s.has_spf) {
+    priorities.push({ p: 1, action: 'Wdroż SPF z polityką -all', why: 'bez tego dowolny serwer na świecie może wysyłać email "od" Twojej firmy' });
+  } else if (!s.spf_strict) {
+    priorities.push({ p: 3, action: 'Zaostrz SPF z ~all do -all', why: 'po analizie raportów DMARC, żeby spoof emails były odrzucane, nie tylko oznaczane jako podejrzane' });
+  }
+
+  if (!s.has_dmarc) {
+    priorities.push({ p: 1, action: 'Wdroż DMARC w trybie p=quarantine', why: 'bez DMARC nie wykrywasz prób podszywania, a ubezpieczyciele cyber 2026 traktują to jako wymóg podstawowy' });
+  } else if (!s.dmarc_enforcing) {
+    priorities.push({ p: 2, action: 'Przejdź z DMARC p=none na p=quarantine', why: 'p=none tylko monitoruje — phishing wciąż dociera do skrzynek odbiorców jako pełnoprawne wiadomości' });
+  }
+
+  if (devCount > 0) {
+    priorities.push({ p: 2, action: `Zabezpiecz ${devCount} subdomen${devCount === 1 ? 'ę' : ''} dev/stage`, why: 'wersje testowe z realnymi danymi to klasyczny vector wycieku — sprawdź autentykację, noindex, logging' });
+  }
+
+  if (/self-hosted/i.test(s.mail_provider || '')) {
+    priorities.push({ p: 4, action: 'Ustaw monitoring patchowania serwera mail', why: 'self-hosted = pełna odpowiedzialność za CVE, anti-spam i dostępność — outsource\'owany monitoring kosztuje mniej niż jeden incydent' });
+  }
+
+  priorities.sort((a, b) => a.p - b.p);
+  const top = priorities.slice(0, 3);
+  const urgentCount = priorities.filter(x => x.p <= 2).length;
+
+  let posture;
+  if (priorities.length === 0) {
+    posture = 'Twoja publiczna ekspozycja DNS nie generuje istotnych zagrożeń. Konfiguracja email anti-spoofing jest skutecznie wdrożona, a powierzchnia subdomen jest pod kontrolą. Główny obszar do utrzymania to dyscyplina przy dodawaniu nowych subdomen oraz regularne sprawdzanie raportów DMARC.';
+  } else if (urgentCount === 0) {
+    posture = 'Konfiguracja podstawowa jest na miejscu, ale są usprawnienia warte zaadresowania w ciągu kwartału. Te zmiany podnoszą ocenę ryzyka u ubezpieczycieli i zamykają drobne wektory ataku.';
+  } else if (urgentCount <= 2) {
+    posture = `Wykryto ${urgentCount} ${urgentCount === 1 ? 'pilne ryzyko' : 'pilne ryzyka'} w publicznej ekspozycji — warto zaadresować w ciągu 30 dni. Te zmiany zamykają typowe wektory phishingowe i odpowiadają na konkretne wymogi ubezpieczycieli cyber 2026.`;
+  } else {
+    posture = `Wykryto ${urgentCount} pilnych problemów. To jest profil ryzyka, który ubezpieczyciele cyber 2026 zwykle klasyfikują jako "wysokie ryzyko" — oznacza to wyższą składkę, wykluczenia w polisie albo odmowę pokrycia. Zaadresowanie poniższych priorytetów to minimum, żeby przejść próg warunkowego pokrycia.`;
+  }
+
+  const prioritiesHtml = top.length > 0 ? `
+    <div style="margin-top:4mm;">
+      <strong>Priorytety na najbliższe 30 dni:</strong>
+      <ol style="margin-top:2mm; padding-left:6mm;">
+        ${top.map(p => `<li style="margin-bottom:2mm;"><strong>${p.action}</strong> — ${p.why}.</li>`).join('')}
+      </ol>
+    </div>
+  ` : '';
+
+  return `
+    <h3 style="margin-top:8mm;">7.3 Co to dla Ciebie znaczy</h3>
+    <p style="font-size:10pt;">${posture}</p>
+    ${prioritiesHtml}
+    <p style="margin-top:5mm; font-size:9pt; color:#666;">
+      <strong>Dlaczego to ma znaczenie:</strong> publiczne rekordy DNS to pierwsze, co widzi atakujący przy reconnaissance — i pierwsze, co audytuje broker ubezpieczeniowy. SPF/DMARC zamykają najtańszy wektor ataku (phishing przez podszywanie), a ekspozycja subdomen dev/stage to klasyczny vector wycieku danych. Te dwa obszary kosztują najmniej do naprawienia, a ich brak najmocniej obciąża ocenę ryzyka cybersec.
+    </p>
+  `;
+}
+
+function formatScanTime(iso) {
+  if (!iso) return '—';
+  try {
+    const d = new Date(iso);
+    return `${d.toLocaleDateString('pl-PL')}, ${d.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })} UTC`;
+  } catch { return '—'; }
+}
+
+function providerInterpretation(provider) {
+  if (!provider || provider === '—') return 'Brak konfiguracji email — domena nie odbiera maili.';
+  if (/Google Workspace|Microsoft 365|Proton/.test(provider)) {
+    return 'Enterprise-grade, monitorowane, regularne aktualizacje.';
+  }
+  if (/self-hosted/i.test(provider)) {
+    return 'Email na własnej infrastrukturze — pełna kontrola, ale pełna odpowiedzialność za bezpieczeństwo (patche, monitoring, anti-spam).';
+  }
+  if (/Onet|home\.pl|nazwa|OVH|Hekko|dhosting|cyberFolks|kei|LinuxPL|WP\.pl/i.test(provider)) {
+    return 'Polski hosting — sprawdź jakie SLA na incident response oferują.';
+  }
+  if (/transactional/i.test(provider)) {
+    return 'Service do email transakcyjnych (powiadomienia, faktury). Główna poczta firmowa może być gdzie indziej.';
+  }
+  return 'Nieznany dostawca — sprawdź standardy SOC2/ISO 27001.';
+}
+
+function categoryLabel(cat) {
+  return ({
+    mail: 'Mail',
+    web: 'Web',
+    dev: 'Dev/staging',
+    api: 'API/services',
+    other: 'Inne',
+  })[cat] || cat;
+}
+
+function groupSubdomains(subs) {
+  const groups = { mail: [], web: [], dev: [], api: [], other: [] };
+  for (const s of subs) {
+    const sub = (s.hostname || '').split('.')[0].toLowerCase();
+    if (/^(mail|smtp|mx|imap|pop3?|webmail)/.test(sub)) groups.mail.push(s);
+    else if (/^(dev|stage|stg|test|qa|uat|beta|preview)/.test(sub)) groups.dev.push(s);
+    else if (/^(api|app|graphql|rest)/.test(sub)) groups.api.push(s);
+    else if (/^(www|sklep|shop|blog|pomoc|help|support|partner|admin|panel)/.test(sub)) groups.web.push(s);
+    else groups.other.push(s);
+  }
+  // Sort within each by alphabetical hostname
+  for (const k of Object.keys(groups)) {
+    groups[k].sort((a, b) => a.hostname.localeCompare(b.hostname));
+  }
+  return groups;
 }
 
 // Pentagon math: 5 vertices at angles (from top, clockwise)

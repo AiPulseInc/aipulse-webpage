@@ -2,8 +2,8 @@
 title: "Atak na łańcuch dostaw — dlaczego kod open source może zatrzymać Twoją firmę"
 slug: "supply-chain-npm-atak-msp"
 date: "2026-04-13"
-updated: "2026-04-13"
-excerpt: "Twoja firma nie musi zostać zhakowana bezpośrednio, by przestać istnieć – wystarczy, że jeden z tysięcy darmowych komponentów w Twoim oprogramowaniu okaże się cyfrową bombą."
+updated: "2026-04-18"
+excerpt: "Twoja firma nie musi zostać zhakowana bezpośrednio, żeby przestać działać — wystarczy, że jeden z tysięcy darmowych komponentów w oprogramowaniu, które kupujesz, okaże się cyfrową bombą. Tłumaczymy, jak to dzisiaj działa, dlaczego NIS2 zrobiło z tego obowiązek zarządu — i jak sprawdzić, gdzie stoi Twoja firma."
 description: "Dowiedz się, jak ataki na łańcuch dostaw i podatności w kodzie open source zagrażają polskim MŚP oraz jak wymogi NIS2 zmieniają zasady gry."
 category: "Supply Chain"
 tags:
@@ -12,8 +12,8 @@ tags:
   - "open-source"
   - "nis2"
   - "backdoor"
-cover: "/generated/security/audyt-standard.jpg"
-coverAlt: "Abstrakcyjna wizualizacja przerwanego łańcucha cyfrowego z podświetlonymi na czerwono ogniwami kodu."
+cover: "/generated/security/blog/supply-chain-npm-atak-msp.jpg"
+coverAlt: "Biały geometryczny łańcuch modułowych ogniw na czarnym tle, z jednym pękniętym środkowym ogniwem emitującym fioletowe odłamki — symbol jednej skompromitowanej zależności rozsadzającej cały łańcuch dostaw."
 featured: false
 draft: false
 author: "Maciej Konieczny"
@@ -82,17 +82,21 @@ W umowach z software house’ami wpisuj klauzule dotyczące odpowiedzialności z
 
 Jeśli prowadzisz firmę średniej wielkości w sektorze energetyki, transportu, bankowości, ochrony zdrowia czy infrastruktury cyfrowej, dyrektywa NIS2 dotyczy Cię bezpośrednio. Jednym z jej fundamentów jest właśnie **bezpieczeństwo łańcucha dostaw**.
 
-Unia Europejska zrozumiała, że nie da się zabezpieczyć kraju, jeśli jego firmy korzystają z dziurawego kodu od niesprawdzonych dostawców. Zgodnie z NIS2, zarząd firmy odpowiada osobiście za uchybienia w cyberbezpieczeństwie. Jeśli dojdzie do incydentu, bo „zapomnieliście” sprawdzić dostawcy, kary będą boleć bardziej niż jakikolwiek okup dla hakera.
+Unia Europejska zrozumiała, że nie da się zabezpieczyć kraju, jeśli jego firmy korzystają z dziurawego kodu od niesprawdzonych dostawców. Zgodnie z NIS2, zarząd firmy odpowiada _osobiście_ za uchybienia w cyberbezpieczeństwie. Jeśli dojdzie do incydentu, bo „zapomnieliście" sprawdzić dostawcy, kary będą boleć bardziej niż jakikolwiek okup dla hakera.
+
+W Ai Pulse Security zgodność z NIS2/KSC razem z audytem łańcucha dostaw jest dokładnie tym, co robimy w [pakiecie ROZSZERZONYM](/security/#section-oferta) — to nasz standardowy zakres dla średniej wielkości polskich MŚP, które wchodzą w nowe regulacje. Więcej o tym, co dokładnie obejmuje zgodność, piszemy w sekcji [compliance na stronie Security](/security/#section-compliance).
 
 ### Czas przestać udawać, że to nas nie dotyczy
 
-Ataki na łańcuch dostaw są skuteczne, bo są niewidoczne. Wykorzystują naszą ufność do technologii i lenistwo deweloperów. Ale w 2026 roku ignorancja nie jest już tarczą, jest zaproszeniem dla przestępcy.
+Ataki na łańcuch dostaw są skuteczne, bo są niewidoczne. Wykorzystują zaufanie do technologii i presję czasu wywieraną na deweloperów. Ale w 2026 roku brak kontroli nad tym obszarem nie jest już tylko ryzykiem operacyjnym — jest ryzykiem zarządczym.
 
-Twoja firma opiera się na kodzie, którego nie jesteś właścicielem. Czas zacząć kontrolować ten fundament, zanim ktoś inny postanowi go wyciągnąć spod Twoich nóg.
+Twoja firma opiera się na kodzie, którego nie jesteś właścicielem. Warto zacząć kontrolować ten fundament, zanim ktoś inny postanowi go wyciągnąć spod Twoich nóg.
 
-**Chcesz wiedzieć, czy Twoja firma jest podatna na ataki supply chain?**
-Skontaktuj się z Ai Pulse Security. Nie robimy nudnych prezentacji. Robimy audyt, który pokaże Ci prawdę o Twoim oprogramowaniu, zanim pokaże ją haker.
+### Jak sprawdzić, czy Twoja firma jest podatna
+
+Jeżeli chcesz zorientować się samemu, gdzie stoi Twoja firma — [bezpłatna samoocena bezpieczeństwa](/bezpieczenstwo-samoocena/) obejmuje pytania o dostawców i procesy aktualizacji. 15 minut, natychmiastowy wynik.
+
+Jeżeli wolisz, żebyśmy przeszli przez to razem z Tobą — zaczynamy od [bezpłatnej 30-minutowej rozmowy, z której wyjdziesz z trzema najważniejszymi rekomendacjami — nawet jeśli nie zdecydujesz się na audyt](/security/#contact). Dostaniesz raport zrozumiały dla właściciela firmy, a nie dwudziestostronicowy dokument, który zrozumie tylko Twój informatyk.
 
 ---
-*Autor: Maciej Konieczny, Ai Pulse Security*
-*Zajmujemy się bezpieczeństwem tam, gdzie inni widzą tylko 'działające systemy'.*
+_Autor: Maciej Konieczny, Ai Pulse Security_

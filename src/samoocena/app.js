@@ -275,6 +275,7 @@ function handleClick(event) {
           responses: freshState.responses,
           scoringResult,
           awarenessAnswers: freshState.awarenessAnswers || {},
+          dnsScan: freshState.dnsScan || null,
           assessmentId: freshState.assessmentId || freshState.startedAt || Date.now(),
         };
         try {

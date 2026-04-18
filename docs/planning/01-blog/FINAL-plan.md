@@ -93,3 +93,19 @@ Całość: **~16 kroków** w Codex planie, do zrobienia jednym/dwoma większymi 
 3. **Shared footer** — security page ma `<footer class="site-footer">` ze statycznym HTML; dla bloga trzeba wygenerować identyczny footer w każdej stronie (nie ma include'ów w Vite MPA). Rozwiązanie: funkcja `renderFooter()` w generatorze.
 4. **Version badge** — na stronach bloga `#app-version` też powinien być wstrzyknięty (reuse `src/version.js` + DOMContentLoaded pattern z `src/landing.js`).
 5. **Slug dopasowany do nazwy folderu** — Codex już o tym mówi, warto dodać że build powinien faktycznie failować (exit 1), nie tylko `console.warn`, żeby CI wychwytywał to wcześnie.
+
+## Reguły contentowe
+
+Reguły pisania postów pod `/security/blog/` są wydzielone do osobnego dokumentu:
+
+➡️ **[blog-post-guide.md](./blog-post-guide.md)** — pięć bram obowiązujących każdy post przed flipem `draft: false`:
+
+1. **Brama 1** — Osadzenie w realiach `aipulse.pl/security` (pakiety po imieniu, realne URL-e, brand language z lądowiska)
+2. **Brama 2** — Język MŚP, nie SOC-a (żargon z analogią, zero kodu/rekordów DNS, hook ciekawością nie strachem)
+3. **Brama 3** — Dyscyplina CTA (brak kompletnych DIY, samoocena jako default first-CTA, CTA jako opcja nie wciskanie)
+4. **Brama 4** — Osadzenie w materiale źródłowym (bez wymyślonych liczb, każda asercja ma fundament a/b/c)
+5. **Brama 5** — Głos eksperta, zero meta-komentarza redakcyjnego (bez „anonimizowany cytat", „mógłbym", „ten post nie jest listą zakupów")
+
+Guide zawiera też checklist gotowy do wklejenia na początek draftu (pkt 7) oraz bibliotekę źródeł do recyklowania (pkt 8).
+
+**Historia:** reguły wprowadzone od post #6 (2026-04-18) po iteracji 5 testowych postów + post CERT. Reguła 4 dodana po znalezieniu wymyślonych liczb w drafcie CERT. Reguła 5 dodana po znalezieniu meta-komentarza w opublikowanym poście.

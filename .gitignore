@@ -156,3 +156,6 @@ public/security/blog/feed.xml
 docs/oferta/*.png
 docs/wymogi/*.png
 docs/**/.mineru/
+
+# Supabase CLI runtime metadata (project ref, version files) — local-only
+supabase/.temp/

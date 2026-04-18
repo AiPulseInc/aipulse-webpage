@@ -4,6 +4,52 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5633] — 2026-04-18
+
+A7 Phase 3 — raport PDF z sekcją „Twoja rzeczywista ekspozycja" + cover layout + blog refresh.
+
+**Raport — nowa sekcja 7 (3 warianty):**
+- `optout` — notice „Audyt pominięty zgodnie z decyzją uczestnika" + tabela z `—`
+- `success` — 7.1 Email security (SPF/DMARC/provider z interpretacją), 7.2 Subdomain mapping (grouped: mail/web/dev/api/other), 7.3 narrative summary z priorytetami na 30 dni + edu paragraph „Dlaczego to ma znaczenie"
+- `fail` — notice „Skan nie zakończony pomyślnie" + tabela `—`
+
+**Section numbering matrix:**
+- TOC, h2 nagłówki, page footers conditional na `hasDnsScan` × `hasAwareness`
+- `totalPages` computed raz w `renderRaportB`, propagated do wszystkich 6 footerów (fix pre-existing bug `Strona X z 10` przy realnych 5-7 stronach)
+
+**Dynamic findings F-DNS-01..05:**
+- Derive z `dnsScan.summary` (SPF brak/soft, DMARC brak/p=none, dev subdomeny)
+- Hostnames escapowane przed wstawieniem do HTML (XSS fix wskazany przez code review)
+- Mergowane z hardcoded FINDINGS w sekcji 6 — tylko dla `success` variant
+
+**Compliance map (sec 9):**
+- Nowy wiersz „SPF + DMARC dla email security" w „Wymogi ubezpieczycieli"
+- Status dynamic: TAK / CZĘŚCIOWO / BRAK / `—` w zależności od scan + opt-out
+
+**Cover layout:**
+- Podpis Maciej Konieczny przeniesiony na prawą stronę, datę audytu usunięto (już w nagłówku str. 2)
+- `.cover` to flex column z `min-height: 297mm`, podpis pushowany przez `margin-top: auto` + `padding-bottom: 5mm`
+- Cover top padding compressed 35mm → 20mm, .crest margins zmniejszone — bardziej zbalansowana strona
+
+**Print:**
+- `@page { margin: 0 }` blokuje doklejanie nagłówków/stopek przez przeglądarkę
+- Footer wszystkich stron: `maciek@aipulse.pl · aipulse.pl/security` (było `kontakt@... · aipulse.pl`)
+
+**Wire:**
+- `download-pdf` payload extended o `dnsScan: freshState.dnsScan || null`
+- `src/raport/app.js` already spreads payload — no change needed
+
+**Blog refresh:**
+- Nowy post `list-od-cert-polska-dmarc-msp` (CERT Polska skanuje polskie domeny — DMARC p=none risk dla MŚP), tytuł zwęziły do 7 słów, narrative reframe na "znajomy dostał list" + anonimizacja domeny
+- Wszystkie posty bloga (7) mają teraz dedicated cover w `/generated/security/blog/` (nano-banana-2 generated, brutalist black/white/violet template)
+- 5 nowych covers (ai-phishing, backup-321, list-od-cert, mity, supply-chain) — koniec re-używania genericznych obrazków z kart oferty
+- Frontmatter alt texts zaktualizowane do nowych grafik
+- 2 posty (wyciek, ubezpieczenie) — drobne content edits („80% MŚP" → „regularnie obserwujemy w audytach", de-jargonizing)
+
+**Bump:** micro +0.001.
+
+---
+
 ## [0.5623] — 2026-04-18
 
 A7 Phase 2 — frontend ekran profile-domain + state + spinner.

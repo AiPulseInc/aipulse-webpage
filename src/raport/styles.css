@@ -1,4 +1,6 @@
-@page { size: A4; margin: 16mm; }
+@page { size: A4; margin: 0; }
+/* margin:0 zapobiega doklejaniu nagłówków/stopek przeglądarki przy druku — własne marginesy
+   trzymamy w `.page { padding: 16mm }` żeby zachować visual breathing room */
 
 body {
   font-family: 'Inter', -apple-system, system-ui, sans-serif;
@@ -110,15 +112,19 @@ body.print-mode .page {
 /* Cover */
 .cover {
   background: #fff;
-  min-height: 265mm;
-  padding: 0;
+  min-height: 297mm;
+  padding: 0 0 5mm 0;
+  display: flex;
+  flex-direction: column;
 }
+
+.cover .auditor-signature { margin-top: auto; }
 
 .cover .crest {
   border: 4px double #7E22CE;
-  padding: 8mm;
+  padding: 7mm;
   text-align: center;
-  margin: 20mm auto 15mm;
+  margin: 12mm auto 10mm;
   max-width: 140mm;
   background: #FAF5FF;
 }
@@ -148,13 +154,13 @@ body.print-mode .page {
   font-style: italic;
 }
 
-.cover-body { padding: 0 16mm; margin-top: 10mm; }
+.cover-body { padding: 0 16mm; margin-top: 6mm; }
 
 .cover-for {
   border-top: 1px solid #E5E5E5;
   border-bottom: 1px solid #E5E5E5;
-  padding: 8mm 0;
-  margin: 10mm 0;
+  padding: 6mm 0;
+  margin: 6mm 0;
   text-align: center;
 }
 
@@ -176,10 +182,10 @@ body.print-mode .page {
 .cover-for-meta { font-size: 9pt; color: #666; margin-top: 2mm; }
 
 .seal-box {
-  margin: 15mm auto 0;
+  margin: 8mm auto 0;
   max-width: 120mm;
   border: 2px solid #111;
-  padding: 8mm;
+  padding: 7mm;
   text-align: center;
   background: #FAFAFA;
 }
@@ -209,14 +215,13 @@ body.print-mode .page {
 }
 
 .auditor-signature {
-  margin-top: 18mm;
+  margin-top: 14mm;
   display: flex;
-  justify-content: space-between;
-  gap: 15mm;
+  justify-content: flex-end;
   padding: 0 16mm;
 }
 
-.sig-block { flex: 1; text-align: center; }
+.sig-block { width: 75mm; text-align: center; }
 
 .sig-line {
   border-bottom: 1px solid #111;
@@ -698,5 +703,41 @@ table.scope tr:nth-child(even) td { background: #FAFAFA; }
 .awareness-item-explanation strong {
   color: #000;
   font-weight: 700;
+}
+
+/* === A7: DNS exposure section === */
+
+.dns-notice {
+  border-left: 4px solid #999;
+  padding: 4mm 5mm;
+  margin: 4mm 0;
+  background: #fafafa;
+}
+
+.dns-notice-optout {
+  border-color: #C77700;
+  background: #fff8f0;
+}
+
+.dns-notice-fail {
+  border-color: #C62828;
+  background: #fff4f4;
+}
+
+.dns-notice-header {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+
+.dns-warning {
+  border: 1px dashed #C77700;
+  background: #fff8f0;
+  padding: 3mm 4mm;
+  font-size: 9.5pt;
+  color: #333;
 }
 

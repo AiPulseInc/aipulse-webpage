@@ -1,17 +1,17 @@
 ---
-title: "Ubezpieczenie cyber w 2026 — co sprawdza underwriter i dlaczego dostaniesz odmowę"
+title: "Ubezpieczenie cyber w 2026 — co sprawdza ubezpieczyciel i dlaczego dostajesz odmowę"
 slug: "ubezpieczenie-cyber-underwriter-2026"
 date: "2026-04-13"
-updated: "2026-04-13"
-excerpt: "Dowiedz się, dlaczego polisa cyber w 2026 roku to nie tylko formalność, ale rygorystyczny audyt techniczny Twojej firmy."
-description: "Praktyczny przewodnik dla MŚP: 6 kluczowych elementów, które sprawdzi ubezpieczyciel w 2026 roku i jak uniknąć odrzucenia wniosku o polisę cyber."
+updated: "2026-04-18"
+excerpt: "Jeszcze dwa lata temu polisa cyber była formalnością — wypełniasz ankietę, płacisz, masz. Dzisiaj ubezpieczyciel jest najsurowszym audytorem Twojej firmy. Tłumaczymy pięć obszarów, na które patrzy, i dlaczego coraz więcej polskich MŚP dostaje odmowę — nie pismo z ceną."
+description: "Polisa cyber dla MŚP w 2026 roku — pięć obszarów, które sprawdza ubezpieczyciel, i dlaczego warto przygotować firmę, zanim zgłosisz się po ofertę."
 category: "Ubezpieczenia"
 tags:
   - "ubezpieczenie-cyber"
-  - "underwriter"
   - "polisa"
   - "msp"
-  - "mfa"
+  - "nis2"
+  - "compliance"
 cover: "/generated/security/blog/ubezpieczenie-cyber-underwriter-2026.jpg"
 coverAlt: "Biała izometryczna tarcza na czarnym tle, prześwietlana violetowymi liniami pomiarowymi, z widocznymi drobnymi pęknięciami wewnątrz — blueprint-review cyber-ubezpieczenia."
 featured: false
@@ -19,81 +19,89 @@ draft: false
 author: "Maciej Konieczny"
 ---
 
-Wyobraź sobie taką sytuację: Twoja firma rozwija się świetnie, cyfryzacja procesów jest na poziomie, o którym marzyłeś dwa lata temu, a Ty – jako odpowiedzialny właściciel – decydujesz, że czas na „bezpiecznik”. Składasz wniosek o polisę cyber. Masz przecież antywirusa, płacisz za Microsoft 365, a Twój „informatyk” zapewnia, że wszystko jest pod kontrolą.
+Wyobraź sobie tę scenę: Twoja firma rośnie, cyfryzacja na poziomie, o jakim marzyłeś trzy lata temu, czas na ubezpieczenie. Składasz wniosek o polisę cyber. Masz antywirusa, płacisz za pakiet chmurowy, informatyk mówi, że „wszystko pod kontrolą".
 
-Dwa dni później otrzymujesz e-mail. Nie jest to oferta z wyliczoną składką. To chłodne, jednostronicowe pismo z odmową objęcia ochroną ubezpieczeniową. Powód? „Niewystarczająca dojrzałość cyfrowa w obszarze kontroli dostępu i odporności na ransomware”.
+Dwa dni później dostajesz maila. Nie z ofertą i wyceną. Z odmową objęcia ochroną. Powód: _„niewystarczająca dojrzałość w obszarze kontroli dostępu i ochrony przed ransomware"._
 
-Witamy w rzeczywistości roku 2026. Jeśli myślisz, że ubezpieczenie cybernetyczne kupuje się tak samo łatwo jak polisę OC dla floty samochodowej, jesteś w błędzie. Dziś underwriter (osoba oceniająca ryzyko po stronie ubezpieczyciela) wie o Twoich dziurach w systemie więcej, niż Ty sam.
+To jest dzisiejsza rzeczywistość polskiego rynku ubezpieczeń cyber dla MŚP. Właściciele firm są zaskoczeni, brokerzy rozkładają ręce. Zmieniło się jedno — ubezpieczyciel w 2026 roku wie o Twoich lukach więcej niż Twój własny informatyk. I zaczął za to pytać.
 
-### Rynek 2024–2026: Koniec „ubezpieczania wszystkiego”
+### Dlaczego rynek się zmienił
 
-Jeszcze w 2023 czy 2024 roku rynek ubezpieczeń cyber był stosunkowo łagodny. Ubezpieczyciele walczyli o klienta, przymykając oko na brak wieloskładnikowego uwierzytelniania w mniejszych podmiotach. Jednak seria potężnych ataków ransomware z przełomu 2024 i 2025 roku, wspieranych przez zautomatyzowane narzędzia AI, zmieniła reguły gry.
+Jeszcze w 2023–2024 ubezpieczyciele konkurowali o klientów i dość łagodnie patrzyli na brak podstawowych zabezpieczeń u mniejszych firm. Kilka głośnych fal ransomware'u i rosnąca automatyzacja ataków zmieniły bilans. Wypłaty zaczęły przewyższać składki. Branża policzyła, że tak długo się nie da.
 
-W 2026 roku ubezpieczyciele przestali być „bankomatami” wypłacającymi odszkodowania po każdym ataku. Stali się najbardziej rygorystycznymi audytorami bezpieczeństwa na świecie. Dlaczego? Bo wypłaty z tytułu przerw w działalności (Business Interruption) i okupów stały się tak wysokie, że firmy ubezpieczeniowe po prostu nie mogą sobie pozwolić na błędy.
+Efekt: **ubezpieczyciele przestali być bankomatami i stali się audytorami**. Przed wystawieniem oferty często sami skanują publicznie dostępne zasoby Twojej firmy, czytają Twoje ogłoszenia na LinkedIn, sprawdzają, czy Twoja domena odpowiada na zewnętrzne testy bezpieczeństwa. Ankieta ubezpieczeniowa to dzisiaj _egzamin_, a nie formalność.
 
-Dziś odmowa nie jest wyjątkiem – staje się standardem dla firm, które „tylko myślą”, że są bezpieczne.
+W praktyce widzimy dwie reakcje właścicieli firm, którzy pierwszy raz mierzą się z nową rzeczywistością:
 
-### 6 elementów ankiety underwritera — tu zapadają decyzje
+- „Skoro nie mogę dostać polisy, to znaczy że nie jestem w stanie tego ogarnąć. Jedziemy bez ubezpieczenia."
+- „Ok, czego tak naprawdę ode mnie oczekują? Dokończmy to i wróćmy z poprawionym wnioskiem."
 
-Kiedy wypełniasz wniosek ubezpieczeniowy, nie patrz na niego jak na formularz. To test, w którym każde „NIE” przy kluczowym pytaniu drastycznie obniża Twoją szansę na polisę lub winduje składkę w kosmos. Oto co w 2026 roku sprawdza underwriter:
+Druga postawa jest znacznie tańsza. Trzecia opcja — „polisa za wszelką cenę, bez względu na zabezpieczenia" — w 2026 roku praktycznie zniknęła z rynku.
 
-#### 1. MFA (Multi-Factor Authentication) na każdym kroku
-To już nie jest opcja „dla chętnych”. Jeśli nie masz włączonego MFA dla:
-*   poczty e-mail,
-*   dostępów administracyjnych,
-*   zdalnego pulpitu (VPN/RDP),
-*   kluczowych aplikacji chmurowych,
-**dostaniesz odmowę w pierwszej minucie.** Underwriterzy traktują brak MFA jak zostawienie kluczy w stacyjce otwartego samochodu na środku parkingu.
+### Pięć obszarów, na które patrzy ubezpieczyciel
 
-#### 2. Testowany Backup (Immutable Backup)
-Underwriter zapyta nie tylko o to, „czy robisz kopie zapasowe”, ale:
-*   Kiedy ostatnio robiliście **testowe odtworzenie** danych? (Musisz mieć protokół).
-*   Czy kopie są **niezmienne (immutable)** lub odizolowane (air-gapped)?
-W świecie AI-ransomware, wirusy najpierw szukają Twoich backupów, by je zaszyfrować lub usunąć. Jeśli Twój backup jest stale podłączony do sieci i nie ma ochrony przed nadpisaniem, dla ubezpieczyciela nie istnieje.
+Bez akronimowej ściany — po ludzku, _czego_ od Twojej firmy wymaga się dziś w ankiecie ubezpieczeniowej.
 
-#### 3. EDR/XDR zamiast „zwykłego” antywirusa
-Tradycyjne antywirusy oparte na sygnaturach w 2026 roku są bezużyteczne wobec polimorficznego kodu generowanego przez AI. Ubezpieczyciele wymagają rozwiązań klasy **EDR (Endpoint Detection and Response)**. Chcą widzieć, że masz narzędzie, które monitoruje zachowanie systemów w czasie rzeczywistym i potrafi automatycznie odciąć zainfekowaną stację roboczą od reszty sieci.
+#### 1. Mocne logowanie — wszędzie, nie tylko do poczty
 
-#### 4. IRP (Incident Response Plan) – ale ten prawdziwy
-Większość firm na pytanie o plan reagowania odpowiada: „Zadzwonimy do firmy IT”. W 2026 roku to za mało. Underwriter chce wiedzieć, czy masz spisany scenariusz na wypadek wycieku danych lub zablokowania serwerów. Kto podejmuje decyzje? Kto powiadamia UODO? Czy plan jest wydrukowany (bo przecież komputery mogą nie działać)? Brak sformalizowanego IRP to sygnał, że w razie ataku będziesz działać w chaosie, co zwiększa koszty ubezpieczyciela.
+Ubezpieczyciel chce wiedzieć, że dostęp do Twoich systemów — poczty, panelu bankowego, systemu księgowego, zdalnych pulpitów, panelu administracyjnego hostingu — jest chroniony _dwuskładnikowo_. Czyli: oprócz hasła trzeba podać jeszcze coś, co jest fizycznie przy właściwej osobie (kod z telefonu, klucz sprzętowy).
 
-#### 5. User Awareness Training (z testami phishingu)
-Ludzie nadal są najsłabszym ogniwem, ale w 2026 roku zagrożeniem są deepfaki głosowe i wideo. Ubezpieczyciel sprawdza, czy prowadzisz regularne szkolenia dla pracowników. Czy wysyłasz im kontrolowane maile phishingowe, by sprawdzić ich czujność? Jeśli Twoi pracownicy nie przeszli szkolenia z rozpoznawania manipulacji AI, ryzyko Twojej firmy jest uznawane za „nieakceptowalne”.
+Samo hasło w 2026 roku ubezpieczyciel traktuje mniej więcej tak, jak zostawienie kluczyków w stacyjce otwartego auta na parkingu. W świecie MŚP często widzimy sytuację, w której dwuskładnikowe logowanie jest włączone do poczty — i pomijane wszędzie indziej. To _właśnie_ taki obraz wyłapuje pierwsze pytanie ankiety.
 
-#### 6. Patch Management (Zasada 24/48h)
-Jak szybko łatacie luki w oprogramowaniu? W 2026 roku luki typu „Zero Day” są wykorzystywane masowo w ciągu kilku godzin od wykrycia. Jeśli Twój proces zarządzania podatnościami zakłada aktualizację systemów „raz na kwartał”, underwriter odrzuci wniosek. Standardem dla krytycznych podatności jest dziś 24 do 48 godzin.
+#### 2. Backup, który da się przywrócić i którego nie da się zniszczyć
 
-### Przykład z życia: Dlaczego „Firma X” dostała odmowę?
+Nie „czy robicie kopie", tylko: _czy kopie są niezmienne (nikt nie może ich skasować ani nadpisać), i kiedy ostatnio ktoś z firmy realnie sprawdził, że da się z nich wrócić do działania_.
 
-Pewna średniej wielkości firma produkcyjna z Poznania ubiegała się o przedłużenie polisy na rok 2026. Przez 3 lata płacili regularnie, nie mieli incydentów. Podczas odnowienia underwriter przeprowadził skan zewnętrzny ich infrastruktury (tak, ubezpieczyciele teraz sami skanują Twoje IP przed wystawieniem oferty).
+Dlaczego obie rzeczy razem? Bo nowoczesny ransomware najpierw szuka backupów i je szyfruje. A kopia, której nigdy nie testowałeś, w ponad połowie przypadków, które widzimy w praktyce, okazuje się niekompletna, uszkodzona albo niedostępna bez człowieka, który już w firmie nie pracuje.
 
-Skan wykazał, że jeden z serwerów starej maszyny CNC był widoczny w sieci i używał protokołu, który został wycofany lata temu. Firma twierdziła, że „to tylko maszyna na hali”. Underwriter uznał jednak, że to idealny punkt wejścia do całej sieci korporacyjnej. Ponieważ firma nie potrafiła wdrożyć segmentacji sieci w ciągu 7 dni, ubezpieczyciel odmówił odnowienia polisy. Miesiąc później firma padła ofiarą ataku. Koszty przestoju? 1,2 mln złotych. Pokrycie ubezpieczeniowe? Zero.
+O samym backupie napisaliśmy osobny post — _[Backup w małej firmie: zasada 3-2-1 i jedno słowo, którego zwykle brakuje](/security/blog/backup-321-praktyczny-setup-msp/)._
 
-### Co zrobić PRZED wysłaniem aplikacji?
+#### 3. Plan na sytuację kryzysową — spisany, znany, aktualny
 
-Zanim zgłosisz się do brokera lub ubezpieczyciela, potraktuj swoją firmę jak pacjenta przed operacją.
+„Zadzwonimy do firmy IT, jak coś się stanie" to odpowiedź, która kończyła wnioski w 2020 roku. W 2026 ubezpieczyciel pyta konkretnie:
 
-1.  **Przeprowadź pre-audit:** Skorzystaj z usług zewnętrznej firmy security (takiej jak Ai Pulse Security), która spojrzy na Twoje IT oczami underwritera.
-2.  **Wypełnij lukę w MFA:** To najtańsza i najskuteczniejsza metoda na uniknięcie natychmiastowej odmowy.
-3.  **Sprawdź backup:** Jeśli nie robiłeś testu odtworzenia w ciągu ostatnich 3 miesięcy – zrób go jutro.
-4.  **Uporządkuj dokumentację:** Procedury nie muszą być piękne, muszą być skuteczne i znane pracownikom.
+- Kto podejmuje decyzje w pierwszej godzinie po ataku?
+- Kto, zgodnie z przepisami, zgłasza incydent odpowiednim organom (w Polsce: Prezes UODO w przypadku danych osobowych, CERT Polska przy istotnych incydentach)?
+- Czy ten plan jest wydrukowany — bo w momencie ataku dostęp do serwerów może nie być oczywisty?
 
-### Jak wpłynąć na niższą składkę?
+Spisany plan reagowania jest jednym z tych elementów, które kosztują mało pieniędzy (głównie czas na opracowanie), a potrafią zadecydować o akceptacji wniosku. Firmy, które przechodzą nasze szkolenie _[Incident Response](/security/#section-szkolenia-security)_, wychodzą z niego z gotową szkieletową procedurą — tym samym materiałem, o który pyta ubezpieczyciel.
 
-W 2026 roku ubezpieczenie cyber nie ma stałego cennika. Jest wyceniane indywidualnie. Możesz realnie obniżyć składkę, jeśli udowodnisz tzw. **Active Monitoring**. Jeśli Twoja sieć jest monitorowana w trybie 24/7 przez SOC (Security Operations Center), ubezpieczyciel widzi, że nie polegasz na szczęściu, ale na procesach. To może obniżyć koszt polisy nawet o 30-40%.
+#### 4. Ludzie przygotowani na ataki, jakie są dzisiaj
 
-Pamiętaj też o segmentacji sieci – oddzielenie części biurowej od produkcyjnej lub magazynowej to dla underwritera znak, że nawet jeśli jeden dział „padnie”, reszta firmy będzie mogła pracować.
+Firmy, które regularnie szkolą zespół z phishingu i _testują_ tę wiedzę kontrolowanymi kampaniami, są dla ubezpieczyciela niższym ryzykiem. Te, w których ostatnie szkolenie odbyło się „kiedyś" albo zawierało jedno nagranie sprzed trzech lat — wyższym.
 
-### Podsumowanie
+Kluczowe słowo: _testują_. Sama obecność godzinnego filmu w intranecie niczego nie udowadnia. Symulacja, w której pracownicy dostają kontrolowanego maila i firma mierzy, ilu ich kliknęło — udowadnia wiele. I _dokładnie_ o taką symulację pyta ankieta.
 
-Ubezpieczenie cyber w 2026 roku to nie jest „podatek od ryzyka”. To certyfikat Twojej dojrzałości biznesowej. Jeśli underwriter odmawia Ci polisy, nie obrażaj się na niego. On właśnie wystawił Ci darmową diagnozę: Twoja firma jest zagrożona upadkiem w razie pierwszego lepszego ataku.
+#### 5. Higiena aktualizacji i spójność systemów
 
-Nie czekaj na maila z odmową. Przygotuj się do rozmowy z ubezpieczycielem jak do najważniejszego audytu w historii Twojej firmy. Bo w dobie AI, cyberbezpieczeństwo to już nie dział IT – to czysty biznes.
+To ostatni obszar, który często podcina szanse MŚP. Serwer, który „chodzi od zawsze i działa, nie ruszamy", publicznie dostępny panel administracyjny systemu księgowego bez dodatkowej ochrony, stare urządzenie przemysłowe wpięte do sieci biurowej — to są elementy, które ubezpieczyciel widzi z zewnątrz w kilka minut. A widząc — zadaje pytania, które ciężko obejść bez konkretnej odpowiedzi.
+
+Nie chodzi o to, żeby wszystko łatać w ciągu doby. Chodzi o to, żeby istniał proces, dzięki któremu krytyczne luki nie zostają w firmie na kwartały.
+
+### Jak nie trafić na odmowę
+
+Największą stratą nie jest odmowa polisy. Największą stratą jest _odmowa w trakcie wypłaty_ — czyli sytuacja, w której zaznaczyłeś we wniosku, że coś masz, polisa została wystawiona, doszło do ataku, a ubezpieczyciel podczas likwidacji szkody stwierdza, że stan faktyczny nie odpowiadał deklaracji. Wtedy nie ma odszkodowania.
+
+Dlatego w Ai Pulse Security z firmami, które chcą poważnie wejść w rozmowę o ubezpieczeniu, pracujemy nad tym _zanim_ wyjdzie wniosek — nie po. W praktyce wygląda to tak:
+
+1. **[Audyt ROZSZERZONY](/security/#section-oferta)** — patrzymy na pięć obszarów opisanych wyżej z perspektywy ubezpieczyciela, dajemy listę rzeczy do poprawienia w kolejności od „blokuje wniosek" do „obniży składkę".
+2. **Wsparcie przy wypełnianiu wniosku ubezpieczeniowego** — tak, żeby odpowiedzi były prawdziwe, i żeby stan faktyczny za tymi odpowiedziami rzeczywiście stał.
+3. **Dokumentacja NIS2/KSC i procedury reagowania** — żeby w razie szkody móc pokazać ubezpieczycielowi, że ochrona była utrzymywana, a nie tylko wpisana w ankietę.
+
+Ten pakiet to właśnie powód, dla którego w naszej ofercie segment „ubezpieczenie cyber" siedzi razem z compliance NIS2/KSC i szkoleniem z phishingu — bo dla polskiej firmy MŚP w 2026 to jest jedna rozmowa, nie trzy.
+
+### Jak zacząć bez żadnego zobowiązania
+
+Jeżeli nie wiesz, czy Twoja firma w ogóle jest gotowa na rozmowę z brokerem ubezpieczeniowym — [bezpłatna samoocena bezpieczeństwa](/bezpieczenstwo-samoocena/) pokaże Ci pięć kluczowych luk w 15 minut. Bez wysyłania danych, bez zobowiązania.
+
+Jeżeli rozmowa z ubezpieczycielem już jest w kalendarzu i wolisz podejść do niej z realnym obrazem firmy — [bezpłatna 30-minutowa konsultacja](/security/#contact) zakończy się trzema najważniejszymi rekomendacjami, nawet jeśli nie zdecydujesz się na audyt. To dokładnie ten zakres wiedzy, z którym warto wchodzić w ankietę ubezpieczeniową.
+
+A jeżeli czytasz to i myślisz „Aha, to właśnie dlatego dostałem odmowę w marcu" — tym bardziej zadzwoń.
 
 ---
 
-**Potrzebujesz wsparcia w przygotowaniu firmy do audytu ubezpieczeniowego?**
-W Ai Pulse Security pomagamy MŚP wdrożyć standardy, których wymagają underwriterzy w 2026 roku. Skontaktuj się ze mną bezpośrednio na LinkedIn lub przez naszą stronę, aby umówić się na audyt gotowości ubezpieczeniowej.
+Ubezpieczenie cyber w 2026 nie jest już „podatkiem od ryzyka". Jest _certyfikatem_, który ubezpieczyciel albo daje, albo nie — w zależności od tego, czy Twoja firma zasługuje. I odwrotnie niż w 2023 roku, odmowa nie jest powodem do gniewu. Jest darmową diagnozą.
 
-*Maciej Konieczny*
-*Ai Pulse Security*
+---
+_Autor: Maciej Konieczny_
+_Ai Pulse Security_

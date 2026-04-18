@@ -2,7 +2,7 @@
 title: "Wyciek 130 tys. klientów polskich sklepów"
 slug: "wyciek-sklepow-polska-130k-2026"
 date: "2026-04-14"
-updated: "2026-04-14"
+updated: "2026-04-18"
 excerpt: "132 tysiące adresów e-mail, imiona, telefony i adresy dostaw z dwóch polskich sklepów — vegehome.pl i polskiekoldry.pl. Wektor ataku: narzędzie administracyjne w środowisku testowym. Co z tego wynika dla właściciela MŚP."
 description: "Analiza wycieku danych z polskich sklepów vegehome.pl i polskiekoldry.pl (kwiecień 2026): 132k unikalnych e-maili, bcrypt uratował hasła, wektor ataku w środowisku dev. Wnioski dla MŚP."
 category: "Wycieki danych"
@@ -22,7 +22,7 @@ author: "Maciej Konieczny"
 
 12 kwietnia 2026 — dane ponad 130 tysięcy klientów dwóch polskich sklepów internetowych (vegehome.pl i polskiekoldry.pl) trafiły do internetu. 13 kwietnia, po godzinie 21:30, właściciele sklepów dowiadują się o wycieku z portalu branżowego. 11 godzin później mają gotowy komunikat, resetują hasła, blokują wektor ataku i przygotowują zgłoszenie do UODO. Do 72-godzinnego deadline'u RODO — mieszczą się z zapasem.
 
-Gdyby każdy wyciek w Polsce kończył się tak sprawnie, ten artykuł w ogóle by nie powstał. Ale istotniejsze jest **jak to się w ogóle stało** — bo to nie jest historia o hakerskim geniuszu, tylko o klasycznym błędzie, który popełnia 80% polskich MŚP prowadzących sklep na gotowej platformie.
+Gdyby każdy wyciek w Polsce kończył się tak sprawnie, ten artykuł w ogóle by nie powstał. Ale istotniejsze jest **jak to się w ogóle stało** — bo to nie jest historia o hakerskim geniuszu, tylko o klasycznym błędzie, który regularnie obserwujemy w audytach polskich MŚP prowadzących sklep na gotowej platformie.
 
 ### Co dokładnie wyciekło
 
@@ -64,8 +64,8 @@ Wpisz w Google `site:twojafirma.pl -www` — zobaczysz co Google zindeksował. U
 **2. Oddziel bazy: produkcja ≠ test ≠ development.**
 Środowisko testowe **nie może** mieć dostępu do produkcyjnej bazy. Jeśli potrzebujesz realistycznych danych na testach, poproś programistów o **anonimizację** (skrypt, który zamienia prawdziwe imiona/emaile na fikcyjne, ale zachowuje strukturę). To standard w branży od 10 lat. Jeśli Twój dostawca oprogramowania robi inaczej — masz problem.
 
-**3. Wszystkie panele administracyjne za VPN-em albo IP whitelist.**
-phpMyAdmin, Adminer, panel CMS, panel hostingu, GitLab, Jenkins — żaden z tych paneli nie powinien być dostępny z dowolnego adresu IP na świecie. Koszt VPN-u dla 5-osobowej firmy to 0 zł (WireGuard na VPS-ie za 20 zł/mc) albo ~150 zł/mc za gotowe rozwiązanie typu Tailscale/Cloudflare Access. Porównaj z 40-dniowym postępowaniem UODO i karą 50-200 tys. zł.
+**3. Wszystkie panele administracyjne za VPN-em albo listą dozwolonych adresów IP.**
+Panel bazy danych, panel CMS, panel hostingu, panel repozytorium kodu — żaden nie powinien być dostępny z dowolnego adresu IP na świecie. Koszt takiego zabezpieczenia zaczyna się od praktycznie zerowego (samodzielna konfiguracja na istniejącym serwerze) do kilkuset złotych miesięcznie (gotowe rozwiązanie zarządzane). W praktyce jest to rząd wielkości mniej niż potencjalna kara administracyjna po incydencie i koszt odbudowy zaufania klientów — te ostatnie są zwykle bolesne dwucyfrowo.
 
 **4. MFA wszędzie, gdzie jest panel administracyjny.**
 Bez wyjątku. Hasło admina nie wystarczy w 2026 roku — bcrypt ochronił klientów tych sklepów, ale gdyby ten sam wyciek zawierał hasła administratorów bez MFA, następny krok atakującego byłby instant. Każdy panel bez MFA to nie „ryzyko”, tylko „kwestia czasu”.
@@ -88,7 +88,7 @@ Parę rzeczy, które łatwo źle zinterpretować:
 
 **„Wyciek bez kart płatniczych = pół biedy.”** — Nie. 132 tysiące par {imię, email, telefon, adres} to surowiec dla targetowanego phishingu na lata. Karty się wymienia w 10 minut. Numeru PESEL, adresu domowego i historii zakupów — nie.
 
-**„Zrobię audyt, jak będę miał firmę >50 osób.”** — To myślenie, przez które giną polskie MŚP. vegehome.pl i polskiekoldry.pl to nie są korporacje, tylko średniej wielkości e-commerce — dokładnie taki, jakich w Polsce jest 20 tysięcy. Wyciek uderza ich w najczulsze miejsce: zaufanie klientów, których mają kilkaset tysięcy.
+**„Zrobię audyt, jak będę miał firmę >50 osób.”** — To myślenie, przez które giną polskie MŚP. vegehome.pl i polskiekoldry.pl to nie są korporacje, tylko średniej wielkości e-commerce — dokładnie taki, jakich w Polsce jest wiele tysięcy. Wyciek uderza ich w najczulsze miejsce: zaufanie klientów budowane przez lata.
 
 ### Co z tego wyniesiesz w 2 minuty
 
@@ -98,10 +98,11 @@ Parę rzeczy, które łatwo źle zinterpretować:
 
 ---
 
-**Chcesz sprawdzić, gdzie masz „zapomniane drzwi” u siebie?**
-Ai Pulse Security robi audyty ekspozycji zewnętrznej — subdomeny, panele, środowiska nieprodukcyjne. Nie nudną prezentację, tylko listę konkretnych rzeczy do natychmiastowego zamknięcia.
+**Chcesz sprawdzić, gdzie masz „zapomniane drzwi" u siebie?**
 
-Albo zacznij od **[samooceny cyberbezpieczeństwa](/bezpieczenstwo-samoocena/)** — 35 pytań, 10 minut, darmowy raport wskazujący Twoje największe luki, bez rejestracji.
+Jeżeli chcesz zorientować się samemu — [bezpłatna samoocena cyberbezpieczeństwa](/bezpieczenstwo-samoocena/) obejmuje pytania o ekspozycję zewnętrzną i infrastrukturę wokół sklepu. 15 minut, natychmiastowy wynik, bez rejestracji.
+
+Jeżeli wolisz, żebyśmy przeszli przez Twoją ekspozycję razem — [Audyt Podstawowy](/security/#section-oferta) obejmuje mapowanie subdomen, paneli administracyjnych i środowisk nieprodukcyjnych. Zaczyna się od [bezpłatnej 30-minutowej rozmowy, z której wyjdziesz z trzema najważniejszymi rekomendacjami — nawet jeśli nie zdecydujesz się iść dalej](/security/#contact). Dostaniesz raport zrozumiały dla właściciela firmy, a nie listę technicznych zadań dla administratora.
 
 ---
 
