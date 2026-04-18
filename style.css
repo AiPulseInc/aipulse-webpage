@@ -1116,11 +1116,12 @@ body.theme-business {
 }
 
 .site-footer-version {
-  float: right;
-  opacity: 0.5;
-  font-size: 0.75rem;
+  margin-left: 0.75rem;
+  opacity: 0.35;
+  font-size: 0.65rem;
   font-family: 'Space Grotesk', monospace;
   letter-spacing: 0.05em;
+  vertical-align: baseline;
 }
 
 .footer-links {
