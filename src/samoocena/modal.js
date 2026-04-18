@@ -1,4 +1,4 @@
-// Lightweight modal confirm w stylu Ai Puls — violet accent, brutalist, square.
+// Lightweight modal confirm w stylu Ai Pulse — violet accent, brutalist, square.
 // Global single instance, lazy DOM creation, keyboard + click-overlay = cancel.
 
 let activeModal = null;

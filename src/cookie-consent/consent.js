@@ -1,5 +1,5 @@
 /**
- * Cookie consent API for Ai Puls.
+ * Cookie consent API for Ai Pulse.
  *
  * Wiring instructions:
  * 1. Import `./src/cookie-consent/index.js` as early as possible in each page entry.

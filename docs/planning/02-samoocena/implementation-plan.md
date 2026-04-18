@@ -5,7 +5,7 @@ Grounded in the KB at `docs/planning/02-samoocena/knowledge-base.md:57`, the cur
 ## 1. URL + Page Structure
 
 - **Chosen URL:** `/bezpieczenstwo-samoocena/`
-- **Why not `/samoocena/`:** `/samoocena/` is shorter, but too generic for future expansion. If Ai Puls later adds AI, compliance, or automation assessments, that slug becomes ambiguous. `/bezpieczenstwo-samoocena/` is clearer for SEO, clearer in shared links, and consistent with the security vertical.
+- **Why not `/samoocena/`:** `/samoocena/` is shorter, but too generic for future expansion. If Ai Pulse later adds AI, compliance, or automation assessments, that slug becomes ambiguous. `/bezpieczenstwo-samoocena/` is clearer for SEO, clearer in shared links, and consistent with the security vertical.
 - **Vite integration:** Add a fourth page entry to the existing Rollup inputs in `vite.config.js:10`, alongside `landing`, `business`, and `security`.
 - **Repo fit:** Keep this as a real multi-page route folder, same pattern as `security/index.html:1`, not a client-side SPA router.
 - **Page structure recommendation:**
@@ -503,7 +503,7 @@ grant execute on function public.get_benchmark_snapshot(text, text) to anon;
 - **Email delivery pattern:** send a branded transactional email with a signed download link; do not rely only on attachments
 - **Why link-first is better:** smaller email size, better deliverability, easier regeneration
 - **Template content:**
-  - Subject: `Twój raport samooceny cyberbezpieczeństwa Ai Puls`
+  - Subject: `Twój raport samooceny cyberbezpieczeństwa Ai Pulse`
   - Intro: thank-you + payment confirmation
   - Score snapshot: overall score + maturity label
   - Button: `Pobierz raport PDF`
@@ -559,7 +559,7 @@ grant execute on function public.get_benchmark_snapshot(text, text) to anon;
 ## 13. Open Questions / Decisions User Must Make
 
 - **Price point:** do you want to launch at `199 zł + VAT`, `199 zł brutto`, or `349 zł + VAT` as the premium anchor?
-- **Benchmark scope:** should v1 show only internal Ai Puls cohort data, or do you want any “expert baseline” before enough samples exist?
+- **Benchmark scope:** should v1 show only internal Ai Pulse cohort data, or do you want any “expert baseline” before enough samples exist?
 - **Industry granularity:** start with `Produkcja / IT / Handel / Usługi / Inne`, or split sectors like `Zdrowie` and `Transport` from day one?
 - **Language strategy:** PL only in v1, or should the data model be translation-ready for EN later?
 - **Invoice flow:** should Stripe collect company name and VAT ID in checkout from day one?

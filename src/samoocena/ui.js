@@ -30,7 +30,7 @@ export function renderLanding(ctx) {
   return `
     <section class="samoocena-landing">
       <div class="samoocena-landing-tape" aria-hidden="true">
-        <span>Ai Puls Security</span>
+        <span>Ai Pulse Security</span>
         <span>Samoocena v1</span>
         <span>Data: ${today}</span>
         <span>CIS v8 · NIST CSF 2.0</span>

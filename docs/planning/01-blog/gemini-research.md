@@ -1,4 +1,4 @@
-# Research: Minimum-Effort Markdown Blog for Ai Puls (Vite 5 + Vanilla JS)
+# Research: Minimum-Effort Markdown Blog for Ai Pulse (Vite 5 + Vanilla JS)
 
 ## 1. Tool Comparison for Vite-based Blog
 

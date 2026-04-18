@@ -99,7 +99,7 @@ Parę rzeczy, które łatwo źle zinterpretować:
 ---
 
 **Chcesz sprawdzić, gdzie masz „zapomniane drzwi” u siebie?**
-Ai Puls Security robi audyty ekspozycji zewnętrznej — subdomeny, panele, środowiska nieprodukcyjne. Nie nudną prezentację, tylko listę konkretnych rzeczy do natychmiastowego zamknięcia.
+Ai Pulse Security robi audyty ekspozycji zewnętrznej — subdomeny, panele, środowiska nieprodukcyjne. Nie nudną prezentację, tylko listę konkretnych rzeczy do natychmiastowego zamknięcia.
 
 Albo zacznij od **[samooceny cyberbezpieczeństwa](/bezpieczenstwo-samoocena/)** — 35 pytań, 10 minut, darmowy raport wskazujący Twoje największe luki, bez rejestracji.
 
@@ -109,5 +109,5 @@ Albo zacznij od **[samooceny cyberbezpieczeństwa](/bezpieczenstwo-samoocena/)**
 - <a href="https://cyberdefence24.pl/cyberbezpieczenstwo/wycieki-danych/wyciekly-dane-130-tysiecy-klientow-dwoch-polskich-sklepow" target="_blank" rel="noopener">CyberDefence24: <em>Wyciekły dane 130 tysięcy klientów dwóch polskich sklepów</em></a> — portal, który wykrył i przeanalizował wyciek (publikacja: 13.04.2026).
 
 ---
-*Autor: Maciej Konieczny, Ai Puls Security*
+*Autor: Maciej Konieczny, Ai Pulse Security*
 *Robimy audyty, których nie chcą zobaczyć marketingowcy.*

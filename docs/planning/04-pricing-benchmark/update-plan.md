@@ -1,4 +1,4 @@
-# Plan: Update cennika Ai Puls Security
+# Plan: Update cennika Ai Pulse Security
 
 ## Context
 
@@ -6,8 +6,8 @@ Analiza rynku ([gemini-benchmark.md](./gemini-benchmark.md)) pokazała, że obec
 
 - **Day rate senior audytora PL**: 2000-3500 zł netto B2B
 - **Konkurencja** (Niebezpiecznik, Securitum, LogicalTrust, Cyberforces): min 7-10k za podstawowy audyt
-- **Ai Puls Basic** 3500 zł za 2-3 dni = day rate ~1400 zł (dumping, strata)
-- **Ai Puls Premium** 10000 zł za 14 dni + 40h wsparcia = ~65 zł/h (poniżej junior programisty)
+- **Ai Pulse Basic** 3500 zł za 2-3 dni = day rate ~1400 zł (dumping, strata)
+- **Ai Pulse Premium** 10000 zł za 14 dni + 40h wsparcia = ~65 zł/h (poniżej junior programisty)
 
 Cel zmian: urealnić marżę bez rezygnacji z pozycji "dostępny dla MŚP". Zachować Basic jako lead magnet, zdecydowanie podnieść Rozszerzony i Premium, dodać vCISO jako recurring revenue.
 
@@ -255,4 +255,4 @@ Dodaj `.pricing-card-price` do `style.css` (podobne do `.pricing-card-name`):
 
 ---
 
-**Ważne**: Ten plan jest **konserwatywny** — nawet po podwyżkach Ai Puls pozostaje **najtańszym** graczem na rynku PL dla MŚP. Risk podwyżki: -10% konwersji z tańszych leadów. Benefit: +60% marży na jednym projekcie. Matematyka wygrywa przy 5+ projektach rocznie.
+**Ważne**: Ten plan jest **konserwatywny** — nawet po podwyżkach Ai Pulse pozostaje **najtańszym** graczem na rynku PL dla MŚP. Risk podwyżki: -10% konwersji z tańszych leadów. Benefit: +60% marży na jednym projekcie. Matematyka wygrywa przy 5+ projektach rocznie.

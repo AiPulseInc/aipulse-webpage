@@ -1,5 +1,5 @@
 -- Migration: self_assessment
--- Description: Initial schema for Ai Puls samoocena cyberbezpieczeństwa.
+-- Description: Initial schema for Ai Pulse samoocena cyberbezpieczeństwa.
 -- Tables: assessments, responses, leads, payments.
 -- RLS: anon can INSERT finished assessments + responses only. leads/payments server-only.
 -- RPC: get_benchmark_snapshot with fallback cohort logic.

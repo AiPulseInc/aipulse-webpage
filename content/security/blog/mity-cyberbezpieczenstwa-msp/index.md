@@ -107,7 +107,7 @@ Musisz rozliczać swojego dostawcę IT z konkretnych standardów bezpieczeństwa
 
 ## Podsumowanie: Czy stać Cię na te mity?
 
-Cyberbezpieczeństwo to nie jest koszt IT. To jest ubezpieczenie ciągłości działania Twojego biznesu. W Ai Puls Security widzimy to codziennie: firmy, które myślały, że są bezpieczne, nagle tracą dostęp do kont bankowych, a ich reputacja budowana latami znika w jedno popołudnie.
+Cyberbezpieczeństwo to nie jest koszt IT. To jest ubezpieczenie ciągłości działania Twojego biznesu. W Ai Pulse Security widzimy to codziennie: firmy, które myślały, że są bezpieczne, nagle tracą dostęp do kont bankowych, a ich reputacja budowana latami znika w jedno popołudnie.
 
 Nie musisz być ekspertem. Musisz przestać wierzyć w bajki.
 
@@ -119,4 +119,4 @@ Nie musisz być ekspertem. Musisz przestać wierzyć w bajki.
 Jeśli nie wiesz, od czego zacząć – napisz do nas. Zrobimy audyt, który pokaże Ci prawdę, a nie to, co chcesz usłyszeć. Bo w cyberbezpieczeństwie brutalna prawda jest zawsze tańsza niż słodkie kłamstwo.
 
 *Maciej Konieczny*
-*Ai Puls Security*
+*Ai Pulse Security*

@@ -1,6 +1,6 @@
 # Knowledge Base: Cybersecurity Self-Assessment for Polish SMBs
 
-Ten dokument stanowi fundament merytoryczny dla narzędzia samooceny cyberbezpieczeństwa (Self-Assessment Tool) skierowanego do polskiego sektora MŚP (Małe i Średnie Przedsiębiorstwa) oraz JDG (Jednoosobowe Działalności Gospodarcze), realizowanego pod marką **Ai Puls Security**.
+Ten dokument stanowi fundament merytoryczny dla narzędzia samooceny cyberbezpieczeństwa (Self-Assessment Tool) skierowanego do polskiego sektora MŚP (Małe i Średnie Przedsiębiorstwa) oraz JDG (Jednoosobowe Działalności Gospodarcze), realizowanego pod marką **Ai Pulse Security**.
 
 ---
 
@@ -35,7 +35,7 @@ Polskie firmy z sektora MŚP znajdują się obecnie w "imadle regulacyjnym". Z j
 | **ENISA SME Guide** | Podstawowe | Niska | Idealny dla JDG | 15-20 |
 | **Cyber Essentials (UK)** | Tylko techniczne | Niska | Dobry (jako baseline) | 5-10 |
 
-**Rekomendacja Ai Puls:** Hybryda **CIS Controls Implementation Group 1 (IG1)** dla higieny technicznej oraz **NIST CSF 2.0** dla procesów zarządczych.
+**Rekomendacja Ai Pulse:** Hybryda **CIS Controls Implementation Group 1 (IG1)** dla higieny technicznej oraz **NIST CSF 2.0** dla procesów zarządczych.
 
 ---
 
@@ -48,7 +48,7 @@ Polskie firmy z sektora MŚP znajdują się obecnie w "imadle regulacyjnym". Z j
 | **CyberReadiness.org** | Global Cyber Alliance | Świetne materiały edukacyjne. | Mało kontekstu polskiego (prawo/KSC). | Free |
 | **KIR Samoocena** | KIR (Sektor Bankowy) | Zaufana instytucja. | Skupienie głównie na sektorze finansowym/podpisie. | Free |
 
-**Luka dla Ai Puls Security:** Większość narzędzi jest albo zbyt prosta (marketingowe quizy), albo zbyt trudna (arkusze Excel). Brakuje "środka" – profesjonalnego audytu online z płatnym, certyfikowanym raportem PDF dla zarządu/ubezpieczyciela.
+**Luka dla Ai Pulse Security:** Większość narzędzi jest albo zbyt prosta (marketingowe quizy), albo zbyt trudna (arkusze Excel). Brakuje "środka" – profesjonalnego audytu online z płatnym, certyfikowanym raportem PDF dla zarządu/ubezpieczyciela.
 
 ---
 
@@ -150,7 +150,7 @@ Aby stworzyć funkcję "Twój wynik vs. średnia branży", należy zbierać:
 
 ---
 
-## 8. PDF Report Structure (Ai Puls Branded)
+## 8. PDF Report Structure (Ai Pulse Branded)
 
 1.  **Strona Tytułowa:** Wynik ogólny (Duża cyfra), data, kategoria dojrzałości.
 2.  **Executive Summary:** Jednostronicowe podsumowanie dla właściciela (Ryzyko biznesowe, finanse).
@@ -178,6 +178,6 @@ Aby stworzyć funkcję "Twój wynik vs. średnia branży", należy zbierać:
 ## 10. Open Questions / Decisions
 
 1.  **Audyt techniczny vs deklaratywny:** Czy dodajemy skrypt do sprawdzania np. nagłówków bezpieczeństwa domeny firmy (automatycznie), czy polegamy tylko na ankiecie? (Rekomendacja: na początku tylko ankieta).
-2.  **Certyfikacja:** Czy raport Ai Puls ma być sygnowany przez audytora z certyfikatem CISA/CISSP? (Zwiększa wartość PDF).
+2.  **Certyfikacja:** Czy raport Ai Pulse ma być sygnowany przez audytora z certyfikatem CISA/CISSP? (Zwiększa wartość PDF).
 3.  **Partnerstwa:** Czy oferujemy zniżki na polisy ubezpieczeniowe po przejściu testu?
 4.  **NIS2 Deadline:** Jak agresywnie komunikujemy nadchodzące kary w KSC? (Rekomendacja: edukacja, nie straszenie).

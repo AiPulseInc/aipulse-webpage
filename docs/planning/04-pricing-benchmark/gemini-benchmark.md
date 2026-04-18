@@ -1,6 +1,6 @@
-## Benchmark Rynkowy: Oferta Cyberbezpieczeństwa Ai Puls Security (MŚP 5-250 osób)
+## Benchmark Rynkowy: Oferta Cyberbezpieczeństwa Ai Pulse Security (MŚP 5-250 osób)
 
-Analiza porównawcza oferty Ai Puls Security na tle polskiego rynku usług cyberbezpieczeństwa w latach 2024–2025.
+Analiza porównawcza oferty Ai Pulse Security na tle polskiego rynku usług cyberbezpieczeństwa w latach 2024–2025.
 
 ---
 
@@ -19,8 +19,8 @@ Rynek audytów dla MŚP w Polsce jest spolaryzowany między dużych graczy (Secu
 
 **Wnioski z analizy konkurencji:**
 *   **Próg wejścia:** Renomowane marki (Niebezpiecznik/Securitum) rzadko schodzą poniżej **10 000 PLN** za jakikolwiek projekt audytorski.
-*   **Segment MŚP:** Firmy takie jak CyberArms czy Cyberforces oferują pakiety "Health Check", które cenowo są najbliższe Ai Puls, ale ich cena bazowa to zazwyczaj **5 000 - 8 000 PLN**.
-*   **Ai Puls jest najtańszym graczem na rynku (Basic 3500 zł), co może sugerować niską jakość lub wysoką automatyzację (tzw. "audyt z automatu").**
+*   **Segment MŚP:** Firmy takie jak CyberArms czy Cyberforces oferują pakiety "Health Check", które cenowo są najbliższe Ai Pulse, ale ich cena bazowa to zazwyczaj **5 000 - 8 000 PLN**.
+*   **Ai Pulse jest najtańszym graczem na rynku (Basic 3500 zł), co może sugerować niską jakość lub wysoką automatyzację (tzw. "audyt z automatu").**
 
 ---
 
@@ -28,7 +28,7 @@ Rynek audytów dla MŚP w Polsce jest spolaryzowany między dużych graczy (Secu
 
 Analiza roboczogodzin (rbh) dla senior audytora (zakładając firmę 50-100 osób):
 
-| Komponent audytu | Czas Ai Puls | Realny czas (Senior) | Rozbicie rbh (estymacja) |
+| Komponent audytu | Czas Ai Pulse | Realny czas (Senior) | Rozbicie rbh (estymacja) |
 | :--- | :--- | :--- | :--- |
 | **Basic (Skan + Raport)** | 2–3 dni | **3–4 dni** | Setup (2h) + Skan (4h) + Weryfikacja (8h) + Raport (8h) = **22h** |
 | **Extended (NIS2 + Konfig)** | 5–7 dni | **8–10 dni** | Basic (22h) + Wywiady NIS2 (16h) + Testy AD/Cloud (16h) + Plan (8h) = **62h** |
@@ -40,15 +40,15 @@ Analiza roboczogodzin (rbh) dla senior audytora (zakładając firmę 50-100 osó
 3.  **Premium (14 dni + 3 mies. wsparcia):** **Nierealny ekonomicznie.** 14 dni to czas samego audytu i dokumentacji. 40h wsparcia to kolejne 5 dni pracy rozłożone w czasie. Re-audyt to dodatkowe 2 dni. Sumarycznie projekt zajmuje ok. 21 dni roboczych pracy audytora.
 
 **Skalowanie z wielkością firmy:**
-*   **10 osób:** Czasy Ai Puls są adekwatne.
+*   **10 osób:** Czasy Ai Pulse są adekwatne.
 *   **100 osób:** Należy dodać 50% czasu do każdego pakietu.
-*   **250 osób:** Czasy Ai Puls są niemożliwe do dotrzymania (sama inwentaryzacja zasobów zajmie 3 dni).
+*   **250 osób:** Czasy Ai Pulse są niemożliwe do dotrzymania (sama inwentaryzacja zasobów zajmie 3 dni).
 
 ---
 
 ## 3. Analiza realistyczności cen
 
-| Pakiet | Cena Ai Puls | Koszt Seniora (Market Rate) | Marża / Ryzyko |
+| Pakiet | Cena Ai Pulse | Koszt Seniora (Market Rate) | Marża / Ryzyko |
 | :--- | :--- | :--- | :--- |
 | **Basic** | 3 500 PLN | 2,5 dnia x 2500 PLN = 6 250 PLN | **Strata/Niska Marża** |
 | **Extended** | 7 000 PLN | 6 dni x 2500 PLN = 15 000 PLN | **Wysoka Strata** |
@@ -59,7 +59,7 @@ Analiza roboczogodzin (rbh) dla senior audytora (zakładając firmę 50-100 osó
 **Dane rynkowe 2025 (Polska):**
 *   **Day rate Senior Security Auditor:** 2 000 – 3 500 PLN netto (B2B).
 *   **Stawka godzinowa doradztwa:** 250 – 500 PLN netto.
-*   **Ai Puls Premium (10 000 PLN) oferuje stawkę ok. 65 PLN/h.** To mniej niż stawka junior programisty. Cena 10 000 PLN za 3 miesiące wsparcia z wdrożeniem pod ISO 27001 jest ceną dumpingową, która może budzić niepokój co do jakości u świadomego klienta.
+*   **Ai Pulse Premium (10 000 PLN) oferuje stawkę ok. 65 PLN/h.** To mniej niż stawka junior programisty. Cena 10 000 PLN za 3 miesiące wsparcia z wdrożeniem pod ISO 27001 jest ceną dumpingową, która może budzić niepokój co do jakości u świadomego klienta.
 
 ---
 
@@ -75,7 +75,7 @@ Analiza roboczogodzin (rbh) dla senior audytora (zakładając firmę 50-100 osó
 *   **Testy Socjotechniczne:** Weryfikacja czy pracownik wpuści audytora do serwerowni.
 *   **Cena za endpoint/użytkownika:** Rynek przechodzi na model `Cena bazowa + X zł per użytkownik`. Audyt 250 osób za 3500 zł jest logistycznie niemożliwy.
 
-### Przewagi Ai Puls (Value Prop)
+### Przewagi Ai Pulse (Value Prop)
 *   **Analiza pod ubezpieczenie:** Bardzo mocny wyróżnik. Większość audytorów skupia się na technologii, mało kto mapuje to pod wymogi polis (np. wymagania dotyczące retencji logów czy MFA dla adminów).
 *   **Szybkość:** Jeśli proces jest faktycznie zautomatyzowany (autorskie narzędzia), to "Basic w 3 dni" jest unikalną propozycją sprzedaży (USP) dla firm potrzebujących raportu "na wczoraj".
 

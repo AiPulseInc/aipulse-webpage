@@ -183,14 +183,14 @@ export async function buildSecurityBlog({ rootDir }) {
 
   // Generate RSS feed
   const feed = new Feed({
-    title: 'Ai Puls Security Blog',
+    title: 'Ai Pulse Security Blog',
     description: 'Cyberbezpieczeństwo dla polskich MŚP — praktyczne wpisy o NIS2, phishingu, backupach i audytach.',
     id: `${SITE_URL}/security/blog/`,
     link: `${SITE_URL}/security/blog/`,
     language: 'pl',
     feedLinks: { rss2: `${SITE_URL}/security/blog/feed.xml` },
     author: { name: 'Maciej Konieczny', email: 'kontakt@aipulse.pl' },
-    copyright: `© ${new Date().getFullYear()} Ai Puls`,
+    copyright: `© ${new Date().getFullYear()} Ai Pulse`,
   });
 
   posts.forEach((post) => {
@@ -236,7 +236,7 @@ function renderNav(activePath = '') {
   return `<nav class="site-nav">
     <a href="/" class="site-nav-brand-wrap">
       <div class="site-nav-brand-inner">
-        <div class="site-nav-brand">A<span class="brand-i">i</span> Puls</div>
+        <div class="site-nav-brand">A<span class="brand-i">i</span> Pulse</div>
         <div class="site-nav-tagline">Cyber Security</div>
       </div>
       <span id="app-version" class="site-nav-version"></span>
@@ -255,9 +255,9 @@ function renderFooter() {
   return `<footer class="site-footer">
     <div class="container-fluid footer-inner">
       <div class="footer-brand-row">
-        <div class="footer-brand">A<span class="brand-i">i</span> Puls</div>
+        <div class="footer-brand">A<span class="brand-i">i</span> Pulse</div>
       </div>
-      <div class="footer-copyright">© 2026 Ai Puls Security · Audyty cyberbezpieczeństwa dla MŚP</div>
+      <div class="footer-copyright">© 2026 Ai Pulse Security · Audyty cyberbezpieczeństwa dla MŚP</div>
       <div class="footer-links">
         <a href="https://www.linkedin.com/company/aipulseinc" target="_blank" rel="noopener" class="text-xs">LinkedIn</a>
         <a href="mailto:kontakt@aipulse.pl" class="text-xs">Email</a>
@@ -296,7 +296,7 @@ function renderHead(opts) {
   ${absImage ? `<meta property="og:image" content="${absImage}" />` : ''}
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <link rel="alternate" type="application/rss+xml" title="Ai Puls Security Blog" href="/security/blog/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Ai Pulse Security Blog" href="/security/blog/feed.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -346,7 +346,7 @@ function renderBlogIndex(posts) {
     </a>`).join('\n');
 
   return `${renderHead({
-    title: 'Blog | Ai Puls Security — Cyberbezpieczeństwo dla MŚP',
+    title: 'Blog | Ai Pulse Security — Cyberbezpieczeństwo dla MŚP',
     description: 'Praktyczne wpisy o NIS2, phishingu, backupach i audytach cyberbezpieczeństwa dla polskich MŚP.',
     url: '/security/blog/',
   })}
@@ -418,7 +418,7 @@ function renderBlogPost(post) {
   const proseHtml = coverFigure + post.html;
 
   return `${renderHead({
-    title: `${post.title} | Ai Puls Security Blog`,
+    title: `${post.title} | Ai Pulse Security Blog`,
     description: post.description,
     url: post.url,
     image: post.cover,

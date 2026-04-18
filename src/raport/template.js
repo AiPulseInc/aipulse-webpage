@@ -89,7 +89,7 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
   return `
     <div class="page cover">
       <div style="text-align:center; padding: 35mm 16mm 0;">
-        <div style="font-family:'Space Grotesk',monospace; font-size:9pt; letter-spacing:0.3em; color:#666; text-transform:uppercase;">Ai Puls Security · Cyber Audit Division</div>
+        <div style="font-family:'Space Grotesk',monospace; font-size:9pt; letter-spacing:0.3em; color:#666; text-transform:uppercase;">Ai Pulse Security · Cyber Audit Division</div>
         <div style="margin-top:3mm; font-family:'Space Grotesk',monospace; font-size:8pt; letter-spacing:0.2em; color:#999; text-transform:uppercase;">Dokument poufny · Nie do redystrybucji bez zgody autora</div>
       </div>
 
@@ -117,7 +117,7 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
           <div class="sig-block">
             <div class="sig-line sig-signed"></div>
             <div class="sig-name">Maciej Konieczny</div>
-            <div class="sig-title">Lead Security Auditor · Ai Puls Security</div>
+            <div class="sig-title">Lead Security Auditor · Ai Pulse Security</div>
           </div>
           <div class="sig-block">
             <div class="sig-line"></div>
@@ -139,13 +139,13 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
   return `
     <div class="page">
       <div class="page-header">
-        <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
         <span>REF: ${escape(refNumber)}</span>
       </div>
 
       <div class="letterhead">
         <div>
-          <div class="brand">A<span class="dot">i</span> Puls <span style="color:#7E22CE;">Security</span></div>
+          <div class="brand">A<span class="dot">i</span> Pulse <span style="color:#7E22CE;">Security</span></div>
           <div style="font-family:'Space Grotesk',monospace; font-size:8pt; letter-spacing:0.15em; color:#666; margin-top:2mm; text-transform:uppercase;">Cyber Audit Division</div>
         </div>
         <div class="doc-meta">
@@ -174,7 +174,7 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
 
       <h2 style="margin-top:10mm;">3. Metodyka audytu</h2>
       <div class="methodology">
-        <p>Niniejszy raport jest wynikiem <strong>samooceny deklaratywnej</strong> (self-assessment) przeprowadzonej przez przedstawiciela ocenianej organizacji za pośrednictwem kwestionariusza internetowego Ai Puls Security.</p>
+        <p>Niniejszy raport jest wynikiem <strong>samooceny deklaratywnej</strong> (self-assessment) przeprowadzonej przez przedstawiciela ocenianej organizacji za pośrednictwem kwestionariusza internetowego Ai Pulse Security.</p>
         <p><strong>Ramy referencyjne:</strong></p>
         <ul>
           <li>Center for Internet Security (CIS) Controls v8 — Implementation Group 1 (IG1)</li>
@@ -194,10 +194,10 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
         <tr><td>Wiarygodność</td><td>Zależy od rzetelności odpowiedzi respondenta</td></tr>
         <tr><td>Porównywalność</td><td>Benchmarki pochodzą z anonimowej bazy odpowiedzi (n=${BENCHMARK.sampleSize}, wersja wstępna)</td></tr>
       </table>
-      <p style="margin-top:3mm; font-style:italic; color:#666; font-size:9pt;">W celu uzyskania oceny z rygorystyczną weryfikacją techniczną, zaleca się przeprowadzenie pełnego audytu technicznego (oferta Ai Puls Security: Audyt Basic / Standard / Premium).</p>
+      <p style="margin-top:3mm; font-style:italic; color:#666; font-size:9pt;">W celu uzyskania oceny z rygorystyczną weryfikacją techniczną, zaleca się przeprowadzenie pełnego audytu technicznego (oferta Ai Pulse Security: Audyt Basic / Standard / Premium).</p>
 
       <div class="page-footer">
-        <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
         <span>Strona 2 z 10</span>
       </div>
     </div>
@@ -230,7 +230,7 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
   return `
     <div class="page">
       <div class="page-header">
-        <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
         <span>REF: ${escape(refNumber)}</span>
       </div>
 
@@ -265,7 +265,7 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
       ${categorySections}
 
       <div class="page-footer">
-        <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
         <span>Strona 3 z 10</span>
       </div>
     </div>
@@ -288,7 +288,7 @@ function renderFindings({ refNumber }) {
   return `
     <div class="page">
       <div class="page-header">
-        <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
         <span>REF: ${escape(refNumber)}</span>
       </div>
 
@@ -298,7 +298,7 @@ function renderFindings({ refNumber }) {
       ${findingsHtml}
 
       <div class="page-footer">
-        <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
         <span>Strona 4 z 10</span>
       </div>
     </div>
@@ -345,7 +345,7 @@ function renderAwarenessPage({ refNumber, awareness }) {
   return `
     <div class="page">
       <div class="page-header">
-        <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
         <span>REF: ${escape(refNumber)}</span>
       </div>
 
@@ -369,7 +369,7 @@ function renderAwarenessPage({ refNumber, awareness }) {
       </div>
 
       <div class="page-footer">
-        <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
         <span>Strona 8 z 11</span>
       </div>
     </div>
@@ -380,7 +380,7 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel }) {
   return `
     <div class="page">
       <div class="page-header">
-        <span>AI PULS SECURITY · CYBER AUDIT REPORT</span>
+        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
         <span>REF: ${escape(refNumber)}</span>
       </div>
 
@@ -439,11 +439,11 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel }) {
       </div>
 
       <div style="margin-top:10mm; padding-top:5mm; border-top:1px solid #E5E5E5; font-size:8pt; color:#999; font-style:italic;">
-        Niniejszy dokument stanowi wynik samooceny deklaratywnej i nie zastępuje pełnego audytu technicznego. Audyt pełny (np. Ai Puls Security Audyt Rozszerzony) obejmuje testy penetracyjne, przegląd konfiguracji oraz analizę logów i może ujawnić dodatkowe luki niewidoczne w samoocenie.
+        Niniejszy dokument stanowi wynik samooceny deklaratywnej i nie zastępuje pełnego audytu technicznego. Audyt pełny (np. Ai Pulse Security Audyt Rozszerzony) obejmuje testy penetracyjne, przegląd konfiguracji oraz analizę logów i może ujawnić dodatkowe luki niewidoczne w samoocenie.
       </div>
 
       <div class="page-footer">
-        <span>Ai Puls Security · kontakt@aipulse.pl · aipulse.pl</span>
+        <span>Ai Pulse Security · kontakt@aipulse.pl · aipulse.pl</span>
         <span>Strona 5 z 10</span>
       </div>
     </div>

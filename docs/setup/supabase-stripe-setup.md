@@ -1,4 +1,4 @@
-# Setup: Supabase + Stripe dla Ai Puls Samooceny
+# Setup: Supabase + Stripe dla Ai Pulse Samooceny
 
 Przewodnik krok po kroku — co zrobić, gdzie kliknąć, gdzie wkleić klucze. Zaplanowane na **~60-90 minut** łącznie (Stripe zajmie dłużej z powodu weryfikacji biznesu).
 

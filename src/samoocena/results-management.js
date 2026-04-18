@@ -126,7 +126,7 @@ function renderReportCover(scoringResult, date, profile) {
     <section class="samoocena-report-cover">
       <div class="samoocena-report-cover-head">
         <div class="samoocena-report-brand-line">
-          <div class="samoocena-report-brand">A<span class="brand-i">i</span> Puls <span class="samoocena-report-brand-accent">Security</span></div>
+          <div class="samoocena-report-brand">A<span class="brand-i">i</span> Pulse <span class="samoocena-report-brand-accent">Security</span></div>
           <div class="samoocena-report-brand-tagline">Cyber Security</div>
         </div>
       </div>

@@ -23,7 +23,7 @@ author: "Maciej Konieczny"
 
 W świecie współczesnych zagrożeń, gdzie ransomware nie tylko szyfruje Twoje komputery, ale aktywnie szuka kopii zapasowych, by je usunąć, podejście „jakiś backup mam” jest prostą drogą do bankructwa. Według statystyk, ponad 60% małych firm, które utraciły dane w wyniku cyberataku, zamyka działalność w ciągu pół roku.
 
-Nazywam się Maciej Konieczny i w Ai Puls Security wierzymy, że bezpieczeństwo klasy enterprise nie musi kosztować dziesiątek tysięcy złotych. Dziś pokażę Ci, jak za mniej niż 200 zł miesięcznie zbudować pancerny system oparty o złotą zasadę 3-2-1.
+Nazywam się Maciej Konieczny i w Ai Pulse Security wierzymy, że bezpieczeństwo klasy enterprise nie musi kosztować dziesiątek tysięcy złotych. Dziś pokażę Ci, jak za mniej niż 200 zł miesięcznie zbudować pancerny system oparty o złotą zasadę 3-2-1.
 
 ### Czym właściwie jest zasada 3-2-1?
 
@@ -76,7 +76,7 @@ Jeśli haker włamie się do Twojej firmy, przejmie hasło do NAS-a i wyda polec
 
 ### Jak testować restore (i dlaczego co kwartał)?
 
-Backup, którego nie da się przywrócić, nie istnieje. W Ai Puls Security zalecamy „kwartalne ćwiczenia przeciwpożarowe”.
+Backup, którego nie da się przywrócić, nie istnieje. W Ai Pulse Security zalecamy „kwartalne ćwiczenia przeciwpożarowe”.
 1.  Wybierz losowy plik z dokumentacji sprzed 2 miesięcy.
 2.  Spróbuj go przywrócić z NAS-a.
 3.  Spróbuj przywrócić ten sam plik bezpośrednio z chmury (Backblaze).
@@ -98,10 +98,10 @@ Sprawdź swoją firmę w 30 sekund:
 Zbudowanie bezpiecznego setupu 3-2-1 dla MŚP to nie jest kwestia technologii NASA, ale dyscypliny i wyboru odpowiednich narzędzi. Za cenę dwóch obiadów na mieście możesz mieć pewność, że w poniedziałek rano Twoja firma będzie istnieć, niezależnie od tego, co wymyślą cyberprzestępcy.
 
 **Nie wiesz, od czego zacząć?** 
-W Ai Puls Security pomagamy wdrażać dokładnie takie rozwiązania. Napisz do nas na [kontakt@aipulse.security], a przeprowadzimy dla Ciebie bezpłatny, 15-minutowy audyt Twojego obecnego systemu backupu. 
+W Ai Pulse Security pomagamy wdrażać dokładnie takie rozwiązania. Napisz do nas na [kontakt@aipulse.security], a przeprowadzimy dla Ciebie bezpłatny, 15-minutowy audyt Twojego obecnego systemu backupu. 
 
 Pamiętaj: ludzie dzielą się na tych, którzy robią backupy, i tych, którzy *będą* je robić. Lepiej bądź w tej pierwszej grupie.
 
 ---
 *Autor: Maciej Konieczny*
-*Ai Puls Security*
+*Ai Pulse Security*

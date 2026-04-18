@@ -91,8 +91,8 @@ Ataki na łańcuch dostaw są skuteczne, bo są niewidoczne. Wykorzystują nasz�
 Twoja firma opiera się na kodzie, którego nie jesteś właścicielem. Czas zacząć kontrolować ten fundament, zanim ktoś inny postanowi go wyciągnąć spod Twoich nóg.
 
 **Chcesz wiedzieć, czy Twoja firma jest podatna na ataki supply chain?**
-Skontaktuj się z Ai Puls Security. Nie robimy nudnych prezentacji. Robimy audyt, który pokaże Ci prawdę o Twoim oprogramowaniu, zanim pokaże ją haker.
+Skontaktuj się z Ai Pulse Security. Nie robimy nudnych prezentacji. Robimy audyt, który pokaże Ci prawdę o Twoim oprogramowaniu, zanim pokaże ją haker.
 
 ---
-*Autor: Maciej Konieczny, AI Puls Security*
+*Autor: Maciej Konieczny, Ai Pulse Security*
 *Zajmujemy się bezpieczeństwem tam, gdzie inni widzą tylko 'działające systemy'.*

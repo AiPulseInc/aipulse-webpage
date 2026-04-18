@@ -185,7 +185,7 @@ const RECOMMENDATION_LIBRARY = {
   },
   D6: {
     title: 'Wyznacz osobę odpowiedzialną za bezpieczeństwo',
-    action: 'CISO / Security Officer wewnętrzny, lub vCISO zewnętrzny (np. Ai Puls).',
+    action: 'CISO / Security Officer wewnętrzny, lub vCISO zewnętrzny (np. Ai Pulse).',
     cost: 'vCISO od ~3-5k zł/mies.',
     effort: '1-2 tygodnie',
     impact: 'Bez właściciela żaden security program nie istnieje.',

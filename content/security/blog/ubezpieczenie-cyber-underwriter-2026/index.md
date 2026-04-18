@@ -73,7 +73,7 @@ Skan wykazał, że jeden z serwerów starej maszyny CNC był widoczny w sieci i 
 
 Zanim zgłosisz się do brokera lub ubezpieczyciela, potraktuj swoją firmę jak pacjenta przed operacją.
 
-1.  **Przeprowadź pre-audit:** Skorzystaj z usług zewnętrznej firmy security (takiej jak Ai Puls Security), która spojrzy na Twoje IT oczami underwritera.
+1.  **Przeprowadź pre-audit:** Skorzystaj z usług zewnętrznej firmy security (takiej jak Ai Pulse Security), która spojrzy na Twoje IT oczami underwritera.
 2.  **Wypełnij lukę w MFA:** To najtańsza i najskuteczniejsza metoda na uniknięcie natychmiastowej odmowy.
 3.  **Sprawdź backup:** Jeśli nie robiłeś testu odtworzenia w ciągu ostatnich 3 miesięcy – zrób go jutro.
 4.  **Uporządkuj dokumentację:** Procedury nie muszą być piękne, muszą być skuteczne i znane pracownikom.
@@ -93,7 +93,7 @@ Nie czekaj na maila z odmową. Przygotuj się do rozmowy z ubezpieczycielem jak 
 ---
 
 **Potrzebujesz wsparcia w przygotowaniu firmy do audytu ubezpieczeniowego?**
-W Ai Puls Security pomagamy MŚP wdrożyć standardy, których wymagają underwriterzy w 2026 roku. Skontaktuj się ze mną bezpośrednio na LinkedIn lub przez naszą stronę, aby umówić się na audyt gotowości ubezpieczeniowej.
+W Ai Pulse Security pomagamy MŚP wdrożyć standardy, których wymagają underwriterzy w 2026 roku. Skontaktuj się ze mną bezpośrednio na LinkedIn lub przez naszą stronę, aby umówić się na audyt gotowości ubezpieczeniowej.
 
 *Maciej Konieczny*
-*Ai Puls Security*
+*Ai Pulse Security*

@@ -1,8 +1,30 @@
 # Changelog
 
-Log zmian w projekcie AI Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
+Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
 
+
+## [0.5602] — 2026-04-18
+
+Pełny rebrand: "Ai Puls" → "Ai Pulse" w całej witrynie (polska pisownia "Puls" zastąpiona angielską "Pulse"). Kropka nad "i" i pozostała typografia bez zmian.
+
+Zakres zmian (tekstowy, ~70 wystąpień):
+- Logotypy w nawigacji i stopkach: landing (2×), business, security, samoocena, polityka-cookies.
+- Tytuły, meta description, og:title we wszystkich entry pointach Vite MPA.
+- Overlay landing: `AI PULS · WYBIERZ OBSZAR` → `AI PULSE · WYBIERZ OBSZAR`.
+- Raport PDF (`src/raport/template.js`) + mockupy A/B: nagłówki `AI PULSE SECURITY · CYBER AUDIT REPORT`, podpis "Lead Security Auditor · Ai Pulse Security", footery z domeną.
+- Samoocena UI (`src/samoocena/ui.js`, `recommendations.js`) — wzmianki o brandzie i vCISO.
+- CTA: `AiPulse Toolbox` → `Ai Pulse Toolbox` (business hero/footer).
+- Komentarze kodu (modal.js, styles.css, consent.js, style.css).
+- Polityka cookies: tabela "Ai Pulse, first-party", footer copyright.
+
+Czego NIE ruszono: domena `aipulse.pl`, email `kontakt@aipulse.pl`, GitHub `AiPulseInc`, folder repo `aipulse-webpage`, internal app-id `aipulse-samoocena`.
+
+Memory zaktualizowane (`project_aipulse.md`): brand name = "Ai Pulse", usunięta nieaktualna reguła "NOT 'AI Pulse', NOT 'AiPulse'".
+
+Bump: micro +0.001.
+
+---
 
 ## [0.5592] — 2026-04-15
 
