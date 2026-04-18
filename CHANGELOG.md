@@ -4,6 +4,32 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5613] — 2026-04-18
+
+A7 Phase 1 — DNS scan backend infrastructure.
+
+- Migration `20260418000000_dns_scan.sql`: 3 nowe kolumny w `assessments`
+  (`domain`, `dns_scan_opt_out`, `dns_scan jsonb`) — applied via
+  `supabase db query --linked --file` (migration history offset
+  vs documentation files, sql applied directly).
+- Edge function `scan-domain` (Deno) deployed na Supabase z parserem
+  portowanym z `aipulse-dns-demo/parse.mjs` (zwalidowany Phase 0).
+  Pliki: `index.ts` (handler + CORS + retry + DMARC supplement),
+  `parse.ts` (DNSDumpster raw → ScanData), `providers.ts`
+  (MX patterns + self-hosted detection).
+- DNSDumpster API call z 7s timeout + 1 retry na 5xx.
+- DMARC supplement via native `Deno.resolveDns('_dmarc.X', 'TXT')`.
+- DNSDUMPSTER_API_KEY w Supabase secrets, lazy-loaded
+  w handlerze (`Deno.env.get` w request scope, nie module-level).
+- 4 curl tests passed: aipulse.pl (happy), localhost/192.168.1.1/empty
+  (wszystkie zwracają invalid_domain).
+
+Frontend nie zmieniony — Phase 2.
+
+Bump: micro +0.001.
+
+---
+
 ## [0.5603] — 2026-04-18
 
 Modal pakietu audytowego: label "CZEGO SIĘ NAUCZYSZ" → "CO OTRZYMUJESZ" tylko dla typu `audyty` (Audyt Podstawowy/Rozszerzony/Premium/vCISO). Trening modale (`szkolenia`, `security-szkolenia`) zostają z "CZEGO SIĘ NAUCZYSZ" — adekwatne. Zmiana w `main.js renderSzkoleniaModal` przez parametryzację labelu po typie.
