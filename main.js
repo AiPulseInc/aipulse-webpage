@@ -146,8 +146,13 @@ function renderAutoModal(data) {
 
 function renderSzkoleniaModal(data, type) {
   let ctaLabel = 'Zapytaj o szkolenie';
-  if (type === 'audyty') ctaLabel = 'Zamów audyt';
-  else if (type === 'security-szkolenia') ctaLabel = 'Zapytaj o szkolenie';
+  let benefitsLabel = 'CZEGO SIĘ NAUCZYSZ';
+  if (type === 'audyty') {
+    ctaLabel = 'Zamów audyt';
+    benefitsLabel = 'CO OTRZYMUJESZ';
+  } else if (type === 'security-szkolenia') {
+    ctaLabel = 'Zapytaj o szkolenie';
+  }
   return `
     <div class="modal-training">
       <div class="modal-training-category">${data.category}</div>
@@ -158,7 +163,7 @@ function renderSzkoleniaModal(data, type) {
           <div class="modal-section-label">DLA KOGO</div>
           <p class="modal-section-body">${data.audience}</p>
 
-          <div class="modal-section-label modal-section-label-spaced">CZEGO SIĘ NAUCZYSZ</div>
+          <div class="modal-section-label modal-section-label-spaced">${benefitsLabel}</div>
           <ul class="modal-benefits">
             ${data.benefits.map(b => `<li>${b}</li>`).join('')}
           </ul>

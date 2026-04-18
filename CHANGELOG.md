@@ -4,6 +4,14 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5603] — 2026-04-18
+
+Modal pakietu audytowego: label "CZEGO SIĘ NAUCZYSZ" → "CO OTRZYMUJESZ" tylko dla typu `audyty` (Audyt Podstawowy/Rozszerzony/Premium/vCISO). Trening modale (`szkolenia`, `security-szkolenia`) zostają z "CZEGO SIĘ NAUCZYSZ" — adekwatne. Zmiana w `main.js renderSzkoleniaModal` przez parametryzację labelu po typie.
+
+Bump: nano +0.0001 (korekta copy).
+
+---
+
 ## [0.5602] — 2026-04-18
 
 Pełny rebrand: "Ai Puls" → "Ai Pulse" w całej witrynie (polska pisownia "Puls" zastąpiona angielską "Pulse"). Kropka nad "i" i pozostała typografia bez zmian.
