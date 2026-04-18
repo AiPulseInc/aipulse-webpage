@@ -1115,6 +1115,14 @@ body.theme-business {
   line-height: 1.4;
 }
 
+.site-footer-version {
+  float: right;
+  opacity: 0.5;
+  font-size: 0.75rem;
+  font-family: 'Space Grotesk', monospace;
+  letter-spacing: 0.05em;
+}
+
 .footer-links {
   display: flex;
   gap: 1.5rem;

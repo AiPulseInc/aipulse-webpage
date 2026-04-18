@@ -4,6 +4,13 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5645] — 2026-04-18
+
+Drobne korekty:
+- Navbar: usunięto wersję (przeniesiona do stopki, prawa strona linii © copyright)
+- Footer: LinkedIn href → `https://www.linkedin.com/in/koniecznymaciej/`
+- Footer: Email href → `mailto:maciek@aipulse.pl`
+
 ## [0.5644] — 2026-04-18
 
 Post go-live: nowy hero headline w security.

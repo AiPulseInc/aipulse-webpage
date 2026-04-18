@@ -239,7 +239,6 @@ function renderNav(activePath = '') {
         <div class="site-nav-brand">A<span class="brand-i">i</span> Pulse</div>
         <div class="site-nav-tagline">Cyber Security</div>
       </div>
-      <span id="app-version" class="site-nav-version"></span>
     </a>
     <button type="button" class="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-menu" aria-label="Otwórz menu">
       <span class="site-nav-toggle-bar"></span>
@@ -257,10 +256,10 @@ function renderFooter() {
       <div class="footer-brand-row">
         <div class="footer-brand">A<span class="brand-i">i</span> Pulse</div>
       </div>
-      <div class="footer-copyright">© 2026 Ai Pulse Security · Audyty cyberbezpieczeństwa dla MŚP</div>
+      <div class="footer-copyright">© 2026 Ai Pulse Security · Audyty cyberbezpieczeństwa dla MŚP <span id="app-version" class="site-footer-version"></span></div>
       <div class="footer-links">
-        <a href="https://www.linkedin.com/company/aipulseinc" target="_blank" rel="noopener" class="text-xs">LinkedIn</a>
-        <a href="mailto:kontakt@aipulse.pl" class="text-xs">Email</a>
+        <a href="https://www.linkedin.com/in/koniecznymaciej/" target="_blank" rel="noopener" class="text-xs">LinkedIn</a>
+        <a href="mailto:maciek@aipulse.pl" class="text-xs">Email</a>
         <a href="/business/" class="text-xs">Doradztwo</a>
         <a href="/" class="text-xs">← Powrót do wyboru</a>
         <a href="/polityka-cookies/" class="text-xs footer-cookie-link">Ustawienia cookies</a>
