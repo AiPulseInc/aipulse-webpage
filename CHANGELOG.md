@@ -4,6 +4,13 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5644] — 2026-04-18
+
+Post go-live: nowy hero headline w security.
+
+**Copy:**
+- Security hero: „CYBER-AUDYT W 7 DNI." → „SPRAWDŹ SIĘ, ZANIM CIĘ SPRAWDZĄ." (usunięte arbitrarne „7 dni"; hook verify-first trafia w trigger NIS2/ubezpieczyciel/kontrahent). Subtitle zachowany.
+
 ## [0.5643] — 2026-04-18
 
 Pre-go-live: leadgen capture przy raporcie PDF + promocja „100 pierwszych" + drobne korekty copy + nowy numer telefonu.
