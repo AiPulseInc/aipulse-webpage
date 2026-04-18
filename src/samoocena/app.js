@@ -7,6 +7,7 @@ import {
   setState,
   setStep,
   setProfile,
+  setDnsScan,
   saveResponse,
   saveAwarenessAnswer,
   setCurrentAwarenessIndex,
@@ -20,6 +21,7 @@ import {
 import {
   renderLanding,
   renderProfiling,
+  renderProfileDomain,
   renderCategoryIntro,
   renderQuestion,
   renderAwarenessQuestion,
@@ -29,7 +31,7 @@ import {
   renderError,
 } from './ui.js';
 import { getAwarenessQuestions } from './awareness.js';
-import { submitAssessment, fetchBenchmark } from './api.js';
+import { submitAssessment, fetchBenchmark, scanDomain } from './api.js';
 import { showConfirmModal, showInputModal } from './modal.js';
 
 const mainEl = document.getElementById('samoocena-main');
@@ -87,6 +89,8 @@ function routeToRenderer(step, ctx) {
       return renderLanding(ctx);
     case 'profiling':
       return renderProfiling(ctx);
+    case 'profile-domain':
+      return renderProfileDomain(ctx);
     case 'awareness-quiz':
       return renderAwarenessQuestion(ctx);
     case 'awareness-summary':
@@ -107,6 +111,7 @@ function routeToRenderer(step, ctx) {
 function bindDelegatedEvents() {
   mainEl.addEventListener('click', handleClick);
   mainEl.addEventListener('change', handleChange);
+  mainEl.addEventListener('input', handleChange);  // live validation dla domain input
   mainEl.addEventListener('submit', handleSubmit);
   // Global interceptor dla klików na nav linki podczas aktywnej samooceny —
   // modal „stracisz odpowiedzi" + reset state po potwierdzeniu.
@@ -115,6 +120,7 @@ function bindDelegatedEvents() {
 
 const BLOCKING_STEPS = new Set([
   'profiling',
+  'profile-domain',
   'awareness-quiz',
   'awareness-summary',
   'category-intro',
@@ -217,6 +223,20 @@ function handleClick(event) {
         return;
       }
       setProfile({ industry, size });
+      setState({ step: 'profile-domain' });
+    },
+    'submit-profile-domain': () => {
+      const input = mainEl.querySelector('[data-domain-input]');
+      const raw = (input?.value || '').trim();
+      if (!raw) return;
+      const normalized = normalizeDomain(raw);
+      if (!isValidDomain(normalized)) return;
+      setProfile({ companyDomain: normalized, dnsScanOptOut: false });
+      runScanFlow(normalized);
+    },
+    'optout-profile-domain': () => {
+      setProfile({ companyDomain: null, dnsScanOptOut: true });
+      setDnsScan(null);
       setState({ step: 'awareness-quiz', currentAwarenessIndex: 0 });
     },
     'next-awareness': () => {
@@ -304,6 +324,21 @@ function handleChange(event) {
     const optionId = input.dataset.optionId;
     saveAwarenessAnswer(questionId, optionId);
   }
+  if (input.matches('[data-domain-input]')) {
+    const status = mainEl.querySelector('[data-domain-status]');
+    const submitBtn = mainEl.querySelector('[data-action="submit-profile-domain"]');
+    const normalized = normalizeDomain(input.value);
+    if (!input.value.trim()) {
+      if (status) { status.textContent = ''; status.removeAttribute('data-state'); }
+      submitBtn?.setAttribute('disabled', 'true');
+    } else if (isValidDomain(normalized)) {
+      if (status) { status.textContent = `✓ ${normalized}`; status.dataset.state = 'valid'; }
+      submitBtn?.removeAttribute('disabled');
+    } else {
+      if (status) { status.textContent = '✗ Niepoprawny format domeny'; status.dataset.state = 'invalid'; }
+      submitBtn?.setAttribute('disabled', 'true');
+    }
+  }
 }
 
 let benchmarkInFlight = false;
@@ -365,6 +400,83 @@ function showSubmitToast(status, errorMsg = '') {
   }
 }
 
+const DOMAIN_REGEX = /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i;
+
+function normalizeDomain(input) {
+  return String(input).trim().toLowerCase()
+    .replace(/^https?:\/\//, '')
+    .replace(/^www\./, '')
+    .replace(/\/.*$/, '');
+}
+
+function isValidDomain(d) {
+  if (!d || d.length < 4) return false;
+  if (!DOMAIN_REGEX.test(d)) return false;
+  if (/^(localhost|127\.|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/i.test(d)) return false;
+  if (/\.(local|internal|test|example)$/i.test(d)) return false;
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(d)) return false;
+  return true;
+}
+
+function showScanOverlay() {
+  const existing = document.querySelector('.samoocena-scan-overlay');
+  if (existing) existing.remove();
+  const overlay = document.createElement('div');
+  overlay.className = 'samoocena-scan-overlay';
+  overlay.innerHTML = `
+    <div class="samoocena-scan-overlay-inner">
+      <div class="samoocena-scan-overlay-title">Skanujemy publiczne rekordy DNS</div>
+      <ul class="samoocena-scan-overlay-list">
+        <li data-step="dns" class="is-active">subdomeny i adresy IP</li>
+        <li data-step="email">konfiguracja email security (SPF/DMARC)</li>
+        <li data-step="parse">analiza i interpretacja</li>
+      </ul>
+      <div class="samoocena-scan-overlay-meta">~5 sekund · pasywnie</div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  // Sequencjne podświetlanie kroków — czysto dekoracyjne, nie real progress
+  setTimeout(() => {
+    overlay.querySelector('[data-step="dns"]')?.classList.replace('is-active', 'is-done');
+    overlay.querySelector('[data-step="email"]')?.classList.add('is-active');
+  }, 1500);
+  setTimeout(() => {
+    overlay.querySelector('[data-step="email"]')?.classList.replace('is-active', 'is-done');
+    overlay.querySelector('[data-step="parse"]')?.classList.add('is-active');
+  }, 3000);
+  return overlay;
+}
+
+function hideScanOverlay() {
+  document.querySelector('.samoocena-scan-overlay')?.remove();
+}
+
+async function runScanFlow(domain) {
+  const overlay = showScanOverlay();
+  try {
+    const result = await scanDomain(domain);
+    // Zapisz cokolwiek dostaliśmy — `ok: true` z data lub `ok: false` z error.
+    // Frontend nie pokazuje user-facing błędu (silent backend per Q3 odpowiedź).
+    setDnsScan({
+      ok: !!result?.ok,
+      fetched_at: new Date().toISOString(),
+      data: result?.ok ? result.data : null,
+      error: result?.ok ? null : (result?.error || 'unknown'),
+    });
+  } catch (err) {
+    console.warn('[samoocena] scan flow failed:', err);
+    setDnsScan({
+      ok: false,
+      fetched_at: new Date().toISOString(),
+      data: null,
+      error: err.message || 'unknown',
+    });
+  } finally {
+    hideScanOverlay();
+    setState({ step: 'awareness-quiz', currentAwarenessIndex: 0 });
+  }
+}
+
 function handleSubmit(event) {
   const form = event.target.closest('[data-form]');
   if (!form) return;
@@ -376,6 +488,6 @@ function handleSubmit(event) {
     const size = formData.get('size');
     if (!industry || !size) return;
     setProfile({ industry, size });
-    setState({ step: 'category-intro', currentQuestionIndex: 0 });
+    setState({ step: 'profile-domain' });
   }
 }

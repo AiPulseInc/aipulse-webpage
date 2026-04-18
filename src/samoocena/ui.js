@@ -186,6 +186,56 @@ export function renderProfiling(ctx) {
   `;
 }
 
+export function renderProfileDomain(ctx) {
+  const prefilled = ctx.profile?.companyDomain || '';
+  return `
+    <section class="samoocena-profile-domain">
+      <p class="samoocena-kicker">// Krok 2 z 2 — opcjonalne wzbogacenie</p>
+      <h1>Twoja rzeczywista ekspozycja</h1>
+      <p class="samoocena-lead">
+        Sprawdzimy <strong>pasywnie</strong> co publiczny internet wie o Twojej infrastrukturze:
+        widoczne subdomeny i konfigurację bezpieczeństwa email (SPF/DMARC).
+        Bez logowania, bez zgody firmy — tylko publiczne rekordy DNS. ~5 sekund.
+      </p>
+      <form class="samoocena-form" data-form="profile-domain">
+        <label class="samoocena-field">
+          <span class="samoocena-field-label">Domena firmy</span>
+          <input
+            type="text"
+            name="domain"
+            value="${escapeHtml(prefilled)}"
+            placeholder="np. firma.pl"
+            autocomplete="off"
+            spellcheck="false"
+            data-domain-input
+          />
+          <span class="samoocena-field-status" data-domain-status></span>
+        </label>
+        <div class="samoocena-form-actions samoocena-form-actions-stacked">
+          <button
+            type="button"
+            class="samoocena-cta samoocena-cta-primary"
+            data-action="submit-profile-domain"
+            disabled
+          >
+            <span class="samoocena-cta-label">Skanuj i dalej</span>
+            <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+          </button>
+          <div class="samoocena-form-divider">albo</div>
+          <button
+            type="button"
+            class="samoocena-cta samoocena-cta-ghost"
+            data-action="optout-profile-domain"
+          >
+            <span class="samoocena-cta-label">Rezygnuję z tej części audytu</span>
+            <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  `;
+}
+
 export function renderQuestion(ctx) {
   const { currentIndex, responses } = ctx;
   const questions = getQuestions();

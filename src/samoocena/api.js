@@ -68,6 +68,9 @@ function buildAssessmentRow(state, scoringResult) {
     score_compliance: 0,
     awareness_score: hasAwarenessAnswers ? awareness.correct : null,
     awareness_answers: hasAwarenessAnswers ? state.awarenessAnswers : null,
+    domain: state.profile?.companyDomain || null,
+    dns_scan_opt_out: !!state.profile?.dnsScanOptOut,
+    dns_scan: state.dnsScan?.ok ? state.dnsScan.data : null,
   };
 
   for (const [categoryId, column] of Object.entries(CATEGORY_TO_COLUMN)) {
@@ -200,4 +203,27 @@ function cohortLabelFor(scope, rawIndustry, companySize) {
   if (scope === 'industry_size') return `${rawIndustry}, ${sizeLabel}`;
   if (scope === 'size_only') return `MŚP ${sizeLabel}`;
   return 'Wszystkie MŚP';
+}
+
+/**
+ * Wywołuje edge function scan-domain. Frontend timeout 10s.
+ * Backend timeout 8s — frontend daje 2s buffer na cold start.
+ * @param {string} domain — already normalized (lowercase, no protocol)
+ * @returns {Promise<{ ok: true, scanned_at: string, data: object } | { ok: false, error: string }>}
+ */
+export async function scanDomain(domain) {
+  try {
+    const supabase = getSupabaseBrowser();
+    const { data, error } = await supabase.functions.invoke('scan-domain', {
+      body: { domain },
+    });
+    if (error) {
+      console.warn('[samoocena] scanDomain edge fn error:', error.message);
+      return { ok: false, error: error.message };
+    }
+    return data;
+  } catch (err) {
+    console.warn('[samoocena] scanDomain failed:', err.message);
+    return { ok: false, error: err.message || 'unknown' };
+  }
 }

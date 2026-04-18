@@ -2,7 +2,7 @@ const STORAGE_KEY = 'samoocena_state_v1';
 
 const INITIAL_STATE = {
   step: 'landing',
-  profile: { industry: '', size: '' },
+  profile: { industry: '', size: '', companyDomain: null, dnsScanOptOut: false },
   responses: {},
   currentQuestionIndex: 0,
   startedAt: null,
@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   assessmentId: null,
   awarenessAnswers: {},
   currentAwarenessIndex: 0,
+  dnsScan: null,
 };
 
 let state = loadState();
@@ -59,6 +60,10 @@ export function setStep(step) {
 
 export function setProfile(profile) {
   setState({ profile: { ...state.profile, ...profile } });
+}
+
+export function setDnsScan(dnsScan) {
+  setState({ dnsScan });
 }
 
 export function saveResponse(questionId, optionIndex) {

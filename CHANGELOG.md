@@ -4,6 +4,31 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5623] — 2026-04-18
+
+A7 Phase 2 — frontend ekran profile-domain + state + spinner.
+
+- Nowy step `profile-domain` po profilingu (industry+size)
+- 2 explicit CTA: "Skanuj i dalej" (z domeną) lub "Rezygnuję z tej części audytu"
+- Live inline validation (regex) z zielonym ✓ / czerwonym ✗
+- Spinner overlay z 3 sequencyjnie podświetlanymi krokami (~5s)
+- API wrapper `scanDomain()` w `api.js` — wywołuje edge function `scan-domain`
+- State extension: `profile.companyDomain`, `profile.dnsScanOptOut`, `dnsScan`
+- `submitAssessment` rozszerzony o nowe pola w payloadzie
+
+CORS fix dla edge function: dodany `x-application` header do
+`Access-Control-Allow-Headers` (supabase-browser.js dodaje custom header).
+
+Pre-existing bug fix: `handleSubmit` dla profiling form (Enter key path)
+też kieruje na `profile-domain` zamiast pomijać krok.
+
+Raport jeszcze nie zmieniony (sekcja DNS w Phase 3) — dane są zapisywane
+do DB ale nie renderowane.
+
+Bump: micro +0.001.
+
+---
+
 ## [0.5613] — 2026-04-18
 
 A7 Phase 1 — DNS scan backend infrastructure.
