@@ -150,3 +150,9 @@ public/security/blog/feed.xml
 
 # Note: public/generated/security/blog/*.jpg (AI-generated covers) ARE commited —
 # deployment-ready per główne CLAUDE.md convention.
+
+# Internal research artifacts — wrażliwe (twarze osób z meetingów Teams),
+# OCR pipeline outputs. Tylko zagregowane MD-ki idą do repo.
+docs/oferta/*.png
+docs/wymogi/*.png
+docs/**/.mineru/
