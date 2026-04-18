@@ -376,7 +376,7 @@ DNS, gdy jest, zawsze przed Awareness (oba są optional enrichments po Findings)
 
 Niniejszy obszar (publiczna ekspozycja DNS:
 subdomeny, email security SPF/DMARC) nie został
-audytowany — uczestnik samodzielnie zrezygnował
+audytowany — uczestnik zrezygnował
 z tej części audytu na etapie profilowania.
 
 ┌──────────────────┬──────────────────┐
@@ -386,10 +386,6 @@ z tej części audytu na etapie profilowania.
 │ Mail provider    │ —                │
 └──────────────────┴──────────────────┘
 
-Audyt można uruchomić samodzielnie w ~30s:
-• securityheaders.com — security headers
-• mxtoolbox.com — DNS records, MX, SPF/DMARC
-• dnsdumpster.com — subdomain enumeration
 ```
 
 ### Wariant B — Scan success (full)
@@ -466,14 +462,7 @@ function categorize(hostname: string): 'mail' | 'web' | 'dev' | 'api' | 'other' 
 ⚠ SKAN NIE ZAKOŃCZONY POMYŚLNIE
 
 Próba pasywnego skanowania domeny `firma.pl` 
-nie powiodła się w momencie audytu. Możliwe 
-przyczyny: tymczasowy timeout API, rate limit,
-domena niedostępna z naszych endpointów.
-
-[empty placeholder — same jak Wariant A]
-
-Sprawdź ręcznie na: securityheaders.com / 
-mxtoolbox.com / dnsdumpster.com
+nie powiodła się w momencie audytu. 
 ```
 
 ### Update sekcji compliance map (sek 8 lub 9 po renumerowaniu)
@@ -556,7 +545,7 @@ function deriveDnsFindings(scanData: ScanData): Finding[] {
 
 ### Lokalizacja
 
-`/Users/mk/code-sandbox/aipulse-dns-demo/` (nowy folder, **poza** `toolbox-project/`)
+`toolbox-project/aipulse-dns-demo/` (sibling do `aipulse-webpage/` — w workspace, ale poza repo aipulse-webpage; nie idzie do produkcji)
 
 ### Struktura
 
@@ -664,17 +653,55 @@ Per `feedback_mcp_verify_first`:
 | **4. Manual testing + Chrome DevTools verify** | 1h | 11 scenariuszy z [Testing plan](#testing-plan), pre-prod checklist | Pass all, snapshots w sample |
 | **TOTAL** | **6h** | | v0.57x ready to ship |
 
-## Open questions to resolve in demo
+## Demo validation results (Phase 0 closure — 2026-04-18)
 
-Te punkty pozostają **otwarte** do walidacji w standalone demo. Po demo — update tej sekcji z odpowiedziami.
+Demo wykonane w `aipulse-dns-demo/` na 5 sample domenach (aipulse.pl, google.com, home.pl, pkobp.pl, onet.pl). Wszystkie open questions rozwiązane, parser działa. Zmiany do speca naniesione poniżej.
 
-1. **DNSDumpster realny endpoint:** czy `api.dnsdumpster.com/v1/...`? Czy `dnsdumpster.com/api/...`? Auth header (Bearer? X-API-Key?)
-2. **Response shape:** Czy SPF/DMARC są wyciągane jako structured fields, czy musimy parsować z plain TXT records string?
-3. **Subdomeny metadata:** Flat list czy z dodatkowymi info (last_seen, http_status, server header)?
-4. **Rate limits:** Konkretne limity per minute/day. Czy są X-RateLimit-* headers w response?
-5. **DKIM availability:** Czy DNSDumpster zwraca DKIM (zwykle nie via passive DNS bez selektora)? Jeśli nie — czy potrzebujemy drugiego API (np. dnschecker.org) czy pomijamy DKIM w v1?
-6. **NS records:** Czy zwraca? Wartość dla raportu?
-7. **HTTP/HTTPS reachability:** Czy DNSDumpster sprawdza czy subdomeny rzeczywiście odpowiadają (response status)?
+### Closed open questions
+
+| # | Pytanie | Odpowiedź |
+|---|---|---|
+| 1 | Endpoint + auth | `GET https://api.dnsdumpster.com/domain/{domain}` z `X-API-Key: <key>` header |
+| 2 | Response shape SPF/DMARC | TXT to plain array of strings — **trzeba parsować**. SPF znajdujemy po prefixie `v=spf1`. DMARC NIE w response apex — suplementujemy native `dns.resolveTxt('_dmarc.<domain>')` |
+| 3 | Subdomeny metadata | Bogaty banner dataset (server, apps, HTTPS cert, SSH banner, ASN). Per non-goals nie używamy w v1 — zostają w `raw` jsonb |
+| 4 | Rate limits | **1 req / 2 sec** (strict — 429 przy przekroczeniu). Brak X-RateLimit-* headers — odpowiedź to `{"error":"Rate limit exceeded"}` |
+| 5 | DKIM | NIE dostępne via passive DNS — pomijamy w v1 (per non-goals) |
+| 6 | NS records | Zwraca z bogatym IP+ASN+country. Pokazujemy w `parsed.ns` ale nie używamy w report v1 |
+| 7 | HTTP/HTTPS reachability | DNSDumpster zwraca http/https banners (server, status — ale nie reachability test) — w `raw`, nie używamy w v1 |
+
+### Quirki realnego API (musi być uwzględnione w impl)
+
+1. **TXT records mają literal cudzysłowy w środku stringa:** `"\"v=spf1 ... -all\""`. Stripping leading/trailing `"` wymagany przed parsowaniem. Implementacja: `cleanTxt(raw) = raw.trim().replace(/^"|"$/g, '').trim()`.
+
+2. **MX `host` field zawiera priority jako prefix:** `"10 mail.example.com"` zamiast osobnego `priority` pola. Parsing: `host.match(/^(\d+)\s+(.+)$/)`.
+
+3. **A records nie zawierają apex:** dla `aipulse.pl` API zwraca tylko `www.aipulse.pl`, nie sam `aipulse.pl`. Subdomain count = co host różny od apex.
+
+4. **Free tier hard cap = 50 records:** 4/5 testowych domen (google, home, pkobp, onet) hitnęło 50. **W raporcie wariant B**: jeśli `subdomain_count >= 50` pokazujemy "**co najmniej 50 subdomen** (wymóg Plus tier dla pełnej listy)".
+
+### Provider detection — rozszerzenia
+
+Dodano:
+- `\.home\.(net\.)?pl$` — home.pl używa MX na `home.net.pl`
+- `\.kei\.pl$`, `\.linuxpl\.com$`, `\.wp\.pl$` — popularne polskie hostingi
+- **Self-hosted detection:** jeśli wszystkie MX kończą się na queried domain → `'własny serwer (self-hosted)'`. Wykryło banki (pkobp.pl), Google własny (smtp.google.com), aipulse.pl. Wartościowsza kategoria niż `'własny lub inny'` — sygnalizuje że firma SAMA odpowiada za email security.
+
+### Wpływ na render w raporcie (warianty B)
+
+Sekcja 7.1 EMAIL SECURITY — interpretacja Mail provider rozszerzona:
+
+| Mail provider | Interpretacja w raporcie |
+|---|---|
+| Google Workspace / Microsoft 365 | "Enterprise-grade, monitorowane, regularne aktualizacje" |
+| Onet / home.pl / inny known | "Polski hosting — sprawdź jakie SLA na incident response oferują" |
+| **własny serwer (self-hosted)** | "Email na własnej infrastrukturze — pełna kontrola, ale pełna odpowiedzialność za bezpieczeństwo (patche, monitoring, anti-spam)" |
+| inny dostawca (nieznany) | "Nieznany dostawca — sprawdź standardy SOC2/ISO27001" |
+| brak (no MX) | "Brak konfiguracji email — domena nie odbiera maili" |
+
+### Deferred do v2
+
+- **Plus tier upgrade:** $9/mies, daje 200 records + pagination + domain map. Dla MŚP target (10-50 osób) zwykle <50 subdomen wystarcza, ale dla większych klientów warto rozważyć. **NIE w v1.**
+- **Dynamic finding "self-hosted email bez DMARC enforcement":** kombinacja `mail_provider === 'własny serwer (self-hosted)' && !summary.dmarc_enforcing` → HIGH severity. Wartościowy, ALE łatwo dodać po v1 (deferred dla minimalnego scope).
 
 ## Files affected
 
@@ -684,7 +711,7 @@ Te punkty pozostają **otwarte** do walidacji w standalone demo. Po demo — upd
 - `aipulse-webpage/supabase/functions/scan-domain/parse.ts` — parsing logic (port z demo)
 - `aipulse-webpage/supabase/functions/scan-domain/providers.ts` — MX → provider lookup
 - `aipulse-webpage/supabase/migrations/20260418000000_dns_scan.sql` — schema extension
-- `aipulse-dns-demo/` — standalone demo folder (poza repo)
+- `toolbox-project/aipulse-dns-demo/` — standalone demo folder (sibling, poza aipulse-webpage repo)
 
 ### Modified files
 
@@ -708,5 +735,5 @@ Te punkty pozostają **otwarte** do walidacji w standalone demo. Po demo — upd
 ## Approval log
 
 - 2026-04-18 — initial spec, brainstorming approved
-- (po demo) — revision speca jeśli realny output DNSDumpster odbiega od założeń
-- (po review speca) — `writing-plans` skill → implementation plan
+- 2026-04-18 — Phase 0 demo wykonane (5 sample domen), spec updated z realnymi quirkami DNSDumpster API
+- (next) — `writing-plans` skill → implementation plan
