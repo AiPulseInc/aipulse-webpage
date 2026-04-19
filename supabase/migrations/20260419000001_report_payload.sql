@@ -17,3 +17,8 @@ create policy assessments_anon_select_by_id on public.assessments
   using (true);
 -- Uwaga: to eksponuje dane każdej assessment po znajomości UUID. UUID v4 ma 122 bits entropy → brute force niewykonalne.
 -- Zabezpieczenia dodatkowe: brak listowania (nie ma RLS select all), aplikacja nie expose'uje innych UUID.
+
+-- WAŻNE: Policy bez GRANT = permission denied. Supabase wymaga OBU:
+-- 1. GRANT SELECT na tabelę (uprawnienie)
+-- 2. RLS policy (filtrowanie wierszy)
+grant select on public.assessments to anon;
