@@ -1,5 +1,6 @@
 import { scoreAwareness } from '../samoocena/awareness.js';
 import { topRecommendations, allGaps } from '../samoocena/recommendations.js';
+import { getQuestions } from '../samoocena/scoring.js';
 
 // Copy z results-management.js:370 — keeps PDF template free of online-report coupling
 function getRiskStatement(maturityKey) {
@@ -132,7 +133,7 @@ export function renderRaportB(data) {
     }),
     hasDnsScan ? renderDnsExposure({ refNumber, variant: dnsVariant, scan: data.dnsScan, profile, hasAwareness }) : '',
     awareness ? renderAwarenessPage({ refNumber, awareness, hasDnsScan }) : '',
-    renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan: data.dnsScan, dnsVariant, hasDnsScan, hasAwareness }),
+    renderComplianceAndCta({ overall, maturityLabel, dnsScan: data.dnsScan, dnsVariant, hasDnsScan, hasAwareness, responses: data.responses || {} }),
     renderNextStepsContact({
       scoringResult,
       responses: data.responses || {},
@@ -672,44 +673,67 @@ function renderAwarenessPage({ refNumber, awareness, hasDnsScan }) {
   `;
 }
 
-function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dnsVariant, hasDnsScan, hasAwareness }) {
-  return `
-    <div class="page">
-      <h2>${(() => {
-        let n = 7;
-        if (hasDnsScan) n++;
-        if (hasAwareness) n++;
-        return n;
-      })()}. Mapa zgodności z regulacjami</h2>
-      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Jak Twój wynik przekłada się na konkretne wymogi NIS2, RODO oraz wymogi ubezpieczycieli cyber 2026.</p>
+// Mapowanie wymogów regulacyjnych na pytania samooceny.
+// Status wymogu = średnia pct z odpowiedzi na mapowane pytania:
+// ≥ 0.85 → Tak (status-ok); ≥ 0.5 → Częściowo (status-partial); < 0.5 → Brak (status-missing).
+// Brak odpowiedzi = score 0 (konserwatywnie).
+const COMPLIANCE_REQUIREMENTS = {
+  nis2: [
+    { label: 'Art. 21 — Środki techniczne', questions: ['C1', 'C2', 'C3', 'C4', 'B1', 'B3'] },
+    { label: 'Art. 21 — Szkolenia zarządu', questions: ['A1', 'D6', 'D7'] },
+    { label: 'Art. 21 — Łańcuch dostaw', questions: ['E3', 'E6'] },
+    { label: 'Art. 23 — Raportowanie 24h', questions: ['D1', 'D2', 'E4'] },
+    { label: 'Art. 23 — Raportowanie 72h', questions: ['D1', 'E4'] },
+  ],
+  rodo: [
+    { label: 'Art. 32 — Środki techniczne', questions: ['C1', 'B1', 'B3', 'B4', 'B5'] },
+    { label: 'Art. 33 — Powiadomienie UODO 72h', questions: ['E4', 'D1', 'D3'] },
+    { label: 'Art. 30 — Rejestr czynności', questions: ['E2'] },
+    { label: 'Art. 37 — Inspektor Ochrony Danych', questions: ['E7'] },
+    { label: 'Art. 28 — Umowy z procesorami', questions: ['E3', 'E6'] },
+  ],
+  insurance: [
+    { label: 'MFA na kluczowych systemach', questions: ['C1'] },
+    { label: 'EDR lub antywirus zarządzany', questions: ['C3'] },
+    { label: 'Tested backup', questions: ['B1', 'B2'] },
+    { label: 'User awareness training', questions: ['A1', 'A2'] },
+    { label: 'Incident Response Plan', questions: ['D1', 'D2'] },
+  ],
+};
 
-      <div class="compliance-grid">
-        <div class="compliance-card">
-          <h4>NIS2 / KSC</h4>
-          <div class="compliance-item"><span>Art. 21 — Środki techniczne</span><span class="compliance-status status-partial">Częściowo</span></div>
-          <div class="compliance-item"><span>Art. 21 — Szkolenia zarządu</span><span class="compliance-status status-missing">Brak</span></div>
-          <div class="compliance-item"><span>Art. 21 — Łańcuch dostaw</span><span class="compliance-status status-missing">Brak</span></div>
-          <div class="compliance-item"><span>Art. 23 — Raportowanie 24h</span><span class="compliance-status status-missing">Brak</span></div>
-          <div class="compliance-item"><span>Art. 23 — Raportowanie 72h</span><span class="compliance-status status-partial">Częściowo</span></div>
-        </div>
+function computeRequirementStatus(questionIds, responses) {
+  const questions = getQuestions();
+  const pcts = questionIds.map((qid) => {
+    const q = questions.find((x) => x.id === qid);
+    if (!q) return 0;
+    const maxScore = Math.max(...q.options.map((o) => o.score));
+    const resp = responses[qid];
+    const actual = resp !== undefined && resp !== null
+      ? q.options[resp]?.score ?? 0
+      : 0;
+    return maxScore > 0 ? actual / maxScore : 0;
+  });
+  const avg = pcts.length ? pcts.reduce((a, b) => a + b, 0) / pcts.length : 0;
+  if (avg >= 0.85) return { cssClass: 'status-ok', label: 'Tak' };
+  if (avg >= 0.5) return { cssClass: 'status-partial', label: 'Częściowo' };
+  return { cssClass: 'status-missing', label: 'Brak' };
+}
 
-        <div class="compliance-card">
-          <h4>RODO / GDPR</h4>
-          <div class="compliance-item"><span>Art. 32 — Środki techniczne</span><span class="compliance-status status-partial">Częściowo</span></div>
-          <div class="compliance-item"><span>Art. 33 — Powiadomienie UODO 72h</span><span class="compliance-status status-partial">Częściowo</span></div>
-          <div class="compliance-item"><span>Art. 30 — Rejestr czynności</span><span class="compliance-status status-ok">Tak</span></div>
-          <div class="compliance-item"><span>Art. 37 — Inspektor Ochrony Danych</span><span class="compliance-status status-ok">Tak</span></div>
-          <div class="compliance-item"><span>Art. 28 — Umowy z procesorami</span><span class="compliance-status status-ok">Tak</span></div>
-        </div>
+function renderComplianceItems(requirements, responses) {
+  return requirements
+    .map((req) => {
+      const { cssClass, label } = computeRequirementStatus(req.questions, responses);
+      return `<div class="compliance-item"><span>${escape(req.label)}</span><span class="compliance-status ${cssClass}">${label}</span></div>`;
+    })
+    .join('');
+}
 
-        <div class="compliance-card">
-          <h4>Wymogi ubezpieczycieli (2026)</h4>
-          <div class="compliance-item"><span>MFA na kluczowych systemach</span><span class="compliance-status status-partial">Częściowo</span></div>
-          <div class="compliance-item"><span>EDR lub antywirus zarządzany</span><span class="compliance-status status-ok">Tak</span></div>
-          <div class="compliance-item"><span>Tested backup</span><span class="compliance-status status-missing">Brak</span></div>
-          <div class="compliance-item"><span>User awareness training</span><span class="compliance-status status-partial">Częściowo</span></div>
-          <div class="compliance-item"><span>Incident Response Plan</span><span class="compliance-status status-missing">Brak</span></div>
-          ${(() => {
+function renderComplianceAndCta({ overall, maturityLabel, dnsScan, dnsVariant, hasDnsScan, hasAwareness, responses }) {
+  const resp = responses || {};
+  const nis2Html = renderComplianceItems(COMPLIANCE_REQUIREMENTS.nis2, resp);
+  const rodoHtml = renderComplianceItems(COMPLIANCE_REQUIREMENTS.rodo, resp);
+  const insuranceHtml = renderComplianceItems(COMPLIANCE_REQUIREMENTS.insurance, resp);
+
   let dmarcStatus, dmarcLabel;
   if (dnsVariant === 'optout' || dnsVariant === 'fail' || !hasDnsScan) {
     dmarcStatus = 'status-missing'; dmarcLabel = '—';
@@ -720,15 +744,44 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dn
   } else {
     dmarcStatus = 'status-missing'; dmarcLabel = 'Brak';
   }
-  return `<div class="compliance-item"><span>SPF + DMARC dla email security</span><span class="compliance-status ${dmarcStatus}">${dmarcLabel}</span></div>`;
-})()}
+  const dmarcItem = `<div class="compliance-item"><span>SPF + DMARC dla email security</span><span class="compliance-status ${dmarcStatus}">${dmarcLabel}</span></div>`;
+
+  // Risk/insurance summary — wyprowadzony z overall score zamiast stałego "warunkowa"
+  let insuranceReadiness;
+  if (overall >= 80) insuranceReadiness = 'Dobra — spełniasz większość wymogów minimum; spodziewaj się standardowych warunków polisy.';
+  else if (overall >= 60) insuranceReadiness = 'Warunkowa — część wymogów minimum niespełniona; spodziewaj się wyższej składki lub wykluczeń.';
+  else if (overall >= 40) insuranceReadiness = 'Słaba — braki w wymogach minimum; ubezpieczyciel prawdopodobnie zażąda remediacji przed wystawieniem polisy.';
+  else insuranceReadiness = 'Niska — brak kluczowych wymogów minimum; uzyskanie polisy bez remediacji mało prawdopodobne.';
+
+  const sectionNum = (() => { let n = 7; if (hasDnsScan) n++; if (hasAwareness) n++; return n; })();
+
+  return `
+    <div class="page">
+      <h2>${sectionNum}. Mapa zgodności z regulacjami</h2>
+      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Statusy wymogów są <strong>pochodną Twoich odpowiedzi</strong> na samoocenę (mapowanie pytań CIS/NIST na artykuły NIS2, RODO oraz wymogi ubezpieczycieli cyber 2026). Pełny audyt techniczny może ujawnić dodatkowe luki poza zakresem samooceny.</p>
+
+      <div class="compliance-grid">
+        <div class="compliance-card">
+          <h4>NIS2 / KSC</h4>
+          ${nis2Html}
+        </div>
+
+        <div class="compliance-card">
+          <h4>RODO / GDPR</h4>
+          ${rodoHtml}
+        </div>
+
+        <div class="compliance-card">
+          <h4>Wymogi ubezpieczycieli (2026)</h4>
+          ${insuranceHtml}
+          ${dmarcItem}
         </div>
 
         <div class="compliance-card">
           <h4>Ocena ogólna ryzyka</h4>
           <p style="font-size:9.5pt;"><strong>Wynik ogólny:</strong> ${overall}/100 — ${escape(maturityLabel)}</p>
-          <p style="font-size:9.5pt;"><strong>Ryzyko regulacyjne:</strong> zależne od sektora</p>
-          <p style="font-size:9.5pt;"><strong>Gotowość ubezpieczeniowa:</strong> Warunkowa — spodziewaj się wyższej składki lub wykluczeń</p>
+          <p style="font-size:9.5pt;"><strong>Ryzyko regulacyjne:</strong> zależne od sektora i klasyfikacji NIS2/KSC (podmiot kluczowy / ważny / poza scope).</p>
+          <p style="font-size:9.5pt;"><strong>Gotowość ubezpieczeniowa:</strong> ${insuranceReadiness}</p>
         </div>
       </div>
 

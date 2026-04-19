@@ -4,6 +4,33 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5685] — 2026-04-19
+
+Raport — Priority 2 fix: **sekcja 9 Mapa zgodności jest teraz dynamiczna** (pochodna odpowiedzi user'a, nie hardcoded).
+
+**Problem:** sekcja 9 miała stałe statusy ("Art. 30 Rejestr czynności → Tak", "Art. 32 Środki techniczne → Częściowo", "Tested backup → Brak") niezależnie od odpowiedzi. User z backupem 3-2-1 + testami dostawał "Brak" w Tested backup; user bez IOD dostawał "Tak" w Art. 37. Compliance map była efektywnie dekoracją.
+
+**Fix — `COMPLIANCE_REQUIREMENTS` mapping + `computeRequirementStatus()`:**
+- Mapowanie wymogów na konkretne pytania samooceny (CIS/NIST question IDs). Przykłady:
+  - NIS2 Art. 21 Środki techniczne → `C1, C2, C3, C4, B1, B3` (MFA + patch + EDR + firewall + backup + szyfrowanie)
+  - RODO Art. 30 Rejestr → `E2` (rejestr czynności)
+  - Insurance Tested backup → `B1, B2` (3-2-1 + testy odtworzenia)
+  - Insurance IRP → `D1, D2` (plan + playbook)
+- Status wymogu = średnia z pct (actualScore / maxScore) mapowanych pytań:
+  - ≥ 0.85 → Tak (status-ok)
+  - ≥ 0.5 → Częściowo (status-partial)
+  - < 0.5 → Brak (status-missing)
+- SPF/DMARC nadal dynamiczny z DNS scan summary (bez zmian)
+- Gotowość ubezpieczeniowa w sekcji "Ocena ogólna" teraz dynamiczna per overall score (4 progi zamiast stałego "Warunkowa")
+
+**EXAMPLE_DATA uzupełnione o responses:**
+- Dodane realistyczne odpowiedzi typowej MŚP (dobre A/E, słabe B/D, średnie C) — example=1 teraz pokazuje mixed statuses zamiast wszystko "Brak"
+
+**Impact:**
+- Raport spójny: Exec Summary + Findings + Compliance map wszystkie wyprowadzone z tych samych odpowiedzi
+- Mapa zgodności actionable — pokazuje konkretne luki w artykułach NIS2/RODO do zamknięcia
+- Nadal nie zastępuje pełnego audytu (disclaimer dodany w intro sekcji 9)
+
 ## [0.5675] — 2026-04-19
 
 Raport — Priority 1 fix mismatch przy wysokich wynikach: **sekcja 6 Findings jest teraz dynamiczna** (wyprowadzona z odpowiedzi user'a, nie hardcoded).
