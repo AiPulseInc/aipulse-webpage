@@ -4,6 +4,22 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5651] — 2026-04-19
+
+Fix paginacji raportu PDF + aktualizacja adresów email w raporcie.
+
+**Paginacja:**
+- `@media print` + `@page { margin: 22mm 16mm 18mm 16mm }` rezerwują miejsce na header/footer
+- Global `.print-header` + `.print-footer` (single DOM, `position: fixed`) — browser automatycznie powiela na każdej fizycznej stronie
+- `counter(page)` + `counter(pages)` — numery stron liczone przez CSS, dynamiczne
+- `@page :first { margin: 0 }` — cover pełny bleed bez header/footer
+- Usunięto per-sekcyjne `<div class="page-header">` / `<div class="page-footer">` (`position: absolute` wewnątrz `.page` — działało tylko gdy content mieścił się w 297mm, rozlanie treści pozbawiało nowe fizyczne strony stopki)
+- Usunięto ręczne kalkulacje `totalPages` + hardcoded `Strona N z M`
+
+**Email w raporcie:**
+- Footer raportu: `maciek@aipulse.pl` → `info@aipulse.pl` (było 6 miejsc — teraz jedno źródło w `.print-footer`)
+- CTA rekomendacji („NASTĘPNY KROK"): `kontakt@aipulse.pl` → `info@aipulse.pl`
+
 ## [0.565] — 2026-04-19
 
 Samoocena — email z linkiem do raportu + fix domain input UI.

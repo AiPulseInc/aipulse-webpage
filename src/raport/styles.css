@@ -1,6 +1,75 @@
-@page { size: A4; margin: 0; }
-/* margin:0 zapobiega doklejaniu nagłówków/stopek przeglądarki przy druku — własne marginesy
-   trzymamy w `.page { padding: 16mm }` żeby zachować visual breathing room */
+/* Screen preview — zostaje jak było (.page z padding, margin). */
+/* Print-specific zasady niżej w @media print — rezerwują marginesy na fixed header/footer. */
+
+/* Global fixed print header/footer — repetują się automatycznie na każdej fizycznej stronie.
+   Browser print engine: element z position: fixed i offsetami jest rysowany na każdej stronie. */
+.print-header,
+.print-footer {
+  display: none; /* ukryte na ekranie */
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 22mm 16mm 18mm 16mm;
+  }
+  @page :first {
+    margin: 0; /* cover — pełny bleed */
+  }
+
+  body { background: #fff; }
+
+  .page {
+    padding: 0;              /* margin przejmuje @page */
+    min-height: 0;
+    page-break-after: always;
+    box-shadow: none;
+    margin: 0;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .page.cover {
+    /* Cover ma @page :first margin=0. Print-footer ma bottom:-12mm więc znika
+       poza stronę. Print-header top:-16mm analogicznie. Dodatkowy z-index + bg
+       na wszelki wypadek (jeśli offsetting nie starcza u danego renderera). */
+    position: relative;
+    z-index: 10;
+    background: #fff;
+  }
+
+  .print-header,
+  .print-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 8pt;
+    color: #999;
+    letter-spacing: 0.1em;
+  }
+
+  .print-header {
+    top: -16mm; /* w obszarze @page margin-top (22mm) */
+    padding-bottom: 2mm;
+    border-bottom: 1px solid #EEE;
+  }
+
+  .print-footer {
+    bottom: -12mm; /* w obszarze @page margin-bottom (18mm) */
+    padding-top: 2mm;
+    border-top: 1px solid #EEE;
+  }
+
+  .print-footer .page-num::before {
+    content: "Strona " counter(page) " z " counter(pages);
+  }
+
+  /* Deprecated per-page header/footer (stare absolute) — ukryte w druku */
+  .page > .page-header,
+  .page > .page-footer { display: none !important; }
+}
 
 body {
   font-family: 'Inter', -apple-system, system-ui, sans-serif;

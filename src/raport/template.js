@@ -82,17 +82,27 @@ export function renderRaportB(data) {
     ? deriveDnsFindings(data.dnsScan)
     : [];
 
-  // Physical page count: cover (1) + TOC (2) + radar (3) + findings (4) + optional DNS + optional awareness + compliance
-  const totalPages = 5 + (hasDnsScan ? 1 : 0) + (hasAwareness ? 1 : 0);
+  // Global header/footer repetują się na każdej fizycznej stronie przez @media print
+  // (position: fixed + @page margin). Numer strony liczony przez CSS counter(page)/counter(pages).
+  const printChrome = `
+    <div class="print-header">
+      <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
+      <span>REF: ${escape(refNumber)}</span>
+    </div>
+    <div class="print-footer">
+      <span>Ai Pulse Security · info@aipulse.pl · aipulse.pl/security</span>
+      <span class="page-num"></span>
+    </div>`;
 
   return [
+    printChrome,
     renderCover({ companyName, industry, size, overall, maturityLabel, date }),
-    renderTocMethodology({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness, hasDnsScan, totalPages }),
-    renderRadarAndCategoryBreakdown({ refNumber, categoryScores: scoringResult?.categories, industry, size, totalPages }),
-    renderFindings({ refNumber, dynamicFindings: dnsFindings, totalPages }),
-    hasDnsScan ? renderDnsExposure({ refNumber, variant: dnsVariant, scan: data.dnsScan, profile, hasAwareness, totalPages }) : '',
-    awareness ? renderAwarenessPage({ refNumber, awareness, hasDnsScan, totalPages }) : '',
-    renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan: data.dnsScan, dnsVariant, hasDnsScan, hasAwareness, totalPages }),
+    renderTocMethodology({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness, hasDnsScan }),
+    renderRadarAndCategoryBreakdown({ refNumber, categoryScores: scoringResult?.categories, industry, size }),
+    renderFindings({ refNumber, dynamicFindings: dnsFindings }),
+    hasDnsScan ? renderDnsExposure({ refNumber, variant: dnsVariant, scan: data.dnsScan, profile, hasAwareness }) : '',
+    awareness ? renderAwarenessPage({ refNumber, awareness, hasDnsScan }) : '',
+    renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan: data.dnsScan, dnsVariant, hasDnsScan, hasAwareness }),
   ].join('\n');
 }
 
@@ -144,7 +154,7 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
   `;
 }
 
-function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, hasAwareness, hasDnsScan, totalPages }) {
+function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, hasAwareness, hasDnsScan }) {
   const catRows = CATEGORIES.map((cat, i) => {
     const pct = categoryScores?.[cat.id]?.percentage ?? 0;
     return `<li>5.${i + 1} ${escape(cat.name)} (${escape(cat.subtitle)}) — ${pct}/100</li>`;
@@ -178,11 +188,6 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
 
   return `
     <div class="page">
-      <div class="page-header">
-        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
-        <span>REF: ${escape(refNumber)}</span>
-      </div>
-
       <div class="letterhead">
         <div>
           <div class="brand">A<span class="dot">i</span> Pulse <span style="color:#7E22CE;">Security</span></div>
@@ -222,16 +227,11 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
         <tr><td>Porównywalność</td><td>Benchmarki pochodzą z anonimowej bazy odpowiedzi (n=${BENCHMARK.sampleSize}, wersja wstępna)</td></tr>
       </table>
       <p style="margin-top:3mm; font-style:italic; color:#666; font-size:9pt;">W celu uzyskania oceny z rygorystyczną weryfikacją techniczną, zaleca się przeprowadzenie pełnego audytu technicznego (oferta Ai Pulse Security: Audyt Basic / Standard / Premium).</p>
-
-      <div class="page-footer">
-        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
-        <span>Strona 2 z ${totalPages}</span>
-      </div>
     </div>
   `;
 }
 
-function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, size, totalPages }) {
+function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, size }) {
   const catsList = CATEGORIES.map((cat) => {
     const pct = categoryScores?.[cat.id]?.percentage ?? 0;
     const maturity = pctToMaturity(pct);
@@ -256,11 +256,6 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
 
   return `
     <div class="page">
-      <div class="page-header">
-        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
-        <span>REF: ${escape(refNumber)}</span>
-      </div>
-
       <h2>5. Wyniki szczegółowe per kategoria</h2>
 
       <div class="radar">
@@ -290,16 +285,11 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
       </div>
 
       ${categorySections}
-
-      <div class="page-footer">
-        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
-        <span>Strona 3 z ${totalPages}</span>
-      </div>
     </div>
   `;
 }
 
-function renderFindings({ refNumber, dynamicFindings = [], totalPages }) {
+function renderFindings({ refNumber, dynamicFindings = [] }) {
   // FINDINGS = hardcoded baseline (F-001..F-007 dla typowych MŚP)
   // dynamicFindings = derived from DNS scan (F-DNS-01..05)
   const allFindings = [...FINDINGS, ...dynamicFindings];
@@ -318,25 +308,15 @@ function renderFindings({ refNumber, dynamicFindings = [], totalPages }) {
 
   return `
     <div class="page">
-      <div class="page-header">
-        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
-        <span>REF: ${escape(refNumber)}</span>
-      </div>
-
       <h2>6. Lista findings (identyfikacja luk)</h2>
       <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej lista przykładowych luk posortowanych według krytyczności. W wersji beta findings hardcoded bazują na typowych problemach MŚP — dynamiczne findings (F-DNS-*) wynikają z faktycznego skanu Twojej domeny.</p>
 
       ${findingsHtml}
-
-      <div class="page-footer">
-        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
-        <span>Strona 4 z ${totalPages}</span>
-      </div>
     </div>
   `;
 }
 
-function renderAwarenessPage({ refNumber, awareness, hasDnsScan, totalPages }) {
+function renderAwarenessPage({ refNumber, awareness, hasDnsScan }) {
   const { correct, total, breakdown, level } = awareness;
   const items = breakdown
     .map((item, i) => {
@@ -375,11 +355,6 @@ function renderAwarenessPage({ refNumber, awareness, hasDnsScan, totalPages }) {
 
   return `
     <div class="page">
-      <div class="page-header">
-        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
-        <span>REF: ${escape(refNumber)}</span>
-      </div>
-
       <h2>${hasDnsScan ? 8 : 7}. Świadomość regulacyjna (compliance literacy)</h2>
 
       <p class="awareness-intro">
@@ -398,23 +373,13 @@ function renderAwarenessPage({ refNumber, awareness, hasDnsScan, totalPages }) {
       <div class="awareness-list">
         ${items}
       </div>
-
-      <div class="page-footer">
-        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
-        <span>Strona ${5 + (hasDnsScan ? 1 : 0)} z ${totalPages}</span>
-      </div>
     </div>
   `;
 }
 
-function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dnsVariant, hasDnsScan, hasAwareness, totalPages }) {
+function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dnsVariant, hasDnsScan, hasAwareness }) {
   return `
     <div class="page">
-      <div class="page-header">
-        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
-        <span>REF: ${escape(refNumber)}</span>
-      </div>
-
       <h2>${(() => {
         let n = 7;
         if (hasDnsScan) n++;
@@ -484,21 +449,11 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dn
       <div class="cta-box">
         <h4>NASTĘPNY KROK</h4>
         <p style="color:#fff; font-size:10pt;">Umów bezpłatną 30-min konsultację, podczas której przełożymy niniejszy raport na konkretny plan wdrożenia dostosowany do Twojej organizacji i budżetu.</p>
-        <p style="margin-top: 3mm;"><a href="https://aipulse.pl/security/#contact">aipulse.pl/security · kontakt@aipulse.pl</a></p>
+        <p style="margin-top: 3mm;"><a href="https://aipulse.pl/security/#contact">aipulse.pl/security · info@aipulse.pl</a></p>
       </div>
 
       <div style="margin-top:10mm; padding-top:5mm; border-top:1px solid #E5E5E5; font-size:8pt; color:#999; font-style:italic;">
         Niniejszy dokument stanowi wynik samooceny deklaratywnej i nie zastępuje pełnego audytu technicznego. Audyt pełny (np. Ai Pulse Security Audyt Rozszerzony) obejmuje testy penetracyjne, przegląd konfiguracji oraz analizę logów i może ujawnić dodatkowe luki niewidoczne w samoocenie.
-      </div>
-
-      <div class="page-footer">
-        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
-        <span>Strona ${(() => {
-          let p = 5;
-          if (hasDnsScan) p++;
-          if (hasAwareness) p++;
-          return p;
-        })()} z ${totalPages}</span>
       </div>
     </div>
   `;
@@ -562,7 +517,7 @@ function deriveDnsFindings(scanData) {
 }
 
 // A7 — sekcja "X. Twoja rzeczywista ekspozycja" w 3 wariantach.
-function renderDnsExposure({ refNumber, variant, scan, profile, hasAwareness, totalPages }) {
+function renderDnsExposure({ variant, scan, profile }) {
   // Sekcja numerowana — 7 zawsze, niezależnie od awareness
   // (awareness zawsze idzie PO niej w pipeline → patrz spec section numbering matrix)
   const sectionNum = 7;
@@ -578,18 +533,8 @@ function renderDnsExposure({ refNumber, variant, scan, profile, hasAwareness, to
 
   return `
     <div class="page">
-      <div class="page-header">
-        <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
-        <span>REF: ${escape(refNumber)}</span>
-      </div>
-
       <h2>${sectionNum}. Twoja rzeczywista ekspozycja</h2>
       ${body}
-
-      <div class="page-footer">
-        <span>Ai Pulse Security · maciek@aipulse.pl · aipulse.pl/security</span>
-        <span>Strona 5 z ${totalPages}</span>
-      </div>
     </div>
   `;
 }
