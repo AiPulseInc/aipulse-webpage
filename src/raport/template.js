@@ -1,5 +1,5 @@
 import { scoreAwareness } from '../samoocena/awareness.js';
-import { topRecommendations } from '../samoocena/recommendations.js';
+import { topRecommendations, allGaps } from '../samoocena/recommendations.js';
 
 // Copy z results-management.js:370 — keeps PDF template free of online-report coupling
 function getRiskStatement(maturityKey) {
@@ -48,50 +48,42 @@ const BENCHMARK = {
   cohortLabel: 'MŚP 11–50',
 };
 
-const FINDINGS = [
-  {
-    id: 'L-01', severity: 'crit', label: 'KRYTYCZNE',
-    title: 'Kopie zapasowe nie są testowane',
-    detail: 'Kopie zapasowe są wykonywane, ale nie przeprowadzacie regularnych prób odtworzenia danych z backupu. W praktyce oznacza to, że organizacja <strong>nie wie, czy jest w stanie odzyskać dane</strong> po incydencie. To jest najczęstsza przyczyna „udanych" ataków ransomware w sektorze MŚP.',
-    mapping: 'CIS 11.5 · NIST PR.DS-01, RC.RP-01',
-  },
-  {
-    id: 'L-02', severity: 'crit', label: 'KRYTYCZNE',
-    title: 'Brak kopii zapasowej odpornej na atak (offsite + niezmiennej)',
-    detail: 'Wszystkie kopie zapasowe są dostępne z głównej sieci firmowej. W przypadku przejęcia konta administratora lub udanego ataku ransomware <strong>atakujący może skasować lub zaszyfrować również kopie zapasowe</strong>. Zasada 3-2-1: 3 kopie, 2 różne nośniki, 1 w innej lokalizacji + tryb niezmienny (immutable).',
-    mapping: 'CIS 11.4 · NIST PR.DS-04',
-  },
-  {
-    id: 'L-03', severity: 'high', label: 'WYSOKIE',
-    title: 'Uwierzytelnianie dwuskładnikowe (MFA) tylko częściowo wdrożone',
-    detail: 'MFA działa na poczcie i VPN, ale brakuje na CRM, systemie księgowym, panelu hostingowym. Te trzy systemy są <strong>najczęstszymi wektorami ataku</strong> — szczególnie CRM i hosting (dane klientów, możliwość podmiany treści strony).',
-    mapping: 'CIS 6.5 · NIST PR.AA-03',
-  },
-  {
-    id: 'L-04', severity: 'high', label: 'WYSOKIE',
-    title: 'Brak formalnego planu reagowania na incydenty',
-    detail: 'W razie incydentu brak jasnej procedury: kto, kiedy, do kogo dzwoni. Konsekwencja: <strong>chaos decyzyjny w pierwszych 24 godzinach</strong>, które są najbardziej krytyczne dla ograniczenia szkód i spełnienia wymogu zgłoszenia naruszenia do UODO w ciągu 72h (RODO Art. 33).',
-    mapping: 'CIS 17.1 · NIST RS.RP-01 · NIS2 Art. 23',
-  },
-  {
-    id: 'L-05', severity: 'med', label: 'ŚREDNIE',
-    title: 'Brak formalnej oceny dostawców IT',
-    detail: 'Dostawcy IT i chmury są wybierani na podstawie ceny i reputacji, bez ankiet bezpieczeństwa ani weryfikacji certyfikatów. W kontekście NIS2 (łańcuch dostaw) oraz RODO (procesorzy) — <strong>istotne ryzyko regulacyjne</strong>.',
-    mapping: 'CIS 15.1 · NIST GV.SC-01 · NIS2 Art. 21',
-  },
-  {
-    id: 'L-06', severity: 'med', label: 'ŚREDNIE',
-    title: 'Aktualizacje oprogramowania bez harmonogramu',
-    detail: 'Aktualizacje systemów i aplikacji wykonywane doraźnie, bez harmonogramu. Średnie opóźnienie w nakładaniu krytycznych łatek może przekraczać 30 dni — a znane podatności są wykorzystywane przez ataki zazwyczaj w ciągu 7–14 dni od publikacji.',
-    mapping: 'CIS 7.1 · NIST PR.IP-12',
-  },
-  {
-    id: 'L-07', severity: 'low', label: 'NISKIE',
-    title: 'Brak symulacji phishingu dla pracowników',
-    detail: 'Pracownicy są szkoleni teoretycznie, ale nie są testowani (symulowany phishing co 3–6 miesięcy). Bez testów nie wiadomo, jak odporni są w praktyce — a phishing pozostaje bramą wjazdową do ~82% udanych ataków na MŚP.',
-    mapping: 'CIS 14.2 · NIST PR.AT-01',
-  },
-];
+// Sekcja 6 Findings (luki bezpieczeństwa) — derived z responses przez deriveFindingsFromResponses().
+// Maksymalnie FINDINGS_CAP najwyższych severity (reszta pokazywana jako summary line).
+const FINDINGS_CAP = 10;
+
+function findingSeverity(gap) {
+  if (gap.critical && gap.gapPoints >= 2) return { severity: 'crit', label: 'KRYTYCZNE' };
+  if (gap.critical) return { severity: 'high', label: 'WYSOKIE' };
+  if (gap.gapPoints >= 2 && gap.weight >= 2) return { severity: 'high', label: 'WYSOKIE' };
+  if (gap.gapPoints >= 2 || gap.weight >= 2) return { severity: 'med', label: 'ŚREDNIE' };
+  return { severity: 'low', label: 'NISKIE' };
+}
+
+function deriveFindingsFromResponses(responses) {
+  const gaps = allGaps(responses || {});
+  return gaps.map((gap, i) => {
+    const { severity, label } = findingSeverity(gap);
+    const idNum = String(i + 1).padStart(2, '0');
+    const userAnswerBlock = gap.userAnswerLabel
+      ? `<p><strong>Twoja odpowiedź:</strong> „<em>${escape(gap.userAnswerLabel)}</em>"</p>`
+      : `<p><strong>Twoja odpowiedź:</strong> <em>brak odpowiedzi</em></p>`;
+    const detail = `
+      <p><strong>Pytanie:</strong> ${escape(gap.questionText)}</p>
+      ${userAnswerBlock}
+      <p><strong>Ryzyko:</strong> ${escape(gap.impact)}</p>
+      <p><strong>Co zrobić:</strong> ${escape(gap.action)}</p>
+    `;
+    return {
+      id: `L-${idNum}`,
+      severity,
+      label,
+      title: gap.title,
+      detail,
+      mapping: gap.mapping || '—',
+    };
+  });
+}
 
 export function renderRaportB(data) {
   const { profile, scoringResult, date, refNumber, awarenessAnswers } = data;
@@ -134,7 +126,10 @@ export function renderRaportB(data) {
     renderMaturityLadder({ currentMaturityKey: scoringResult?.maturity?.key, overall }),
     renderMethodologyAndScope({ refNumber, date, maturityLabel }),
     renderRadarAndCategoryBreakdown({ refNumber, categoryScores: scoringResult?.categories, industry, size }),
-    renderFindings({ refNumber, dynamicFindings: dnsFindings }),
+    renderFindings({
+      responseFindings: deriveFindingsFromResponses(data.responses || {}),
+      dynamicFindings: dnsFindings,
+    }),
     hasDnsScan ? renderDnsExposure({ refNumber, variant: dnsVariant, scan: data.dnsScan, profile, hasAwareness }) : '',
     awareness ? renderAwarenessPage({ refNumber, awareness, hasDnsScan }) : '',
     renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan: data.dnsScan, dnsVariant, hasDnsScan, hasAwareness }),
@@ -558,10 +553,32 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
   `;
 }
 
-function renderFindings({ refNumber, dynamicFindings = [] }) {
-  // FINDINGS = hardcoded baseline (F-001..F-007 dla typowych MŚP)
-  // dynamicFindings = derived from DNS scan (F-DNS-01..05)
-  const allFindings = [...FINDINGS, ...dynamicFindings];
+function renderFindings({ responseFindings = [], dynamicFindings = [] }) {
+  // responseFindings = derived z odpowiedzi user'a przez deriveFindingsFromResponses (L-01..L-NN)
+  // dynamicFindings = DNS scan findings (F-DNS-01..05) — zawsze dopisane na końcu
+  const capped = responseFindings.slice(0, FINDINGS_CAP);
+  const omitted = Math.max(0, responseFindings.length - FINDINGS_CAP);
+  const allFindings = [...capped, ...dynamicFindings];
+
+  if (allFindings.length === 0) {
+    return `
+      <div class="page">
+        <h2>6. Zidentyfikowane luki bezpieczeństwa</h2>
+        <div class="finding low" style="margin-top:8mm;">
+          <div class="finding-header">
+            <span class="finding-id">—</span>
+            <span class="finding-sev">BRAK ISTOTNYCH LUK</span>
+          </div>
+          <div class="finding-title">Wszystkie kluczowe kontrole na oczekiwanym poziomie</div>
+          <div class="finding-detail">
+            <p>Na podstawie Twoich odpowiedzi nie wykryliśmy krytycznych ani wysokich luk bezpieczeństwa. Utrzymaj poziom przez <strong>kwartalne przeglądy</strong>, symulowany phishing co 3 miesiące, i coroczny pentest zewnętrzny.</p>
+            <p style="color:#666; font-size:9pt;">Uwaga: samoocena jest deklaratywna. Pełny audyt techniczny (Audyt Standard/Premium) może ujawnić luki niewidoczne w tego typu analizie — szczególnie w obszarze konfiguracji systemów i łańcucha dostaw.</p>
+          </div>
+          <div class="finding-mapping">—</div>
+        </div>
+      </div>
+    `;
+  }
 
   const findingsHtml = allFindings.map(f => `
     <div class="finding ${f.severity}">
@@ -575,12 +592,21 @@ function renderFindings({ refNumber, dynamicFindings = [] }) {
     </div>
   `).join('');
 
+  const omittedNote = omitted > 0
+    ? `<p style="margin-top:6mm; color:#666; font-size:9pt; font-style:italic;">Wykryto dodatkowo ${omitted} mniej krytycznych luk — ich pełna lista oraz szczegółowe rekomendacje dostępne w rozszerzonym audycie (Audyt Standard / Premium).</p>`
+    : '';
+
+  const introText = dynamicFindings.length > 0
+    ? 'Poniżej konkretne luki uporządkowane według krytyczności. Pozycje z prefiksem <strong>F-DNS-*</strong> wynikają z pasywnego skanu publicznych rekordów Twojej domeny; pozostałe (L-*) są wyprowadzone z Twoich odpowiedzi na samoocenę.'
+    : 'Poniżej konkretne luki uporządkowane według krytyczności — wyprowadzone z Twoich odpowiedzi na samoocenę. Każda pozycja pokazuje: udzieloną odpowiedź, ryzyko biznesowe oraz zalecane działanie.';
+
   return `
     <div class="page">
       <h2>6. Zidentyfikowane luki bezpieczeństwa</h2>
-      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej konkretne luki uporządkowane według krytyczności. Wpisy z prefiksem <strong>DNS-*</strong> wynikają z faktycznego skanu publicznych rekordów Twojej domeny; pozostałe to typowe luki w sektorze MŚP, dla których Twoje odpowiedzi wskazują ryzyko.</p>
+      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">${introText}</p>
 
       ${findingsHtml}
+      ${omittedNote}
     </div>
   `;
 }

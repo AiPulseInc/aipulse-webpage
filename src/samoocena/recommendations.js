@@ -249,16 +249,19 @@ const RECOMMENDATION_LIBRARY = {
 };
 
 export function topRecommendations(scoringResult, responses, limit = 3) {
+  return allGaps(responses).slice(0, limit);
+}
+
+export function allGaps(responses) {
   const categoriesMeta = getCategoriesMeta();
-  const gaps = getQuestions()
+  return getQuestions()
     .map((q) => buildGap(q, responses))
     .filter((g) => g.severity > 0)
-    .sort((a, b) => b.severity - a.severity);
-
-  return gaps.slice(0, limit).map((gap) => ({
-    ...gap,
-    categoryName: categoriesMeta.find((c) => c.id === gap.category)?.name || gap.category,
-  }));
+    .sort((a, b) => b.severity - a.severity)
+    .map((gap) => ({
+      ...gap,
+      categoryName: categoriesMeta.find((c) => c.id === gap.category)?.name || gap.category,
+    }));
 }
 
 function buildGap(question, responses) {
@@ -279,16 +282,25 @@ function buildGap(question, responses) {
     impact: '—',
   };
 
+  const selectedOption = response !== undefined && response !== null
+    ? question.options[response] ?? null
+    : null;
+
   return {
     questionId: question.id,
     category: question.category,
     critical: question.critical,
+    weight: question.weight,
     severity,
     gapPoints,
+    maxScore,
     title: rec.title,
     action: rec.action,
     cost: rec.cost,
     effort: rec.effort,
     impact: rec.impact,
+    questionText: question.text,
+    mapping: question.mapping,
+    userAnswerLabel: selectedOption?.label || null,
   };
 }

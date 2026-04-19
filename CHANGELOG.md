@@ -4,6 +4,34 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5675] — 2026-04-19
+
+Raport — Priority 1 fix mismatch przy wysokich wynikach: **sekcja 6 Findings jest teraz dynamiczna** (wyprowadzona z odpowiedzi user'a, nie hardcoded).
+
+**Problem:** sekcja 6 miała hardcoded 7 luk L-01..L-07 ("Kopie zapasowe nie są testowane KRYTYCZNE", "Brak MFA WYSOKIE" etc.). User z 100/100 Optimized dostawał w raporcie "KRYTYCZNE" findings mimo że Exec Summary pisał "Jesteś w czołówce MŚP" — wewnętrzna sprzeczność raportu.
+
+**Fix — `deriveFindingsFromResponses(responses)`:**
+- Korzysta z nowo wyeksportowanej `allGaps(responses)` w `recommendations.js` (topRecommendations bez limit)
+- Dla każdej luki z `severity > 0`: ID sekwencyjny L-01..L-NN, severity label wg reguł:
+  - `critical question + gapPoints ≥ 2` → KRYTYCZNE
+  - `critical + mały gap` → WYSOKIE
+  - `weight ≥ 2 + gapPoints ≥ 2` → WYSOKIE
+  - `gapPoints ≥ 2 lub weight ≥ 2` → ŚREDNIE
+  - reszta → NISKIE
+- Każdy finding pokazuje: udzieloną odpowiedź user'a, ryzyko biznesowe (impact), zalecane działanie (action) z `RECOMMENDATION_LIBRARY`
+- Cap 10 findings — reszta pokazana jako summary line "dodatkowo X mniej krytycznych luk... w rozszerzonym audycie"
+- Pusta lista (100% user) → blok "BRAK ISTOTNYCH LUK — utrzymuj poziom kwartalnymi przeglądami"
+- F-DNS-* findings nadal dopisane na końcu (DNS scan niezmiennie dynamiczny)
+
+**Enhancements w `recommendations.js`:**
+- `buildGap` zwraca dodatkowo: `questionText`, `mapping`, `userAnswerLabel`, `weight`, `maxScore`
+- Nowy export `allGaps(responses)` — te same reguły sortowania co `topRecommendations`, bez slice
+
+**Impact:**
+- Raport spójny niezależnie od wyniku — user 100% dostaje "BRAK ISTOTNYCH LUK", user 20% dostaje 10 trafnych findings
+- Każdy finding zakotwiczony w konkretnej odpowiedzi ("Na podstawie Twojej odpowiedzi: ...") — wzrost wiarygodności vs. generic luki MŚP
+- Section 9 Compliance map nadal hardcoded (Priority 2 — kolejna iteracja)
+
 ## [0.5665] — 2026-04-19
 
 Raport — poprawki po testach: rozbudowane narratywy, anti-break dla findings, większy top margin stron, split sekcji 10 na 2 strony, przywrócony dark CTA.
