@@ -127,6 +127,7 @@ export function renderRaportB(data) {
   return [
     printChrome,
     renderCover({ companyName, industry, size, overall, maturityLabel, date }),
+    renderPrzedsloweForeword(),
     renderReaderGuide(),
     renderToc({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness, hasDnsScan }),
     renderExecutiveSummary({ scoringResult, responses: data.responses || {}, overall, maturityLabel }),
@@ -142,7 +143,7 @@ export function renderRaportB(data) {
       responses: data.responses || {},
       overall,
       maturityLabel,
-      sectionNumber: 8 + (hasDnsScan ? 1 : 0) + (hasAwareness ? 1 : 0) + 1, // = 9/10/11 zależnie od config
+      sectionNumber: 7 + (hasDnsScan ? 1 : 0) + (hasAwareness ? 1 : 0) + 1, // = 8/9/10 zależnie od config
     }),
   ].join('\n');
 }
@@ -190,6 +191,49 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
           <div class="sig-name">Maciej Konieczny</div>
           <div class="sig-title">Lead Security Auditor · Ai Pulse Security</div>
         </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPrzedsloweForeword() {
+  return `
+    <div class="page">
+      <p class="section-kicker">// Przedsłowie</p>
+      <h2>Czym jest ten raport</h2>
+      <p style="font-size:10.5pt; margin-bottom:3mm;">Ten raport to <strong>wstępny screening gotowości</strong> Twojej firmy w obszarze cyberbezpieczeństwa — punkt startowy do rozmowy wewnątrz firmy, z ekspertem, brokerem cyber lub audytorem zewnętrznym.</p>
+      <p style="font-size:10.5pt; margin-bottom:5mm;">Jest efektem <strong>samooceny deklaratywnej</strong> — opartej na Twoich odpowiedziach w 35 pytaniach obejmujących 5 obszarów kontroli bezpieczeństwa. Wynik to orientacja, nie certyfikat.</p>
+
+      <div class="foreword-box foreword-positive">
+        <h3>W raporcie znajdziesz</h3>
+        <ul>
+          <li>Diagnozę 5 obszarów: <strong>Ludzie, Dane, Infrastruktura, Procesy, Compliance</strong></li>
+          <li>Porównanie Twojego wyniku z benchmarkiem innych MŚP (próba wstępna)</li>
+          <li>Konkretną listę zidentyfikowanych luk z mapowaniem na <strong>CIS Controls, NIST CSF, NIS2, RODO</strong></li>
+          <li>Plan działania <strong>30 / 90 dni / dalej</strong> z oszacowaniem kosztu i wpływu każdej rekomendacji</li>
+          <li>Sekcję „Twoja rzeczywista ekspozycja" — co o Twojej firmie wie publiczny internet (DNS, email security, subdomeny)</li>
+        </ul>
+      </div>
+
+      <div class="foreword-box foreword-negative">
+        <h3>Czym raport NIE jest</h3>
+        <ul>
+          <li><strong>Nie jest pełnym audytem technicznym.</strong> Brakuje testów penetracyjnych, analizy konfiguracji systemów, przeglądu logów — to zakres Audytu Standard lub Premium (oferta na ostatniej stronie).</li>
+          <li><strong>Nie jest predykcją decyzji ubezpieczyciela cyber.</strong> Broker zapyta dodatkowo o rzeczy spoza tego raportu: historię szkód i incydentów, skalę przetwarzanych danych, RTO/RPO, dostawców IT, filtry email security, profil ekspozycji biznesowej.</li>
+          <li><strong>Nie jest certyfikacją ani oficjalną oceną zgodności.</strong> NIS2 obowiązuje przede wszystkim „podmioty kluczowe i ważne" — większość MŚP (poza sektorami wrażliwymi) jest poza zakresem bezpośrednim. Presja NIS2 dochodzi pośrednio, przez łańcuch dostaw dużych klientów.</li>
+          <li><strong>Wysoki wynik nie oznacza automatycznej gotowości do polisy.</strong> Broker potrafi wywrócić rozmowę jednym brakiem (MFA na poczcie, przetestowany backup, historia incydentów).</li>
+        </ul>
+      </div>
+
+      <div class="foreword-box foreword-how-to">
+        <h3>Jak najlepiej wykorzystać ten raport</h3>
+        <ol>
+          <li><strong>Nie patrz na sam procent.</strong> Największa wartość to <strong>lista zidentyfikowanych luk</strong> + plan działania.</li>
+          <li>Priorytetowo zajmij się lukami <strong>KRYTYCZNYMI</strong> i <strong>WYSOKIMI</strong> w horyzoncie 30–90 dni.</li>
+          <li>Przed rozmową z ubezpieczycielem/brokerem przygotuj dodatkowo odpowiedzi na pytania o <strong>historię szkód (3–5 lat)</strong>, skalę danych, RTO/RPO, kluczowych dostawców IT.</li>
+          <li>Traktuj raport jako <strong>materiał do rozmowy</strong> wewnątrz firmy (IT ↔ zarząd ↔ compliance) i na zewnątrz (broker, audytor).</li>
+          <li>Wróć do raportu <strong>za 6 miesięcy</strong> — sprawdź czy luki z planu 30/90 dni zostały zamknięte.</li>
+        </ol>
       </div>
     </div>
   `;
@@ -261,7 +305,7 @@ function renderMaturityLadder({ currentMaturityKey, overall }) {
 
   return `
     <div class="page">
-      <h2>3. Model dojrzałości cyberbezpieczeństwa</h2>
+      <h2>2. Model dojrzałości cyberbezpieczeństwa</h2>
       <p style="font-size:10.5pt; margin-bottom:5mm;">Twój wynik (<strong>${overall}/100</strong>) umieszcza Cię na jednym z 4 poziomów. Oto pełna skala — wiedząc gdzie jesteś i jakie są następne stopnie, łatwiej zaplanować inwestycję w cyberbezpieczeństwo.</p>
 
       <table class="ladder">
@@ -281,34 +325,61 @@ function renderMaturityLadder({ currentMaturityKey, overall }) {
 }
 
 function renderToc({ refNumber, date, categoryScores, maturityLabel, hasAwareness, hasDnsScan }) {
+  // Orientacyjne numery stron (static base pages + offsets na opcjonalne sekcje).
+  // Base pages: 1=cover, 2=przedsłowie, 3=reader guide, 4=TOC, 5=ExecSummary, 6=Maturity,
+  // 7=Metodyka+Zakres, 8=Wyniki, 9=Findings. Dalej z offsetami.
+  let p = 10; // DNS/next content strarts here
+  const dnsPage = hasDnsScan ? p++ : null;
+  const awarenessPage = hasAwareness ? p++ : null;
+  const compliancePage = p++;
+  const nextStepsPage = p;
+
   const catRows = CATEGORIES.map((cat, i) => {
     const pct = categoryScores?.[cat.id]?.percentage ?? 0;
-    return `<li>5.${i + 1} ${escape(cat.name)} (${escape(cat.subtitle)}) — ${pct}/100</li>`;
-  }).join('');
+    return { num: `5.${i + 1}`, title: escape(cat.name), subtitle: escape(cat.subtitle), pct };
+  });
 
-  // Sekcje static: 2=Exec Summary, 3=Maturity, 4=Metodyka, 5=Zakres, 6=Wyniki, 7=Findings.
-  // Opcjonalne: 8=DNS, 9=Awareness. Ostatnie 2 przesuwają się: Compliance + Next steps.
-  let sec = 7;
-  const tocItems = [
-    `<li><span>2. Podsumowanie zarządcze</span></li>`,
-    `<li><span>3. Model dojrzałości cyberbezpieczeństwa</span></li>`,
-    `<li><span>4. Metodyka audytu</span></li>`,
-    `<li><span>5. Zakres i ograniczenia</span></li>`,
-    `<li><span>6. Wyniki szczegółowe per kategoria</span><ol>${catRows}</ol></li>`,
-    `<li><span>7. Zidentyfikowane luki bezpieczeństwa</span></li>`,
+  // Sekcje treści renumerowane 1-10 (spis treści = foreword, bez numeru)
+  let sec = 6;
+  const rows = [
+    { num: '01', title: 'Podsumowanie zarządcze', page: 5 },
+    { num: '02', title: 'Model dojrzałości cyberbezpieczeństwa', page: 6 },
+    { num: '03', title: 'Metodyka audytu', page: 7 },
+    { num: '04', title: 'Zakres i ograniczenia', page: 7 },
+    { num: '05', title: 'Wyniki szczegółowe per kategoria', page: 8, sub: catRows },
+    { num: '06', title: 'Zidentyfikowane luki bezpieczeństwa', page: 9 },
   ];
   if (hasDnsScan) {
     sec++;
-    tocItems.push(`<li><span>${sec}. Twoja rzeczywista ekspozycja (DNS)</span></li>`);
+    rows.push({ num: pad(sec), title: 'Twoja rzeczywista ekspozycja (DNS)', page: dnsPage });
   }
   if (hasAwareness) {
     sec++;
-    tocItems.push(`<li><span>${sec}. Świadomość regulacyjna</span></li>`);
+    rows.push({ num: pad(sec), title: 'Świadomość regulacyjna', page: awarenessPage });
   }
   sec++;
-  tocItems.push(`<li><span>${sec}. Mapa zgodności z regulacjami</span></li>`);
+  rows.push({ num: pad(sec), title: 'Mapa zgodności z regulacjami', page: compliancePage });
   sec++;
-  tocItems.push(`<li><span>${sec}. Następne kroki + kontakt audytora</span></li>`);
+  rows.push({ num: pad(sec), title: 'Następne kroki + kontakt audytora', page: nextStepsPage });
+
+  const tocHtml = rows.map((r) => {
+    const subRows = r.sub
+      ? r.sub.map((s) => `
+          <div class="toc-row toc-row-sub">
+            <span class="toc-num-sub">${s.num}</span>
+            <span class="toc-title-sub">${s.title} <em>(${s.subtitle})</em> — ${s.pct}/100</span>
+          </div>`).join('')
+      : '';
+    return `
+      <div class="toc-row">
+        <span class="toc-num">${r.num}</span>
+        <span class="toc-title">${r.title}</span>
+        <span class="toc-dots"></span>
+        <span class="toc-page">str. ${r.page}</span>
+      </div>
+      ${subRows}
+    `;
+  }).join('');
 
   return `
     <div class="page">
@@ -325,11 +396,15 @@ function renderToc({ refNumber, date, categoryScores, maturityLabel, hasAwarenes
         </div>
       </div>
 
-      <h2>1. Spis treści</h2>
-      <div class="toc"><ol>${tocItems.join('')}</ol></div>
+      <p class="section-kicker">// Spis treści</p>
+      <h2>Nawigacja po raporcie</h2>
+      <div class="toc-new">${tocHtml}</div>
+      <p style="margin-top:6mm; font-size:8.5pt; color:#888; font-style:italic;">Numery stron orientacyjne — mogą się nieznacznie przesunąć przy dłuższych sekcjach.</p>
     </div>
   `;
 }
+
+function pad(n) { return String(n).padStart(2, '0'); }
 
 function renderExecutiveSummary({ scoringResult, responses, overall, maturityLabel }) {
   const maturity = scoringResult?.maturity;
@@ -355,7 +430,7 @@ function renderExecutiveSummary({ scoringResult, responses, overall, maturityLab
   return `
     <div class="page">
       <p class="section-kicker">// Executive summary</p>
-      <h2>2. Podsumowanie zarządcze</h2>
+      <h2>1. Podsumowanie zarządcze</h2>
 
       ${guardrailBlock}
 
@@ -382,7 +457,7 @@ function renderExecutiveSummary({ scoringResult, responses, overall, maturityLab
 function renderMethodologyAndScope() {
   return `
     <div class="page">
-      <h2>4. Metodyka audytu</h2>
+      <h2>3. Metodyka audytu</h2>
       <div class="methodology">
         <p>Niniejszy raport jest wynikiem <strong>samooceny deklaratywnej</strong> (self-assessment) przeprowadzonej przez przedstawiciela ocenianej organizacji za pośrednictwem kwestionariusza internetowego Ai Pulse Security.</p>
         <p><strong>Ramy referencyjne:</strong></p>
@@ -395,7 +470,7 @@ function renderMethodologyAndScope() {
         <p><strong>Skala punktowa:</strong> każde pytanie 0-3 pkt; wynik kategorii = suma/max × 100; wagi 2.0 dla krytycznych kontroli (MFA, tested backup).</p>
       </div>
 
-      <h2 style="margin-top:10mm;">5. Zakres i ograniczenia</h2>
+      <h2 style="margin-top:10mm;">4. Zakres i ograniczenia</h2>
       <table class="scope">
         <tr><th style="width: 40%;">Zakres</th><th>Opis</th></tr>
         <tr><td>Typ oceny</td><td>Self-assessment deklaratywny</td></tr>
@@ -428,7 +503,7 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
   }).join('');
 
   const categorySections = catsList.map((c, i) => `
-    <h4>6.${i + 1} ${escape(c.name)} — ${c.pct}/100 (${escape(c.maturity)})</h4>
+    <h4>5.${i + 1} ${escape(c.name)} — ${c.pct}/100 (${escape(c.maturity)})</h4>
     <p style="font-size:9.5pt;">${narrativeFor(c)}</p>
   `).join('');
 
@@ -447,7 +522,7 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
 
   return `
     <div class="page">
-      <h2>6. Wyniki szczegółowe per kategoria</h2>
+      <h2>5. Wyniki szczegółowe per kategoria</h2>
 
       <div class="radar">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
@@ -501,7 +576,7 @@ function renderFindings({ refNumber, dynamicFindings = [] }) {
 
   return `
     <div class="page">
-      <h2>7. Zidentyfikowane luki bezpieczeństwa</h2>
+      <h2>6. Zidentyfikowane luki bezpieczeństwa</h2>
       <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej konkretne luki uporządkowane według krytyczności. Wpisy z prefiksem <strong>DNS-*</strong> wynikają z faktycznego skanu publicznych rekordów Twojej domeny; pozostałe to typowe luki w sektorze MŚP, dla których Twoje odpowiedzi wskazują ryzyko.</p>
 
       ${findingsHtml}
@@ -548,7 +623,7 @@ function renderAwarenessPage({ refNumber, awareness, hasDnsScan }) {
 
   return `
     <div class="page">
-      <h2>${hasDnsScan ? 9 : 8}. Świadomość regulacyjna</h2>
+      <h2>${hasDnsScan ? 8 : 7}. Świadomość regulacyjna</h2>
 
       <p class="awareness-intro">
         Przed właściwą samooceną sprawdziliśmy Twoją znajomość podstawowych przepisów — terminów zgłoszenia incydentu, punktów kontaktowych i wysokości kar. Wynik to wskaźnik <strong>literacy</strong>, nie działania: wiedza nie zastępuje wdrożonych procesów, ale pokazuje, na ile jesteś w stanie szybko reagować w razie incydentu.
@@ -574,7 +649,7 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dn
   return `
     <div class="page">
       <h2>${(() => {
-        let n = 8;
+        let n = 7;
         if (hasDnsScan) n++;
         if (hasAwareness) n++;
         return n;
@@ -785,9 +860,9 @@ function deriveDnsFindings(scanData) {
 
 // A7 — sekcja "X. Twoja rzeczywista ekspozycja" w 3 wariantach.
 function renderDnsExposure({ variant, scan, profile }) {
-  // Sekcja numerowana — 8 zawsze (po Findings=7), niezależnie od awareness.
+  // Sekcja numerowana — 7 zawsze (po Findings=6), niezależnie od awareness.
   // Kolejność w pipeline: Findings → DNS → Awareness → Compliance → Next steps
-  const sectionNum = 8;
+  const sectionNum = 7;
 
   let body = '';
   if (variant === 'optout') {

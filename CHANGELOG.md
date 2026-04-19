@@ -4,6 +4,31 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5663] — 2026-04-19
+
+Raport PDF — przedsłowie "Czym jest / czym nie jest" + renumeracja sekcji + spis treści visual upgrade.
+
+**Nowa strona 2 — Przedsłowie (`renderPrzedsloweForeword`):**
+- 3 boksy: "W raporcie znajdziesz" (positive green), "Czym raport NIE jest" (negative amber), "Jak najlepiej wykorzystać" (how-to violet)
+- Treść oparta o feedback eksperta cyber insurance (docs/feedback.txt) — ustawia oczekiwania klienta: raport to **wstępny screening gotowości**, nie audyt techniczny / nie predykcja polisy / nie certyfikacja. Wartość = lista luk + plan działania, nie procent.
+
+**Renumeracja sekcji 2-11 → 1-10:**
+- Spis treści traci numer "1." — staje się foreword (meta-opisem raportu).
+- Wszystkie sekcje treści przesuwają się o -1: Podsumowanie zarządcze = 1, Model dojrzałości = 2, Metodyka = 3, Zakres = 4, Wyniki = 5 (5.1-5.5), Findings = 6, DNS = 7, Świadomość = 8, Compliance = 9, Next Steps = 10.
+- Dynamiczne offsety przy opcjonalnych sekcjach (bez DNS + Awareness: Compliance=7, Next=8).
+
+**Spis treści — visual upgrade (`.toc-new`):**
+- Zamiast plain text listy: grid layout z kolumnami "Numer | Tytuł | Kropki | Strona"
+- Numery sekcji jako "01/02/…/10" w Space Grotesk violet bold
+- Podsekcje 5.1-5.5 jako indented rows z wynikiem per kategoria
+- Border top/bottom + subtle row separators
+- Orientacyjne numery stron (kalkulowane z `hasDnsScan` / `hasAwareness` offsets)
+- Dissclaimer u dołu: "Numery stron orientacyjne — mogą się nieznacznie przesunąć przy dłuższych sekcjach"
+
+**Files:**
+- `src/raport/template.js` — nowa `renderPrzedsloweForeword`, rewrite `renderToc` z wizualnym layoutem, `pad(n)` helper, update numerów w 7 funkcjach (`renderExecutiveSummary`, `renderMaturityLadder`, `renderMethodologyAndScope`, `renderRadarAndCategoryBreakdown`, `renderFindings`, `renderDnsExposure`, `renderAwarenessPage`, `renderComplianceAndCta`, `renderNextStepsContact`)
+- `src/raport/styles.css` — `.foreword-box`, `.foreword-positive`, `.foreword-negative`, `.foreword-how-to`; `.toc-new`, `.toc-row`, `.toc-num`, `.toc-title`, `.toc-dots`, `.toc-page`, `.toc-row-sub`
+
 ## [0.5662] — 2026-04-19
 
 Raport PDF — paginacja 3. próba: dual strategy (@page margin boxes + position:fixed fallback).

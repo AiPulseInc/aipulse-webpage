@@ -1059,6 +1059,113 @@ table.scope tr:nth-child(even) td { background: #FAFAFA; }
   letter-spacing: 0.1em;
 }
 
+/* Spis treści — visual upgrade (replaces plain text list) */
+.toc-new {
+  margin: 5mm 0;
+  border-top: 2px solid #7E22CE;
+  border-bottom: 2px solid #7E22CE;
+}
+.toc-row {
+  display: grid;
+  grid-template-columns: 14mm 1fr auto auto;
+  gap: 3mm;
+  align-items: baseline;
+  padding: 2.5mm 2mm;
+  border-bottom: 1px solid #EEE;
+  font-size: 10pt;
+}
+.toc-row:last-child { border-bottom: none; }
+.toc-num {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 11pt;
+  color: #7E22CE;
+  letter-spacing: 0.05em;
+}
+.toc-title {
+  font-family: 'Inter', sans-serif;
+  color: #111;
+}
+.toc-dots {
+  border-bottom: 1px dotted #CCC;
+  min-width: 10mm;
+  align-self: center;
+  height: 1px;
+}
+.toc-page {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 9pt;
+  color: #666;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.toc-row-sub {
+  padding: 1mm 2mm 1mm 17mm;
+  grid-template-columns: 10mm 1fr;
+  border-bottom: none;
+  font-size: 8.5pt;
+  color: #666;
+}
+.toc-num-sub {
+  font-family: 'Space Grotesk', monospace;
+  color: #999;
+  font-weight: 500;
+}
+.toc-title-sub {
+  color: #555;
+}
+.toc-title-sub em {
+  color: #888;
+  font-style: normal;
+}
+
+/* Przedsłowie — czym raport jest / nie jest / jak go wykorzystać */
+.foreword-box {
+  padding: 4mm 5mm;
+  margin: 3mm 0;
+  border-left: 4px solid #999;
+  background: #FAFAFA;
+  page-break-inside: avoid;
+}
+.foreword-box h3 {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 9pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 2mm;
+}
+.foreword-box ul,
+.foreword-box ol {
+  margin: 0;
+  padding-left: 5mm;
+  font-size: 9.5pt;
+  line-height: 1.55;
+}
+.foreword-box li {
+  margin-bottom: 1.5mm;
+}
+.foreword-positive {
+  border-left-color: #2E7D32;
+  background: #F1F8F2;
+}
+.foreword-positive h3 {
+  color: #2E7D32;
+}
+.foreword-negative {
+  border-left-color: #C77700;
+  background: #FFF8F0;
+}
+.foreword-negative h3 {
+  color: #C77700;
+}
+.foreword-how-to {
+  border-left-color: #7E22CE;
+  background: #F9F5FE;
+}
+.foreword-how-to h3 {
+  color: #7E22CE;
+}
+
 /* Reader's guide (Przewodnik po raporcie) */
 .reader-boxes {
   display: flex;
