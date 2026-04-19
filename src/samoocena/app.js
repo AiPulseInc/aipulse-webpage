@@ -31,7 +31,7 @@ import {
   renderError,
 } from './ui.js';
 import { getAwarenessQuestions } from './awareness.js';
-import { submitAssessment, fetchBenchmark, scanDomain, recordRaportRequest } from './api.js';
+import { submitAssessment, fetchBenchmark, scanDomain, sendReport } from './api.js';
 import { showConfirmModal, showInputModal, showRaportRequestModal } from './modal.js';
 
 const mainEl = document.getElementById('samoocena-main');
@@ -266,44 +266,55 @@ function handleClick(event) {
     'download-pdf': () => {
       const state = getState();
 
-      const openReport = (companyName) => {
-        if (companyName) setProfile({ companyName });
-        const freshState = getState();
-        const scoringResult = scoreAssessment(freshState.responses);
-        const payload = {
-          profile: freshState.profile,
-          responses: freshState.responses,
-          scoringResult,
-          awarenessAnswers: freshState.awarenessAnswers || {},
-          dnsScan: freshState.dnsScan || null,
-          assessmentId: freshState.assessmentId || freshState.startedAt || Date.now(),
-        };
-        try {
-          // localStorage — sessionStorage nie jest współdzielony między nowymi tabami
-          // ('target=_blank' tworzy izolowany session context w nowoczesnych browserach).
-          // raport/app.js usuwa ten klucz po odczytaniu.
-          localStorage.setItem('raportData', JSON.stringify(payload));
-        } catch (err) {
-          console.error('[samoocena] localStorage failed:', err);
-        }
-        window.open('/raport-audit/', '_blank', 'noopener');
-      };
-
       showRaportRequestModal({
         defaultCompanyName: state.profile?.companyName || '',
         defaultEmail: state.profile?.email || '',
         defaultMarketingConsent: state.profile?.marketingConsent ?? true,
         onConfirm: async ({ companyName, email, marketingConsent }) => {
-          // Save email + consent locally (in case user re-downloads in same session)
+          if (companyName) setProfile({ companyName });
           setProfile({ email, marketingConsent });
-          // Fire-and-forget UPDATE — nie blokuje otwarcia raportu, ale loguje błędy.
-          // Assessment row już został wstawiony przy go-to-results, więc UPDATE jest bezpieczny.
-          if (state.assessmentId) {
-            recordRaportRequest(state.assessmentId, { email, marketingConsent }).then((res) => {
-              if (!res.ok) console.warn('[samoocena] raport request not recorded:', res.error);
-            });
+          const freshState = getState();
+          const scoringResult = scoreAssessment(freshState.responses);
+          const payload = {
+            profile: freshState.profile,
+            responses: freshState.responses,
+            scoringResult,
+            awarenessAnswers: freshState.awarenessAnswers || {},
+            dnsScan: freshState.dnsScan || null,
+          };
+
+          // Fallback do localStorage (gdy sendReport failuje lub brak assessmentId)
+          const fallbackOpen = () => {
+            try {
+              localStorage.setItem(
+                'raportData',
+                JSON.stringify({ ...payload, assessmentId: freshState.assessmentId || Date.now() }),
+              );
+            } catch (err) {
+              console.error('[samoocena] localStorage failed:', err);
+            }
+            window.open('/raport-audit/', '_blank', 'noopener');
+          };
+
+          if (!freshState.assessmentId) {
+            console.warn('[samoocena] brak assessmentId — fallback localStorage');
+            fallbackOpen();
+            return;
           }
-          openReport(companyName);
+
+          const res = await sendReport(freshState.assessmentId, {
+            email,
+            marketingConsent,
+            payload,
+          });
+
+          if (res.ok && res.reportUrl) {
+            // Otwórz online wersję raportu (dane przyjdą z DB przez ?id=)
+            window.open(res.reportUrl, '_blank', 'noopener');
+          } else {
+            console.warn('[samoocena] sendReport failed, fallback to localStorage:', res.error);
+            fallbackOpen();
+          }
         },
       });
     },

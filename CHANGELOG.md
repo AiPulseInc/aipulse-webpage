@@ -4,6 +4,20 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.565] — 2026-04-19
+
+Samoocena — email z linkiem do raportu + fix domain input UI.
+
+**Feature: raport przez email (zastępuje client-side auto-print):**
+- Nowa migration: `assessments.report_payload` (JSONB) + `report_sent_at`. RLS policy `assessments_anon_select_by_id` — anonimowy SELECT po UUID (UUID v4 entropy wystarcza jako public secret dla raportu).
+- Edge function `send-report`: UPDATE assessment (payload + email + consent) + wysyłka emaila przez Resend z linkiem `https://aipulse.pl/raport-audit/?id={uuid}`. Email ma wersję text + HTML z violet CTA button.
+- `api.js`: nowe `sendReport(assessmentId, { email, marketingConsent, payload })` (edge fn invoke) + `fetchReportPayload(id)` (direct SELECT).
+- Samoocena `app.js`: `download-pdf` action → wysyła `sendReport` → otwiera `reportUrl` w nowym oknie. Fallback do localStorage jeśli fn fail.
+- Raport `app.js`: async `getData()` — jeśli `?id=UUID` → fetch z DB przez Supabase, fallback do localStorage. **Usunięto auto-print** — user sam klika "Zapisz jako PDF".
+
+**UI fix:**
+- `samoocena-field input[type="text"|email|tel]` dostało styl spójny z `.samoocena-field select` (min-height 48px, Inter font, border, focus outline). Bez tego input dziedziczył browser default — ciasno i generyczny font.
+
 ## [0.5648] — 2026-04-19
 
 Contact form — finalny fix: `contact_submissions` zamiast `leads` + edge fn `--no-verify-jwt`.

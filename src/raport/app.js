@@ -1,26 +1,54 @@
 import './styles.css';
 import { renderRaportB } from './template.js';
 import { EXAMPLE_DATA } from './example.js';
+import { getSupabaseBrowser } from '../lib/supabase-browser.js';
 
 const ROOT = document.getElementById('raport-main');
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function getData() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.has('example')) {
-    return EXAMPLE_DATA;
-  }
+async function fetchFromDB(id) {
   try {
-    // localStorage — sessionStorage nie jest dzielony między nowymi tabami
-    // (target=_blank w samoocena/app.js otwiera w izolowanym session context)
+    const supabase = getSupabaseBrowser();
+    const { data, error } = await supabase
+      .from('assessments')
+      .select('report_payload')
+      .eq('id', id)
+      .single();
+    if (error || !data?.report_payload) {
+      console.warn('[raport] DB fetch failed:', error?.message);
+      return null;
+    }
+    return { ...data.report_payload, assessmentId: id };
+  } catch (err) {
+    console.error('[raport] DB fetch error:', err);
+    return null;
+  }
+}
+
+function readLocalStorage() {
+  try {
     const raw = localStorage.getItem('raportData');
     if (!raw) return null;
     const data = JSON.parse(raw);
-    // Cleanup po odczycie — nie zostawiamy danych na długo w localStorage
     localStorage.removeItem('raportData');
     return data;
   } catch {
     return null;
   }
+}
+
+async function getData() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('example')) {
+    return EXAMPLE_DATA;
+  }
+  const id = params.get('id');
+  if (id && UUID_REGEX.test(id)) {
+    const dbData = await fetchFromDB(id);
+    if (dbData) return dbData;
+    // Fallback do localStorage jeśli DB fetch fail (np. pierwsze otwarcie, rekord jeszcze nie widoczny)
+  }
+  return readLocalStorage();
 }
 
 function todayFormatted() {
@@ -72,10 +100,25 @@ function renderControls(isExample) {
   });
 }
 
-function main() {
+function renderLoading() {
+  ROOT.innerHTML = `
+    <div class="page" style="padding: 40mm 20mm; text-align: center;">
+      <p style="font-size:11pt; color:#666;">Ładuję raport…</p>
+    </div>
+  `;
+}
+
+async function main() {
   if (!ROOT) return;
-  const data = getData();
-  const isExample = new URLSearchParams(window.location.search).has('example');
+
+  const params = new URLSearchParams(window.location.search);
+  const isExample = params.has('example');
+  const hasId = params.has('id');
+
+  // Loading state dla DB fetch (non-example)
+  if (hasId && !isExample) renderLoading();
+
+  const data = await getData();
 
   if (!data) {
     renderError('Otwórz raport z poziomu samooceny (po ukończeniu testu kliknij "Pobierz swój raport"), albo obejrzyj przykładowy raport.');
@@ -91,15 +134,7 @@ function main() {
 
   ROOT.innerHTML = renderRaportB(payload);
   renderControls(isExample);
-
-  // Auto-trigger print dialog po chwili (pozwoli na render fontów)
-  setTimeout(() => {
-    try {
-      window.print();
-    } catch (err) {
-      console.warn('[raport] auto-print failed:', err);
-    }
-  }, 800);
+  // Brak auto-print — user sam decyduje kiedy drukować (przycisk w kontrolkach).
 }
 
 main();

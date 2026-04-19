@@ -2351,17 +2351,31 @@
   color: #fff;
 }
 
-.samoocena-field select {
+.samoocena-field select,
+.samoocena-field input[type="text"],
+.samoocena-field input[type="email"],
+.samoocena-field input[type="tel"] {
   min-height: 48px;
   padding: 0 0.9rem;
   border: 1px solid var(--samoocena-border);
   background: var(--samoocena-card-bg);
   color: #fff;
   font: 400 1rem/1 'Inter', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.samoocena-field select {
   cursor: pointer;
 }
 
-.samoocena-field select:focus-visible {
+.samoocena-field input::placeholder {
+  color: var(--samoocena-text-muted, #888);
+  font-family: 'Inter', sans-serif;
+}
+
+.samoocena-field select:focus-visible,
+.samoocena-field input:focus-visible {
   outline: 2px solid var(--samoocena-accent);
   outline-offset: 2px;
 }

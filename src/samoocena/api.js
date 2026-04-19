@@ -162,6 +162,7 @@ export async function submitAssessment(state, scoringResult) {
 /**
  * Zapisuje email + zgodę marketingową do istniejącego assessment row (UPDATE).
  * Wywoływane przy „Pobierz raport" — leadgen capture za PDF.
+ * DEPRECATED: nowy flow używa sendReport (edge fn) który łączy save + email.
  * @param {string} assessmentId
  * @param {{ email: string, marketingConsent: boolean }} payload
  * @returns {Promise<{ ok: true } | { ok: false, error: string }>}
@@ -183,6 +184,54 @@ export async function recordRaportRequest(assessmentId, { email, marketingConsen
     return { ok: true };
   } catch (err) {
     console.error('[samoocena] recordRaportRequest failed:', err);
+    return { ok: false, error: err.message || 'unknown' };
+  }
+}
+
+/**
+ * Wywołuje edge function send-report — zapisuje payload, email, consent + wysyła email z linkiem.
+ * @param {string} assessmentId
+ * @param {{ email: string, marketingConsent: boolean, payload: object }} input
+ * @returns {Promise<{ ok: true, reportUrl: string } | { ok: false, error: string }>}
+ */
+export async function sendReport(assessmentId, { email, marketingConsent, payload }) {
+  try {
+    if (!assessmentId) return { ok: false, error: 'brak assessmentId' };
+    if (!email) return { ok: false, error: 'brak email' };
+    if (!payload) return { ok: false, error: 'brak payload' };
+
+    const supabase = getSupabaseBrowser();
+    const { data, error } = await supabase.functions.invoke('send-report', {
+      body: { assessmentId, email, marketingConsent, payload },
+    });
+    if (error) return { ok: false, error: error.message };
+    return data || { ok: false, error: 'empty_response' };
+  } catch (err) {
+    console.error('[samoocena] sendReport failed:', err);
+    return { ok: false, error: err.message || 'unknown' };
+  }
+}
+
+/**
+ * Pobiera snapshot raportu z DB po assessmentId (używane przez stronę raportu z linka w emailu).
+ * Dostęp anonimowy (polityka assessments_anon_select_by_id + UUID v4 entropy).
+ * @param {string} assessmentId
+ * @returns {Promise<{ ok: true, payload: object } | { ok: false, error: string }>}
+ */
+export async function fetchReportPayload(assessmentId) {
+  try {
+    if (!assessmentId) return { ok: false, error: 'brak assessmentId' };
+    const supabase = getSupabaseBrowser();
+    const { data, error } = await supabase
+      .from('assessments')
+      .select('report_payload')
+      .eq('id', assessmentId)
+      .single();
+    if (error) return { ok: false, error: error.message };
+    if (!data?.report_payload) return { ok: false, error: 'report_not_found' };
+    return { ok: true, payload: data.report_payload };
+  } catch (err) {
+    console.error('[samoocena] fetchReportPayload failed:', err);
     return { ok: false, error: err.message || 'unknown' };
   }
 }
