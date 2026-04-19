@@ -127,7 +127,7 @@ Deno.serve(async (req: Request) => {
   });
 
   const { data, error } = await supabase
-    .from('leads')
+    .from('contact_submissions')
     .insert({ source, name, company, email, phone, message, consent: true })
     .select('id')
     .single();

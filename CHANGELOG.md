@@ -4,6 +4,20 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5648] — 2026-04-19
+
+Contact form — finalny fix: `contact_submissions` zamiast `leads` + edge fn `--no-verify-jwt`.
+
+**Powód:**
+- Tabela `public.leads` już istniała na remote z innym schematem (assessment_id, vat_id, full_name — dla płatnych leadów samooceny). Moja migracja `20260418000003_leads.sql` nie zaaplikowała się ("relation exists"), ale nazwa kolidowała z existing usage. Rozwiązanie: nowa tabela `public.contact_submissions`.
+- Supabase gateway wymaga JWT format w Authorization header. `sb_publishable_*` nie jest JWT. Rozwiązanie: deploy z `--no-verify-jwt` — walidacja po naszej stronie (honeypot + regex + consent check) wystarczy dla public contact form.
+
+**Files:**
+- `supabase/migrations/20260418000004_contact_submissions.sql`
+- `supabase/functions/contact/index.ts` — `from('contact_submissions')`
+
+**E2E test:** POST → `{ok:true}`, DB wpis OK, email via Resend na `maciek@aipulse.pl`.
+
 ## [0.5647] — 2026-04-19
 
 Fix contact form: raw `fetch()` → `supabase.functions.invoke()`.
