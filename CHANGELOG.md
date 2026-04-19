@@ -4,6 +4,17 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5664] — 2026-04-19
+
+Fix: podwójne header/footer w PDF (Chrome renderował oba — @page margin boxes + fixed divs).
+
+v0.5662 wprowadził dual strategy (CSS Paged Media + fixed fallback) z zamysłem redundancji.
+Ale Chrome obsługuje oba mechanizmy jednocześnie → user widział podwojone napisy.
+
+Fix: ukryć fixed divs w `@media print` (`display: none !important`). @page margin boxes
+są primary (Chrome/Edge/modern Firefox wspierają). Safari/stary Firefox bez header/footer —
+dodamy JS UA-detection gdy zajdzie potrzeba.
+
 ## [0.5663] — 2026-04-19
 
 Raport PDF — przedsłowie "Czym jest / czym nie jest" + renumeracja sekcji + spis treści visual upgrade.

@@ -71,45 +71,15 @@
   }
   .page:last-child { page-break-after: auto; }
 
-  /* FALLBACK: position: fixed DIVs.
-     Dla browserów bez wsparcia @page margin boxów (Safari, starszy Firefox).
-     Jeśli @page boxes działają (Chrome) — to pokaże się obok/zamiast; akceptujemy redundancję. */
+  /* Fixed divs fallback ukryte w print — @page margin boxes (Chrome/Edge) są primary.
+     Safari/stary Firefox bez header/footer; jeśli zajdzie potrzeba, dodamy
+     JS UA-detection które włączy fallback tylko gdy margin boxes nie działają. */
   .print-header,
-  .print-footer {
-    position: fixed;
-    left: 16mm;
-    right: 16mm;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Space Grotesk', monospace;
-    font-size: 8pt;
-    color: #999;
-    letter-spacing: 0.1em;
-    background: #fff;
-    z-index: 1;
-  }
-  .print-header {
-    top: 8mm;
-    height: 8mm;
-    border-bottom: 1px solid #EEE;
-  }
-  .print-footer {
-    bottom: 4mm;
-    height: 8mm;
-    border-top: 1px solid #EEE;
-  }
+  .print-footer { display: none !important; }
 
-  /* Fallback page counter — pokazuje się w fixed footer jeśli browser wspiera counter(page).
-     Jeśli @page @bottom-right też zadziała, browser pokaże oba — akceptujemy. */
-  .print-footer .page-num::before {
-    content: "Strona " counter(page) " z " counter(pages);
-  }
-
-  /* Cover przykrywa fixed header/footer (pełny bleed) */
+  /* Cover pełny bleed przez @page cover-page { margin: 0 } */
   .page.cover {
     position: relative;
-    z-index: 10;
     background: #fff;
     height: 297mm;
     width: 210mm;
