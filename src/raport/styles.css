@@ -12,7 +12,7 @@
 
   @page content-page {
     size: A4;
-    margin: 22mm 16mm 18mm 16mm;
+    margin: 26mm 16mm 18mm 16mm;
 
     @top-left {
       content: "AI PULSE SECURITY · CYBER AUDIT REPORT";
@@ -54,7 +54,7 @@
   /* Default @page — gdy browser ignoruje named pages, stosuje defaults z margin boxami */
   @page {
     size: A4;
-    margin: 22mm 16mm 18mm 16mm;
+    margin: 26mm 16mm 18mm 16mm;
   }
 
   .page.cover { page: cover-page; }
@@ -453,6 +453,8 @@ table.scope tr:nth-child(even) td { background: #FAFAFA; }
   margin-bottom: 4mm;
   background: #FAFAFA;
   font-size: 10pt;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .finding.crit { border-color: #D32F2F; background: #FFF4F4; }
@@ -610,23 +612,42 @@ table.scope tr:nth-child(even) td { background: #FAFAFA; }
   border: none;
 }
 
-/* CTA */
-.cta-box {
-  margin-top: 8mm;
+/* CTA — ciemny przyciągający box na stronie Next Steps */
+.cta-box,
+.cta-box-dark {
+  margin-top: 6mm;
   padding: 6mm;
   background: #111;
   color: #fff;
+  page-break-inside: avoid;
 }
 
-.cta-box h4 {
+.cta-box h4,
+.cta-box-dark h4 {
   color: #F5A623;
   margin-top: 0;
+  margin-bottom: 3mm;
+  font-size: 11pt;
+  letter-spacing: 0.05em;
 }
 
-.cta-box a {
+.cta-box p,
+.cta-box-dark p {
+  color: #fff;
+  font-size: 10pt;
+  line-height: 1.5;
+  margin: 2mm 0;
+}
+
+.cta-box a,
+.cta-box-dark a {
   color: #F5A623;
   text-decoration: none;
   font-weight: 700;
+}
+
+.cta-link {
+  margin-top: 3mm !important;
 }
 
 /* AWARENESS PAGE — compliance literacy w raporcie PDF.

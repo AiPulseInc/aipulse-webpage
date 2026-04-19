@@ -4,6 +4,33 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5665] — 2026-04-19
+
+Raport — poprawki po testach: rozbudowane narratywy, anti-break dla findings, większy top margin stron, split sekcji 10 na 2 strony, przywrócony dark CTA.
+
+**Wyniki szczegółowe (sekcja 5) — narratywy 2-3 zdania:**
+- `narrativeFor()` rozszerzony per kategoria (Ludzie/Dane/Infrastruktura/Procesy/Compliance) × 3 poziomy (high/mid/low). Zamiast 1-zdaniowych opisów teraz 2-3 zdania z kontekstem biznesowym i kolejnym krokiem.
+
+**Paginacja consistency:**
+- `@page content-page { margin-top: 22mm → 26mm }` — większy consistent odstęp od header na KAŻDEJ fizycznej stronie (także dynamicznie tworzonych przez content overflow).
+- `.finding { page-break-inside: avoid; break-inside: avoid }` — pojedyncze luki nie łamią się między stronami.
+
+**H2/H3 margin-top — redukcja ~50% dla spójności:**
+- `h3 margin-top: 8mm → 4mm` w: Exec Summary ("Twoje 3 luki", "Ryzyko finansowe"), Awareness ("Wszystkie pytania"), Next Steps ("Top 5 rekomendacji"), Maturity Ladder.
+
+**Metodyka + Zakres — wizualne oddzielenie:**
+- Usunięto `h2 margin-top: 10mm` na "4. Zakres", dodano visual separator: `<div style="margin-top:14mm; padding-top:8mm; border-top: 1px solid #E5E5E5">`.
+
+**Sekcja 10 "Następne kroki" split na 2 strony:**
+- Strona 1: h2 + intro + Top 5 rekomendacji
+- Strona 2: h2 (cd.) + Roadmapa + Kontakt audytora + CTA + Oferta + disclaimer
+- Roadmapa/kontakt/oferta były wcześniej ściśnięte z rec'ami — teraz osobna fizyczna strona z przestrzenią.
+
+**Przywrócony/wzmocniony ciemny CTA box:**
+- `.cta-box-dark` class + explicit rules: `background: #111; color: #fff; h4 amber; links amber`
+- `page-break-inside: avoid` — CTA nie dzieli się między stronami
+- Podmiana `<p style="color:#fff">` → `<p>` (CSS dziedziczy color z parent) + dedicated `.cta-link` class dla linku
+
 ## [0.5664] — 2026-04-19
 
 Fix: podwójne header/footer w PDF (Chrome renderował oba — @page margin boxes + fixed divs).

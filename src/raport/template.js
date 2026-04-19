@@ -445,10 +445,10 @@ function renderExecutiveSummary({ scoringResult, responses, overall, maturityLab
         <p>${risk.businessText}</p>
       </div>
 
-      <h3 style="margin-top:8mm;">Twoje 3 największe luki</h3>
+      <h3 style="margin-top:4mm;">Twoje 3 największe luki</h3>
       ${gapsHtml}
 
-      <h3 style="margin-top:8mm;">Ryzyko finansowe (szacowane)</h3>
+      <h3 style="margin-top:4mm;">Ryzyko finansowe (szacowane)</h3>
       <p>Przeciętny incydent ransomware w MŚP w 2026 roku: <strong>45–120 tys. zł</strong> (przestój + odzyskiwanie + kary RODO + koszt reputacji). Trzy pierwsze rekomendacje z tego raportu obniżają to ryzyko o szacowane <strong>75%</strong>.</p>
     </div>
   `;
@@ -470,7 +470,8 @@ function renderMethodologyAndScope() {
         <p><strong>Skala punktowa:</strong> każde pytanie 0-3 pkt; wynik kategorii = suma/max × 100; wagi 2.0 dla krytycznych kontroli (MFA, tested backup).</p>
       </div>
 
-      <h2 style="margin-top:10mm;">4. Zakres i ograniczenia</h2>
+      <div style="margin-top:14mm; padding-top:8mm; border-top: 1px solid #E5E5E5;"></div>
+      <h2>4. Zakres i ograniczenia</h2>
       <table class="scope">
         <tr><th style="width: 40%;">Zakres</th><th>Opis</th></tr>
         <tr><td>Typ oceny</td><td>Self-assessment deklaratywny</td></tr>
@@ -637,7 +638,7 @@ function renderAwarenessPage({ refNumber, awareness, hasDnsScan }) {
         </div>
       </div>
 
-      <h3 style="margin-top: 8mm;">Wszystkie pytania z wyjaśnieniami</h3>
+      <h3 style="margin-top: 4mm;">Wszystkie pytania z wyjaśnieniami</h3>
       <div class="awareness-list">
         ${items}
       </div>
@@ -744,13 +745,17 @@ function renderNextStepsContact({ scoringResult, responses, overall, maturityLab
 
       <p style="font-size:10pt;">Twoja organizacja znajduje się na poziomie <strong>"${escape(maturityLabel)}"</strong> z wynikiem ${overall}/100. Poniżej konkretny plan działania — wywiedziony z Twoich odpowiedzi i listy findings.</p>
 
-      <h3 style="margin-top:8mm;">Top 5 rekomendacji</h3>
+      <h3 style="margin-top:4mm;">Top 5 rekomendacji</h3>
       <p style="color:#666; font-size:9.5pt; margin-bottom:4mm;">Posortowane według: największy wpływ na bezpieczeństwo / najmniejszy koszt wdrożenia.</p>
       <ol class="recs-list">
         ${recsHtml}
       </ol>
+    </div>
 
-      <h3 style="margin-top:10mm;">Roadmapa — 30 / 90 dni / dalej</h3>
+    <div class="page">
+      <h2>${sectionNumber}. Następne kroki <span style="font-size:12pt; color:#666; font-weight:400;">— cd.</span></h2>
+
+      <h3 style="margin-top:4mm;">Roadmapa — 30 / 90 dni / dalej</h3>
       <div class="roadmap">
         <div class="roadmap-phase">
           <div class="roadmap-phase-label">0–30 DNI</div>
@@ -766,7 +771,7 @@ function renderNextStepsContact({ scoringResult, responses, overall, maturityLab
         </div>
       </div>
 
-      <h3 style="margin-top:10mm;">Kontakt audytora</h3>
+      <h3 style="margin-top:6mm;">Kontakt audytora</h3>
       <div class="auditor-contact">
         <div class="auditor-main">
           <strong>Maciej Konieczny</strong> · Lead Security Auditor
@@ -779,10 +784,10 @@ function renderNextStepsContact({ scoringResult, responses, overall, maturityLab
         </div>
       </div>
 
-      <div class="cta-box" style="margin-top:8mm;">
+      <div class="cta-box cta-box-dark" style="margin-top:6mm;">
         <h4>NASTĘPNY KROK — BEZPŁATNA KONSULTACJA</h4>
-        <p style="color:#fff; font-size:10pt;">30 minut. Bez zobowiązań. Wyjdziemy z 3 najważniejszymi rekomendacjami dostosowanymi do Twojej organizacji — nawet jeśli nie kupisz audytu.</p>
-        <p style="margin-top: 3mm;"><a href="https://aipulse.pl/security/#contact">aipulse.pl/security · info@aipulse.pl</a></p>
+        <p>30 minut. Bez zobowiązań. Wyjdziemy z 3 najważniejszymi rekomendacjami dostosowanymi do Twojej organizacji — nawet jeśli nie kupisz audytu.</p>
+        <p class="cta-link"><a href="https://aipulse.pl/security/#contact">aipulse.pl/security · info@aipulse.pl</a></p>
       </div>
 
       <div class="oferta-box">
@@ -794,7 +799,7 @@ function renderNextStepsContact({ scoringResult, responses, overall, maturityLab
         </ul>
       </div>
 
-      <div style="margin-top:8mm; padding-top:4mm; border-top:1px solid #E5E5E5; font-size:8pt; color:#999; font-style:italic;">
+      <div style="margin-top:4mm; padding-top:3mm; border-top:1px solid #E5E5E5; font-size:8pt; color:#999; font-style:italic;">
         Niniejszy dokument stanowi wynik samooceny deklaratywnej i nie zastępuje pełnego audytu technicznego. Audyt pełny (Audyt Standard / Premium) obejmuje testy penetracyjne, przegląd konfiguracji oraz analizę logów i może ujawnić dodatkowe luki niewidoczne w samoocenie.
       </div>
     </div>
@@ -1142,29 +1147,29 @@ function narrativeFor(cat) {
   const lev = pctToMaturity(pct);
   const narratives = {
     Ludzie: {
-      high: 'Dobry poziom świadomości. Regularne szkolenia i jasne procedury zgłaszania incydentów.',
-      mid: 'Podstawy świadomości są, ale brakuje testów praktycznych (symulowany phishing) i formalnych procedur.',
-      low: 'Brak systematycznych szkoleń. Pracownicy to największy wektor ryzyka — bez awareness żadne narzędzie nie pomoże.',
+      high: 'Dobry poziom świadomości. Regularne szkolenia, symulowany phishing i jasne procedury zgłaszania incydentów redukują click-rate o 60-70%. Utrzymuj ten rytm: obsługa zmiany postaw wymaga powtórzeń, nie jednorazowych akcji.',
+      mid: 'Podstawy świadomości są, ale brakuje testów praktycznych. Pracownicy wiedzą, że phishing istnieje, ale nie trenują reakcji na prawdziwe scenariusze. Symulowany phishing co 3-6 miesięcy + dedykowany kanał zgłoszeń to minimum do poziomu Managed.',
+      low: 'Brak systematycznych szkoleń to największa luka — 82% udanych ataków zaczyna się od człowieka. Bez awareness żadne narzędzie techniczne nie pomoże, bo atakujący ominie je przez kliknięcie jednego pracownika. Szkolenia wdrażaj natychmiast.',
     },
     Dane: {
-      high: 'Backup 3-2-1 z testami, szyfrowanie, klasyfikacja, polityka retencji. Solidna baza.',
-      mid: 'Backup istnieje, ale nie jest testowany. Szyfrowanie częściowe. Brak formalnej polityki retencji.',
-      low: 'KRYTYCZNE — brak lub nietestowany backup. Przy ataku ransomware wysokie ryzyko utraty danych i paraliżu biznesu.',
+      high: 'Backup 3-2-1 z testami odtworzenia, szyfrowanie at-rest/in-transit, klasyfikacja informacji i polityka retencji. Solidna baza odporności na ransomware. Kolejny krok: immutable backup (tryb niezmienności) + automatyczne testy odtworzeniowe co kwartał.',
+      mid: 'Backup istnieje, ale nie jest regularnie testowany — to sytuacja ryzykowna: nie wiesz, czy zadziała, dopóki go nie potrzebujesz. Szyfrowanie częściowe (np. tylko na laptopach zarządzanych). Polityka retencji często w głowach, nie na papierze.',
+      low: 'KRYTYCZNE: brak lub nietestowany backup. Przy ataku ransomware ryzyko utraty wszystkich danych i paraliżu biznesu przez tygodnie. Większość "udanych" ataków ransomware w MŚP wygrywa nie dlatego, że atakujący byli wyrafinowani, tylko dlatego, że ofiara nie miała czystego backupu offsite.',
     },
     Infrastruktura: {
-      high: 'MFA wszędzie, EDR, patch management z raportami, Zero Trust dla remote. Higiena techniczna na poziomie.',
-      mid: 'MFA w kluczowych systemach, ale brakuje w CRM/hostingu. Patch management ad-hoc.',
-      low: 'MFA brak lub tylko w banku. EDR nie wdrożony. Duże powierzchnia ataku.',
+      high: 'MFA wszędzie, EDR z logami centralnymi, patch management z SLA i raportami, Zero Trust dla remote work. Higiena techniczna na poziomie enterprise. Utrzymanie wymaga regularnych audytów konfiguracji i testów podatności (min. raz na 6 miesięcy).',
+      mid: 'MFA w kluczowych systemach (poczta, VPN), ale brakuje w CRM, systemie księgowym, panelu hostingowym — to są właśnie wektory ataku w MŚP. Patch management wykonywany ad-hoc, bez harmonogramu, często opóźnienia przekraczają 30 dni dla krytycznych CVE.',
+      low: 'MFA brak albo wdrożone tylko w banku internetowym. Antywirus zamiast EDR (EDR widzi zachowania, AV tylko sygnatury). Duża powierzchnia ataku: każde niechronione konto + każda nieaktualizowana aplikacja to potencjalna brama wjazdowa.',
     },
     Procesy: {
-      high: 'Incident Response Plan z listą kontaktów 24/7, testy symulacyjne, centralny SIEM, kwartalne raporty zarządowe.',
-      mid: 'Ogólne wytyczne IR są, ale brak testowania. Polityki spisane, ale nie egzekwowane.',
-      low: 'Brak IR Plan, brak odpowiedzialności za cybersecurity. W razie incydentu — chaos decyzyjny.',
+      high: 'Incident Response Plan z listą kontaktów 24/7, testy symulacyjne (tabletop) co pół roku, centralny SIEM z retencją logów 12 miesięcy, kwartalne raporty bezpieczeństwa dla zarządu. Procesy dojrzałe, ale wymagają regularnego testowania — plany nietestowane zwykle nie działają w praniu.',
+      mid: 'Ogólne wytyczne IR są spisane, ale nie testowane (tabletop symulacji brak). Polityki bezpieczeństwa istnieją na papierze, ale nie są egzekwowane. W razie prawdziwego incydentu zespół improwizuje, a pierwsze 24h — najbardziej krytyczne — to chaos decyzyjny.',
+      low: 'Brak Incident Response Plan, brak jasnej odpowiedzialności za cybersecurity (często: "IT się tym zajmuje"). W razie incydentu: chaos decyzyjny, niedotrzymanie 72h notyfikacji RODO, ryzyko kary UODO + utrata zaufania klientów. Bez procesu nawet najlepsze narzędzia nie działają pod presją.',
     },
     Compliance: {
-      high: 'Rejestr RODO aktualny, IOD wyznaczony, analiza NIS2 zrobiona, supplier risk management wdrożony.',
-      mid: 'Podstawy RODO spełnione (IOD, rejestr), ale NIS2 i supplier management wymagają uzupełnienia.',
-      low: 'Luki w obszarze RODO. Brak świadomości NIS2. Ryzyko kar regulacyjnych.',
+      high: 'Rejestr czynności RODO aktualny, IOD wyznaczony i szkolony, analiza NIS2 przeprowadzona z klasyfikacją statusu (podmiot kluczowy/ważny/poza zakresem), supplier risk management wdrożony z ankietami bezpieczeństwa. Compliance operacyjne, nie tylko formalne.',
+      mid: 'Podstawy RODO spełnione (IOD wyznaczony, rejestr czynności prowadzony), ale obszary NIS2 (supply chain) i supplier management wymagają uzupełnienia. Ryzyko pojawia się gdy klient enterprise zapyta o politykę bezpieczeństwa dostawcy — często MŚP nie ma gotowej odpowiedzi.',
+      low: 'Luki w RODO (np. brak rejestru czynności, IOD nie wyznaczony, umowy z procesorami bez gwarancji). Brak świadomości NIS2 — dyrektywa dotyczy głównie podmiotów kluczowych, ale wpływa pośrednio przez łańcuch dostaw. Ryzyko kar regulacyjnych + ryzyko utraty kontraktu z większym klientem.',
     },
   };
   const lookup = narratives[name] || {};
