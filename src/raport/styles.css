@@ -1,20 +1,52 @@
-/* Screen preview — zostaje jak było (.page z padding, margin). */
-/* Print-specific zasady niżej w @media print — rezerwują marginesy na fixed header/footer. */
-
-/* Global fixed print header/footer — repetują się automatycznie na każdej fizycznej stronie.
-   Browser print engine: element z position: fixed i offsetami jest rysowany na każdej stronie. */
-.print-header,
-.print-footer {
-  display: none; /* ukryte na ekranie */
-}
+/* Screen preview — .page z padding/margin widoczne.
+   Print — CSS Paged Media: @page margin boxes renderują header/footer natywnie
+   na każdej fizycznej stronie (zamiast position:fixed które jest nieprzewidywalne). */
 
 @media print {
   @page {
     size: A4;
     margin: 22mm 16mm 18mm 16mm;
+
+    @top-left {
+      content: "AI PULSE SECURITY · CYBER AUDIT REPORT";
+      font-family: 'Space Grotesk', monospace;
+      font-size: 8pt;
+      color: #999;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #EEE;
+      padding-bottom: 2mm;
+      vertical-align: bottom;
+    }
+
+    @bottom-left {
+      content: "Ai Pulse Security · info@aipulse.pl · aipulse.pl/security";
+      font-family: 'Space Grotesk', monospace;
+      font-size: 8pt;
+      color: #999;
+      letter-spacing: 0.1em;
+      border-top: 1px solid #EEE;
+      padding-top: 2mm;
+      vertical-align: top;
+    }
+
+    @bottom-right {
+      content: "Strona " counter(page) " z " counter(pages);
+      font-family: 'Space Grotesk', monospace;
+      font-size: 8pt;
+      color: #999;
+      letter-spacing: 0.1em;
+      border-top: 1px solid #EEE;
+      padding-top: 2mm;
+      vertical-align: top;
+    }
   }
+
+  /* Cover — pełny bleed, bez header/footer */
   @page :first {
-    margin: 0; /* cover — pełny bleed */
+    margin: 0;
+    @top-left { content: none; }
+    @bottom-left { content: none; }
+    @bottom-right { content: none; }
   }
 
   body { background: #fff; }
@@ -28,48 +60,16 @@
   }
   .page:last-child { page-break-after: auto; }
 
-  .page.cover {
-    /* Cover ma @page :first margin=0. Print-footer ma bottom:-12mm więc znika
-       poza stronę. Print-header top:-16mm analogicznie. Dodatkowy z-index + bg
-       na wszelki wypadek (jeśli offsetting nie starcza u danego renderera). */
-    position: relative;
-    z-index: 10;
-    background: #fff;
-  }
-
+  /* Deprecated artifacts z wcześniejszych iteracji — w razie zapomnienia */
   .print-header,
-  .print-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Space Grotesk', monospace;
-    font-size: 8pt;
-    color: #999;
-    letter-spacing: 0.1em;
-  }
-
-  .print-header {
-    top: -16mm; /* w obszarze @page margin-top (22mm) */
-    padding-bottom: 2mm;
-    border-bottom: 1px solid #EEE;
-  }
-
-  .print-footer {
-    bottom: -12mm; /* w obszarze @page margin-bottom (18mm) */
-    padding-top: 2mm;
-    border-top: 1px solid #EEE;
-  }
-
-  .print-footer .page-num::before {
-    content: "Strona " counter(page) " z " counter(pages);
-  }
-
-  /* Deprecated per-page header/footer (stare absolute) — ukryte w druku */
+  .print-footer,
   .page > .page-header,
   .page > .page-footer { display: none !important; }
 }
+
+/* Na ekranie ukryj wszelkie print-only elementy jeśli zostały w DOM */
+.print-header,
+.print-footer { display: none; }
 
 body {
   font-family: 'Inter', -apple-system, system-ui, sans-serif;
@@ -808,5 +808,312 @@ table.scope tr:nth-child(even) td { background: #FAFAFA; }
   padding: 3mm 4mm;
   font-size: 9.5pt;
   color: #333;
+}
+
+/* Executive summary (sekcja 2) */
+.section-kicker {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 9pt;
+  letter-spacing: 0.2em;
+  color: #7E22CE;
+  text-transform: uppercase;
+  margin-bottom: 1mm;
+}
+
+.exec-guardrail {
+  border-left: 3px solid #C62828;
+  background: #FFEBEE;
+  padding: 3mm 5mm;
+  margin: 4mm 0;
+  font-size: 9.5pt;
+}
+.exec-guardrail-label {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  color: #C62828;
+  letter-spacing: 0.1em;
+  margin-bottom: 1mm;
+}
+
+.exec-highlight {
+  border-left: 4px solid #7E22CE;
+  padding: 4mm 6mm;
+  margin: 4mm 0;
+  background: #F9F5FE;
+  font-size: 11pt;
+}
+
+.exec-box {
+  background: #FAFAFA;
+  border: 1px solid #EEE;
+  padding: 4mm 5mm;
+  margin: 4mm 0;
+}
+.exec-box h3 {
+  margin-top: 0;
+  font-size: 10pt;
+  color: #7E22CE;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.exec-gaps {
+  padding-left: 6mm;
+  margin: 3mm 0;
+}
+.exec-gaps li {
+  margin-bottom: 3mm;
+  line-height: 1.5;
+}
+
+/* Benchmark comparison (enriched sekcja 5) */
+.benchmark-box {
+  background: #F9F5FE;
+  border: 1px solid #E6D4F5;
+  padding: 4mm 5mm;
+  margin: 5mm 0;
+  font-size: 10pt;
+}
+.benchmark-box h4 {
+  margin-top: 0;
+  margin-bottom: 2mm;
+  font-size: 9pt;
+  color: #7E22CE;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Sekcja 10 — Następne kroki + kontakt */
+.recs-list {
+  list-style: none;
+  counter-reset: rec;
+  padding: 0;
+  margin: 3mm 0;
+}
+.rec-item {
+  display: flex;
+  gap: 4mm;
+  margin-bottom: 5mm;
+  padding: 3mm 4mm;
+  border-left: 3px solid #7E22CE;
+  background: #FAFAFA;
+  page-break-inside: avoid;
+}
+.rec-num {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 18pt;
+  font-weight: 700;
+  color: #7E22CE;
+  min-width: 10mm;
+  line-height: 1;
+}
+.rec-body {
+  flex: 1;
+}
+.rec-body h4 {
+  margin: 0 0 1mm;
+  font-size: 11pt;
+  color: #111;
+}
+.rec-action {
+  font-size: 9.5pt;
+  color: #333;
+  margin: 1mm 0 2mm;
+}
+.rec-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4mm;
+  font-size: 8.5pt;
+  color: #555;
+  margin: 2mm 0 1mm;
+}
+.rec-critical {
+  background: #FFEBEE;
+  color: #C62828;
+  padding: 0.3mm 1.5mm;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 7.5pt;
+}
+.rec-why {
+  font-size: 8.5pt;
+  color: #666;
+  font-style: italic;
+  margin-top: 2mm;
+}
+
+.roadmap {
+  margin: 4mm 0;
+}
+.roadmap-phase {
+  display: flex;
+  gap: 4mm;
+  margin-bottom: 4mm;
+  padding: 3mm 4mm;
+  background: #F9F5FE;
+  border: 1px solid #E6D4F5;
+  page-break-inside: avoid;
+}
+.roadmap-phase-label {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  color: #7E22CE;
+  letter-spacing: 0.1em;
+  font-size: 9pt;
+  min-width: 25mm;
+}
+.roadmap-phase p {
+  font-size: 9.5pt;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.auditor-contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 6mm;
+  padding: 4mm 5mm;
+  background: #FAFAFA;
+  border: 1px solid #EEE;
+  margin: 3mm 0;
+  page-break-inside: avoid;
+}
+.auditor-main {
+  font-size: 10pt;
+}
+.auditor-channels {
+  font-size: 9.5pt;
+  text-align: right;
+}
+.auditor-channels div {
+  margin: 1mm 0;
+}
+.auditor-channels a {
+  color: #7E22CE;
+  text-decoration: none;
+}
+
+.oferta-box {
+  background: #fff;
+  border: 1px solid #E6D4F5;
+  padding: 3mm 5mm;
+  margin: 5mm 0;
+  page-break-inside: avoid;
+}
+.oferta-box h4 {
+  margin-top: 0;
+  font-size: 9pt;
+  color: #7E22CE;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Reader's guide (Przewodnik po raporcie) */
+.reader-boxes {
+  display: flex;
+  flex-direction: column;
+  gap: 4mm;
+  margin: 5mm 0;
+}
+.reader-box {
+  border-left: 4px solid #7E22CE;
+  background: #FAFAFA;
+  padding: 4mm 5mm;
+  page-break-inside: avoid;
+}
+.reader-role {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 10pt;
+  font-weight: 700;
+  color: #7E22CE;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+.reader-action {
+  font-size: 9.5pt;
+  color: #333;
+  margin: 1mm 0 2mm;
+  font-weight: 600;
+}
+.reader-box ul {
+  font-size: 9.5pt;
+  padding-left: 5mm;
+  margin: 2mm 0;
+}
+.reader-box li {
+  margin-bottom: 1.5mm;
+  line-height: 1.5;
+}
+.reader-note {
+  font-size: 8.5pt;
+  color: #666;
+  font-style: italic;
+  margin-top: 2mm;
+}
+
+/* Maturity ladder table */
+.ladder {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3mm 0;
+  font-size: 9.5pt;
+}
+.ladder th {
+  background: #F0E7F8;
+  color: #7E22CE;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 8.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 2.5mm 3mm;
+  border-bottom: 2px solid #7E22CE;
+}
+.ladder td {
+  padding: 3mm;
+  border-bottom: 1px solid #E6D4F5;
+  vertical-align: top;
+}
+.ladder-label-main {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.05em;
+}
+.ladder-label-sub {
+  font-size: 8.5pt;
+  color: #666;
+  margin-top: 0.5mm;
+}
+.ladder-range {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  color: #555;
+}
+.ladder-desc {
+  line-height: 1.5;
+  color: #333;
+}
+.ladder-current {
+  background: #F4E9FC;
+}
+.ladder-current .ladder-label-main,
+.ladder-current .ladder-range {
+  color: #5E1B9E;
+}
+.ladder-you {
+  display: inline-block;
+  background: #7E22CE;
+  color: #fff;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 8pt;
+  font-weight: 700;
+  padding: 0.5mm 2mm;
+  margin-left: 2mm;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 

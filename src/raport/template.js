@@ -1,4 +1,32 @@
 import { scoreAwareness } from '../samoocena/awareness.js';
+import { topRecommendations } from '../samoocena/recommendations.js';
+
+// Copy z results-management.js:370 — keeps PDF template free of online-report coupling
+function getRiskStatement(maturityKey) {
+  const map = {
+    initial: {
+      riskPct: '80–95%',
+      businessText:
+        'Masz pojedyncze zabezpieczenia, ale brak procesów. Jeśli dziś zdarzy się poważny incydent (ransomware, wyciek danych), Twoja firma prawdopodobnie <strong>stanie na tygodnie</strong> i będzie reagować chaotycznie bez planu.',
+    },
+    developing: {
+      riskPct: '~50%',
+      businessText:
+        'Masz narzędzia (firewall, antywirus, backup), ale nie masz procesów, które by je sprawiały naprawdę skutecznymi. Jeśli dziś zdarzy się poważny incydent, Twoja firma będzie <strong>reagować w trybie kryzysowym</strong>, a nie zgodnie z planem.',
+    },
+    managed: {
+      riskPct: '~25%',
+      businessText:
+        'Masz solidne podstawy — narzędzia i procesy. Brakuje jeszcze kilku elementów, które wypełniają wymagania ubezpieczycieli cyber i dużych klientów w łańcuchu dostaw NIS2. Warto <strong>domknąć te luki</strong>, zanim staną się blokerem kontraktu.',
+    },
+    optimized: {
+      riskPct: '<10%',
+      businessText:
+        'Jesteś w czołówce MŚP pod względem cyberbezpieczeństwa. Ryzyko poważnego incydentu jest niskie, a Ty spełniasz wymogi NIS2, RODO i większości ubezpieczycieli. Utrzymanie tego poziomu wymaga <strong>regularnych testów i aktualizacji</strong>.',
+    },
+  };
+  return map[maturityKey] || map.developing;
+}
 
 const SIZE_LABELS = {
   '1-10': '1–10 pracowników',
@@ -82,27 +110,28 @@ export function renderRaportB(data) {
     ? deriveDnsFindings(data.dnsScan)
     : [];
 
-  // Global header/footer repetują się na każdej fizycznej stronie przez @media print
-  // (position: fixed + @page margin). Numer strony liczony przez CSS counter(page)/counter(pages).
-  const printChrome = `
-    <div class="print-header">
-      <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
-      <span>REF: ${escape(refNumber)}</span>
-    </div>
-    <div class="print-footer">
-      <span>Ai Pulse Security · info@aipulse.pl · aipulse.pl/security</span>
-      <span class="page-num"></span>
-    </div>`;
+  // Header/footer renderowane przez @page margin boxes (CSS Paged Media w styles.css).
+  // Cover (@page :first) — bez marginesów, bez header/footer. Numery stron przez counter(page)/counter(pages).
 
   return [
-    printChrome,
     renderCover({ companyName, industry, size, overall, maturityLabel, date }),
-    renderTocMethodology({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness, hasDnsScan }),
+    renderReaderGuide(),
+    renderToc({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness, hasDnsScan }),
+    renderExecutiveSummary({ scoringResult, responses: data.responses || {}, overall, maturityLabel }),
+    renderMaturityLadder({ currentMaturityKey: scoringResult?.maturity?.key, overall }),
+    renderMethodologyAndScope({ refNumber, date, maturityLabel }),
     renderRadarAndCategoryBreakdown({ refNumber, categoryScores: scoringResult?.categories, industry, size }),
     renderFindings({ refNumber, dynamicFindings: dnsFindings }),
     hasDnsScan ? renderDnsExposure({ refNumber, variant: dnsVariant, scan: data.dnsScan, profile, hasAwareness }) : '',
     awareness ? renderAwarenessPage({ refNumber, awareness, hasDnsScan }) : '',
     renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan: data.dnsScan, dnsVariant, hasDnsScan, hasAwareness }),
+    renderNextStepsContact({
+      scoringResult,
+      responses: data.responses || {},
+      overall,
+      maturityLabel,
+      sectionNumber: 7 + (hasDnsScan ? 1 : 0) + (hasAwareness ? 1 : 0) + 1, // = 8/9/10 depending on config
+    }),
   ].join('\n');
 }
 
@@ -154,17 +183,103 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
   `;
 }
 
-function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, hasAwareness, hasDnsScan }) {
+function renderReaderGuide() {
+  return `
+    <div class="page">
+      <p class="section-kicker">// Foreword</p>
+      <h2>Przewodnik po raporcie</h2>
+      <p style="font-size:10.5pt; margin-bottom:6mm;">Ten raport ma ${'>'}10 sekcji i jest pisany <strong>dla 3 różnych czytelników</strong>. Poniżej krótka mapa — kto co powinien przeczytać, żeby wyciągnąć wartość w minimum czasu.</p>
+
+      <div class="reader-boxes">
+        <div class="reader-box">
+          <div class="reader-role">Jeśli jesteś WŁAŚCICIELEM / CEO</div>
+          <p class="reader-action">Przeczytaj tylko 2 strony (≈ 8 min):</p>
+          <ul>
+            <li>str. 4 — <strong>Podsumowanie zarządcze</strong> (wynik, ryzyko finansowe, top 3 luki)</li>
+            <li>ostatnia str. — <strong>Następne kroki + kontakt</strong> (konkretny plan, koszty, kontakt audytora)</li>
+          </ul>
+          <p class="reader-note">Reszta raportu dla Twojego zespołu IT / compliance.</p>
+        </div>
+
+        <div class="reader-box">
+          <div class="reader-role">Jeśli jesteś IT MANAGEREM / CISO</div>
+          <p class="reader-action">Skup się na technice (≈ 20 min):</p>
+          <ul>
+            <li>str. 7 — <strong>Wyniki szczegółowe</strong> (radar + benchmark vs MŚP)</li>
+            <li>str. 8 — <strong>Lista findings</strong> (konkretne luki z CIS / NIST mapowaniem)</li>
+            <li>str. 9 — <strong>Twoja rzeczywista ekspozycja</strong> (DNS + subdomeny + email security)</li>
+          </ul>
+          <p class="reader-note">Każde finding ma ID i mapowanie kontroli — gotowe do trackera ryzyka.</p>
+        </div>
+
+        <div class="reader-box">
+          <div class="reader-role">Jeśli jesteś COMPLIANCE / IOD</div>
+          <p class="reader-action">Regulacyjne sekcje (≈ 15 min):</p>
+          <ul>
+            <li>str. 10 — <strong>Świadomość regulacyjna</strong> (quiz RODO / NIS2 z wyjaśnieniami)</li>
+            <li>str. 11 — <strong>Mapa zgodności</strong> (status per artykuł NIS2 / RODO)</li>
+          </ul>
+          <p class="reader-note">Mapa zgodności ma format auditable — do portfolio compliance.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:6mm; font-size:9pt; color:#666; font-style:italic;">Uwaga: numery stron są orientacyjne. Jeśli raport ma opcjonalne sekcje (DNS scan, awareness quiz), numery mogą się przesuwać — użyj spisu treści (str. 3).</p>
+    </div>
+  `;
+}
+
+function renderMaturityLadder({ currentMaturityKey, overall }) {
+  const levels = [
+    { key: 'initial', label: 'INITIAL', subtitle: 'Krytyczny', range: '0–25', description: 'Brak podstawowych zabezpieczeń. Wysokie ryzyko paraliżu firmy w razie ataku. Prawdopodobieństwo spełnienia wymogów ubezpieczycieli: zero.' },
+    { key: 'developing', label: 'DEVELOPING', subtitle: 'Podstawowy', range: '26–50', description: 'Pewne narzędzia są (antywirus, backup), brak procesów. Podatność na masowe/automatyczne ataki. Ubezpieczyciele: wysoka składka lub odmowa.' },
+    { key: 'managed', label: 'MANAGED', subtitle: 'Stabilny', range: '51–75', description: 'Dobra higiena cyfrowa. Spełnia większość wymagań ubezpieczycieli cyber. Nadaje się na dostawcę podmiotu NIS2. Próg dla dużych kontraktów.' },
+    { key: 'optimized', label: 'OPTIMIZED', subtitle: 'Lider', range: '76–100', description: 'Gotowość na NIS2, proaktywne podejście do ryzyka. Niskie koszty ubezpieczenia, pełna zgodność. Wartość marketingowa (certyfikat bezpieczeństwa jako element sprzedaży).' },
+  ];
+
+  const rowsHtml = levels.map((l) => {
+    const isCurrent = l.key === currentMaturityKey;
+    return `
+      <tr class="${isCurrent ? 'ladder-current' : ''}">
+        <td class="ladder-label">
+          <div class="ladder-label-main">${l.label}</div>
+          <div class="ladder-label-sub">${l.subtitle}</div>
+        </td>
+        <td class="ladder-range">${l.range}</td>
+        <td class="ladder-desc">${l.description}${isCurrent ? ` <span class="ladder-you">← Twój poziom (${overall}/100)</span>` : ''}</td>
+      </tr>
+    `;
+  }).join('');
+
+  return `
+    <div class="page">
+      <p class="section-kicker">// Foreword</p>
+      <h2>Model dojrzałości cyberbezpieczeństwa</h2>
+      <p style="font-size:10.5pt; margin-bottom:5mm;">Twój wynik (<strong>${overall}/100</strong>) umieszcza Cię na jednym z 4 poziomów. Oto pełna skala — wiedząc gdzie jesteś i jakie są następne stopnie, łatwiej zaplanować inwestycję w cyberbezpieczeństwo.</p>
+
+      <table class="ladder">
+        <thead>
+          <tr>
+            <th style="width:22%;">Poziom</th>
+            <th style="width:12%;">Zakres pkt.</th>
+            <th>Charakterystyka</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+
+      <p style="margin-top:6mm; font-size:9.5pt; color:#555;">Każdy poziom wymaga innych inwestycji. Sekcja <strong>"Następne kroki"</strong> (ostatnia strona) pokazuje konkretnie, które luki musisz zamknąć, żeby awansować o jeden stopień.</p>
+    </div>
+  `;
+}
+
+function renderToc({ refNumber, date, categoryScores, maturityLabel, hasAwareness, hasDnsScan }) {
   const catRows = CATEGORIES.map((cat, i) => {
     const pct = categoryScores?.[cat.id]?.percentage ?? 0;
     return `<li>5.${i + 1} ${escape(cat.name)} (${escape(cat.subtitle)}) — ${pct}/100</li>`;
   }).join('');
 
-  // Per spec section numbering matrix:
-  // hasDnsScan + hasAwareness: 7=DNS, 8=Awareness, 9=Compliance, 10=Next steps
-  // hasDnsScan only:           7=DNS, 8=Compliance, 9=Next steps
-  // hasAwareness only:         7=Awareness, 8=Compliance, 9=Next steps (current)
-  // neither:                   7=Compliance, 8=Next steps
+  // Section numbering: 2 zawsze (Exec Summary), 3-4 static (Methodology+Scope), 5-6 static.
+  // Opcjonalne: 7=DNS, 8=Awareness. Ostatnie 2 przesuwają się: Compliance + Next steps.
   let sec = 6;
   const tocItems = [
     `<li><span>2. Podsumowanie zarządcze</span><span>str. 3</span></li>`,
@@ -203,8 +318,62 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
 
       <h2>1. Spis treści</h2>
       <div class="toc"><ol>${tocItems.join('')}</ol></div>
+    </div>
+  `;
+}
 
-      <h2 style="margin-top:10mm;">3. Metodyka audytu</h2>
+function renderExecutiveSummary({ scoringResult, responses, overall, maturityLabel }) {
+  const maturity = scoringResult?.maturity;
+  const risk = getRiskStatement(maturity?.key || 'developing');
+  const topGaps = topRecommendations(scoringResult, responses || {}, 3);
+
+  const guardrailBlock = scoringResult?.guardrailTriggered
+    ? `<div class="exec-guardrail">
+        <p class="exec-guardrail-label">⚠ Wynik ograniczony</p>
+        <p>Twój wynik jest ograniczony do <strong>"Developing"</strong> niezależnie od pozostałych odpowiedzi, ponieważ brak MFA oraz brak testowanego backupu to <strong>warunki minimalne</strong> w certyfikacjach CIS Controls v8 i większości polis cyber insurance.</p>
+       </div>`
+    : '';
+
+  const gapsHtml = topGaps.length
+    ? `<ol class="exec-gaps">${topGaps
+        .map(
+          (g) =>
+            `<li><strong>${escape(g.title)}</strong> — ${escape(g.action)}</li>`,
+        )
+        .join('')}</ol>`
+    : '<p><em>Brak istotnych luk — wszystkie kluczowe kontrole na poziomie oczekiwanym.</em></p>';
+
+  return `
+    <div class="page">
+      <p class="section-kicker">// Executive summary</p>
+      <h2>2. Podsumowanie zarządcze</h2>
+
+      ${guardrailBlock}
+
+      <div class="exec-highlight">
+        <p>
+          <strong>Twoja firma jest na poziomie "${escape(maturityLabel)}" (${overall}/100)</strong> — ${escape(maturity?.description || '')} Ryzyko paraliżu działalności w razie incydentu ransomware wynosi <strong>${risk.riskPct}</strong>.
+        </p>
+      </div>
+
+      <div class="exec-box">
+        <h3>Co to znaczy w praktyce biznesowej</h3>
+        <p>${risk.businessText}</p>
+      </div>
+
+      <h3 style="margin-top:8mm;">Twoje 3 największe luki</h3>
+      ${gapsHtml}
+
+      <h3 style="margin-top:8mm;">Ryzyko finansowe (szacowane)</h3>
+      <p>Przeciętny incydent ransomware w MŚP w 2026 roku: <strong>45–120 tys. zł</strong> (przestój + odzyskiwanie + kary RODO + koszt reputacji). Trzy pierwsze rekomendacje z tego raportu obniżają to ryzyko o szacowane <strong>75%</strong>.</p>
+    </div>
+  `;
+}
+
+function renderMethodologyAndScope() {
+  return `
+    <div class="page">
+      <h2>3. Metodyka audytu</h2>
       <div class="methodology">
         <p>Niniejszy raport jest wynikiem <strong>samooceny deklaratywnej</strong> (self-assessment) przeprowadzonej przez przedstawiciela ocenianej organizacji za pośrednictwem kwestionariusza internetowego Ai Pulse Security.</p>
         <p><strong>Ramy referencyjne:</strong></p>
@@ -217,7 +386,7 @@ function renderTocMethodology({ refNumber, date, categoryScores, maturityLabel, 
         <p><strong>Skala punktowa:</strong> każde pytanie 0-3 pkt; wynik kategorii = suma/max × 100; wagi 2.0 dla krytycznych kontroli (MFA, tested backup).</p>
       </div>
 
-      <h2>4. Zakres i ograniczenia</h2>
+      <h2 style="margin-top:10mm;">4. Zakres i ograniczenia</h2>
       <table class="scope">
         <tr><th style="width: 40%;">Zakres</th><th>Opis</th></tr>
         <tr><td>Typ oceny</td><td>Self-assessment deklaratywny</td></tr>
@@ -254,6 +423,19 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
     <p style="font-size:9.5pt;">${narrativeFor(c)}</p>
   `).join('');
 
+  // Benchmark comparison text (port z online renderCategoryAnalysis)
+  const above = catsList.filter((c) => c.pct > c.benchmark);
+  const below = catsList.filter((c) => c.pct < c.benchmark);
+  const aboveText = above.length
+    ? `<p><strong>Jesteś lepszy niż średnia w:</strong> ${above.map((a) => `${escape(a.name)} (+${a.pct - a.benchmark})`).join(', ')}.</p>`
+    : '';
+  const belowText = below.length
+    ? `<p><strong>Jesteś gorszy niż średnia w:</strong> ${below.map((b) => `${escape(b.name)} (${b.pct - b.benchmark})`).join(', ')}.</p>`
+    : '';
+  const benchmarkBlock = (aboveText || belowText)
+    ? `<div class="benchmark-box"><h4>Co mówi benchmark</h4>${aboveText}${belowText}</div>`
+    : '';
+
   return `
     <div class="page">
       <h2>5. Wyniki szczegółowe per kategoria</h2>
@@ -283,6 +465,8 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
         <span><span class="dot-you"></span> Twoja firma</span>
         <span><span class="dot-bench"></span> Średnia ${escape(BENCHMARK.cohortLabel)} (n=${BENCHMARK.sampleSize})</span>
       </div>
+
+      ${benchmarkBlock}
 
       ${categorySections}
     </div>
@@ -437,23 +621,97 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dn
         </div>
       </div>
 
-      <h2 style="margin-top:8mm;">Podsumowanie i rekomendacje</h2>
-      <p style="font-size:10pt;">Twoja organizacja znajduje się na poziomie "${escape(maturityLabel)}" z wynikiem ${overall}/100. Rekomendujemy <strong>priorytetowe zaadresowanie findings krytycznych</strong> (CRITICAL) w horyzoncie <strong>30 dni</strong>, a findingów High-severity w horyzoncie <strong>90 dni</strong>.</p>
-      <p style="font-size:10pt;">Po wdrożeniu rekomendacji, spodziewany poziom dojrzałości: 75+/100 ("Managed / Stabilny"), co pozwoli:</p>
-      <ul style="font-size:10pt; padding-left:5mm;">
-        <li>Kwalifikować się do standardowych stawek ubezpieczenia cyber</li>
-        <li>Spełnić wymogi NIS2 dla dostawców podmiotów kluczowych</li>
-        <li>Znacząco ograniczyć ryzyko paraliżu biznesu w razie incydentu</li>
-      </ul>
+    </div>
+  `;
+}
 
-      <div class="cta-box">
-        <h4>NASTĘPNY KROK</h4>
-        <p style="color:#fff; font-size:10pt;">Umów bezpłatną 30-min konsultację, podczas której przełożymy niniejszy raport na konkretny plan wdrożenia dostosowany do Twojej organizacji i budżetu.</p>
+// Sekcja 10 — Następne kroki + kontakt audytora. Port z online renderTopRecommendations.
+function renderNextStepsContact({ scoringResult, responses, overall, maturityLabel, sectionNumber }) {
+  const top5 = topRecommendations(scoringResult || {}, responses || {}, 5);
+
+  const recsHtml = top5.length
+    ? top5
+        .map(
+          (r, i) => `
+      <li class="rec-item">
+        <div class="rec-num">${i + 1}</div>
+        <div class="rec-body">
+          <h4>${escape(r.title)}</h4>
+          <p class="rec-action">${escape(r.action)}</p>
+          <div class="rec-meta">
+            <span><strong>Koszt:</strong> ${escape(r.cost)}</span>
+            <span><strong>Wdrożenie:</strong> ${escape(r.effort)}</span>
+            ${r.critical ? '<span class="rec-critical">CRITICAL</span>' : ''}
+          </div>
+          ${r.impact ? `<p class="rec-why">${escape(r.impact)}</p>` : ''}
+        </div>
+      </li>`,
+        )
+        .join('')
+    : '<p><em>Brak pilnych rekomendacji — utrzymuj obecny poziom przez regularne przeglądy kwartalne.</em></p>';
+
+  // Prosta derivation timeline: pierwsze 3 → 30 dni, kolejne 2 → 90 dni, reszta → 6 miesięcy/dalej.
+  const phase30 = top5.slice(0, 3).map((r) => escape(r.title)).join(', ') || '—';
+  const phase90 = top5.slice(3, 5).map((r) => escape(r.title)).join(', ') || '—';
+
+  return `
+    <div class="page">
+      <h2>${sectionNumber}. Następne kroki + kontakt audytora</h2>
+
+      <p style="font-size:10pt;">Twoja organizacja znajduje się na poziomie <strong>"${escape(maturityLabel)}"</strong> z wynikiem ${overall}/100. Poniżej konkretny plan działania — wywiedziony z Twoich odpowiedzi i listy findings.</p>
+
+      <h3 style="margin-top:8mm;">Top 5 rekomendacji</h3>
+      <p style="color:#666; font-size:9.5pt; margin-bottom:4mm;">Posortowane według: największy wpływ na bezpieczeństwo / najmniejszy koszt wdrożenia.</p>
+      <ol class="recs-list">
+        ${recsHtml}
+      </ol>
+
+      <h3 style="margin-top:10mm;">Roadmapa — 30 / 90 dni / dalej</h3>
+      <div class="roadmap">
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">0–30 DNI</div>
+          <p><strong>Quick wins z największym impactem:</strong> ${phase30}</p>
+        </div>
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">30–90 DNI</div>
+          <p><strong>Średniowymagane wdrożenia:</strong> ${phase90}</p>
+        </div>
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">90+ DNI</div>
+          <p><strong>Upgrade na CIS IG2 / Managed → Optimized:</strong> Incident Response Plan z testami symulacyjnymi, SIEM + log retention, pełen supplier risk management, BCP/DRP z RTO/RPO.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:10mm;">Kontakt audytora</h3>
+      <div class="auditor-contact">
+        <div class="auditor-main">
+          <strong>Maciej Konieczny</strong> · Lead Security Auditor
+          <div style="font-size:9.5pt; color:#666; margin-top:1mm;">Certyfikaty: CompTIA Security+, ISO 27001 Lead Implementer</div>
+        </div>
+        <div class="auditor-channels">
+          <div>📧 <a href="mailto:info@aipulse.pl">info@aipulse.pl</a></div>
+          <div>📞 <a href="tel:+48508406948">+48 508 406 948</a></div>
+          <div>🔗 <a href="https://www.linkedin.com/in/koniecznymaciej/">linkedin.com/in/koniecznymaciej</a></div>
+        </div>
+      </div>
+
+      <div class="cta-box" style="margin-top:8mm;">
+        <h4>NASTĘPNY KROK — BEZPŁATNA KONSULTACJA</h4>
+        <p style="color:#fff; font-size:10pt;">30 minut. Bez zobowiązań. Wyjdziemy z 3 najważniejszymi rekomendacjami dostosowanymi do Twojej organizacji — nawet jeśli nie kupisz audytu.</p>
         <p style="margin-top: 3mm;"><a href="https://aipulse.pl/security/#contact">aipulse.pl/security · info@aipulse.pl</a></p>
       </div>
 
-      <div style="margin-top:10mm; padding-top:5mm; border-top:1px solid #E5E5E5; font-size:8pt; color:#999; font-style:italic;">
-        Niniejszy dokument stanowi wynik samooceny deklaratywnej i nie zastępuje pełnego audytu technicznego. Audyt pełny (np. Ai Pulse Security Audyt Rozszerzony) obejmuje testy penetracyjne, przegląd konfiguracji oraz analizę logów i może ujawnić dodatkowe luki niewidoczne w samoocenie.
+      <div class="oferta-box">
+        <h4>Dalsza współpraca — oferta Ai Pulse Security</h4>
+        <ul style="font-size:9.5pt; padding-left:5mm; margin:2mm 0;">
+          <li><strong>Audyt Standard</strong> — pogłębiona weryfikacja z testami technicznymi (SPF/DMARC/DKIM, skany subdomen, konfigurację MFA, policy review). ~1 tydzień.</li>
+          <li><strong>Audyt Premium</strong> — Standard + pentest external + architecture review + wdrożenie incident response playbook. ~3 tygodnie.</li>
+          <li><strong>Cykl szkoleń Awareness</strong> — 4x30min dla zespołu + symulowany phishing co 3 miesiące.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:8mm; padding-top:4mm; border-top:1px solid #E5E5E5; font-size:8pt; color:#999; font-style:italic;">
+        Niniejszy dokument stanowi wynik samooceny deklaratywnej i nie zastępuje pełnego audytu technicznego. Audyt pełny (Audyt Standard / Premium) obejmuje testy penetracyjne, przegląd konfiguracji oraz analizę logów i może ujawnić dodatkowe luki niewidoczne w samoocenie.
       </div>
     </div>
   `;

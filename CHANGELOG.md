@@ -4,6 +4,43 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.566] — 2026-04-19
+
+Raport PDF — enrichment: 2 nowe strony foreword + port sekcji z online + nowa sekcja 10 + paginacja v2.
+
+**Paginacja v2 (Faza A):**
+- `position: fixed` header/footer (z v0.5651) nie był reliable w print → zastąpiono **CSS Paged Media margin boxes** (`@page { @top-left / @bottom-left / @bottom-right }`). Natywne wsparcie Chrome/Edge — każda fizyczna strona dostaje automatycznie header + footer + dynamiczny `counter(page)` / `counter(pages)`.
+- `@page :first { margin: 0; @top-left { content: none } }` — cover pełny bleed bez header/footer.
+- Spis treści rozdzielony od Metodyki/Zakresu (osobne `.page` divs) — page break po TOC.
+
+**Port sekcji z online → PDF (Faza B):**
+- Nowa sekcja **"2. Podsumowanie zarządcze"** — TL;DR z wynikiem + maturity, `getRiskStatement` businessText, top 3 luki (z `topRecommendations(scoringResult, responses, 3)`), ryzyko finansowe (45-120k zł). Port z `src/samoocena/results-management.js:renderExecutiveSummary`.
+- Rozszerzono sekcję 5 o blok **"Co mówi benchmark"** — "Jesteś lepszy niż średnia w: X (+15)" / "Jesteś gorszy w: Y (-20)". Port z `renderCategoryAnalysis`.
+
+**Nowa sekcja 10 "Następne kroki + kontakt audytora" (Faza C):**
+- **Top 5 rekomendacji** z cost/effort/impact (import `topRecommendations` z `src/samoocena/recommendations.js`). Każda z numerem, tytułem, actionem, metadanymi (koszt/wdrożenie/CRITICAL badge), opisem impactu.
+- **Roadmapa 30/90 dni + dalej** — derived z top 5 rec.
+- **Kontakt audytora** — Maciej Konieczny + email info@aipulse.pl + telefon + LinkedIn.
+- **Oferta dalszej współpracy** — Audyt Standard / Premium / cykl Awareness.
+- Usunięto `Podsumowanie i rekomendacje` + `NASTĘPNY KROK` CTA z `renderComplianceAndCta` (przeniesione do sekcji 10).
+
+**Nowa strona "Przewodnik po raporcie" — Reader's Guide (Faza D):**
+- Foreword page między Cover a TOC (bez numeru sekcji).
+- 3 boksy segmentacji ról: CEO/Właściciel, IT Manager/CISO, Compliance/IOD. Dla każdej: które strony przeczytać + szacowany czas.
+
+**Nowa strona "Model dojrzałości" (Faza E):**
+- Foreword page między Exec Summary a Metodyką (bez numeru sekcji).
+- Tabela 4 poziomów (Initial/Developing/Managed/Optimized) z zakresem pkt i charakterystyką.
+- Highlight Twojego poziomu (background + badge "← Twój poziom (X/100)").
+
+**Files changed:**
+- `src/raport/template.js` — nowe funkcje `renderReaderGuide`, `renderMaturityLadder`, `renderExecutiveSummary`, `renderNextStepsContact`; podzielone `renderTocMethodology` → `renderToc` + `renderMethodologyAndScope`; enrich `renderRadarAndCategoryBreakdown`; import `topRecommendations`; kopia `getRiskStatement`
+- `src/raport/styles.css` — CSS Paged Media `@page` margin boxes; nowe style dla exec summary, benchmark box, rekomendacje list, roadmap, auditor contact, oferta, reader boxes, maturity ladder
+- `package.json` + `src/version.js` — 0.5651 → 0.566
+
+**TODO (następna iteracja):**
+- Faza F: DNS topology graph SVG (wow effect, port strukturalny z DNSDumpster)
+
 ## [0.5651] — 2026-04-19
 
 Fix paginacji raportu PDF + aktualizacja adresów email w raporcie.
