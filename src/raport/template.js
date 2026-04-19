@@ -110,10 +110,22 @@ export function renderRaportB(data) {
     ? deriveDnsFindings(data.dnsScan)
     : [];
 
-  // Header/footer renderowane przez @page margin boxes (CSS Paged Media w styles.css).
-  // Cover (@page :first) — bez marginesów, bez header/footer. Numery stron przez counter(page)/counter(pages).
+  // Dual paginacja strategy:
+  // 1. Primary: @page margin boxes z CSS Paged Media (Chrome/Edge 85+)
+  // 2. Fallback: position: fixed DIVs (Safari, starszy Firefox) — display w @media print
+  // Cover pokrywa fixed elementy (position: relative; z-index:10; background).
+  const printChrome = `
+    <div class="print-header">
+      <span>AI PULSE SECURITY · CYBER AUDIT REPORT</span>
+      <span>REF: ${escape(refNumber)}</span>
+    </div>
+    <div class="print-footer">
+      <span>Ai Pulse Security · info@aipulse.pl · aipulse.pl/security</span>
+      <span class="page-num"></span>
+    </div>`;
 
   return [
+    printChrome,
     renderCover({ companyName, industry, size, overall, maturityLabel, date }),
     renderReaderGuide(),
     renderToc({ refNumber, date, categoryScores: scoringResult?.categories, maturityLabel, hasAwareness, hasDnsScan }),

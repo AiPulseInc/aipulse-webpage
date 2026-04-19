@@ -4,6 +4,20 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5662] — 2026-04-19
+
+Raport PDF — paginacja 3. próba: dual strategy (@page margin boxes + position:fixed fallback).
+
+Poprzednie próby (v0.5651 negative offset fixed, v0.566 @page :first reset, v0.5661 named pages) nie rozwiązały problemu header/footer u user'a. Nie wiadomo czy user ma Chrome/Safari/Firefox — każdy inaczej obsługuje CSS Paged Media.
+
+**Strategy:**
+- **Primary:** `@page content-page { @top-left / @bottom-left / @bottom-right }` z `counter(page)/counter(pages)` — działa w Chrome/Edge 85+
+- **Fallback:** `position: fixed .print-header / .print-footer` DIVs z positive offset (top:8mm / bottom:4mm) w zarezerwowanym `@page margin` — działa w Safari, starszy Firefox
+- **Cover:** `.page.cover { position: relative; z-index:10; background:#fff; height:297mm }` przykrywa fixed elementy → pełny bleed
+- **Named pages:** `@page cover-page { margin:0 }` + `.page.cover { page: cover-page }` + `.page:not(.cover) { page: content-page }`
+
+Jeśli oba mechanizmy działają (Chrome), będzie lekka redundancja — ale to akceptowalne, lepsze niż brak.
+
 ## [0.5661] — 2026-04-19
 
 Raport PDF — korekty po testach v0.566: paginacja (named pages), nowy copy przewodnika, renumeracja sekcji, de-żargonizacja findings.

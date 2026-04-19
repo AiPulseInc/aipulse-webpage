@@ -2,10 +2,13 @@
    Print — CSS Paged Media: @page margin boxes renderują header/footer natywnie
    na każdej fizycznej stronie (zamiast position:fixed które jest nieprzewidywalne). */
 
+/* Na ekranie ukryj wszelkie print-only elementy jeśli zostały w DOM */
+.print-header,
+.print-footer { display: none; }
+
 @media print {
-  /* Named pages: `cover-page` = pełny bleed, `content-page` = header+footer.
-     To unika Chrome bug gdzie `@page :first { content: none }` "wycieka"
-     do kolejnych stron i wyłącza header/footer globalnie. */
+  /* Named pages + @page margin boxes — primary dla Chrome 85+ / Edge.
+     Fallback niżej (position: fixed DIVs) dla browserów z niepełnym wsparciem. */
 
   @page content-page {
     size: A4;
@@ -21,7 +24,6 @@
       padding-bottom: 2mm;
       vertical-align: bottom;
     }
-
     @bottom-left {
       content: "Ai Pulse Security · info@aipulse.pl · aipulse.pl/security";
       font-family: 'Space Grotesk', monospace;
@@ -32,7 +34,6 @@
       padding-top: 2mm;
       vertical-align: top;
     }
-
     @bottom-right {
       content: "Strona " counter(page) " z " counter(pages);
       font-family: 'Space Grotesk', monospace;
@@ -50,51 +51,19 @@
     margin: 0;
   }
 
-  /* Default @page (gdy .page nie ma explicit `page:`) = content-page */
+  /* Default @page — gdy browser ignoruje named pages, stosuje defaults z margin boxami */
   @page {
     size: A4;
     margin: 22mm 16mm 18mm 16mm;
-
-    @top-left {
-      content: "AI PULSE SECURITY · CYBER AUDIT REPORT";
-      font-family: 'Space Grotesk', monospace;
-      font-size: 8pt;
-      color: #999;
-      letter-spacing: 0.1em;
-      border-bottom: 1px solid #EEE;
-      padding-bottom: 2mm;
-      vertical-align: bottom;
-    }
-    @bottom-left {
-      content: "Ai Pulse Security · info@aipulse.pl · aipulse.pl/security";
-      font-family: 'Space Grotesk', monospace;
-      font-size: 8pt;
-      color: #999;
-      letter-spacing: 0.1em;
-      border-top: 1px solid #EEE;
-      padding-top: 2mm;
-      vertical-align: top;
-    }
-    @bottom-right {
-      content: "Strona " counter(page) " z " counter(pages);
-      font-family: 'Space Grotesk', monospace;
-      font-size: 8pt;
-      color: #999;
-      letter-spacing: 0.1em;
-      border-top: 1px solid #EEE;
-      padding-top: 2mm;
-      vertical-align: top;
-    }
   }
 
-  /* Przypisanie stron do named pages */
   .page.cover { page: cover-page; }
   .page:not(.cover) { page: content-page; }
 
   body { background: #fff; }
 
   .page {
-    padding: 0;              /* margin przejmuje @page */
+    padding: 0;
     min-height: 0;
     page-break-after: always;
     box-shadow: none;
@@ -102,16 +71,54 @@
   }
   .page:last-child { page-break-after: auto; }
 
-  /* Deprecated artifacts z wcześniejszych iteracji — w razie zapomnienia */
+  /* FALLBACK: position: fixed DIVs.
+     Dla browserów bez wsparcia @page margin boxów (Safari, starszy Firefox).
+     Jeśli @page boxes działają (Chrome) — to pokaże się obok/zamiast; akceptujemy redundancję. */
   .print-header,
-  .print-footer,
+  .print-footer {
+    position: fixed;
+    left: 16mm;
+    right: 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 8pt;
+    color: #999;
+    letter-spacing: 0.1em;
+    background: #fff;
+    z-index: 1;
+  }
+  .print-header {
+    top: 8mm;
+    height: 8mm;
+    border-bottom: 1px solid #EEE;
+  }
+  .print-footer {
+    bottom: 4mm;
+    height: 8mm;
+    border-top: 1px solid #EEE;
+  }
+
+  /* Fallback page counter — pokazuje się w fixed footer jeśli browser wspiera counter(page).
+     Jeśli @page @bottom-right też zadziała, browser pokaże oba — akceptujemy. */
+  .print-footer .page-num::before {
+    content: "Strona " counter(page) " z " counter(pages);
+  }
+
+  /* Cover przykrywa fixed header/footer (pełny bleed) */
+  .page.cover {
+    position: relative;
+    z-index: 10;
+    background: #fff;
+    height: 297mm;
+    width: 210mm;
+  }
+
+  /* Deprecated z wcześniejszych iteracji */
   .page > .page-header,
   .page > .page-footer { display: none !important; }
 }
-
-/* Na ekranie ukryj wszelkie print-only elementy jeśli zostały w DOM */
-.print-header,
-.print-footer { display: none; }
 
 body {
   font-family: 'Inter', -apple-system, system-ui, sans-serif;
