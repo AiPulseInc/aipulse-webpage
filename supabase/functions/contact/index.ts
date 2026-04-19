@@ -66,7 +66,7 @@ async function sendEmail(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Ai Pulse Kontakt <kontakt@aipulse.pl>',
+      from: 'Ai Pulse Info <info@aipulse.pl>',
       to: ['maciek@aipulse.pl'],
       reply_to: replyTo,
       subject,
