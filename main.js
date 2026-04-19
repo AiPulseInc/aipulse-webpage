@@ -3,6 +3,7 @@ import './src/cookie-consent/index.js'
 import { VERSION } from './src/version.js'
 import { szkoleniaData } from './src/training-data.js'
 import { audytyData, complianceData, securitySzkoleniaData } from './src/security-data.js'
+import { getSupabaseBrowser } from './src/lib/supabase-browser.js'
 
 // Inject version into nav
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,12 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- Contact form handler (security + business) ---
-
-const CONTACT_ENDPOINT = `${import.meta.env.VITE_SUPABASE_URL || ''}/functions/v1/contact`;
-const SUPABASE_ANON =
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
-  import.meta.env.VITE_SUPABASE_ANON_KEY ||
-  '';
 
 function initContactForms() {
   const forms = document.querySelectorAll('form.contact-form[data-source]');
@@ -59,19 +54,17 @@ async function handleContactSubmit(e) {
   hideFormStatus(statusEl);
 
   try {
-    const res = await fetch(CONTACT_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: SUPABASE_ANON,
-        Authorization: `Bearer ${SUPABASE_ANON}`,
-        'x-application': 'aipulse-webpage',
-      },
-      body: JSON.stringify(data),
+    const supabase = getSupabaseBrowser();
+    const { data: result, error } = await supabase.functions.invoke('contact', {
+      body: data,
     });
-    const json = await res.json().catch(() => ({ ok: false, error: 'service_unavailable' }));
-
-    if (json.ok) {
+    if (error) {
+      showFormStatus(
+        statusEl,
+        'error',
+        'Coś poszło nie tak. Spróbuj ponownie lub napisz na maciek@aipulse.pl.',
+      );
+    } else if (result?.ok) {
       form.reset();
       showFormStatus(
         statusEl,
@@ -82,7 +75,7 @@ async function handleContactSubmit(e) {
       showFormStatus(
         statusEl,
         'error',
-        errorMessage(json.error) || 'Coś poszło nie tak. Spróbuj ponownie lub napisz na maciek@aipulse.pl.',
+        errorMessage(result?.error) || 'Coś poszło nie tak. Spróbuj ponownie lub napisz na maciek@aipulse.pl.',
       );
     }
   } catch {

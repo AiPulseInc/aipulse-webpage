@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5647] — 2026-04-19
+
+Fix contact form: raw `fetch()` → `supabase.functions.invoke()`.
+
+**Powód:** Supabase gateway oczekuje JWT format w Authorization header. Nowe keys `sb_publishable_*` nie są JWT — raw fetch dostawał `UNAUTHORIZED_INVALID_JWT_FORMAT`. SDK handles key format prawidłowo (tak samo jak scan-domain).
+
 ## [0.5646] — 2026-04-18
 
 Formularz kontaktowy (security + business) — backend + frontend (fix 405).
