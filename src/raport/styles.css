@@ -3,7 +3,11 @@
    na każdej fizycznej stronie (zamiast position:fixed które jest nieprzewidywalne). */
 
 @media print {
-  @page {
+  /* Named pages: `cover-page` = pełny bleed, `content-page` = header+footer.
+     To unika Chrome bug gdzie `@page :first { content: none }` "wycieka"
+     do kolejnych stron i wyłącza header/footer globalnie. */
+
+  @page content-page {
     size: A4;
     margin: 22mm 16mm 18mm 16mm;
 
@@ -41,13 +45,51 @@
     }
   }
 
-  /* Cover — pełny bleed, bez header/footer */
-  @page :first {
+  @page cover-page {
+    size: A4;
     margin: 0;
-    @top-left { content: none; }
-    @bottom-left { content: none; }
-    @bottom-right { content: none; }
   }
+
+  /* Default @page (gdy .page nie ma explicit `page:`) = content-page */
+  @page {
+    size: A4;
+    margin: 22mm 16mm 18mm 16mm;
+
+    @top-left {
+      content: "AI PULSE SECURITY · CYBER AUDIT REPORT";
+      font-family: 'Space Grotesk', monospace;
+      font-size: 8pt;
+      color: #999;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #EEE;
+      padding-bottom: 2mm;
+      vertical-align: bottom;
+    }
+    @bottom-left {
+      content: "Ai Pulse Security · info@aipulse.pl · aipulse.pl/security";
+      font-family: 'Space Grotesk', monospace;
+      font-size: 8pt;
+      color: #999;
+      letter-spacing: 0.1em;
+      border-top: 1px solid #EEE;
+      padding-top: 2mm;
+      vertical-align: top;
+    }
+    @bottom-right {
+      content: "Strona " counter(page) " z " counter(pages);
+      font-family: 'Space Grotesk', monospace;
+      font-size: 8pt;
+      color: #999;
+      letter-spacing: 0.1em;
+      border-top: 1px solid #EEE;
+      padding-top: 2mm;
+      vertical-align: top;
+    }
+  }
+
+  /* Przypisanie stron do named pages */
+  .page.cover { page: cover-page; }
+  .page:not(.cover) { page: content-page; }
 
   body { background: #fff; }
 

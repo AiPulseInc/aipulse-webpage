@@ -50,45 +50,45 @@ const BENCHMARK = {
 
 const FINDINGS = [
   {
-    id: 'F-001', severity: 'crit', label: 'CRITICAL',
-    title: 'Backupy nie są testowane pod kątem odtwarzania',
-    detail: 'Respondent deklaruje wykonywanie backupów, ale nie przeprowadza regularnych testów odtwarzania. W praktyce oznacza to, że organizacja <strong>nie wie, czy jest w stanie odzyskać dane</strong> po incydencie. To jest root cause większości "udanych" ataków ransomware w segmencie MŚP.',
+    id: 'L-01', severity: 'crit', label: 'KRYTYCZNE',
+    title: 'Kopie zapasowe nie są testowane',
+    detail: 'Kopie zapasowe są wykonywane, ale nie przeprowadzacie regularnych prób odtworzenia danych z backupu. W praktyce oznacza to, że organizacja <strong>nie wie, czy jest w stanie odzyskać dane</strong> po incydencie. To jest najczęstsza przyczyna „udanych" ataków ransomware w sektorze MŚP.',
     mapping: 'CIS 11.5 · NIST PR.DS-01, RC.RP-01',
   },
   {
-    id: 'F-002', severity: 'crit', label: 'CRITICAL',
-    title: 'Brak immutable backup offsite',
-    detail: 'Wszystkie kopie zapasowe są dostępne z głównej infrastruktury sieciowej. W przypadku przejęcia konta administratora lub udanego ataku ransomware, <strong>atakujący może skasować lub zaszyfrować również kopie zapasowe</strong>.',
+    id: 'L-02', severity: 'crit', label: 'KRYTYCZNE',
+    title: 'Brak kopii zapasowej odpornej na atak (offsite + niezmiennej)',
+    detail: 'Wszystkie kopie zapasowe są dostępne z głównej sieci firmowej. W przypadku przejęcia konta administratora lub udanego ataku ransomware <strong>atakujący może skasować lub zaszyfrować również kopie zapasowe</strong>. Zasada 3-2-1: 3 kopie, 2 różne nośniki, 1 w innej lokalizacji + tryb niezmienny (immutable).',
     mapping: 'CIS 11.4 · NIST PR.DS-04',
   },
   {
-    id: 'F-003', severity: 'high', label: 'HIGH',
-    title: 'MFA wdrożone tylko w części systemów',
-    detail: 'MFA działa na poczcie i VPN, ale brakuje na CRM, systemie księgowym, panelu hostingowym. Te trzy systemy są <strong>wektorami ataku</strong> — szczególnie CRM i hosting (dane klientów, możliwość deface\\u2019u strony).',
+    id: 'L-03', severity: 'high', label: 'WYSOKIE',
+    title: 'Uwierzytelnianie dwuskładnikowe (MFA) tylko częściowo wdrożone',
+    detail: 'MFA działa na poczcie i VPN, ale brakuje na CRM, systemie księgowym, panelu hostingowym. Te trzy systemy są <strong>najczęstszymi wektorami ataku</strong> — szczególnie CRM i hosting (dane klientów, możliwość podmiany treści strony).',
     mapping: 'CIS 6.5 · NIST PR.AA-03',
   },
   {
-    id: 'F-004', severity: 'high', label: 'HIGH',
-    title: 'Brak sformalizowanego Incident Response Plan',
-    detail: 'W razie incydentu brak jasnej procedury: kto, kiedy, do kogo dzwoni. Konsekwencja: <strong>chaos decyzyjny w pierwszych 24h</strong>, które są najbardziej krytyczne dla ograniczenia szkód i spełnienia wymogu 72h notyfikacji RODO do UODO.',
+    id: 'L-04', severity: 'high', label: 'WYSOKIE',
+    title: 'Brak formalnego planu reagowania na incydenty',
+    detail: 'W razie incydentu brak jasnej procedury: kto, kiedy, do kogo dzwoni. Konsekwencja: <strong>chaos decyzyjny w pierwszych 24 godzinach</strong>, które są najbardziej krytyczne dla ograniczenia szkód i spełnienia wymogu zgłoszenia naruszenia do UODO w ciągu 72h (RODO Art. 33).',
     mapping: 'CIS 17.1 · NIST RS.RP-01 · NIS2 Art. 23',
   },
   {
-    id: 'F-005', severity: 'med', label: 'MEDIUM',
+    id: 'L-05', severity: 'med', label: 'ŚREDNIE',
     title: 'Brak formalnej oceny dostawców IT',
-    detail: 'Dostawcy IT i cloud są wybierani na podstawie ceny i reputacji, bez ankiet bezpieczeństwa ani weryfikacji certyfikatów. W kontekście NIS2 (łańcuch dostaw) oraz RODO (procesorzy) — <strong>ryzyko regulacyjne</strong>.',
+    detail: 'Dostawcy IT i chmury są wybierani na podstawie ceny i reputacji, bez ankiet bezpieczeństwa ani weryfikacji certyfikatów. W kontekście NIS2 (łańcuch dostaw) oraz RODO (procesorzy) — <strong>istotne ryzyko regulacyjne</strong>.',
     mapping: 'CIS 15.1 · NIST GV.SC-01 · NIS2 Art. 21',
   },
   {
-    id: 'F-006', severity: 'med', label: 'MEDIUM',
-    title: 'Patch management nieformalny',
-    detail: 'Aktualizacje systemów i aplikacji wykonywane ad-hoc, bez harmonogramu. Średnie opóźnienie w aplikowaniu krytycznych łatek może przekraczać 30 dni.',
+    id: 'L-06', severity: 'med', label: 'ŚREDNIE',
+    title: 'Aktualizacje oprogramowania bez harmonogramu',
+    detail: 'Aktualizacje systemów i aplikacji wykonywane doraźnie, bez harmonogramu. Średnie opóźnienie w nakładaniu krytycznych łatek może przekraczać 30 dni — a znane podatności są wykorzystywane przez ataki zazwyczaj w ciągu 7–14 dni od publikacji.',
     mapping: 'CIS 7.1 · NIST PR.IP-12',
   },
   {
-    id: 'F-007', severity: 'low', label: 'LOW',
-    title: 'Brak testów phishingowych symulowanych',
-    detail: 'Pracownicy są szkoleni teoretycznie, ale nie są testowani (symulowany phishing co 3-6 miesięcy). Bez testów nie wiadomo, jak odporni są w praktyce.',
+    id: 'L-07', severity: 'low', label: 'NISKIE',
+    title: 'Brak symulacji phishingu dla pracowników',
+    detail: 'Pracownicy są szkoleni teoretycznie, ale nie są testowani (symulowany phishing co 3–6 miesięcy). Bez testów nie wiadomo, jak odporni są w praktyce — a phishing pozostaje bramą wjazdową do ~82% udanych ataków na MŚP.',
     mapping: 'CIS 14.2 · NIST PR.AT-01',
   },
 ];
@@ -130,7 +130,7 @@ export function renderRaportB(data) {
       responses: data.responses || {},
       overall,
       maturityLabel,
-      sectionNumber: 7 + (hasDnsScan ? 1 : 0) + (hasAwareness ? 1 : 0) + 1, // = 8/9/10 depending on config
+      sectionNumber: 8 + (hasDnsScan ? 1 : 0) + (hasAwareness ? 1 : 0) + 1, // = 9/10/11 zależnie od config
     }),
   ].join('\n');
 }
@@ -186,44 +186,41 @@ function renderCover({ companyName, industry, size, overall, maturityLabel, date
 function renderReaderGuide() {
   return `
     <div class="page">
-      <p class="section-kicker">// Foreword</p>
-      <h2>Przewodnik po raporcie</h2>
-      <p style="font-size:10.5pt; margin-bottom:6mm;">Ten raport ma ${'>'}10 sekcji i jest pisany <strong>dla 3 różnych czytelników</strong>. Poniżej krótka mapa — kto co powinien przeczytać, żeby wyciągnąć wartość w minimum czasu.</p>
+      <p class="section-kicker">// Przedsłowie</p>
+      <h2>Jak czytać ten raport</h2>
+      <p style="font-size:10.5pt; margin-bottom:6mm;">Raport jest całością i pisany jest z myślą o całej organizacji. Poniżej wskazówki, które sekcje zainteresują Cię szczególnie — w zależności od Twojej roli.</p>
 
       <div class="reader-boxes">
         <div class="reader-box">
-          <div class="reader-role">Jeśli jesteś WŁAŚCICIELEM / CEO</div>
-          <p class="reader-action">Przeczytaj tylko 2 strony (≈ 8 min):</p>
+          <div class="reader-role">Jeśli jesteś właścicielem firmy / CEO</div>
+          <p class="reader-note">Szczególnie mogą Cię zainteresować sekcje mówiące o biznesowym wpływie i planie działania:</p>
           <ul>
-            <li>str. 4 — <strong>Podsumowanie zarządcze</strong> (wynik, ryzyko finansowe, top 3 luki)</li>
-            <li>ostatnia str. — <strong>Następne kroki + kontakt</strong> (konkretny plan, koszty, kontakt audytora)</li>
+            <li><strong>Podsumowanie zarządcze</strong> — wynik, ryzyko finansowe, trzy największe luki</li>
+            <li><strong>Model dojrzałości</strong> — gdzie jesteś na skali i co dzieli Cię od kolejnego poziomu</li>
+            <li><strong>Następne kroki + kontakt audytora</strong> — konkretny plan wdrożenia z kosztami</li>
           </ul>
-          <p class="reader-note">Reszta raportu dla Twojego zespołu IT / compliance.</p>
         </div>
 
         <div class="reader-box">
-          <div class="reader-role">Jeśli jesteś IT MANAGEREM / CISO</div>
-          <p class="reader-action">Skup się na technice (≈ 20 min):</p>
+          <div class="reader-role">Jeśli jesteś IT managerem / CISO</div>
+          <p class="reader-note">Najciekawsze mogą być sekcje techniczne z konkretnymi findings i mapowaniem na standardy:</p>
           <ul>
-            <li>str. 7 — <strong>Wyniki szczegółowe</strong> (radar + benchmark vs MŚP)</li>
-            <li>str. 8 — <strong>Lista findings</strong> (konkretne luki z CIS / NIST mapowaniem)</li>
-            <li>str. 9 — <strong>Twoja rzeczywista ekspozycja</strong> (DNS + subdomeny + email security)</li>
+            <li><strong>Wyniki szczegółowe per kategoria</strong> — radar, benchmark vs MŚP, analiza mocnych/słabych stron</li>
+            <li><strong>Lista findings</strong> — konkretne luki z mapowaniem na CIS Controls / NIST CSF</li>
+            <li><strong>Twoja rzeczywista ekspozycja (DNS)</strong> — co o Twojej infrastrukturze wie publiczny internet</li>
           </ul>
-          <p class="reader-note">Każde finding ma ID i mapowanie kontroli — gotowe do trackera ryzyka.</p>
         </div>
 
         <div class="reader-box">
-          <div class="reader-role">Jeśli jesteś COMPLIANCE / IOD</div>
-          <p class="reader-action">Regulacyjne sekcje (≈ 15 min):</p>
+          <div class="reader-role">Jeśli jesteś compliance officerem / IOD</div>
+          <p class="reader-note">Najbardziej wartościowe będą sekcje regulacyjne i audytowalne:</p>
           <ul>
-            <li>str. 10 — <strong>Świadomość regulacyjna</strong> (quiz RODO / NIS2 z wyjaśnieniami)</li>
-            <li>str. 11 — <strong>Mapa zgodności</strong> (status per artykuł NIS2 / RODO)</li>
+            <li><strong>Świadomość regulacyjna</strong> — test wiedzy o RODO / NIS2 z wyjaśnieniami odpowiedzi</li>
+            <li><strong>Mapa zgodności z regulacjami</strong> — status per artykuł NIS2, RODO, wymogi ubezpieczycieli</li>
+            <li><strong>Lista findings</strong> — z perspektywy ryzyka regulacyjnego (mapowanie na NIS2 Art. 21/23)</li>
           </ul>
-          <p class="reader-note">Mapa zgodności ma format auditable — do portfolio compliance.</p>
         </div>
       </div>
-
-      <p style="margin-top:6mm; font-size:9pt; color:#666; font-style:italic;">Uwaga: numery stron są orientacyjne. Jeśli raport ma opcjonalne sekcje (DNS scan, awareness quiz), numery mogą się przesuwać — użyj spisu treści (str. 3).</p>
     </div>
   `;
 }
@@ -252,8 +249,7 @@ function renderMaturityLadder({ currentMaturityKey, overall }) {
 
   return `
     <div class="page">
-      <p class="section-kicker">// Foreword</p>
-      <h2>Model dojrzałości cyberbezpieczeństwa</h2>
+      <h2>3. Model dojrzałości cyberbezpieczeństwa</h2>
       <p style="font-size:10.5pt; margin-bottom:5mm;">Twój wynik (<strong>${overall}/100</strong>) umieszcza Cię na jednym z 4 poziomów. Oto pełna skala — wiedząc gdzie jesteś i jakie są następne stopnie, łatwiej zaplanować inwestycję w cyberbezpieczeństwo.</p>
 
       <table class="ladder">
@@ -278,28 +274,29 @@ function renderToc({ refNumber, date, categoryScores, maturityLabel, hasAwarenes
     return `<li>5.${i + 1} ${escape(cat.name)} (${escape(cat.subtitle)}) — ${pct}/100</li>`;
   }).join('');
 
-  // Section numbering: 2 zawsze (Exec Summary), 3-4 static (Methodology+Scope), 5-6 static.
-  // Opcjonalne: 7=DNS, 8=Awareness. Ostatnie 2 przesuwają się: Compliance + Next steps.
-  let sec = 6;
+  // Sekcje static: 2=Exec Summary, 3=Maturity, 4=Metodyka, 5=Zakres, 6=Wyniki, 7=Findings.
+  // Opcjonalne: 8=DNS, 9=Awareness. Ostatnie 2 przesuwają się: Compliance + Next steps.
+  let sec = 7;
   const tocItems = [
-    `<li><span>2. Podsumowanie zarządcze</span><span>str. 3</span></li>`,
-    `<li><span>3. Metodyka audytu</span><span>str. 4</span></li>`,
-    `<li><span>4. Zakres i ograniczenia</span><span>str. 4</span></li>`,
-    `<li><span>5. Wyniki szczegółowe per kategoria</span><span>str. 5</span><ol>${catRows}</ol></li>`,
-    `<li><span>6. Lista findings (identyfikacja luk)</span><span>str. 6</span></li>`,
+    `<li><span>2. Podsumowanie zarządcze</span></li>`,
+    `<li><span>3. Model dojrzałości cyberbezpieczeństwa</span></li>`,
+    `<li><span>4. Metodyka audytu</span></li>`,
+    `<li><span>5. Zakres i ograniczenia</span></li>`,
+    `<li><span>6. Wyniki szczegółowe per kategoria</span><ol>${catRows}</ol></li>`,
+    `<li><span>7. Zidentyfikowane luki bezpieczeństwa</span></li>`,
   ];
   if (hasDnsScan) {
     sec++;
-    tocItems.push(`<li><span>${sec}. Twoja rzeczywista ekspozycja (DNS)</span><span>str. 7</span></li>`);
+    tocItems.push(`<li><span>${sec}. Twoja rzeczywista ekspozycja (DNS)</span></li>`);
   }
   if (hasAwareness) {
     sec++;
-    tocItems.push(`<li><span>${sec}. Świadomość regulacyjna (compliance literacy)</span><span>str. 8</span></li>`);
+    tocItems.push(`<li><span>${sec}. Świadomość regulacyjna</span></li>`);
   }
   sec++;
-  tocItems.push(`<li><span>${sec}. Mapa zgodności z regulacjami</span><span>str. 9</span></li>`);
+  tocItems.push(`<li><span>${sec}. Mapa zgodności z regulacjami</span></li>`);
   sec++;
-  tocItems.push(`<li><span>${sec}. Następne kroki + kontakt audytora</span><span>str. 10</span></li>`);
+  tocItems.push(`<li><span>${sec}. Następne kroki + kontakt audytora</span></li>`);
 
   return `
     <div class="page">
@@ -373,7 +370,7 @@ function renderExecutiveSummary({ scoringResult, responses, overall, maturityLab
 function renderMethodologyAndScope() {
   return `
     <div class="page">
-      <h2>3. Metodyka audytu</h2>
+      <h2>4. Metodyka audytu</h2>
       <div class="methodology">
         <p>Niniejszy raport jest wynikiem <strong>samooceny deklaratywnej</strong> (self-assessment) przeprowadzonej przez przedstawiciela ocenianej organizacji za pośrednictwem kwestionariusza internetowego Ai Pulse Security.</p>
         <p><strong>Ramy referencyjne:</strong></p>
@@ -386,7 +383,7 @@ function renderMethodologyAndScope() {
         <p><strong>Skala punktowa:</strong> każde pytanie 0-3 pkt; wynik kategorii = suma/max × 100; wagi 2.0 dla krytycznych kontroli (MFA, tested backup).</p>
       </div>
 
-      <h2 style="margin-top:10mm;">4. Zakres i ograniczenia</h2>
+      <h2 style="margin-top:10mm;">5. Zakres i ograniczenia</h2>
       <table class="scope">
         <tr><th style="width: 40%;">Zakres</th><th>Opis</th></tr>
         <tr><td>Typ oceny</td><td>Self-assessment deklaratywny</td></tr>
@@ -419,7 +416,7 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
   }).join('');
 
   const categorySections = catsList.map((c, i) => `
-    <h4>5.${i + 1} ${escape(c.name)} — ${c.pct}/100 (${escape(c.maturity)})</h4>
+    <h4>6.${i + 1} ${escape(c.name)} — ${c.pct}/100 (${escape(c.maturity)})</h4>
     <p style="font-size:9.5pt;">${narrativeFor(c)}</p>
   `).join('');
 
@@ -427,10 +424,10 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
   const above = catsList.filter((c) => c.pct > c.benchmark);
   const below = catsList.filter((c) => c.pct < c.benchmark);
   const aboveText = above.length
-    ? `<p><strong>Jesteś lepszy niż średnia w:</strong> ${above.map((a) => `${escape(a.name)} (+${a.pct - a.benchmark})`).join(', ')}.</p>`
+    ? `<p><strong>Powyżej średniej:</strong> ${above.map((a) => `${escape(a.name)} (+${a.pct - a.benchmark})`).join(', ')}.</p>`
     : '';
   const belowText = below.length
-    ? `<p><strong>Jesteś gorszy niż średnia w:</strong> ${below.map((b) => `${escape(b.name)} (${b.pct - b.benchmark})`).join(', ')}.</p>`
+    ? `<p><strong>Poniżej średniej:</strong> ${below.map((b) => `${escape(b.name)} (${b.pct - b.benchmark})`).join(', ')}.</p>`
     : '';
   const benchmarkBlock = (aboveText || belowText)
     ? `<div class="benchmark-box"><h4>Co mówi benchmark</h4>${aboveText}${belowText}</div>`
@@ -438,7 +435,7 @@ function renderRadarAndCategoryBreakdown({ refNumber, categoryScores, industry, 
 
   return `
     <div class="page">
-      <h2>5. Wyniki szczegółowe per kategoria</h2>
+      <h2>6. Wyniki szczegółowe per kategoria</h2>
 
       <div class="radar">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
@@ -492,8 +489,8 @@ function renderFindings({ refNumber, dynamicFindings = [] }) {
 
   return `
     <div class="page">
-      <h2>6. Lista findings (identyfikacja luk)</h2>
-      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej lista przykładowych luk posortowanych według krytyczności. W wersji beta findings hardcoded bazują na typowych problemach MŚP — dynamiczne findings (F-DNS-*) wynikają z faktycznego skanu Twojej domeny.</p>
+      <h2>7. Zidentyfikowane luki bezpieczeństwa</h2>
+      <p style="color:#666; font-size:9.5pt; margin-bottom:5mm;">Poniżej konkretne luki uporządkowane według krytyczności. Wpisy z prefiksem <strong>DNS-*</strong> wynikają z faktycznego skanu publicznych rekordów Twojej domeny; pozostałe to typowe luki w sektorze MŚP, dla których Twoje odpowiedzi wskazują ryzyko.</p>
 
       ${findingsHtml}
     </div>
@@ -539,7 +536,7 @@ function renderAwarenessPage({ refNumber, awareness, hasDnsScan }) {
 
   return `
     <div class="page">
-      <h2>${hasDnsScan ? 8 : 7}. Świadomość regulacyjna (compliance literacy)</h2>
+      <h2>${hasDnsScan ? 9 : 8}. Świadomość regulacyjna</h2>
 
       <p class="awareness-intro">
         Przed właściwą samooceną sprawdziliśmy Twoją znajomość podstawowych przepisów — terminów zgłoszenia incydentu, punktów kontaktowych i wysokości kar. Wynik to wskaźnik <strong>literacy</strong>, nie działania: wiedza nie zastępuje wdrożonych procesów, ale pokazuje, na ile jesteś w stanie szybko reagować w razie incydentu.
@@ -565,7 +562,7 @@ function renderComplianceAndCta({ refNumber, overall, maturityLabel, dnsScan, dn
   return `
     <div class="page">
       <h2>${(() => {
-        let n = 7;
+        let n = 8;
         if (hasDnsScan) n++;
         if (hasAwareness) n++;
         return n;
@@ -776,9 +773,9 @@ function deriveDnsFindings(scanData) {
 
 // A7 — sekcja "X. Twoja rzeczywista ekspozycja" w 3 wariantach.
 function renderDnsExposure({ variant, scan, profile }) {
-  // Sekcja numerowana — 7 zawsze, niezależnie od awareness
-  // (awareness zawsze idzie PO niej w pipeline → patrz spec section numbering matrix)
-  const sectionNum = 7;
+  // Sekcja numerowana — 8 zawsze (po Findings=7), niezależnie od awareness.
+  // Kolejność w pipeline: Findings → DNS → Awareness → Compliance → Next steps
+  const sectionNum = 8;
 
   let body = '';
   if (variant === 'optout') {

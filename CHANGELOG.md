@@ -4,6 +4,35 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5661] — 2026-04-19
+
+Raport PDF — korekty po testach v0.566: paginacja (named pages), nowy copy przewodnika, renumeracja sekcji, de-żargonizacja findings.
+
+**Paginacja — named pages (fix Chrome bug):**
+- `@page :first { content: none }` z v0.566 "przelewała" reset do kolejnych stron w Chrome → header/footer znikały od str. 3.
+- Fix: **named pages** — `@page cover-page { margin: 0 }` + `@page content-page { ...margin boxes... }` + przypisanie przez `.page.cover { page: cover-page }` / `.page:not(.cover) { page: content-page }`. Dodano też domyślne `@page` jako fallback.
+
+**Reader's Guide (str. 2) — rewrite:**
+- Usunięto "Ten raport ma >10 sekcji" (sygnał niepewności) i "Przeczytaj tylko 2 strony" (antywartość płatnego raportu).
+- Nowy copy: "Raport jest całością ... Poniżej wskazówki, które sekcje zainteresują Cię szczególnie" + boksy z tonem "może Cię szczególnie zainteresować..." zamiast "Przeczytaj tylko X".
+- Dodano **Świadomość regulacyjna** do boksu Compliance/IOD (brakowało w v0.566).
+- Usunięto uwagę "numery stron są orientacyjne" (sygnał fuksu).
+
+**Maturity Ladder → numerowana sekcja 3 (zamiast foreword):**
+- `<h2>3. Model dojrzałości cyberbezpieczeństwa</h2>` (dodany numer).
+- Renumeracja wszystkich kolejnych: Metodyka=4, Zakres=5, Wyniki=6, Findings=7, DNS=8, Awareness=9, Compliance=10-11, Next steps=10-11 (zależnie od opcjonalnych).
+- TOC update: usunięto `<span>str. N</span>` (numery strony były orientacyjne i mylące, stopki CSS counter i tak podają faktyczne numery).
+
+**De-żargonizacja FINDINGS:**
+- `F-00X` → `L-0X` (L jak "Luka" — polski idiom).
+- `CRITICAL/HIGH/MEDIUM/LOW` → `KRYTYCZNE/WYSOKIE/ŚREDNIE/NISKIE`.
+- Tytuły: "Backupy nie są testowane" → "Kopie zapasowe nie są testowane", "Brak immutable backup offsite" → "Brak kopii zapasowej odpornej na atak (offsite + niezmiennej)", "MFA wdrożone tylko w części systemów" → "Uwierzytelnianie dwuskładnikowe (MFA) tylko częściowo wdrożone", "Incident Response Plan" → "plan reagowania na incydenty", "Patch management nieformalny" → "Aktualizacje oprogramowania bez harmonogramu", "testy phishingowe symulowane" → "symulacje phishingu dla pracowników".
+- Sekcja: "Lista findings (identyfikacja luk)" → **"Zidentyfikowane luki bezpieczeństwa"**.
+
+**Benchmark language:**
+- "Jesteś lepszy niż średnia w: X" → **"Powyżej średniej: X (+Y)"**.
+- "Jesteś gorszy niż średnia w: X" → **"Poniżej średniej: X (-Y)"**.
+
 ## [0.566] — 2026-04-19
 
 Raport PDF — enrichment: 2 nowe strony foreword + port sekcji z online + nowa sekcja 10 + paginacja v2.
