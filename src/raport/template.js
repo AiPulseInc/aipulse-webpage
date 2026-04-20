@@ -854,7 +854,7 @@ function renderNextStepsContact({ scoringResult, responses, overall, maturityLab
       <div class="auditor-contact">
         <div class="auditor-main">
           <strong>Maciej Konieczny</strong> · Lead Security Auditor
-          <div style="font-size:9.5pt; color:#666; margin-top:1mm;">Certyfikaty: CompTIA Security+, ISO 27001 Lead Implementer</div>
+          <div style="font-size:9.5pt; color:#666; margin-top:1mm;">Certyfikaty: CompTIA Security+, DEKRA Audytor SZBI wg ISO 27001</div>
         </div>
         <div class="auditor-channels">
           <div>📧 <a href="mailto:info@aipulse.pl">info@aipulse.pl</a></div>
