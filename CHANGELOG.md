@@ -4,6 +4,10 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5686] — 2026-04-20
+
+Security page — doprecyzowanie nazwy certu DEKRA. Było vague „DEKRA · ISO/IEC 27001", teraz konkretnie: „DEKRA · Audytor Systemu Zarządzania Bezpieczeństwem Informacji" (skrót SZBI rozwinięty). Informacje o normie ISO 27001 zostają w opisie. Opis i why — bez zmian w tej iteracji.
+
 ## [0.5685] — 2026-04-19
 
 Raport — Priority 2 fix: **sekcja 9 Mapa zgodności jest teraz dynamiczna** (pochodna odpowiedzi user'a, nie hardcoded).
