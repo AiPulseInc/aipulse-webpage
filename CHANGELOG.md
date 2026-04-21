@@ -4,6 +4,10 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5688] — 2026-04-21
+
+Security page — drobna korekta nazwy certu DEKRA: usunięte słowo „Systemu" („Audytor Systemu Zarządzania..." → „Audytor Zarządzania..."). Oszczędność miejsca, czytelniejsze dla MŚP; informacje o normie ISO 27001 i tak są w opisie.
+
 ## [0.5687] — 2026-04-20
 
 Raport — fix nazwy certyfikatu w kontakcie audytora (sekcja 10). Było błędne „ISO 27001 Lead Implementer" (inny kurs); teraz spójnie z security page: „DEKRA Audytor SZBI wg ISO 27001". Lead Implementer wdraża SZBI; Audytor audytuje wdrożone SZBI — różne szkolenia DEKRA.
