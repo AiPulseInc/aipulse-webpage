@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5698] — 2026-04-21
+
+Business — pierwsze **prawdziwe testimonials** na miejscu placeholderów „Antigravity". 5 cytatów z uczestników szkolenia „Prawo Jazdy AI" (marzec 2026, dział handlowy dystrybutora sprzętu naukowego): Krzysztof (sceptyk→przekonany), Aleksandra, Natalia, Ola, Gosia. Format: imię only (bez firmy i branży — consent-safe). Dodane amber ★★★★★ gwiazdki nad każdym cytatem. Marquee skrócony z 10+10 do 5+5 cards; CSS `nth-child(n+11)` → `nth-child(n+6)` dla mobile duplicate-hide.
+
+Contact form — fix success message per source: security zostaje z CTA do samooceny, business dostaje skrócone „Dziękujemy! Odpowiemy wkrótce." (business line nie ma samooceny, więc CTA prowadziłby do nieistniejącego kontekstu).
+
 ## [0.5688] — 2026-04-21
 
 Security page — drobna korekta nazwy certu DEKRA: usunięte słowo „Systemu" („Audytor Systemu Zarządzania..." → „Audytor Zarządzania..."). Oszczędność miejsca, czytelniejsze dla MŚP; informacje o normie ISO 27001 i tak są w opisie.

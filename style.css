@@ -1059,6 +1059,14 @@ body.theme-business {
   text-transform: uppercase;
 }
 
+.testimonial-stars {
+  color: var(--brand-accent);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+}
+
 /* --- Section: Contact --- */
 .section-contact {
   border-bottom: none;
@@ -3128,8 +3136,8 @@ body.theme-business {
     scroll-snap-align: start;
   }
 
-  /* Hide duplicate set (items 11-20) — only needed for desktop infinite-loop trick */
-  .testimonial-track .testimonial-card-item:nth-child(n+11) {
+  /* Hide duplicate set (items 6-10) — only needed for desktop infinite-loop trick */
+  .testimonial-track .testimonial-card-item:nth-child(n+6) {
     display: none;
   }
 }

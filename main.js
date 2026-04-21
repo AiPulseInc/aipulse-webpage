@@ -66,12 +66,10 @@ async function handleContactSubmit(e) {
       );
     } else if (result?.ok) {
       form.reset();
-      showFormStatus(
-        statusEl,
-        'success',
-        'Dziękujemy! Odpowiemy w 1-2 dni robocze. W międzyczasie zapraszamy do wypełnienia <a href="/bezpieczenstwo-samoocena">5-minutowej samooceny</a> — wstępny raport dostaniesz od razu.',
-        { html: true },
-      );
+      const successMsg = source === 'security'
+        ? 'Dziękujemy! Odpowiemy w 1-2 dni robocze. W międzyczasie zapraszamy do wypełnienia <a href="/bezpieczenstwo-samoocena">5-minutowej samooceny</a> — wstępny raport dostaniesz od razu.'
+        : 'Dziękujemy! Odpowiemy wkrótce.';
+      showFormStatus(statusEl, 'success', successMsg, { html: true });
     } else {
       showFormStatus(
         statusEl,
