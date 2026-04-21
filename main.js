@@ -69,7 +69,8 @@ async function handleContactSubmit(e) {
       showFormStatus(
         statusEl,
         'success',
-        'Dziękujemy! Skontaktujemy się w ciągu 24h roboczych.',
+        'Dziękujemy! Odpowiemy w 1-2 dni robocze. W międzyczasie zapraszamy do wypełnienia <a href="/bezpieczenstwo-samoocena">5-minutowej samooceny</a> — wstępny raport dostaniesz od razu.',
+        { html: true },
       );
     } else {
       showFormStatus(
@@ -112,11 +113,15 @@ function setFormLoading(form, btn, loading) {
   }
 }
 
-function showFormStatus(el, kind, text) {
+function showFormStatus(el, kind, text, opts = {}) {
   if (!el) return;
   el.hidden = false;
   el.dataset.kind = kind;
-  el.textContent = text;
+  if (opts.html) {
+    el.innerHTML = text;
+  } else {
+    el.textContent = text;
+  }
 }
 
 function hideFormStatus(el) {
