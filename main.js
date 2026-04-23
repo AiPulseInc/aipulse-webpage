@@ -1,9 +1,12 @@
 import './style.css'
 import './src/cookie-consent/index.js'
+import { initGA, trackEvent } from './src/ga.js'
 import { VERSION } from './src/version.js'
 import { szkoleniaData } from './src/training-data.js'
 import { audytyData, complianceData, securitySzkoleniaData } from './src/security-data.js'
 import { getSupabaseBrowser } from './src/lib/supabase-browser.js'
+
+initGA();
 
 // Inject version into nav
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,6 +69,7 @@ async function handleContactSubmit(e) {
       );
     } else if (result?.ok) {
       form.reset();
+      trackEvent('contact_submit', { source });
       const successMsg = source === 'security'
         ? 'Dziękujemy! Odpowiemy w 1-2 dni robocze. W międzyczasie zapraszamy do wypełnienia <a href="/bezpieczenstwo-samoocena">5-minutowej samooceny</a> — wstępny raport dostaniesz od razu.'
         : 'Dziękujemy! Odpowiemy wkrótce.';

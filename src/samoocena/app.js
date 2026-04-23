@@ -1,5 +1,8 @@
 import './styles.css';
+import { initGA, trackEvent, trackPageView } from '../ga.js';
 import { VERSION } from '../version.js';
+
+initGA();
 import { getQuestions } from './scoring.js';
 import { scoreAssessment } from './scoring.js';
 import {
@@ -47,6 +50,8 @@ render();
 subscribe(render);
 bindDelegatedEvents();
 
+let lastTrackedStep = null;
+
 function render() {
   if (!mainEl) return;
   const state = getState();
@@ -57,6 +62,10 @@ function render() {
     mainEl.innerHTML = `<div class="container-fluid samoocena-viewport">${html}</div>`;
     mainEl.scrollTo?.({ top: 0, behavior: 'instant' });
     window.scrollTo?.({ top: 0, behavior: 'instant' });
+    if (state.step && state.step !== lastTrackedStep) {
+      lastTrackedStep = state.step;
+      trackPageView(`/bezpieczenstwo-samoocena/${state.step}`, `Samoocena — ${state.step}`);
+    }
   } catch (err) {
     console.error('[samoocena] render error:', err);
     mainEl.innerHTML = `<div class="container-fluid samoocena-viewport">${renderError(err.message || 'Nieznany błąd.')}</div>`;
@@ -293,6 +302,7 @@ function handleClick(event) {
             } catch (err) {
               console.error('[samoocena] localStorage failed:', err);
             }
+            trackEvent('raport_requested', { channel: 'fallback' });
             window.open('/raport-audit/', '_blank', 'noopener');
           };
 
@@ -309,6 +319,7 @@ function handleClick(event) {
           });
 
           if (res.ok && res.reportUrl) {
+            trackEvent('raport_requested', { channel: 'online' });
             // Otwórz online wersję raportu (dane przyjdą z DB przez ?id=)
             window.open(res.reportUrl, '_blank', 'noopener');
           } else {
@@ -388,6 +399,12 @@ async function scheduleSubmit() {
     const result = await submitAssessment(state, scoringResult);
     if (result.ok) {
       setState({ submittedAt: new Date().toISOString() });
+      trackEvent('assessment_completed', {
+        score: scoringResult.totalScore,
+        level: scoringResult.maturityLevel,
+        industry: state.profile?.industry,
+        size: state.profile?.size,
+      });
       showSubmitToast('success');
     } else {
       showSubmitToast('failed', result.error);

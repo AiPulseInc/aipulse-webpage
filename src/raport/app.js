@@ -1,7 +1,10 @@
 import './styles.css';
+import { initGA } from '../ga.js';
 import { renderRaportB } from './template.js';
 import { EXAMPLE_DATA } from './example.js';
 import { getSupabaseBrowser } from '../lib/supabase-browser.js';
+
+initGA();
 
 const ROOT = document.getElementById('raport-main');
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;

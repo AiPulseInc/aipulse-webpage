@@ -4,6 +4,23 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5708] — 2026-04-23
+
+GA4 + **Consent Mode v2** — pierwsza analityka na aipulse.pl. Domyślnie wszystkie storage `denied` (`ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`), update na `granted` po zgodzie przez cookie banner. `wait_for_update: 500` daje GA buffer na dataLayer przed transportem.
+
+- **`src/ga.js`** (nowy, 70 linii) — wrapper: `initGA()` idempotentny, `trackEvent(name, params)`, `trackPageView(path, title)`. Guard `if (!GA_ID) return` — pusty `VITE_GA_MEASUREMENT_ID` = tracker off, site działa bez zmian.
+- **Entry points z `initGA()`:** `src/landing.js`, `main.js`, `src/samoocena/app.js`, `src/raport/app.js`, `src/polityka-cookies.js`, `src/security-blog.js`.
+- **Custom events:**
+  - `contact_submit {source: 'security'|'business'}` — `main.js` po sukcesie form submit
+  - `assessment_completed {score, level, industry, size}` — `src/samoocena/app.js` po submit
+  - `raport_requested {channel: 'online'|'fallback'}` — `src/samoocena/app.js` po generowaniu raportu
+  - `cookie_consent_granted {analytics, marketing}` — `src/ga.js` listener na `cookie-consent:change`
+  - `page_view` manual per step w samoocenie (pseudo-SPA — `setStep()` nie zmienia URL, więc Enhanced Measurement nie łapie).
+- **`.env.example`** dodany (placeholder `VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX` + istniejące VITE_SUPABASE_*). `.gitignore` z `!.env.example` exception.
+- **Zero zmian w HTML + cookie consent** — korzystamy z istniejącego API `getConsent()` i eventu `cookie-consent:change` z `src/cookie-consent/consent.js`.
+
+Rollback: ustaw `VITE_GA_MEASUREMENT_ID=` (empty) w Vercel env → redeploy. Guard w `initGA()` wyłącza tracker natychmiast.
+
 ## [0.5698] — 2026-04-21
 
 Business — pierwsze **prawdziwe testimonials** na miejscu placeholderów „Antigravity". 5 cytatów z uczestników szkolenia „Prawo Jazdy AI" (marzec 2026, dział handlowy dystrybutora sprzętu naukowego): Krzysztof (sceptyk→przekonany), Aleksandra, Natalia, Ola, Gosia. Format: imię only (bez firmy i branży — consent-safe). Dodane amber ★★★★★ gwiazdki nad każdym cytatem. Marquee skrócony z 10+10 do 5+5 cards; CSS `nth-child(n+11)` → `nth-child(n+6)` dla mobile duplicate-hide.

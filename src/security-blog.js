@@ -1,7 +1,10 @@
 import '../style.css';
 import './cookie-consent/index.js';
 import './security-blog.css';
+import { initGA } from './ga.js';
 import { VERSION } from './version.js';
+
+initGA();
 
 // Version badge in nav
 document.addEventListener('DOMContentLoaded', () => {
