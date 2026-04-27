@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5709] — 2026-04-27
+
+Impact (impact.com) site verification meta tag dodany do `security/index.html` — wymóg sieci affiliate przed approval. URL weryfikacyjny: `aipulse.pl/security`.
+
+- **`security/index.html`** — `<meta name="impact-site-verification" content="bb6f5b62-...">` w `<head>`. Statyczna, bez wpływu na render/runtime.
+
 ## [0.5708] — 2026-04-23
 
 GA4 + **Consent Mode v2** — pierwsza analityka na aipulse.pl. Domyślnie wszystkie storage `denied` (`ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`), update na `granted` po zgodzie przez cookie banner. `wait_for_update: 500` daje GA buffer na dataLayer przed transportem.
