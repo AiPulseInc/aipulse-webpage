@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5720] — 2026-04-27
+
+Hero lead samooceny przepisany pod ICP (JDG/mikro-MŚP, niska świadomość cyber). Stary copy ("zarząd zadaje co miesiąc", "CIS Controls v8 + NIST CSF 2.0", "bez pytań o Red Team") brzmiał jak materiały dla CISO w średniej firmie i odpychał laika. Nowy: storytelling z konkretnymi obrazami (mail, backup, hasło), bez żargonu, bez certyfikacji w pierwszym akapicie. Tape na górze i sekcja "Metodyka" zachowane bez zmian.
+
+- **`src/samoocena/ui.js:50`** — nowy lead: "Włamanie do firmy rzadko zaczyna się od hakera w bluzie..."
+
 ## [0.5719] — 2026-04-27
 
 **Fix:** Samoocena (`/bezpieczenstwo-samoocena/`) bombowała natychmiast na cold load z `ReferenceError: Cannot access 'X' before initialization`. TDZ-bug wprowadzony w v0.5708 razem z GA4 page tracking — `let lastTrackedStep = null` deklarowany **po** wywołaniu `render()`, a render czytał go przy wejściu w `if (state.step !== lastTrackedStep)`. `function render()` jest hoisted, ale `let` nie. Ruch zmiennej przed wywołanie `render()` rozwiązuje problem.

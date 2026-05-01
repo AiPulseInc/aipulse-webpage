@@ -47,7 +47,7 @@ export function renderLanding(ctx) {
         <p class="samoocena-display-sub">35 pytań · 5 kategorii · 10 minut · Bezpłatnie</p>
 
         <p class="samoocena-hero-lead">
-          Odpowiedź na pytanie, które zarząd zadaje co miesiąc — <strong>gdzie stoimy z cyberbezpieczeństwem</strong>. Framework CIS Controls v8 + NIST CSF 2.0. Bez żargonu, bez pytań o Red Team.
+          Włamanie do firmy rzadko zaczyna się od hakera w bluzie. Częściej od <strong>jednego maila, niezaktualizowanej kopii zapasowej albo tego samego hasła w pięciu miejscach</strong>. Sprawdź w 10 minut, ile takich furtek masz u siebie — i co zamknąć w pierwszej kolejności.
         </p>
 
         <div class="samoocena-hero-actions">
