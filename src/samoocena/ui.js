@@ -40,7 +40,7 @@ export function renderLanding(ctx) {
       <div class="samoocena-landing-hero">
         <div class="samoocena-landing-eyebrow">
           <span class="samoocena-landing-dot"></span>
-          <span>Audyt wstępny · Dokument #${today.replace(/\./g, '')}</span>
+          <span>// Audyt wstępny</span>
         </div>
 
         <h1 class="samoocena-display">Samoocena<br>cyberbezpieczeństwa</h1>

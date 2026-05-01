@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5722] — 2026-04-27
+
+Hero eyebrow ujednolicony z resztą strony — prefix `//` jak w kickerach (`// Zakres`, `// Czas` etc.). Wycięty fake doc-number `Dokument #${data}` — bureaucratic flair który dla mikro-MŚP brzmi sztucznie.
+
+- **`src/samoocena/ui.js:43`** — `Audyt wstępny · Dokument #...` → `// Audyt wstępny`
+
 ## [0.5721] — 2026-04-27
 
 CTA samooceny przeniesione z hero na koniec strony (przed legal footerem). Nowa sekcja `samoocena-final-cta` z eyebrow "§ Gotowy?" + tytuł "10 minut, raport PDF, lista priorytetów." + ten sam zestaw przycisków (Rozpocznij audyt / Jak to działa / resume-restart). Hero teraz tylko narracja, bez bezpośredniej konwersji — story-first, action-after.
