@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5719] — 2026-04-27
+
+**Fix:** Samoocena (`/bezpieczenstwo-samoocena/`) bombowała natychmiast na cold load z `ReferenceError: Cannot access 'X' before initialization`. TDZ-bug wprowadzony w v0.5708 razem z GA4 page tracking — `let lastTrackedStep = null` deklarowany **po** wywołaniu `render()`, a render czytał go przy wejściu w `if (state.step !== lastTrackedStep)`. `function render()` jest hoisted, ale `let` nie. Ruch zmiennej przed wywołanie `render()` rozwiązuje problem.
+
+- **`src/samoocena/app.js`** — `let lastTrackedStep = null;` przeniesione przed `render();`. Reszta sekwencji bez zmian.
+
 ## [0.5709] — 2026-04-27
 
 Impact (impact.com) site verification meta tag dodany do `security/index.html` — wymóg sieci affiliate przed approval. URL weryfikacyjny: `aipulse.pl/security`.

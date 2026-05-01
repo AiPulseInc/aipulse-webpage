@@ -46,11 +46,11 @@ if (initial.step === 'results' || initial.step === 'thank-you') {
   clearState();
 }
 
+let lastTrackedStep = null;
+
 render();
 subscribe(render);
 bindDelegatedEvents();
-
-let lastTrackedStep = null;
 
 function render() {
   if (!mainEl) return;
