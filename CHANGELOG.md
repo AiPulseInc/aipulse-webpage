@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5726] — 2026-04-27
+
+Ujednolicony prefix kickerów — `§ Co dostajesz` → `// Co dostajesz`. Cała strona samooceny jedzie teraz na jednym znaczku `//`.
+
+- **`src/samoocena/ui.js:76`**
+
 ## [0.5725] — 2026-04-27
 
 Hero eyebrow ogołocony (bez ramki, padding-u, pulsującej kropki) i podwójny separator u dołu strony usunięty.

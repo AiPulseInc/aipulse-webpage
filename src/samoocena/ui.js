@@ -73,7 +73,7 @@ export function renderLanding(ctx) {
 
       <div class="samoocena-deliverables" id="jak-to-dziala">
         <div class="samoocena-deliverables-head">
-          <p class="samoocena-section-eyebrow">§ Co dostajesz</p>
+          <p class="samoocena-section-eyebrow">// Co dostajesz</p>
           <h2 class="samoocena-section-title">Trzy rzeczy, natychmiast.</h2>
         </div>
         <ol class="samoocena-deliverables-list">
