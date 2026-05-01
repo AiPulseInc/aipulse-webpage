@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5723] — 2026-04-27
+
+Sekcja final-cta uproszczona — wycięty eyebrow "§ Gotowy?" + tytuł "10 minut, raport PDF, lista priorytetów." Same przyciski na koniec, bez dodatkowego framing'u.
+
+- **`src/samoocena/ui.js`** — usunięte `samoocena-section-eyebrow` + `samoocena-section-title` z `samoocena-final-cta`. Wrapper i CSS zostają.
+
 ## [0.5722] — 2026-04-27
 
 Hero eyebrow ujednolicony z resztą strony — prefix `//` jak w kickerach (`// Zakres`, `// Czas` etc.). Wycięty fake doc-number `Dokument #${data}` — bureaucratic flair który dla mikro-MŚP brzmi sztucznie.

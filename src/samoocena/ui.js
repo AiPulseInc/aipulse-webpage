@@ -108,8 +108,6 @@ export function renderLanding(ctx) {
       </div>
 
       <div class="samoocena-final-cta">
-        <p class="samoocena-section-eyebrow">§ Gotowy?</p>
-        <h2 class="samoocena-section-title">10 minut, raport PDF, lista priorytetów.</h2>
         <div class="samoocena-hero-actions">
           ${
             hasResume

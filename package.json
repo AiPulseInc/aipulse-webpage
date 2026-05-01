@@ -1,7 +1,7 @@
 {
   "name": "aipulse-webpage",
   "private": true,
-  "version": "0.5722",
+  "version": "0.5723",
   "type": "module",
   "scripts": {
     "dev": "vite",
