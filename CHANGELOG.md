@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5724] — 2026-04-27
+
+**Fix:** strona samooceny miała 8px białej ramki dookoła. `<html>` i `<body>` były transparentne + body miało domyślny 8px margin → przeziera default browser background. `.samoocena-shell` miał `background: #000` ale to wrapper, nie cała viewport. Dodany reset `html, body { margin: 0; background: #000 }` na początku styles.css.
+
+- **`src/samoocena/styles.css`** — reset html/body przed `.samoocena-shell`.
+
 ## [0.5723] — 2026-04-27
 
 Sekcja final-cta uproszczona — wycięty eyebrow "§ Gotowy?" + tytuł "10 minut, raport PDF, lista priorytetów." Same przyciski na koniec, bez dodatkowego framing'u.

@@ -1,3 +1,9 @@
+html,
+body {
+  margin: 0;
+  background: #000;
+}
+
 .samoocena-shell {
   min-height: 100vh;
   background: #000;
