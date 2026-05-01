@@ -4,6 +4,13 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5721] — 2026-04-27
+
+CTA samooceny przeniesione z hero na koniec strony (przed legal footerem). Nowa sekcja `samoocena-final-cta` z eyebrow "§ Gotowy?" + tytuł "10 minut, raport PDF, lista priorytetów." + ten sam zestaw przycisków (Rozpocznij audyt / Jak to działa / resume-restart). Hero teraz tylko narracja, bez bezpośredniej konwersji — story-first, action-after.
+
+- **`src/samoocena/ui.js`** — `samoocena-hero-actions` div usunięty z hero, nowa sekcja `samoocena-final-cta` wstawiona przed `<footer>`.
+- **`src/samoocena/styles.css`** — `.samoocena-final-cta` ma vertical spacing matchujący sekcję deliverables + border-bottom jako separator nad legal footerem.
+
 ## [0.5720] — 2026-04-27
 
 Hero lead samooceny przepisany pod ICP (JDG/mikro-MŚP, niska świadomość cyber). Stary copy ("zarząd zadaje co miesiąc", "CIS Controls v8 + NIST CSF 2.0", "bez pytań o Red Team") brzmiał jak materiały dla CISO w średniej firmie i odpychał laika. Nowy: storytelling z konkretnymi obrazami (mail, backup, hasło), bez żargonu, bez certyfikacji w pierwszym akapicie. Tape na górze i sekcja "Metodyka" zachowane bez zmian.

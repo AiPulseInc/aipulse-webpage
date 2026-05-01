@@ -614,6 +614,18 @@
   opacity: 0.75;
 }
 
+/* FINAL CTA */
+
+.samoocena-final-cta {
+  margin-bottom: 4rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--samoocena-card-border);
+}
+
+.samoocena-final-cta .samoocena-section-title {
+  margin-bottom: 2rem;
+}
+
 /* LANDING FOOTER */
 
 .samoocena-landing-footer {

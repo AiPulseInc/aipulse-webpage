@@ -49,22 +49,6 @@ export function renderLanding(ctx) {
         <p class="samoocena-hero-lead">
           Włamanie do firmy rzadko zaczyna się od hakera w bluzie. Częściej od <strong>jednego maila, niezaktualizowanej kopii zapasowej albo tego samego hasła w pięciu miejscach</strong>. Sprawdź w 10 minut, ile takich furtek masz u siebie — i co zamknąć w pierwszej kolejności.
         </p>
-
-        <div class="samoocena-hero-actions">
-          ${
-            hasResume
-              ? `<button type="button" class="samoocena-cta samoocena-cta-primary" data-action="resume">
-                   <span class="samoocena-cta-label">Wróć do ostatniej próby</span>
-                   <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
-                 </button>
-                 <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="restart">Zacznij od nowa</button>`
-              : `<button type="button" class="samoocena-cta samoocena-cta-primary" data-action="start">
-                   <span class="samoocena-cta-label">Rozpocznij audyt</span>
-                   <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
-                 </button>
-                 <a class="samoocena-cta samoocena-cta-ghost" href="#jak-to-dziala">Jak to działa</a>`
-          }
-        </div>
       </div>
 
       <div class="samoocena-stats" aria-label="Statystyki samooceny">
@@ -121,6 +105,26 @@ export function renderLanding(ctx) {
             </div>
           </li>
         </ol>
+      </div>
+
+      <div class="samoocena-final-cta">
+        <p class="samoocena-section-eyebrow">§ Gotowy?</p>
+        <h2 class="samoocena-section-title">10 minut, raport PDF, lista priorytetów.</h2>
+        <div class="samoocena-hero-actions">
+          ${
+            hasResume
+              ? `<button type="button" class="samoocena-cta samoocena-cta-primary" data-action="resume">
+                   <span class="samoocena-cta-label">Wróć do ostatniej próby</span>
+                   <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+                 </button>
+                 <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="restart">Zacznij od nowa</button>`
+              : `<button type="button" class="samoocena-cta samoocena-cta-primary" data-action="start">
+                   <span class="samoocena-cta-label">Rozpocznij audyt</span>
+                   <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+                 </button>
+                 <a class="samoocena-cta samoocena-cta-ghost" href="#jak-to-dziala">Jak to działa</a>`
+          }
+        </div>
       </div>
 
       <footer class="samoocena-landing-footer">
