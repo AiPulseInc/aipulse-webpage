@@ -521,8 +521,6 @@ body {
 
 .samoocena-deliverables-head {
   margin-bottom: 2.5rem;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid var(--samoocena-card-border);
 }
 
 .samoocena-section-eyebrow {
@@ -619,6 +617,7 @@ body {
   align-items: flex-start;
   gap: 1.5rem;
   padding: 1.5rem 0 0;
+  border-top: 1px solid var(--samoocena-card-border);
 }
 
 .samoocena-landing-smallprint {

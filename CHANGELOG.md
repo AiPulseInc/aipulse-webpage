@@ -4,6 +4,14 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5727] — 2026-04-27
+
+Dwa fixy separatorów na samoocena landing:
+- Sekcja "Trzy rzeczy, natychmiast." miała dwie równoległe linie pod nagłówkiem (border-bottom z deliverables-head + border-top z pierwszego `.samoocena-deliverable`). Pierwsza wycięta — granica listy zostaje.
+- Powrót `border-top` na `.samoocena-landing-footer` — pojedynczy separator pomiędzy CTA a legal footerem.
+
+- **`src/samoocena/styles.css`** — dwie zmiany.
+
 ## [0.5726] — 2026-04-27
 
 Ujednolicony prefix kickerów — `§ Co dostajesz` → `// Co dostajesz`. Cała strona samooceny jedzie teraz na jednym znaczku `//`.
