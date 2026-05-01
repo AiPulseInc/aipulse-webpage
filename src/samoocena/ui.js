@@ -38,10 +38,7 @@ export function renderLanding(ctx) {
       </div>
 
       <div class="samoocena-landing-hero">
-        <div class="samoocena-landing-eyebrow">
-          <span class="samoocena-landing-dot"></span>
-          <span>// Audyt wstępny</span>
-        </div>
+        <p class="samoocena-landing-eyebrow">// Audyt wstępny</p>
 
         <h1 class="samoocena-display">Samoocena<br>cyberbezpieczeństwa</h1>
         <p class="samoocena-display-sub">35 pytań · 5 kategorii · 10 minut · Bezpłatnie</p>

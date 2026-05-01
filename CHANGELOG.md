@@ -4,6 +4,13 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5725] — 2026-04-27
+
+Hero eyebrow ogołocony (bez ramki, padding-u, pulsującej kropki) i podwójny separator u dołu strony usunięty.
+
+- **`src/samoocena/ui.js`** — `<div class="samoocena-landing-eyebrow"><span class="samoocena-landing-dot">…</span></div>` → `<p class="samoocena-landing-eyebrow">// Audyt wstępny</p>`
+- **`src/samoocena/styles.css`** — `.samoocena-landing-eyebrow` bez border/background/padding/inline-flex; `.samoocena-landing-dot` rule usunięta + orphan w prefers-reduced-motion. `.samoocena-final-cta` bez `border-bottom`/`padding-bottom`. `.samoocena-landing-footer` bez `border-top`. Naturalny whitespace wystarcza za separator.
+
 ## [0.5724] — 2026-04-27
 
 **Fix:** strona samooceny miała 8px białej ramki dookoła. `<html>` i `<body>` były transparentne + body miało domyślny 8px margin → przeziera default browser background. `.samoocena-shell` miał `background: #000` ale to wrapper, nie cała viewport. Dodany reset `html, body { margin: 0; background: #000 }` na początku styles.css.

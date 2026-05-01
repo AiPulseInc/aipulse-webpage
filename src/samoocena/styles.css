@@ -329,28 +329,12 @@ body {
 }
 
 .samoocena-landing-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.55rem 0.9rem;
-  border: 1px solid var(--samoocena-accent);
-  background: rgba(126, 34, 206, 0.08);
+  margin: 0 0 2rem;
   font: 700 0.72rem/1 'Space Grotesk', 'Inter', sans-serif;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--samoocena-accent);
-  margin-bottom: 2rem;
   animation: samoocena-fadeUp 0.7s ease-out 0.05s both;
-}
-
-.samoocena-landing-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--samoocena-accent);
-  box-shadow: 0 0 14px var(--samoocena-accent);
-  animation: samoocena-pulse 2s ease-in-out infinite;
 }
 
 .samoocena-display {
@@ -624,12 +608,6 @@ body {
 
 .samoocena-final-cta {
   margin-bottom: 4rem;
-  padding-bottom: 2.5rem;
-  border-bottom: 1px solid var(--samoocena-card-border);
-}
-
-.samoocena-final-cta .samoocena-section-title {
-  margin-bottom: 2rem;
 }
 
 /* LANDING FOOTER */
@@ -641,7 +619,6 @@ body {
   align-items: flex-start;
   gap: 1.5rem;
   padding: 1.5rem 0 0;
-  border-top: 1px solid var(--samoocena-card-border);
 }
 
 .samoocena-landing-smallprint {
@@ -2323,8 +2300,7 @@ body {
   .samoocena-display-line,
   .samoocena-hero-lead,
   .samoocena-hero-actions,
-  .samoocena-stats,
-  .samoocena-landing-dot {
+  .samoocena-stats {
     animation: none;
   }
 }
