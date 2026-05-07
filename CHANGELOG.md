@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5728] — 2026-05-02
+
+OpenGraph + Twitter Card meta tags na samoocenie. Strona miała tylko og:title/description/type — brakowało og:url, og:image, og:locale, og:site_name oraz całego bloku Twitter Card. Bez tego linki do `aipulse.pl/bezpieczenstwo-samoocena/` na LinkedIn/X/Slack pojawiały się bez preview image. Skopiowana struktura z security; własne (samoocena-specific) tytuły/opisy zachowane.
+
+- **`bezpieczenstwo-samoocena/index.html`** — uzupełnione brakujące tagi. og:image = `og-security.png` (samoocena żyje pod brandem security).
+
 ## [0.5727] — 2026-04-27
 
 Dwa fixy separatorów na samoocena landing:
