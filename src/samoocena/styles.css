@@ -11,8 +11,8 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   line-height: 1.55;
-  --samoocena-accent: #7E22CE;
-  --samoocena-accent-rgb: 126, 34, 206;
+  --samoocena-accent: #A855F7;
+  --samoocena-accent-rgb: 168, 85, 247;
   --samoocena-border: #333;
   --samoocena-muted: #B3B3B3;
   --samoocena-card-bg: #0A0A0A;
@@ -290,9 +290,9 @@ body {
   max-height: 720px;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(126, 34, 206, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(126, 34, 206, 0.05) 1px, transparent 1px),
-    radial-gradient(ellipse at 20% 0%, rgba(126, 34, 206, 0.18), transparent 60%);
+    linear-gradient(to right, rgba(168, 85, 247, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 85, 247, 0.05) 1px, transparent 1px),
+    radial-gradient(ellipse at 20% 0%, rgba(168, 85, 247, 0.18), transparent 60%);
   background-size: 96px 96px, 96px 96px, auto;
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 10%, transparent 100%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 10%, transparent 100%);
@@ -666,7 +666,7 @@ body {
 .samoocena-category-transition {
   padding: 1rem 1.3rem;
   border-left: 3px solid var(--samoocena-accent);
-  background: rgba(126, 34, 206, 0.07);
+  background: rgba(168, 85, 247, 0.07);
   margin: 0 0 1.75rem;
 }
 
@@ -1095,7 +1095,7 @@ body {
   margin: 1.5rem 0;
   padding: 1.2rem 1.4rem;
   border-left: 4px solid var(--samoocena-accent);
-  background: rgba(126, 34, 206, 0.08);
+  background: rgba(168, 85, 247, 0.08);
 }
 
 .samoocena-guardrail-callout {
@@ -1471,7 +1471,7 @@ body {
 .samoocena-modal-overlay {
   /* Modal appendowany do document.body (poza .samoocena-shell),
      więc CSS custom properties musimy redeklarować tutaj. */
-  --samoocena-accent: #7E22CE;
+  --samoocena-accent: #A855F7;
   --samoocena-muted: #B3B3B3;
   --samoocena-card-border: #333;
 
@@ -1596,7 +1596,7 @@ body {
 }
 
 .samoocena-modal-btn-ghost:hover {
-  background: rgba(126, 34, 206, 0.1);
+  background: rgba(168, 85, 247, 0.1);
 }
 
 .samoocena-modal-btn-primary {
@@ -2205,7 +2205,7 @@ body {
   background: #0A0A0A;
   color: #fff;
   border: 1px solid #333;
-  border-left: 4px solid #7E22CE;
+  border-left: 4px solid #A855F7;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 0.9rem;
   line-height: 1.4;
@@ -2215,7 +2215,7 @@ body {
 }
 
 .samoocena-toast-sending {
-  border-left-color: #7E22CE;
+  border-left-color: #A855F7;
   color: #B3B3B3;
 }
 
@@ -2499,7 +2499,7 @@ body {
 
 .samoocena-option.is-selected {
   border-color: var(--samoocena-accent);
-  background: rgba(126, 34, 206, 0.08);
+  background: rgba(168, 85, 247, 0.08);
 }
 
 .samoocena-option input[type='radio'] {
@@ -2523,7 +2523,7 @@ body {
   color: var(--samoocena-accent);
   font-size: 0.88rem;
   line-height: 1.5;
-  background: rgba(126, 34, 206, 0.05);
+  background: rgba(168, 85, 247, 0.05);
 }
 
 .samoocena-question-meta {
@@ -3122,7 +3122,7 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
-  color: var(--brand-accent, #7e22ce);
+  color: var(--brand-accent, #A855F7);
 }
 
 .samoocena-scan-overlay-list {
@@ -3151,7 +3151,7 @@ body {
 .samoocena-scan-overlay-list li::before {
   content: '○';
   font-weight: 700;
-  color: var(--brand-accent, #7e22ce);
+  color: var(--brand-accent, #A855F7);
 }
 .samoocena-scan-overlay-list li.is-active::before { content: '◐'; }
 .samoocena-scan-overlay-list li.is-done::before { content: '●'; }

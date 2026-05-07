@@ -143,7 +143,7 @@ Nigdy: „wypróbuj [ChatGPT / Perplexity / Claude] już dziś" — to marketing
 | Warning | `#F59E0B` | (ostrzeżenia — kolor bliski accent, używać rzadko) |
 | Error | `#EF4444` | (błędy formularza) |
 
-**Kolor amber (`#F5A623`) jest unikalny dla business line.** Security line używa `#7E22CE` (violet). Nie mieszamy — amber oznacza „to jest business / szkoleniowy content".
+**Kolor amber (`#F5A623`) jest unikalny dla business line.** Security line używa `#A855F7` (violet). Nie mieszamy — amber oznacza „to jest business / szkoleniowy content".
 
 ### 5.2 Typografia
 
@@ -232,7 +232,7 @@ Tagline jest **zawsze obecny** w navigacji i stopce — inaczej użytkownik musi
 | Linia | Body class | Hex accent | Kropka koloru |
 |-------|------------|------------|---------------|
 | **Business** | `theme-business` | `#F5A623` (amber) | **amber dot over „ı"** |
-| Security | `theme-security` | `#7E22CE` (violet) | violet dot over „ı" |
+| Security | `theme-security` | `#A855F7` (violet) | violet dot over „ı" |
 | Landing (wybór brand) | `landing-business` / `landing-security` | jak wyżej | Każda sekcja landing ma swój kolor |
 
 **Kolor kropki NIGDY nie jest inny** niż brand-accent linii. Nie czerwony, nie zielony, nie gradient. Jeden kolor, jeden brand, jedna linia.
@@ -257,7 +257,7 @@ Tagline jest **zawsze obecny** w navigacji i stopce — inaczej użytkownik musi
 
 ❌ Nie odtwarzaj logo jako statyczny PNG/SVG bez zachowania konstrukcji (stracisz automatyczną zmianę koloru + semantykę)
 ❌ Nie używaj normalnego „i" z pełną kropką (tracisz unikalność)
-❌ Nie zmieniaj koloru kropki na inną wartość niż `#F5A623` (na business) lub `#7E22CE` (na security)
+❌ Nie zmieniaj koloru kropki na inną wartość niż `#F5A623` (na business) lub `#A855F7` (na security)
 ❌ **Nie mieszaj kolorów między liniami** — amber dot na stronie security albo violet na business = zaburzenie brand identity
 ❌ Nie rozciągaj logo poziomo/pionowo
 ❌ Nie dodawaj cienia, outline, glow, gradient fill
@@ -507,7 +507,7 @@ Obie linie to ta sama marka, ale różne usługi i różna publika. Zasady rozr�
 
 | Aspekt | Business | Security |
 |--------|----------|----------|
-| Accent color | Amber `#F5A623` | Violet `#7E22CE` |
+| Accent color | Amber `#F5A623` | Violet `#A855F7` |
 | Tagline | „Doradztwo Biznesowe" | „Cyber Security" |
 | Body class | `theme-business` | `theme-security` |
 | URL | `/business/` | `/security/` |

@@ -4,6 +4,17 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5729] — 2026-05-07
+
+**A11y:** brand violet pojaśniony z `#7E22CE` (purple-700, kontrast 3.5:1 na #000 — WCAG AA fail) → `#A855F7` (purple-500, kontrast 5.2:1 — WCAG AA pass). Zmiana wykonana po wizualnym porównaniu w mockupie kontrastów.
+
+**Zakres sweepu:**
+- `style.css` — token `--brand-accent-security` + 3 rgba shadows
+- `src/samoocena/styles.css` — 2 tokeny + 4 hardcoded hex + 9 rgba (15 hits)
+- `brand-books/security.md` + `business.md` — 11 referencji dokumentacyjnych dla SSOT
+
+**Świadomie POMINIĘTE:** `src/raport/styles.css` (38 hex), `src/raport/app.js` (2), `src/raport/template.js` (3). PDF report drukuje na białym tle — `#A855F7` na białym ma kontrast 3.4:1, ciemniejszy `#7E22CE` jest tam czytelniejszy. Web ↔ PDF mają różne use cases (kontrast vs print premium).
+
 ## [0.5728] — 2026-05-02
 
 OpenGraph + Twitter Card meta tags na samoocenie. Strona miała tylko og:title/description/type — brakowało og:url, og:image, og:locale, og:site_name oraz całego bloku Twitter Card. Bez tego linki do `aipulse.pl/bezpieczenstwo-samoocena/` na LinkedIn/X/Slack pojawiały się bez preview image. Skopiowana struktura z security; własne (samoocena-specific) tytuły/opisy zachowane.

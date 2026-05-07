@@ -35,7 +35,7 @@ html {
   --brand-secondary: #333333;
   --brand-accent: #F5A623;
   --brand-accent-business: #F5A623;
-  --brand-accent-security: #7E22CE;
+  --brand-accent-security: #A855F7;
 
   --border-color: #333333;
 
@@ -572,7 +572,7 @@ a {
 }
 
 .landing-security::after {
-  background: radial-gradient(ellipse 50% 70% at center, rgba(126, 34, 206, 0.15) 0%, transparent 70%);
+  background: radial-gradient(ellipse 50% 70% at center, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
 }
 
 .landing-split:hover .landing-half:not(:hover) {
@@ -1236,7 +1236,7 @@ body.theme-business {
 .pricing-card-highlighted {
   background: #FFF;
   border: 2px solid var(--brand-accent);
-  box-shadow: 0 8px 32px -8px rgba(126, 34, 206, 0.25);
+  box-shadow: 0 8px 32px -8px rgba(168, 85, 247, 0.25);
 }
 
 .pricing-card-badge {
@@ -2033,7 +2033,7 @@ body.theme-business {
 }
 
 .hero-certificates-link:hover .hero-certificates {
-  filter: drop-shadow(0 8px 24px rgba(126, 34, 206, 0.4));
+  filter: drop-shadow(0 8px 24px rgba(168, 85, 247, 0.4));
 }
 
 @media (max-width: 768px) {

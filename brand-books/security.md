@@ -133,13 +133,13 @@ Nigdy: „sprawdź bezpieczeństwo swojej firmy na [zewnętrznym narzędziu]".
 | Background | `#000000` | Canvas, dark sections |
 | Primary text | `#FFFFFF` | Headlines, body text on dark |
 | Secondary text | `#CCCCCC` | Descriptions, captions |
-| **Accent (security)** | `#7E22CE` | Labels, CTA, logo dot, hover, highlight |
+| **Accent (security)** | `#A855F7` | Labels, CTA, logo dot, hover, highlight |
 | Borders | `#333333` | Dividers, card borders |
 | Success/positive | `#10B981` | (używane rzadko, np. checkmark list) |
 | Warning | `#F59E0B` | (ostrzeżenia, ryzyka) |
 | Error | `#EF4444` | (błędy formularza, incident alerts) |
 
-**Kolor violet (`#7E22CE`) jest unikalny dla security line.** Business line używa `#F5A623` (amber). Nie mieszamy — violet oznacza "to jest security content".
+**Kolor violet (`#A855F7`) jest unikalny dla security line.** Business line używa `#F5A623` (amber). Nie mieszamy — violet oznacza "to jest security content".
 
 ### 5.2 Typografia
 
@@ -167,7 +167,7 @@ Ale renderowane wizualnie — litera „i" jest **trójwarstwowa**:
 |---------|-------|-------|------|
 | Natywna `i` (w HTML) | `i` | `transparent` | Daje semantykę (screen reader), ale niewidoczna wizualnie |
 | `::before` pseudo-element | `ı` (dotless i, Unicode U+0131) | `--text-primary` (biały na dark / czarny na light) | Pokazuje **trzonek litery bez kropki** |
-| `::after` pseudo-element | okrąg 0.25em × 0.25em, `border-radius: 50%` | `--brand-accent` (violet `#7E22CE` dla security / amber dla business) | Pokazuje **kropkę nad ı** w kolorze linii |
+| `::after` pseudo-element | okrąg 0.25em × 0.25em, `border-radius: 50%` | `--brand-accent` (violet `#A855F7` dla security / amber dla business) | Pokazuje **kropkę nad ı** w kolorze linii |
 
 **Dlaczego tak:** kolorowanie tylko kropki (bez trzonka) przez pseudo-element pozwala na:
 1. Automatyczną zmianę koloru akcentu przez CSS variable (theme switching security ↔ business)
@@ -223,7 +223,7 @@ Tagline jest **zawsze obecny** w navigacji i stopce, żeby od razu sygnalizować
 
 | Linia | Body class | Hex accent | Kropka koloru |
 |-------|------------|------------|---------------|
-| Security | `theme-security` | `#7E22CE` (violet) | violet dot over „ı" |
+| Security | `theme-security` | `#A855F7` (violet) | violet dot over „ı" |
 | Business | `theme-business` | `#F5A623` (amber) | amber dot over „ı" |
 | Landing (wybór brand) | `landing-security` / `landing-business` | jak wyżej | Każda sekcja landing ma swój kolor |
 
@@ -249,7 +249,7 @@ Tagline jest **zawsze obecny** w navigacji i stopce, żeby od razu sygnalizować
 
 ❌ Nie odtwarzaj logo jako statyczny PNG/SVG (stracisz automatyczną zmianę koloru + semantykę)  
 ❌ Nie używaj normalnego „i" z pełną kropką (tracisz unikalność — bo każda marka z „i" tak wygląda)  
-❌ Nie zmieniaj koloru kropki na wartości spoza `#7E22CE` / `#F5A623`  
+❌ Nie zmieniaj koloru kropki na wartości spoza `#A855F7` / `#F5A623`  
 ❌ Nie rozciągaj logo poziomo/pionowo (zaburza proporcje Outfit 800)  
 ❌ Nie dodawaj cienia (`box-shadow`, `text-shadow`), outline, glow, gradient fill  
 ❌ Nie obracaj logo (0° stale)  
@@ -280,7 +280,7 @@ Generowane przez **Nano Banana 2** (`gemini-3.1-flash-image-preview`) — spójn
 **Consistent style rules:**
 - Czarne tło (`#000`)
 - Geometric / brutalist shapes
-- Violet (`#7E22CE`) jako jedyny akcent kolorystyczny (zamiast amber dla business)
+- Violet (`#A855F7`) jako jedyny akcent kolorystyczny (zamiast amber dla business)
 - No photorealism ludzi
 - No stock photos
 - Abstract symbolism > literal illustration
@@ -473,7 +473,7 @@ Przed wypuszczeniem treści, sprawdź:
 - [ ] Nie ma step-by-step instrukcji DIY (wyjątek: quick wins LI)
 - [ ] CTA prowadzi do **naszego** ekosystemu (samoocena / rozmowa / audyt)
 - [ ] Źródła są primary albo autorytatywne (nie blog marketingowy)
-- [ ] Kolor accent to violet `#7E22CE`, nie amber
+- [ ] Kolor accent to violet `#A855F7`, nie amber
 - [ ] Polski język (angielski tylko w technikaliach)
 - [ ] Konkretne liczby / nazwy / daty (nie „niedawno", „pewna firma")
 - [ ] Benefit > feature (co klient zyskuje, nie co my dostarczamy)
