@@ -35,7 +35,9 @@ html {
   --brand-secondary: #333333;
   --brand-accent: #F5A623;
   --brand-accent-business: #F5A623;
+  --brand-accent-business-deep: #F5A623;
   --brand-accent-security: #A855F7;
+  --brand-accent-security-deep: #7E22CE;
 
   --border-color: #333333;
 
@@ -343,7 +345,7 @@ a {
 }
 
 .btn-accent {
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
   color: #000;
   border: 1px solid var(--brand-accent);
 }
@@ -624,7 +626,7 @@ a {
 }
 
 .landing-security .brand-i::after {
-  background: var(--brand-accent-security);
+  background: var(--brand-accent-security-deep);
 }
 
 .landing-tagline {
@@ -677,7 +679,7 @@ a {
 }
 
 .landing-security:hover .landing-cta {
-  background: var(--brand-accent-security);
+  background: var(--brand-accent-security-deep);
   border-color: var(--brand-accent-security);
   color: #FFF;
 }
@@ -785,10 +787,12 @@ a {
 /* Theme overrides — swap --brand-accent per page */
 body.theme-security {
   --brand-accent: var(--brand-accent-security);
+  --brand-accent-deep: var(--brand-accent-security-deep);
 }
 
 body.theme-business {
   --brand-accent: var(--brand-accent-business);
+  --brand-accent-deep: var(--brand-accent-business-deep);
 }
 
 .site-nav-brand-wrap {
@@ -857,7 +861,7 @@ body.theme-business {
   position: absolute;
   width: 0.25em;
   height: 0.25em;
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
   border-radius: 50%;
   top: 0.05em;
   left: 50%;
@@ -892,7 +896,7 @@ body.theme-business {
   bottom: 0;
   width: 24px;
   height: 2px;
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -1244,7 +1248,7 @@ body.theme-business {
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
   color: #FFF;
   font-family: 'Space Grotesk', monospace;
   font-size: 0.65rem;
@@ -1326,7 +1330,7 @@ body.theme-business {
   align-items: center;
   justify-content: center;
   padding: 0.7rem 0.85rem; /* was 0.85rem 1rem */
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
   color: #FFF;
   font-family: 'Space Grotesk', monospace;
   font-size: 0.65rem; /* was 0.75rem */
@@ -1685,7 +1689,7 @@ body.theme-business {
 }
 
 .protocol-step-light::before {
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
 }
 
 .protocol-step-light .protocol-step-number {
@@ -2636,7 +2640,7 @@ body.theme-business {
 }
 
 .site-nav-toggle:hover {
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
   border-color: var(--brand-accent);
 }
 
@@ -2677,7 +2681,7 @@ body.theme-business {
   bottom: 1.25rem;
   width: 56px;
   height: 56px;
-  background: var(--brand-accent);
+  background: var(--brand-accent-deep);
   color: #000;
   border: 2px solid #000;
   border-radius: 0;
@@ -3311,7 +3315,7 @@ body.theme-business {
   .pricing-card:nth-child(2)::before,
   .pricing-card:nth-child(3)::before,
   .pricing-card:nth-child(4)::before {
-    background: var(--brand-accent);
+    background: var(--brand-accent-deep);
     opacity: 1;
   }
 

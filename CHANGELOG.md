@@ -4,6 +4,22 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.5730] — 2026-05-07
+
+**Visual hierarchy:** brand violet rozdzielony na dwa shade'y zgodnie z surface use case. Solid violet block (CTA, fill, kafel) optycznie wyglądał jaśniej niż violet text na czarnym tle — odwracało hierarchię (button kradł uwagę bardziej niż chciał, a accent text wyglądał drugorzędnie). Klasyczny problem "duża powierzchnia koloru = większa percepcja luminance vs rozczłonkowane litery". Wzór z dojrzałych design systems: dwa shade'y per accent.
+
+**Tokens:**
+- `--brand-accent-security: #A855F7` (bright) — text, eyebrows, kickers, borders, gradients
+- `--brand-accent-security-deep: #7E22CE` (deep) — solid backgrounds (CTA, fills, kafle)
+- Identyczne split dla `--samoocena-accent` w samoocena scope
+- Business amber: alias `-deep` = `-base` (= `#F5A623`); business nie ma tego problemu, parity tokenów dla future-proofing
+
+**Sweep:**
+- `style.css` — 9 `background: var(--brand-accent)` + 2 security-explicit → `-deep` warianty
+- `src/samoocena/styles.css` — 13 `background: var(--samoocena-accent)` → `-deep`
+- Borders/gradients/text/box-shadows pozostają na bright (5.2:1 a11y na czarnym)
+- Business solid bg pozostają bez zmian (visual rezultat identyczny przez alias)
+
 ## [0.5729] — 2026-05-07
 
 **A11y:** brand violet pojaśniony z `#7E22CE` (purple-700, kontrast 3.5:1 na #000 — WCAG AA fail) → `#A855F7` (purple-500, kontrast 5.2:1 — WCAG AA pass). Zmiana wykonana po wizualnym porównaniu w mockupie kontrastów.
