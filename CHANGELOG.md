@@ -4,6 +4,12 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.582] — 2026-05-08
+
+`stripe-webhook` debug logging mirror create-checkout-session — zamiast generic "missing env vars" log teraz wskazuje konkretną brakującą zmienną. Wymagane do dalszej diagnozy webhook 500 (next session).
+
+- **`supabase/functions/stripe-webhook/index.ts`** — detailed missing env list w error log
+
 ## [0.581] — 2026-05-08
 
 **Fixes po pierwszym E2E teście Stripe:**

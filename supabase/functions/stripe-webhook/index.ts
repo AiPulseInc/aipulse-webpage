@@ -312,7 +312,13 @@ Deno.serve(async (req: Request) => {
   const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
 
   if (!STRIPE_KEY || !STRIPE_WEBHOOK_SECRET || !SUPABASE_URL || !SERVICE_ROLE) {
-    console.error('[stripe-webhook] missing env vars');
+    const missing = [
+      !STRIPE_KEY && 'STRIPE_RESTRICTED_KEY_or_STRIPE_SECRET_KEY',
+      !STRIPE_WEBHOOK_SECRET && 'STRIPE_WEBHOOK_SECRET',
+      !SUPABASE_URL && 'SUPABASE_URL',
+      !SERVICE_ROLE && 'SUPABASE_SERVICE_ROLE_KEY',
+    ].filter(Boolean);
+    console.error('[stripe-webhook] missing env vars:', missing.join(', '));
     return new Response('config error', { status: 500 });
   }
 
