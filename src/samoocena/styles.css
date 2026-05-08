@@ -1602,12 +1602,12 @@ body {
 
 .samoocena-modal-btn-primary {
   background: var(--samoocena-accent-deep);
-  color: #000;
+  color: #fff;
 }
 
 .samoocena-modal-btn-primary:hover {
-  background: #fff;
-  color: var(--samoocena-accent);
+  background: var(--samoocena-accent);
+  color: #fff;
 }
 
 .samoocena-modal-btn:focus-visible {

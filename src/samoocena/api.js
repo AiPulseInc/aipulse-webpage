@@ -248,10 +248,9 @@ export async function verifyCheckoutSession(sessionId) {
     if (!sessionId) return { ok: false, error: 'brak sessionId' };
 
     const supabase = getSupabaseBrowser();
-    const { data, error } = await supabase.functions.invoke(
-      `verify-checkout-session?session_id=${encodeURIComponent(sessionId)}`,
-      { method: 'GET' },
-    );
+    const { data, error } = await supabase.functions.invoke('verify-checkout-session', {
+      body: { sessionId },
+    });
     if (error) return { ok: false, error: error.message };
     return data || { ok: false, error: 'empty_response' };
   } catch (err) {

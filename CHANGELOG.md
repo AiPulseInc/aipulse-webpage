@@ -4,6 +4,14 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.581] — 2026-05-08
+
+**Fixes po pierwszym E2E teście Stripe:**
+
+- **Modal "Przejdź do płatności" button czarny tekst na fioletowym tle** → unreadable. CSS regression z violet refactor v0.5730. Zmiana `color: #000` → `color: #fff` na `.samoocena-modal-btn-primary`.
+- **`verify-checkout-session` failed z 405** — `supabase.functions.invoke()` nie respektuje `method: 'GET'` z query params. Konwersja endpoint na **POST z `{ sessionId }` w body**. Frontend `verifyCheckoutSession()` zaktualizowany.
+- **`create-checkout-session` debug logging** — zamiast generic "missing env vars", log teraz wskazuje konkretną brakującą zmienną (np. `STRIPE_PRICE_ID`).
+
 ## [0.580] — 2026-05-08
 
 **Stripe payment integration MVP** — raport PDF za 99 zł netto + 23% VAT (121,77 zł brutto). B2B-friendly: NIP collection w Checkout + custom field "Faktura VAT?" → admin email z danymi do faktury.

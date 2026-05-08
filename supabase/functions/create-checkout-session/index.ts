@@ -75,7 +75,14 @@ Deno.serve(async (req: Request) => {
   const SITE_URL = Deno.env.get('SITE_URL') || 'https://aipulse.pl';
 
   if (!SUPABASE_URL || !SERVICE_ROLE || !STRIPE_KEY || !STRIPE_PRICE_ID || !STRIPE_TAX_RATE_ID) {
-    console.error('[create-checkout-session] missing env vars');
+    const missing = [
+      !SUPABASE_URL && 'SUPABASE_URL',
+      !SERVICE_ROLE && 'SUPABASE_SERVICE_ROLE_KEY',
+      !STRIPE_KEY && 'STRIPE_RESTRICTED_KEY_or_STRIPE_SECRET_KEY',
+      !STRIPE_PRICE_ID && 'STRIPE_PRICE_ID',
+      !STRIPE_TAX_RATE_ID && 'STRIPE_TAX_RATE_ID',
+    ].filter(Boolean);
+    console.error('[create-checkout-session] missing env vars:', missing.join(', '));
     return err('service_unavailable', 500);
   }
 

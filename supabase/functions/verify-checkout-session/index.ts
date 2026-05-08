@@ -1,5 +1,5 @@
 // supabase/functions/verify-checkout-session/index.ts
-// GET /functions/v1/verify-checkout-session?session_id=cs_xxx
+// POST /functions/v1/verify-checkout-session  Body: { sessionId: 'cs_xxx' }
 // Response: { ok: true, paid: bool, assessmentId?, payload? } | { ok: false, error: code }
 //
 // Wywoływany przez frontend po redirect z Stripe Checkout (success_url).
@@ -12,7 +12,7 @@ import Stripe from 'npm:stripe@17';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers':
     'authorization, x-client-info, apikey, content-type, x-application',
 };
@@ -36,10 +36,15 @@ Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: CORS_HEADERS });
   }
-  if (req.method !== 'GET') return err('invalid_session_id', 405);
+  if (req.method !== 'POST') return err('invalid_session_id', 405);
 
-  const url = new URL(req.url);
-  const sessionId = url.searchParams.get('session_id') || '';
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return err('invalid_session_id');
+  }
+  const sessionId = typeof body.sessionId === 'string' ? body.sessionId : '';
   if (!SESSION_ID_REGEX.test(sessionId)) return err('invalid_session_id');
 
   const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
