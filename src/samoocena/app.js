@@ -34,7 +34,7 @@ import {
   renderError,
 } from './ui.js';
 import { getAwarenessQuestions } from './awareness.js';
-import { submitAssessment, fetchBenchmark, scanDomain, sendReport } from './api.js';
+import { submitAssessment, fetchBenchmark, scanDomain, sendReport, createCheckoutSession } from './api.js';
 import { showConfirmModal, showInputModal, showRaportRequestModal } from './modal.js';
 
 const mainEl = document.getElementById('samoocena-main');
@@ -292,39 +292,25 @@ function handleClick(event) {
             dnsScan: freshState.dnsScan || null,
           };
 
-          // Fallback do localStorage (gdy sendReport failuje lub brak assessmentId)
-          const fallbackOpen = () => {
-            try {
-              localStorage.setItem(
-                'raportData',
-                JSON.stringify({ ...payload, assessmentId: freshState.assessmentId || Date.now() }),
-              );
-            } catch (err) {
-              console.error('[samoocena] localStorage failed:', err);
-            }
-            trackEvent('raport_requested', { channel: 'fallback' });
-            window.open('/raport-audit/', '_blank', 'noopener');
-          };
-
           if (!freshState.assessmentId) {
-            console.warn('[samoocena] brak assessmentId — fallback localStorage');
-            fallbackOpen();
+            console.error('[samoocena] brak assessmentId — nie można utworzyć płatności');
+            alert('Nie udało się rozpocząć płatności. Spróbuj odświeżyć stronę i ukończyć ankietę ponownie.');
             return;
           }
 
-          const res = await sendReport(freshState.assessmentId, {
+          const res = await createCheckoutSession(freshState.assessmentId, {
             email,
             marketingConsent,
             payload,
           });
 
-          if (res.ok && res.reportUrl) {
-            trackEvent('raport_requested', { channel: 'online' });
-            // Otwórz online wersję raportu (dane przyjdą z DB przez ?id=)
-            window.open(res.reportUrl, '_blank', 'noopener');
+          if (res.ok && res.url) {
+            trackEvent('raport_requested', { channel: 'stripe_checkout' });
+            // Pełny redirect na Stripe Checkout (nie window.open — Stripe potrzebuje własnej sesji cookie)
+            window.location.href = res.url;
           } else {
-            console.warn('[samoocena] sendReport failed, fallback to localStorage:', res.error);
-            fallbackOpen();
+            console.error('[samoocena] createCheckoutSession failed:', res.error);
+            alert(`Nie udało się utworzyć sesji płatności: ${res.error || 'nieznany błąd'}.\n\nSpróbuj ponownie za chwilę albo skontaktuj się: maciek@aipulse.pl`);
           }
         },
       });

@@ -330,7 +330,7 @@ function renderUpsellSection() {
 
       <div class="samoocena-report-upsell-cta">
         <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="download-pdf">
-          Pobierz swój raport
+          Zamów raport — 99&nbsp;zł netto
         </button>
         <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="view-example-report">
           Zobacz przykładowy raport
@@ -338,7 +338,7 @@ function renderUpsellSection() {
       </div>
 
       <p class="samoocena-report-upsell-note">
-        <em>Bezpłatnie dla 100 pierwszych użytkowników. Docelowo raport rozszerzony: <strong>149 zł</strong>.</em>
+        <em>Cena promocyjna dla early adopters: <s>149&nbsp;zł</s> <strong>99&nbsp;zł netto</strong> (121,77&nbsp;zł brutto). B2B: NIP zbierany przy płatności, prośbę o fakturę VAT zaznaczasz w checkoucie.</em>
       </p>
     </section>
   `;

@@ -213,6 +213,54 @@ export async function sendReport(assessmentId, { email, marketingConsent, payloa
 }
 
 /**
+ * Wywołuje edge function create-checkout-session — zapisuje payload + email + consent,
+ * tworzy Stripe Checkout Session i zwraca URL do redirect.
+ * @param {string} assessmentId
+ * @param {{ email: string, marketingConsent: boolean, payload: object }} input
+ * @returns {Promise<{ ok: true, url: string } | { ok: false, error: string }>}
+ */
+export async function createCheckoutSession(assessmentId, { email, marketingConsent, payload }) {
+  try {
+    if (!assessmentId) return { ok: false, error: 'brak assessmentId' };
+    if (!email) return { ok: false, error: 'brak email' };
+    if (!payload) return { ok: false, error: 'brak payload' };
+
+    const supabase = getSupabaseBrowser();
+    const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+      body: { assessmentId, email, marketingConsent, payload },
+    });
+    if (error) return { ok: false, error: error.message };
+    return data || { ok: false, error: 'empty_response' };
+  } catch (err) {
+    console.error('[samoocena] createCheckoutSession failed:', err);
+    return { ok: false, error: err.message || 'unknown' };
+  }
+}
+
+/**
+ * Wywołuje edge function verify-checkout-session — weryfikuje payment status w Stripe,
+ * zwraca payload raportu jeśli paid.
+ * @param {string} sessionId Stripe Checkout Session ID (cs_test_... or cs_live_...)
+ * @returns {Promise<{ ok: true, paid: boolean, assessmentId?: string, payload?: object } | { ok: false, error: string }>}
+ */
+export async function verifyCheckoutSession(sessionId) {
+  try {
+    if (!sessionId) return { ok: false, error: 'brak sessionId' };
+
+    const supabase = getSupabaseBrowser();
+    const { data, error } = await supabase.functions.invoke(
+      `verify-checkout-session?session_id=${encodeURIComponent(sessionId)}`,
+      { method: 'GET' },
+    );
+    if (error) return { ok: false, error: error.message };
+    return data || { ok: false, error: 'empty_response' };
+  } catch (err) {
+    console.error('[samoocena] verifyCheckoutSession failed:', err);
+    return { ok: false, error: err.message || 'unknown' };
+  }
+}
+
+/**
  * Pobiera snapshot raportu z DB po assessmentId (używane przez stronę raportu z linka w emailu).
  * Dostęp anonimowy (polityka assessments_anon_select_by_id + UUID v4 entropy).
  * @param {string} assessmentId

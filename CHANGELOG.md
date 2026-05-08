@@ -4,6 +4,27 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.580] — 2026-05-08
+
+**Stripe payment integration MVP** — raport PDF za 99 zł netto + 23% VAT (121,77 zł brutto). B2B-friendly: NIP collection w Checkout + custom field "Faktura VAT?" → admin email z danymi do faktury.
+
+**Backend (Supabase Edge Functions):**
+- `create-checkout-session` — POST: zapisuje email/payload/consent do assessment, tworzy Stripe Session, zwraca redirect URL
+- `verify-checkout-session` — GET ?session_id=xxx: retrieve z Stripe, zwraca payload jeśli paid
+- `stripe-webhook` — POST: signature verify, mark paid, email user (Resend) + admin invoice request jeśli wants_invoice
+- DB migration: `payments.wants_invoice boolean` (rest schemy już istnieje — payments table z stripe_session_id, stripe_event_id idempotency, leads, etc.)
+
+**Frontend:**
+- Modal "Zamów raport PDF" — cena 99 zł netto (przekreślone 149 zł), button "Przejdź do płatności"
+- Flow: `download-pdf` action → modal → `createCheckoutSession` → redirect do Stripe Checkout (zamiast `sendReport` + window.open)
+- `/raport-audit/?session_id=cs_xxx` flow — spinner "Weryfikujemy płatność…", po sukcesie auto-render raport, fallback states (pending, error)
+- Wycięte "Bezpłatnie dla 100 pierwszych" z landing stat + deliverable note
+- Upsell note z nową ceną i informacją o faktura VAT w checkoucie
+
+**Pomijane:** PDF report styles (src/raport/styles.css) — 38 hex `#7E22CE` zostają (drukują się na białym tle, ciemniejszy fiolet bardziej premium).
+
+**Wersjonowanie:** skok 0.5730 → 0.580 (minor bump zamiast nano) — feature-level zmiana, nie cosmetic.
+
 ## [0.5730] — 2026-05-07
 
 **Visual hierarchy:** brand violet rozdzielony na dwa shade'y zgodnie z surface use case. Solid violet block (CTA, fill, kafel) optycznie wyglądał jaśniej niż violet text na czarnym tle — odwracało hierarchię (button kradł uwagę bardziej niż chciał, a accent text wyglądał drugorzędnie). Klasyczny problem "duża powierzchnia koloru = większa percepcja luminance vs rozczłonkowane litery". Wzór z dojrzałych design systems: dwa shade'y per accent.

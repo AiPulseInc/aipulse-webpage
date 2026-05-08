@@ -203,10 +203,10 @@ export function showRaportRequestModal({
   overlay.innerHTML = `
     <div class="samoocena-modal samoocena-modal-wide" role="dialog" aria-modal="true" aria-labelledby="samoocena-modal-title">
       <div class="samoocena-modal-body">
-        <h2 id="samoocena-modal-title" class="samoocena-modal-title">Pobierz raport PDF</h2>
+        <h2 id="samoocena-modal-title" class="samoocena-modal-title">Zamów raport PDF</h2>
         <p class="samoocena-modal-message">
-          Raport jest darmowy w okresie promocji (100 pierwszych użytkowników, normalnie 149&nbsp;zł).
-          Aby Ci go dostarczyć i potwierdzić rezerwację — potrzebujemy nazwy firmy i adresu email.
+          Cena promocyjna dla early adopters: <s>149&nbsp;zł</s> <strong>99&nbsp;zł netto</strong> (121,77&nbsp;zł brutto z 23% VAT).
+          Po opłaceniu raport otworzy się natychmiast w przeglądarce + dostaniesz go mailem.
         </p>
 
         <label class="samoocena-modal-field">
@@ -253,7 +253,7 @@ export function showRaportRequestModal({
           Anuluj
         </button>
         <button type="button" class="samoocena-modal-btn samoocena-modal-btn-primary" data-modal-action="confirm" disabled>
-          Pobierz raport
+          Przejdź do płatności (99&nbsp;zł netto) →
         </button>
       </footer>
     </div>
