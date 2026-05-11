@@ -305,11 +305,12 @@ Deno.serve(async (req: Request) => {
     return new Response('method not allowed', { status: 405 });
   }
 
-  const STRIPE_KEY = Deno.env.get('STRIPE_RESTRICTED_KEY') || Deno.env.get('STRIPE_SECRET_KEY');
-  const STRIPE_WEBHOOK_SECRET = Deno.env.get('STRIPE_WEBHOOK_SECRET');
-  const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
-  const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-  const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
+  // Trim all env values — Supabase UI paste can leave trailing \n which breaks Stripe signature verification.
+  const STRIPE_KEY = (Deno.env.get('STRIPE_RESTRICTED_KEY') || Deno.env.get('STRIPE_SECRET_KEY'))?.trim();
+  const STRIPE_WEBHOOK_SECRET = Deno.env.get('STRIPE_WEBHOOK_SECRET')?.trim();
+  const SUPABASE_URL = Deno.env.get('SUPABASE_URL')?.trim();
+  const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')?.trim();
+  const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')?.trim();
 
   if (!STRIPE_KEY || !STRIPE_WEBHOOK_SECRET || !SUPABASE_URL || !SERVICE_ROLE) {
     const missing = [

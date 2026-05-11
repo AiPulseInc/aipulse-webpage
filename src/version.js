@@ -1,3 +1,3 @@
 // Version displayed in footer. Bump manually on each commit.
 // Source of truth synced with package.json
-export const VERSION = '0.582';
+export const VERSION = '0.583';

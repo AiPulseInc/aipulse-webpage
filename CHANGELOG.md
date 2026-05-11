@@ -4,6 +4,20 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.583] — 2026-05-11
+
+**Fix Stripe webhook 400 "invalid signature":** Supabase UI paste zostawiał trailing `\n` w `STRIPE_WEBHOOK_SECRET`, co Stripe SDK wykrył sam i odrzucał verification. Stripe loguje nawet hint: *"The provided signing secret contains whitespace"*.
+
+- **`supabase/functions/stripe-webhook/index.ts`** — `.trim()` na wszystkich env varach (`STRIPE_WEBHOOK_SECRET`, `STRIPE_KEY`, `SUPABASE_URL`, `SERVICE_ROLE`, `RESEND_API_KEY`). Defensywne — Supabase secrets UI nie strippuje whitespace przy paste, więc bezpieczniej trimować w runtime.
+
+**E2E green po fixie:**
+- `payments.status='completed'` + `stripe_event_id` + `paid_at` + `wants_invoice=true`
+- `assessments.report_status='paid'`
+- User report email (Resend) ✅
+- Admin invoice request email → aipulse.inc@gmail.com ✅
+
+Stripe payment integration MVP — gotowe do switcha na live mode po finalnym smoke teście.
+
 ## [0.582] — 2026-05-08
 
 `stripe-webhook` debug logging mirror create-checkout-session — zamiast generic "missing env vars" log teraz wskazuje konkretną brakującą zmienną. Wymagane do dalszej diagnozy webhook 500 (next session).
