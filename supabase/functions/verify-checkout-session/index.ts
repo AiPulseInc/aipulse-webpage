@@ -47,9 +47,10 @@ Deno.serve(async (req: Request) => {
   const sessionId = typeof body.sessionId === 'string' ? body.sessionId : '';
   if (!SESSION_ID_REGEX.test(sessionId)) return err('invalid_session_id');
 
-  const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
-  const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-  const STRIPE_KEY = Deno.env.get('STRIPE_RESTRICTED_KEY') || Deno.env.get('STRIPE_SECRET_KEY');
+  // Trim — Supabase UI paste can leave trailing \n which breaks Stripe API calls.
+  const SUPABASE_URL = Deno.env.get('SUPABASE_URL')?.trim();
+  const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')?.trim();
+  const STRIPE_KEY = (Deno.env.get('STRIPE_RESTRICTED_KEY') || Deno.env.get('STRIPE_SECRET_KEY'))?.trim();
 
   if (!SUPABASE_URL || !SERVICE_ROLE || !STRIPE_KEY) {
     console.error('[verify-checkout-session] missing env vars');

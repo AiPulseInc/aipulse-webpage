@@ -67,12 +67,13 @@ Deno.serve(async (req: Request) => {
   const payload = body.payload;
   if (!payload || typeof payload !== 'object') return err('invalid_payload');
 
-  const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
-  const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-  const STRIPE_KEY = Deno.env.get('STRIPE_RESTRICTED_KEY') || Deno.env.get('STRIPE_SECRET_KEY');
-  const STRIPE_PRICE_ID = Deno.env.get('STRIPE_PRICE_ID');
-  const STRIPE_TAX_RATE_ID = Deno.env.get('STRIPE_TAX_RATE_ID');
-  const SITE_URL = Deno.env.get('SITE_URL') || 'https://aipulse.pl';
+  // Trim — Supabase UI paste can leave trailing \n which breaks Stripe API calls (silently).
+  const SUPABASE_URL = Deno.env.get('SUPABASE_URL')?.trim();
+  const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')?.trim();
+  const STRIPE_KEY = (Deno.env.get('STRIPE_RESTRICTED_KEY') || Deno.env.get('STRIPE_SECRET_KEY'))?.trim();
+  const STRIPE_PRICE_ID = Deno.env.get('STRIPE_PRICE_ID')?.trim();
+  const STRIPE_TAX_RATE_ID = Deno.env.get('STRIPE_TAX_RATE_ID')?.trim();
+  const SITE_URL = Deno.env.get('SITE_URL')?.trim() || 'https://aipulse.pl';
 
   if (!SUPABASE_URL || !SERVICE_ROLE || !STRIPE_KEY || !STRIPE_PRICE_ID || !STRIPE_TAX_RATE_ID) {
     const missing = [
@@ -155,20 +156,6 @@ Deno.serve(async (req: Request) => {
       ],
       tax_id_collection: { enabled: true },
       billing_address_collection: 'auto',
-      custom_fields: [
-        {
-          key: 'wants_invoice',
-          label: { type: 'custom', custom: 'Faktura VAT?' },
-          type: 'dropdown',
-          dropdown: {
-            default_value: 'nie',
-            options: [
-              { label: 'Tak, poproszę o fakturę VAT', value: 'tak' },
-              { label: 'Nie potrzebuję', value: 'nie' },
-            ],
-          },
-        },
-      ],
       metadata: {
         assessment_id: assessmentId,
         source: 'paid_pdf_report',

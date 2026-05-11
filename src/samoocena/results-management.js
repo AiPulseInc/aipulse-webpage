@@ -315,7 +315,7 @@ function renderUpsellSection() {
   return `
     <section class="samoocena-report-upsell">
       <p class="samoocena-kicker">// Pełny raport audytowy</p>
-      <h2 class="samoocena-report-h2">Rozszerzona wersja raportu — 10 stron gotowych do druku</h2>
+      <h2 class="samoocena-report-h2">Rozszerzona wersja raportu — ponad 15 stron gotowych do druku</h2>
       <p class="samoocena-report-paragraph samoocena-report-muted">
         Wersja audit, którą możesz zapisać jako PDF, przekazać zarządowi albo dołączyć do wniosku ubezpieczeniowego.
       </p>

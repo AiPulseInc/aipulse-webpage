@@ -171,21 +171,20 @@ async function handleCheckoutCompleted(
     return;
   }
 
-  // Read full session with line_items for amount + custom_fields
+  // Read full session with line_items + customer_details for amount + tax IDs
   const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
     expand: ['line_items', 'customer_details', 'total_details'],
   });
-
-  // wants_invoice from custom_fields
-  const wantsInvoice = (fullSession.custom_fields || []).some(
-    (cf) => cf.key === 'wants_invoice' && cf.dropdown?.value === 'tak',
-  );
 
   // Amount details
   const amountTotal = fullSession.amount_total ?? 0; // grosze, brutto
   const customerDetails = fullSession.customer_details;
   const taxIds = customerDetails?.tax_ids || [];
   const vatId = taxIds.find((t) => t.type === 'eu_vat' || t.type === 'pl_nip')?.value || null;
+
+  // PL B2B convention: NIP wpisany = klient chce fakturę VAT. Jednolite z Stripe UX —
+  // pole NIP otwiera się automatycznie dla PL, brak osobnego dropdownu "czy chcesz fakturę".
+  const wantsInvoice = !!vatId;
   const address = customerDetails?.address;
   const addressFormatted = address
     ? [address.line1, address.line2, address.postal_code, address.city, address.country]

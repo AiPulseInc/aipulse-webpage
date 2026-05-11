@@ -4,6 +4,21 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.584] — 2026-05-11
+
+**UX cleanup w Stripe Checkout + .trim() na pozostałych funkcjach:**
+
+- **Usunięty dropdown "Faktura VAT?"** w Stripe Checkout. UX był mylący — dwa osobne pola (NIP collection vs custom_field dropdown). Klient wpisywał NIP myśląc że to oznacza prośbę o fakturę, a dropdown zostawał na default "Nie potrzebuję". **Nowa logika**: NIP wpisany = prośba o fakturę (PL B2B convention). `wantsInvoice = !!vatId` w stripe-webhook.
+- **`.trim()` na env varach** w `create-checkout-session` i `verify-checkout-session` — defensywnie, mirror webhook fix v0.583. Supabase secrets UI nie strippuje whitespace przy paste, więc bezpieczniej trimować runtime.
+
+**Copy fix:**
+- `samoocena/ui.js` + `samoocena/results-management.js` — "~10 stron" → "ponad 15 stron" (raport PDF urósł, copy nie nadążał)
+
+**E2E zweryfikowane:**
+- Smoke test fresh assessment → checkout → płatność → raport unlocked → user report email delivered (Resend confirms)
+- DB rows zsynchronizowane (`payments.status=completed`, `assessments.report_status=paid`)
+- Admin invoice email tylko gdy klient wpisze NIP (B2B), pomijany dla B2C
+
 ## [0.583] — 2026-05-11
 
 **Fix Stripe webhook 400 "invalid signature":** Supabase UI paste zostawiał trailing `\n` w `STRIPE_WEBHOOK_SECRET`, co Stripe SDK wykrył sam i odrzucał verification. Stripe loguje nawet hint: *"The provided signing secret contains whitespace"*.
