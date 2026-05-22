@@ -4,6 +4,24 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.585] — 2026-05-22
+
+**Nowa strona: Polityka prywatności (`/privacy/`):**
+
+- **`privacy/index.html`** — pełna polityka prywatności RODO w stylu polityki cookies (administrator danych, cele i podstawy prawne art. 6 RODO, procesorzy: Brevo/Stripe/Supabase/Google, transfer poza EOG, prawa osoby + skarga do UODO). Naprawia martwy link `/privacy/`, do którego wskazywały: stopka maila kampanijnego, formularze RODO na `/security/` i `/business/`, oraz polityka cookies.
+- **`src/privacy.js`** — skrypt strony (GA, wersja, baner cookies).
+- **`vite.config.js`** — `/privacy/` dodane do inputs buildu i do sitemap.
+
+**Samoocena — copy free vs płatny (`src/samoocena/ui.js`):**
+- Stat `// Wynik` → `// Koszt` + „Raport z samooceny jest bezpłatny" (rozdzielenie: samoocena na ekranie = 0 zł, raport szczegółowy PDF = płatny).
+- Stat `// Dane`: „1 email" → „1 adres www" / „Do weryfikacji podatności strony www".
+- Deliverable 03: „Raport PDF" → „Raport szczegółowy (PDF)" — spójność nazewnictwa z ekranem wyniku.
+
+**Kampania mailingowa (Brevo):**
+- **`email-campaigns/samoocena-audyt-cold.html`** — mail HTML do uśpionej listy (zgody są) zachęcający do bezpłatnej samooceny. Brand security (violet, czarne tło), logo PNG, zdjęcie MK, tagi Brevo (`{{ contact.FIRSTNAME }}`, `{{ unsubscribe }}`, `{{ mirror }}`), stopka z danymi nadawcy.
+- **`public/logo-aipulse-security.png`** — logo Ai Pulse Security (biały trzonek „ı" + violet kropka + tagline) wyrenderowane do PNG na potrzeby maila.
+- **`email-campaigns/.hintrc`** — wycisza nieadekwatne do maili reguły webhint (inline styles, compat) tylko dla tego folderu.
+
 ## [0.584] — 2026-05-11
 
 **UX cleanup w Stripe Checkout + .trim() na pozostałych funkcjach:**

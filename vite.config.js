@@ -16,6 +16,7 @@ function getHtmlInputs() {
       'security/blog/index.html',
       'security/blog/**/index.html',
       'polityka-cookies/index.html',
+      'privacy/index.html',
       'bezpieczenstwo-samoocena/index.html',
       'raport-audit/index.html',
     ],
@@ -71,6 +72,7 @@ export default defineConfig(async () => {
     '/security/',
     '/security/blog/',
     '/polityka-cookies/',
+    '/privacy/',
     '/bezpieczenstwo-samoocena/',
     ...postFiles.map((f) => '/' + f.replace(/index\.html$/, '')),
   ];

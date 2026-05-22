@@ -1,0 +1,10 @@
+{
+  "//": "Scoped webhint config dla maili HTML (Brevo). Maile CELOWO lamia reguly stron WWW: style inline sa wymagane (Gmail wycina <style>), uzywamy vendor-prefixow i wlasnosci mso-* (Outlook). Wylaczamy hinty nieadekwatne do emaili. Nie dotyka lintingu reszty repo.",
+  "hints": {
+    "no-inline-styles": "off",
+    "compat-api/css": "off",
+    "compat-api/html": "off",
+    "meta-viewport": "off",
+    "no-unneeded-images": "off"
+  }
+}

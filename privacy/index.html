@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polityka prywatności — Ai Pulse</title>
+  <meta name="description" content="Polityka prywatności Ai Pulse: administrator danych, jakie dane zbieramy, w jakim celu, komu je powierzamy oraz Twoje prawa wynikające z RODO." />
+  <meta property="og:title" content="Polityka prywatności — Ai Pulse" />
+  <meta property="og:description" content="Jak Ai Pulse przetwarza dane osobowe — cele, podstawy prawne, odbiorcy i Twoje prawa RODO." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    .policy-shell {
+      min-height: 100vh;
+      background: var(--bg-surface, #000);
+      color: var(--text-primary, #fff);
+    }
+
+    .policy-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border-color, #333);
+      background: rgba(0, 0, 0, 0.92);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+
+    .policy-nav-inner,
+    .policy-footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .policy-brand,
+    .policy-nav-link,
+    .policy-footer-links a,
+    .policy-inline-link {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .policy-brand {
+      font-size: 1rem;
+    }
+
+    .policy-nav-link,
+    .policy-footer-links a,
+    .policy-inline-link {
+      color: var(--brand-accent, #d9d9d9);
+    }
+
+    .policy-inline-link {
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+    }
+
+    .policy-main {
+      padding-bottom: 5rem;
+    }
+
+    .policy-hero {
+      padding-top: 4rem;
+      padding-bottom: 2rem;
+    }
+
+    .policy-kicker {
+      margin: 0 0 1rem;
+      color: var(--brand-accent, #d9d9d9);
+      font: 700 0.8rem/1.4 'Space Grotesk', 'Inter', sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .policy-lead {
+      max-width: 70ch;
+      margin: 0;
+      color: var(--text-secondary, #b3b3b3);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .policy-card,
+    .policy-cta {
+      border: 1px solid var(--border-color, #333);
+      background: #050505;
+      padding: 1.5rem;
+    }
+
+    .policy-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .policy-section-text {
+      max-width: 75ch;
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.8;
+    }
+
+    .policy-list {
+      margin: 1rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.8;
+    }
+
+    .policy-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-color, #333);
+    }
+
+    .policy-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: #050505;
+    }
+
+    .policy-table th,
+    .policy-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #222;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .policy-table th {
+      font: 700 0.78rem/1.4 'Space Grotesk', 'Inter', sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .policy-table td {
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.7;
+    }
+
+    .policy-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .policy-category-name {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .policy-cta {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .policy-cta p,
+    .policy-meta {
+      margin: 0;
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.7;
+    }
+
+    .policy-data-grid {
+      display: grid;
+      gap: 0.5rem;
+      margin: 0;
+      color: var(--text-secondary, #b3b3b3);
+      line-height: 1.8;
+    }
+
+    .policy-data-grid dt {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .policy-footer {
+      border-top: 1px solid var(--border-color, #333);
+    }
+
+    .policy-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 767px) {
+
+      .policy-nav-inner,
+      .policy-footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .policy-footer-links {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body class="theme-neon-nexus" id="top">
+  <div class="policy-shell">
+    <header class="policy-nav">
+      <div class="container-fluid policy-nav-inner">
+        <div class="policy-brand">Ai Pulse</div>
+        <a class="policy-nav-link" href="/">Powrót do /</a>
+      </div>
+    </header>
+
+    <main class="policy-main">
+      <section class="section policy-hero">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <p class="policy-kicker">// Compliance</p>
+            <h1>Polityka prywatności</h1>
+            <p class="policy-lead">
+              Wyjaśniamy, jakie dane osobowe zbieramy, w jakim celu i na jakiej podstawie prawnej je przetwarzamy, komu je powierzamy oraz jakie prawa Ci przysługują na mocy RODO. Bez prawniczego żargonu tam, gdzie da się go uniknąć.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <h2>Administrator danych</h2>
+            <p class="policy-section-text">
+              Administratorem Twoich danych osobowych jest:
+            </p>
+            <dl class="policy-data-grid">
+              <dt>Ai Pulse Maciej Konieczny</dt>
+              <dd>ul. Wędrowców 14, 02-830 Warszawa</dd>
+              <dd>NIP: 532 117 76 44</dd>
+              <dd>Kontakt w sprawie danych: <a class="policy-inline-link" href="mailto:maciek@aipulse.pl">maciek@aipulse.pl</a></dd>
+            </dl>
+            <p class="policy-section-text">
+              W sprawach dotyczących przetwarzania danych osobowych możesz się z nami skontaktować mailowo. Nie powołaliśmy inspektora ochrony danych (IOD) — kontakt prowadzimy bezpośrednio.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <h2>Jakie dane zbieramy i po co</h2>
+            <p class="policy-section-text">
+              Przetwarzamy tylko dane, które sam(a) nam przekazujesz, oraz dane techniczne niezbędne do działania serwisu. Poniżej cele, zakres i podstawy prawne (art. 6 ust. 1 RODO).
+            </p>
+          </div>
+
+          <div class="policy-table-wrap">
+            <table class="policy-table">
+              <thead>
+                <tr>
+                  <th>Cel</th>
+                  <th>Zakres danych</th>
+                  <th>Podstawa prawna</th>
+                  <th>Okres przechowywania</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="policy-category-name">Odpowiedź na zapytanie z formularza kontaktowego</td>
+                  <td>Imię i nazwisko, adres e-mail, telefon (opcjonalnie), nazwa firmy, treść wiadomości</td>
+                  <td>Art. 6 ust. 1 lit. b (działania przed zawarciem umowy) oraz lit. f (prawnie uzasadniony interes — obsługa korespondencji)</td>
+                  <td>Do zakończenia korespondencji, a następnie do 12 miesięcy w celach dowodowych</td>
+                </tr>
+                <tr>
+                  <td class="policy-category-name">Dostarczenie szczegółowego raportu PDF z samooceny</td>
+                  <td>Adres e-mail, nazwa firmy</td>
+                  <td>Art. 6 ust. 1 lit. b (wykonanie umowy — dostarczenie zamówionego raportu)</td>
+                  <td>Do dostarczenia raportu, a następnie zgodnie z obowiązkami podatkowymi (patrz: płatności)</td>
+                </tr>
+                <tr>
+                  <td class="policy-category-name">Realizacja płatności za raport szczegółowy</td>
+                  <td>Nazwa firmy, NIP, adres e-mail, dane transakcji (przetwarzane przez operatora płatności)</td>
+                  <td>Art. 6 ust. 1 lit. b (wykonanie umowy) oraz lit. c (obowiązki rachunkowo-podatkowe)</td>
+                  <td>5 lat licząc od końca roku podatkowego (przepisy podatkowe)</td>
+                </tr>
+                <tr>
+                  <td class="policy-category-name">Komunikacja marketingowa (newsletter, analizy, oferty)</td>
+                  <td>Adres e-mail, imię (jeśli podane)</td>
+                  <td>Art. 6 ust. 1 lit. a (zgoda) — w powiązaniu z art. 10 ustawy o świadczeniu usług drogą elektroniczną</td>
+                  <td>Do wycofania zgody lub wypisania się z listy</td>
+                </tr>
+                <tr>
+                  <td class="policy-category-name">Statystyka i analityka korzystania z serwisu</td>
+                  <td>Dane o urządzeniu i sposobie korzystania ze strony (cookies analityczne)</td>
+                  <td>Art. 6 ust. 1 lit. a (zgoda na cookies analityczne)</td>
+                  <td>Zgodnie z <a class="policy-inline-link" href="/polityka-cookies/">Polityką cookies</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <h2>Komu powierzamy dane</h2>
+            <p class="policy-section-text">
+              Korzystamy z zaufanych dostawców (procesorów), którzy przetwarzają dane wyłącznie w naszym imieniu, na podstawie umów powierzenia. Nie sprzedajemy danych osobom trzecim.
+            </p>
+            <ul class="policy-list">
+              <li><strong>Brevo</strong> (Sendinblue, Francja) — wysyłka wiadomości e-mail i obsługa list mailingowych.</li>
+              <li><strong>Stripe</strong> (USA/Irlandia) — bezpieczna obsługa płatności za raport szczegółowy.</li>
+              <li><strong>Supabase</strong> — baza danych i funkcje backendowe (zapis zgłoszeń, obsługa raportów).</li>
+              <li><strong>Google</strong> (Google Analytics) — pomiar ruchu, wyłącznie po wyrażeniu zgody na cookies analityczne.</li>
+              <li>Dostawca hostingu serwisu — w zakresie technicznego utrzymania strony.</li>
+            </ul>
+            <p class="policy-section-text">
+              Część dostawców (np. Stripe, Google) może przetwarzać dane poza Europejskim Obszarem Gospodarczym, w tym w USA. W takich przypadkach transfer odbywa się na podstawie standardowych klauzul umownych zatwierdzonych przez Komisję Europejską lub innych mechanizmów przewidzianych w RODO.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-card">
+            <h2>Twoje prawa</h2>
+            <p class="policy-section-text">
+              W związku z przetwarzaniem Twoich danych przysługują Ci następujące prawa. Aby z nich skorzystać, napisz na <a class="policy-inline-link" href="mailto:maciek@aipulse.pl">maciek@aipulse.pl</a>.
+            </p>
+            <ul class="policy-list">
+              <li>Prawo dostępu do danych oraz uzyskania ich kopii.</li>
+              <li>Prawo do sprostowania (poprawienia) danych.</li>
+              <li>Prawo do usunięcia danych („prawo do bycia zapomnianym”).</li>
+              <li>Prawo do ograniczenia przetwarzania.</li>
+              <li>Prawo do przenoszenia danych.</li>
+              <li>Prawo do sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie.</li>
+              <li>Prawo do wycofania zgody w dowolnym momencie — bez wpływu na zgodność z prawem przetwarzania sprzed jej wycofania.</li>
+              <li>Prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).</li>
+            </ul>
+          </div>
+
+          <div class="policy-card">
+            <h2>Cookies i podanie danych</h2>
+            <p class="policy-section-text">
+              Szczegóły dotyczące plików cookies i technologii śledzących opisujemy w odrębnym dokumencie: <a class="policy-inline-link" href="/polityka-cookies/">Polityka cookies</a>.
+            </p>
+            <p class="policy-section-text">
+              Podanie danych jest dobrowolne, ale niezbędne do realizacji danego celu — np. bez adresu e-mail nie odpowiemy na zapytanie ani nie dostarczymy raportu. Nie podejmujemy decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu (profilowaniu) wywołujących skutki prawne.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container-fluid policy-grid">
+          <div class="policy-cta">
+            <h2>Zmiany polityki</h2>
+            <p>Możemy aktualizować tę politykę, gdy zmienią się przepisy lub sposób, w jaki przetwarzamy dane. Aktualna wersja jest zawsze dostępna pod tym adresem.</p>
+            <p class="policy-meta">Ostatnia aktualizacja: 22 maja 2026.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="policy-footer">
+      <div class="container-fluid policy-footer-inner">
+        <p class="policy-meta">© 2026 Ai Pulse <span id="app-version" class="site-footer-version"></span></p>
+        <nav class="policy-footer-links" aria-label="Dodatkowe linki">
+          <a href="https://www.linkedin.com/in/koniecznymaciej/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:maciek@aipulse.pl">Email</a>
+          <a href="/polityka-cookies/">Polityka cookies</a>
+          <a href="/business/">Business</a>
+          <a href="/security/">Security</a>
+          <a href="/">Powrót do /</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/privacy.js"></script>
+</body>
+
+</html>

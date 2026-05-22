@@ -60,14 +60,14 @@ export function renderLanding(ctx) {
           <span class="samoocena-stat-label">Średnio do ukończenia</span>
         </div>
         <div class="samoocena-stat">
-          <span class="samoocena-stat-kicker">// Wynik</span>
+          <span class="samoocena-stat-kicker">// Koszt</span>
           <span class="samoocena-stat-num">0<em>zł</em></span>
-          <span class="samoocena-stat-label">Sama samoocena bezpłatna · raport PDF od 99&nbsp;zł netto</span>
+          <span class="samoocena-stat-label">Raport z samooceny jest bezpłatny</span>
         </div>
         <div class="samoocena-stat">
           <span class="samoocena-stat-kicker">// Dane</span>
-          <span class="samoocena-stat-num">1<em>email</em></span>
-          <span class="samoocena-stat-label">Tylko do dostarczenia raportu PDF</span>
+          <span class="samoocena-stat-num">1<em>adres www</em></span>
+          <span class="samoocena-stat-label">Do weryfikacji podatności strony www</span>
         </div>
       </div>
 
@@ -96,7 +96,7 @@ export function renderLanding(ctx) {
           <li class="samoocena-deliverable">
             <span class="samoocena-deliverable-index">03</span>
             <div class="samoocena-deliverable-body">
-              <h3>Raport PDF</h3>
+              <h3>Raport szczegółowy (PDF)</h3>
               <p>Dokument gotowy do wysłania zarządowi, ubezpieczycielowi albo audytorowi NIS2. Wersja audytowa, ponad 15 stron.</p>
               <span class="samoocena-deliverable-meta">// 99 zł netto · early adopter price (149 zł docelowo)</span>
             </div>
