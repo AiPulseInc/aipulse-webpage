@@ -4,6 +4,20 @@ Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelo
 
 
 
+## [0.586] — 2026-07-24
+
+**SEO / Accessibility (na bazie audytu Lighthouse — SEO 100/100):**
+
+- **Landmark `<main>`** dodany na landing, `/business/` i `/security/` (Lighthouse `landmark-one-main`).
+- **heading-order** — `academy-curriculum-title` h4 → h3 w sekcjach Automatyzacje (biznes) i compliance (security); usunięty skok h2→h4.
+- **color-contrast** — labele `#aaa` na jasnym tle → `#6b6b6b`; subtitle dev `#666` na czarnym → `#b3b3b3`. Amber `#F5A623` na białym zostawiony świadomie (kolor marki, tylko dekoracyjne eyebrow-labele).
+- **`public/llms.txt`** — plik wg spec llmstxt.org (obie linie biznesowe + kluczowe podstrony) dla crawlerów AI.
+
+**Dokumentacja:**
+
+- **`CLAUDE.md`** przepisany pod realną architekturę dual-brand (business + security, Supabase Edge Functions, Stripe, blog build, obie palety). Poprzednia wersja opisywała nieistniejący single-page.
+- **`docs/seo/lighthouse-2026-07-24.md`** — zapisany pełny wynik audytu (scores, CWV, lista fixów) do dalszego użytku.
+
 ## [0.585] — 2026-05-22
 
 **Nowa strona: Polityka prywatności (`/privacy/`):**

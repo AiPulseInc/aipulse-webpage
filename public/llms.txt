@@ -1,0 +1,22 @@
+# Ai Pulse
+
+> Ai Pulse to polska firma działająca w dwóch liniach biznesowych dla MŚP i JDG:
+> doradztwo AI (szkolenia, gotowe narzędzia, automatyzacja procesów) oraz
+> cyberbezpieczeństwo (audyty, zgodność z NIS2/KSC, wsparcie w ubezpieczeniu cyber).
+> Język komunikacji: polski. Grupa docelowa: małe i średnie firmy 10-50 osób.
+
+## Doradztwo Biznesowe (AI)
+
+- [Doradztwo AI dla biznesu](https://aipulse.pl/business/): Szkolenia AI dla zespołów i deweloperów, 10 gotowych narzędzi AI, automatyzacje (n8n, Make, dedykowane), strony WWW, bezpłatna konsultacja.
+
+## Cyber Security
+
+- [Cyberbezpieczeństwo dla MŚP](https://aipulse.pl/security/): Audyty bezpieczeństwa, zgodność NIS2/KSC, wsparcie w ubezpieczeniu cyber, szkolenia (security awareness, incident response), vCISO.
+- [Bezpłatna samoocena bezpieczeństwa](https://aipulse.pl/bezpieczenstwo-samoocena/): Automatyczny audyt 35 pytań z raportem.
+- [Blog o cyberbezpieczeństwie](https://aipulse.pl/security/blog/): Praktyczne artykuły dla właścicieli małych firm — phishing AI, ransomware, NIS2, backup 3-2-1, ubezpieczenia cyber.
+
+## Kontakt i informacje
+
+- [Strona główna](https://aipulse.pl/): Wybór obszaru — Doradztwo Biznesowe lub Cyber Security.
+- [Polityka prywatności](https://aipulse.pl/privacy/): Zasady przetwarzania danych (RODO).
+- [Polityka cookies](https://aipulse.pl/polityka-cookies/): Informacja o plikach cookie.

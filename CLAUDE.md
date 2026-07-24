@@ -2,10 +2,15 @@
 
 ## Project Overview
 
-Marketing website for **AI Pulse** — firma szkoleniowa AI dla MŚP i JDG (polski rynek). Single-page landing zbudowany w Vite + vanilla JS w estetyce Obsidian Brutalist z amber accent.
+Marketing website for **Ai Pulse** — polska firma z **dwiema liniami biznesowymi** dla MŚP i JDG:
+- **Doradztwo Biznesowe (AI)** — szkolenia, gotowe narzędzia, automatyzacja (`/business/`)
+- **Cyber Security** — audyty, NIS2/KSC, ubezpieczenia cyber, blog (`/security/`)
+
+Multi-page site w Vite + vanilla JS, estetyka Obsidian Brutalist. Root `/` to split-screen wybór obszaru. Każda linia ma własny accent (amber dla biznesu, violet dla security).
 
 **GitHub:** https://github.com/AiPulseInc/aipulse-webpage (private, main branch)
 **Local path:** `/Users/mk/code-sandbox/toolbox-project/aipulse-webpage`
+**Deploy:** push do `main` → auto-deploy na aipulse.pl. Bump wersji przy każdym commicie.
 
 ## Commands
 
@@ -15,34 +20,53 @@ npm run dev              # Vite dev server (:5173)
 npm run build            # Production build → dist/
 npm run preview          # Preview build
 npm run generate-images  # Generate AI images (requires GEMINI_API_KEY)
+npm run blog:build       # Rebuild security blog z content/ (markdown → HTML)
 ```
 
 ## Tech Stack
 
-**Runtime:** Vite 5, vanilla JS (ES modules), CSS custom (no framework).
+**Runtime:** Vite 5, vanilla JS (ES modules), CSS custom (no framework), multi-page (MPA).
+**Backend:** Supabase Edge Functions — kontakt, Stripe checkout/webhook, skan domeny, wysyłka raportu.
+**Płatności:** Stripe (samoocena płatna / raporty audytu).
+**Blog:** markdown w `content/security/blog/` → build script generuje HTML + RSS (`feed.xml`).
 **Fonts:** Inter, Outfit, Space Grotesk (Google Fonts).
 **AI images:** Gemini 3.1 Flash Image Preview (Nano Banana 2) via `@google/genai`.
+**Analytics:** Google Analytics (`src/ga.js`).
 
 ## Structure
 
 ```
-index.html              Pełny markup strony
-main.js                 Logika (modale, sliders, IntersectionObserver)
-style.css               Design system + sections styles
-src/version.js          Wersja app (sync z package.json)
-scripts/                Generator obrazów AI
-public/generated/       AI-generated images (szkolenia, tools, strony)
-MK_3.0.png, MK_3.1.png  Portrety do hero
-CHANGELOG.md            Historia wersji
-PLAN-content-v2.md      Plan aktualnej iteracji
+index.html                  Split landing — wybór obszaru (business / security)
+business/index.html         Doradztwo AI — szkolenia, narzędzia, automatyzacje, WWW
+security/index.html         Cyber Security — audyty, NIS2/KSC, pakiety, vCISO
+security/blog/              Zbudowany blog (ARTEFAKT — nie edytuj; źródło w content/)
+bezpieczenstwo-samoocena/   Narzędzie samooceny (35 pytań)
+raport-audit/               Strona raportu z audytu
+privacy/, polityka-cookies/ Strony prawne (RODO)
+content/security/blog/      ŹRÓDŁO blogów (markdown + frontmatter)
+main.js                     Logika stron ofertowych (modale, sliders, nav)
+src/landing.js              Logika split-landingu
+src/*-data.js               Dane szkoleń / security (treść modali)
+src/security-blog.js        Runtime bloga
+style.css                   Design system + sekcje (obie linie)
+supabase/functions/         Edge Functions (contact, stripe, scan, report)
+scripts/                    Generator obrazów + build-security-blog.mjs
+docs/                       Dokumentacja (SEO, wymogi, oferta, planning)
+MK_3.0.png, MK_3.1.png      Portrety do hero
+CHANGELOG.md                Historia wersji
 ```
 
-## Brand — AI Pulse
+## Brand — Ai Pulse
 
-**Paleta:**
-- `#000` background, `#FFF` primary text, `#666` secondary
-- `#F5A623` amber accent — labels, CTA, logo dot, hover
+**Paleta (wspólna baza):**
+- `#000` background, `#FFF` primary text, `#B3B3B3`/`#666` secondary
 - `#333` borders
+
+**Accent per linia:**
+- Biznes: `#F5A623` amber (`--brand-accent-business`)
+- Security: `#A855F7` violet, deep `#7E22CE` (`--brand-accent-security`)
+
+Uwaga a11y: amber `#F5A623` na białym ma niski kontrast (2:1) — używany świadomie tylko na dekoracyjnych eyebrow-labelach, nie na treści czytanej.
 
 **Typografia:**
 - Headlines: Inter (uppercase, tight)
@@ -63,7 +87,8 @@ PLAN-content-v2.md      Plan aktualnej iteracji
 
 ## Notes
 
-- Stary canvas scroll animation usunięty w 0.2.0 (68 klatek JPG → static photo)
+- **Blog:** edytuj markdown w `content/security/blog/`, potem `npm run blog:build`. NIE edytuj `security/blog/` (build artifact). Skill `security-blog-post` automatyzuje cały workflow.
+- **SEO:** ostatni audyt Lighthouse w `docs/seo/lighthouse-2026-07-24.md` (SEO 100/100, CWV excellent, brak danych CrUX = mało ruchu).
 - `assets/` folder zawiera gitignored animacje mp4 (legacy, nie używane)
 - `.agent/` folder to Gemini CLI framework ("Antigravity Kit") — Google product, NIE nasz brand
 - Testimonials nadal mają fake content "Antigravity" — czekamy na prawdziwe od klientów
