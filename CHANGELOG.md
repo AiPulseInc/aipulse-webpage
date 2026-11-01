@@ -2,6 +2,17 @@
 
 Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.588] — 2026-11-01
+
+**Samoocena — dostęp do płatnego raportu:**
+
+- Zablokowany bezpośredni odczyt i modyfikowanie tabeli samoocen z przeglądarki. Link z UUID odczytuje wyłącznie opłacony raport przez kontrolowane RPC.
+- Raport wymaga statusu `paid`/`ready` i ukończonej płatności zapisanej przez serwer. Weryfikacja sesji Stripe czeka również na obsługę webhooka.
+- Wycofana stara funkcja `send-report`, która przyjmowała treść raportu i adres odbiorcy bez płatności.
+- Usunięty fallback raportu z localStorage; błędny link płatności nie przechodzi do alternatywnej ścieżki odczytu.
+- Webhook potwierdza w Stripe faktyczne opłacenie sesji i obsługuje sukces płatności odroczonej.
+- Dodane testy odmowy dostępu przed płatnością i poprawnego odczytu po opłaceniu.
+
 ## [0.587] — 2026-11-01
 
 **Samoocena — progresywny lejek konwersji:**

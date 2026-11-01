@@ -2,8 +2,7 @@ import './styles.css';
 import { initGA } from '../ga.js';
 import { renderRaportB } from './template.js';
 import { EXAMPLE_DATA } from './example.js';
-import { getSupabaseBrowser } from '../lib/supabase-browser.js';
-import { verifyCheckoutSession } from '../samoocena/api.js';
+import { fetchReportPayload, verifyCheckoutSession } from '../samoocena/api.js';
 
 initGA();
 
@@ -13,31 +12,11 @@ const SESSION_ID_REGEX = /^cs_(test|live)_[a-zA-Z0-9]+$/;
 
 async function fetchFromDB(id) {
   try {
-    const supabase = getSupabaseBrowser();
-    const { data, error } = await supabase
-      .from('assessments')
-      .select('report_payload')
-      .eq('id', id)
-      .single();
-    if (error || !data?.report_payload) {
-      console.warn('[raport] DB fetch failed:', error?.message);
-      return null;
-    }
-    return { ...data.report_payload, assessmentId: id };
+    const result = await fetchReportPayload(id);
+    if (!result.ok) return null;
+    return { ...result.payload, assessmentId: id };
   } catch (err) {
     console.error('[raport] DB fetch error:', err);
-    return null;
-  }
-}
-
-function readLocalStorage() {
-  try {
-    const raw = localStorage.getItem('raportData');
-    if (!raw) return null;
-    const data = JSON.parse(raw);
-    localStorage.removeItem('raportData');
-    return data;
-  } catch {
     return null;
   }
 }
@@ -50,7 +29,10 @@ async function getData() {
 
   // Post-payment flow: ?session_id=cs_xxx → weryfikujemy w Stripe, dostajemy payload z DB
   const sessionId = params.get('session_id');
-  if (sessionId && SESSION_ID_REGEX.test(sessionId)) {
+  if (params.has('session_id')) {
+    if (!sessionId || !SESSION_ID_REGEX.test(sessionId)) {
+      return { __paymentError: 'Link płatności jest nieprawidłowy.' };
+    }
     renderVerifying();
     const res = await verifyCheckoutSession(sessionId);
     if (res.ok && res.paid && res.payload) {
@@ -69,17 +51,15 @@ async function getData() {
       return { __paymentPending: true };
     }
     console.error('[raport] verify session error:', res);
-    return { __paymentError: res.error || 'unknown' };
+    return { __paymentError: 'Nie udało się potwierdzić płatności. Sprawdź link do raportu lub spróbuj ponownie.' };
   }
 
   // Direct link from email: ?id=<uuid> — fetch from DB
   const id = params.get('id');
   if (id && UUID_REGEX.test(id)) {
-    const dbData = await fetchFromDB(id);
-    if (dbData) return dbData;
-    // Fallback do localStorage jeśli DB fetch fail (np. pierwsze otwarcie, rekord jeszcze nie widoczny)
+    return fetchFromDB(id);
   }
-  return readLocalStorage();
+  return null;
 }
 
 function renderVerifying() {
@@ -96,7 +76,7 @@ function renderPaymentPending() {
   ROOT.innerHTML = `
     <div class="page" style="padding: 40mm 20mm; text-align: center;">
       <h2 style="color:#F5A623;">Płatność w trakcie przetwarzania</h2>
-      <p style="font-size:11pt; margin: 6mm 0;">Stripe potwierdził Twoją transakcję, ale nasz system jeszcze nie zarejestrował zmiany.</p>
+      <p style="font-size:11pt; margin: 6mm 0;">Płatność lub jej obsługa nie zostały jeszcze potwierdzone. Raport udostępnimy po zakończeniu weryfikacji.</p>
       <p style="font-size:10pt; margin: 4mm 0;">Spróbuj odświeżyć tę stronę za 30 sekund. Jeśli problem nie zniknie, mailem otrzymasz raport zaraz po finalizacji — sprawdź skrzynkę.</p>
       <p style="margin-top: 8mm;">
         <button onclick="window.location.reload()" style="padding: 10px 20px; background:#7E22CE; color:#fff; border:0; font-weight:700; cursor:pointer;">Odśwież teraz</button>
@@ -196,7 +176,7 @@ async function main() {
   }
 
   if (!data) {
-    renderError('Otwórz raport z poziomu samooceny (po ukończeniu testu kliknij "Zamów raport"), albo obejrzyj przykładowy raport.');
+    renderError('Raport nie jest dostępny. Otwórz link otrzymany po opłaceniu raportu albo obejrzyj przykład.');
     renderControls(true);
     return;
   }

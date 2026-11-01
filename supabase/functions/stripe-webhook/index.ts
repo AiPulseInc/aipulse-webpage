@@ -150,7 +150,7 @@ async function handleCheckoutCompleted(
   supabase: SupabaseClient,
   stripe: Stripe,
   resendKey: string | undefined,
-  event: Stripe.CheckoutSessionCompletedEvent,
+  event: Stripe.CheckoutSessionCompletedEvent | Stripe.CheckoutSessionAsyncPaymentSucceededEvent,
 ): Promise<void> {
   const session = event.data.object;
   const assessmentId = session.metadata?.assessment_id;
@@ -175,6 +175,13 @@ async function handleCheckoutCompleted(
   const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
     expand: ['line_items', 'customer_details', 'total_details'],
   });
+
+  // Checkout completion alone is not proof of payment for delayed methods.
+  // Re-read Stripe before granting access, including on asynchronous success.
+  if (fullSession.payment_status !== 'paid' || fullSession.metadata?.assessment_id !== assessmentId) {
+    console.log('[stripe-webhook] session is not paid or metadata does not match');
+    return;
+  }
 
   // Amount details
   const amountTotal = fullSession.amount_total ?? 0; // grosze, brutto
@@ -349,7 +356,7 @@ Deno.serve(async (req: Request) => {
   });
 
   try {
-    if (event.type === 'checkout.session.completed') {
+    if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
       await handleCheckoutCompleted(supabase, stripe, RESEND_API_KEY, event);
     } else {
       console.log('[stripe-webhook] unhandled event type:', event.type);

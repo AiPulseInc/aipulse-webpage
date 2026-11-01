@@ -260,8 +260,7 @@ export async function verifyCheckoutSession(sessionId) {
 }
 
 /**
- * Pobiera snapshot raportu z DB po assessmentId (używane przez stronę raportu z linka w emailu).
- * Dostęp anonimowy (polityka assessments_anon_select_by_id + UUID v4 entropy).
+ * Pobiera opłacony snapshot przez RPC. Baza weryfikuje status i ukończoną płatność.
  * @param {string} assessmentId
  * @returns {Promise<{ ok: true, payload: object } | { ok: false, error: string }>}
  */
@@ -269,14 +268,12 @@ export async function fetchReportPayload(assessmentId) {
   try {
     if (!assessmentId) return { ok: false, error: 'brak assessmentId' };
     const supabase = getSupabaseBrowser();
-    const { data, error } = await supabase
-      .from('assessments')
-      .select('report_payload')
-      .eq('id', assessmentId)
-      .single();
+    const { data, error } = await supabase.rpc('get_paid_assessment_report', {
+      p_assessment_id: assessmentId,
+    });
     if (error) return { ok: false, error: error.message };
-    if (!data?.report_payload) return { ok: false, error: 'report_not_found' };
-    return { ok: true, payload: data.report_payload };
+    if (!data) return { ok: false, error: 'report_unavailable' };
+    return { ok: true, payload: data };
   } catch (err) {
     console.error('[samoocena] fetchReportPayload failed:', err);
     return { ok: false, error: err.message || 'unknown' };

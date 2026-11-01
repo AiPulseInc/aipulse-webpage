@@ -80,7 +80,7 @@ Deno.serve(async (req: Request) => {
     return json({ ok: true, paid: false, status: session.payment_status });
   }
 
-  // Paid — fetch report payload from DB
+  // Stripe must be paid AND the signed webhook must have fulfilled this session.
   const supabase = createClient(SUPABASE_URL, SERVICE_ROLE, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
@@ -94,6 +94,19 @@ Deno.serve(async (req: Request) => {
   if (aerr || !assessment) {
     console.error('[verify-checkout-session] assessment lookup failed:', aerr?.message);
     return err('session_not_found', 404);
+  }
+
+  const { data: payment, error: perr } = await supabase
+    .from('payments')
+    .select('id')
+    .eq('assessment_id', assessmentId)
+    .eq('stripe_session_id', sessionId)
+    .eq('status', 'completed')
+    .maybeSingle();
+
+  if (perr) return err('service_unavailable', 500);
+  if (!payment || !['paid', 'ready'].includes(assessment.report_status)) {
+    return json({ ok: true, paid: false, status: 'pending_fulfillment' });
   }
 
   return json({

@@ -9,8 +9,19 @@ Marketing website for **Ai Pulse** — polska firma z **dwiema liniami biznesowy
 Multi-page site w Vite + vanilla JS, estetyka Obsidian Brutalist. Root `/` to split-screen wybór obszaru. Każda linia ma własny accent (amber dla biznesu, violet dla security).
 
 **GitHub:** https://github.com/AiPulseInc/aipulse-webpage (private, main branch)
-**Local path:** `/Users/mk/code-sandbox/toolbox-project/aipulse-webpage`
-**Deploy:** push do `main` → auto-deploy na aipulse.pl. Bump wersji przy każdym commicie.
+**Local path:** `/Users/mk/code-sandbox/toolbox-project/aipulse-projects/aipulse-webpage`
+**Deploy:** push do `main` → Railway auto-deploy na aipulse.pl. Bump wersji przy każdym commicie. Migracje i Edge Functions wdrażamy osobno przez Supabase CLI.
+
+## Paid report access (v0.588, 2026-11-01)
+
+- Supabase project `ugvexcuybvjlxplltnht`, organization `psfpowrpwywmtgpnoczi`.
+- Public client cannot SELECT/UPDATE the `assessments` table. Submission INSERT and benchmark RPC remain available.
+- Email UUID links use `get_paid_assessment_report(uuid)`: only `paid`/`ready` with a `completed` payment. UUID links are shareable access links; do not expose them in public logs.
+- Stripe verification also requires the signed webhook to complete fulfillment. Webhook re-reads Stripe payment status, including delayed payment success.
+- Legacy `send-report` returns 410; browser snapshots and localStorage do not authorize a report.
+- Production Stripe is LIVE; local `.env.local` has separate TEST keys. Never infer deployed mode from local keys or test LIVE payments.
+- Regression checks: `npm run test:report-access`, `npm run test:funnel`, `node execution/test_paid_report_migration.mjs` (transaction rollback). Functional test helpers in `execution/` create and clean synthetic UUIDs.
+- Removal of `aipulse.inc@gmail.com` membership is explicitly paused by the user. Do not remove it.
 
 ## Commands
 
