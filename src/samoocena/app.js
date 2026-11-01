@@ -3,7 +3,6 @@ import { initGA, trackEvent, trackPageView } from '../ga.js';
 import { VERSION } from '../version.js';
 
 initGA();
-import { getQuestions } from './scoring.js';
 import { scoreAssessment } from './scoring.js';
 import {
   getState,
@@ -16,7 +15,6 @@ import {
   setCurrentAwarenessIndex,
   setCurrentQuestionIndex,
   markStarted,
-  markCompleted,
   clearState,
   hasResumableState,
   subscribe,
@@ -25,6 +23,7 @@ import {
   renderLanding,
   renderProfiling,
   renderProfileDomain,
+  renderStageCheckpoint,
   renderCategoryIntro,
   renderQuestion,
   renderAwarenessQuestion,
@@ -33,9 +32,10 @@ import {
   renderResults,
   renderError,
 } from './ui.js';
+import { getFunnelQuestions, getFunnelStageForIndex } from './funnel.js';
 import { getAwarenessQuestions } from './awareness.js';
-import { submitAssessment, fetchBenchmark, scanDomain, sendReport, createCheckoutSession } from './api.js';
-import { showConfirmModal, showInputModal, showRaportRequestModal } from './modal.js';
+import { submitAssessment, fetchBenchmark, scanDomain, createCheckoutSession } from './api.js';
+import { showConfirmModal, showRaportRequestModal } from './modal.js';
 
 const mainEl = document.getElementById('samoocena-main');
 const versionEl = document.getElementById('app-version');
@@ -82,9 +82,10 @@ function buildRenderContext(state) {
     hasResume: hasResumableState(),
     awarenessAnswers: state.awarenessAnswers || {},
     currentAwarenessIndex: state.currentAwarenessIndex || 0,
+    assessmentDepth: state.assessmentDepth || 'screening',
   };
 
-  if (state.step === 'results') {
+  if (state.step === 'results' || state.step === 'stage-checkpoint' || state.step === 'profiling' || state.step === 'thank-you') {
     ctx.scoringResult = scoreAssessment(state.responses);
     ctx.benchmark = state.benchmark || null;
   }
@@ -108,6 +109,8 @@ function routeToRenderer(step, ctx) {
       return renderCategoryIntro(ctx);
     case 'question':
       return renderQuestion(ctx);
+    case 'stage-checkpoint':
+      return renderStageCheckpoint(ctx);
     case 'thank-you':
       return renderThankYou(ctx);
     case 'results':
@@ -134,6 +137,7 @@ const BLOCKING_STEPS = new Set([
   'awareness-summary',
   'category-intro',
   'question',
+  'stage-checkpoint',
 ]);
 
 function handleExitAttempt(event) {
@@ -175,7 +179,8 @@ function handleClick(event) {
     start: () => {
       clearState();
       markStarted();
-      setStep('profiling');
+      setState({ step: 'profiling', currentQuestionIndex: 0 });
+      trackEvent('assessment_funnel_started', { funnel_version: '2026-02-progressive' });
     },
     resume: () => {
       const state = getState();
@@ -195,15 +200,43 @@ function handleClick(event) {
     },
     'next-question': () => {
       const state = getState();
-      const questions = getQuestions();
+      const questions = getFunnelQuestions();
       const next = state.currentQuestionIndex + 1;
-      const currentCat = Math.floor(state.currentQuestionIndex / 7);
-      const nextCat = Math.floor(next / 7);
-      if (nextCat > currentCat && nextCat < 5) {
-        setState({ step: 'category-intro', currentQuestionIndex: next });
-      } else if (next < questions.length) {
+      if (next < questions.length) {
         setCurrentQuestionIndex(next);
       }
+    },
+    'stage-checkpoint': () => {
+      const state = getState();
+      const stage = getFunnelStageForIndex(state.currentQuestionIndex);
+      trackEvent('assessment_stage_completed', {
+        stage: stage?.id,
+        answered_total: Object.keys(state.responses).length,
+      });
+      setStep('stage-checkpoint');
+    },
+    'continue-stage': () => {
+      const state = getState();
+      const stage = getFunnelStageForIndex(state.currentQuestionIndex);
+      trackEvent('assessment_stage_continued', { from_stage: stage?.id });
+      setState({ step: 'question', currentQuestionIndex: state.currentQuestionIndex + 1 });
+    },
+    'continue-full': () => {
+      const state = getState();
+      trackEvent('assessment_full_depth_selected', { answered_total: Object.keys(state.responses).length });
+      setState({
+        step: 'question',
+        assessmentDepth: 'full',
+        currentQuestionIndex: state.currentQuestionIndex + 1,
+      });
+    },
+    'show-screening-profile': () => {
+      trackEvent('assessment_screening_completed', { answered_total: Object.keys(getState().responses).length });
+      setState({
+        step: 'thank-you',
+        assessmentDepth: 'screening',
+        completedAt: new Date().toISOString(),
+      });
     },
     'begin-category': () => {
       setStep('question');
@@ -211,18 +244,23 @@ function handleClick(event) {
     finish: () => {
       setState({
         step: 'thank-you',
+        assessmentDepth: 'full',
         completedAt: new Date().toISOString(),
       });
+      trackEvent('assessment_full_completed', { answered_total: Object.keys(getState().responses).length });
     },
     'submit-profiling': () => {
       const form = mainEl.querySelector('[data-form="profiling"]');
       if (!form) return;
       const formData = new FormData(form);
+      const rawDomain = String(formData.get('domain') || '').trim();
       const industry = formData.get('industry');
       const size = formData.get('size');
-      if (!industry || !size) {
-        const firstEmpty =
-          form.querySelector('select[name="industry"]').value === ''
+      const normalizedDomain = normalizeDomain(rawDomain);
+      if (!isValidDomain(normalizedDomain) || !industry || !size) {
+        const firstEmpty = !isValidDomain(normalizedDomain)
+          ? form.querySelector('[data-domain-input]')
+          : form.querySelector('select[name="industry"]').value === ''
             ? form.querySelector('select[name="industry"]')
             : form.querySelector('select[name="size"]');
         firstEmpty?.focus();
@@ -231,8 +269,31 @@ function handleClick(event) {
         }
         return;
       }
-      setProfile({ industry, size });
-      setState({ step: 'profile-domain' });
+      const state = getState();
+      setState({
+        step: 'question',
+        currentQuestionIndex: 0,
+        profile: {
+          ...state.profile,
+          industry,
+          size,
+          companyDomain: normalizedDomain,
+          dnsScanOptOut: false,
+        },
+        dnsScan: null,
+      });
+      trackEvent('assessment_profile_added', { industry, size, domain_added: true });
+      runScanInBackground(normalizedDomain);
+    },
+    'skip-profiling': () => {
+      setState({
+        step: 'question',
+        currentQuestionIndex: 0,
+        profileSkipped: true,
+        profile: { industry: '', size: '', companyDomain: null, dnsScanOptOut: true },
+        dnsScan: null,
+      });
+      trackEvent('assessment_profile_skipped');
     },
     'submit-profile-domain': () => {
       const input = mainEl.querySelector('[data-domain-input]');
@@ -241,12 +302,13 @@ function handleClick(event) {
       const normalized = normalizeDomain(raw);
       if (!isValidDomain(normalized)) return;
       setProfile({ companyDomain: normalized, dnsScanOptOut: false });
-      runScanFlow(normalized);
+      setState({ step: 'question', currentQuestionIndex: 0 });
+      runScanInBackground(normalized);
     },
     'optout-profile-domain': () => {
       setProfile({ companyDomain: null, dnsScanOptOut: true });
       setDnsScan(null);
-      setState({ step: 'awareness-quiz', currentAwarenessIndex: 0 });
+      setState({ step: 'question', currentQuestionIndex: 0 });
     },
     'next-awareness': () => {
       const state = getState();
@@ -269,8 +331,17 @@ function handleClick(event) {
     },
     'go-to-results': () => {
       setStep('results');
-      scheduleSubmit();
-      scheduleBenchmark();
+      const state = getState();
+      trackEvent('assessment_results_viewed', {
+        depth: state.assessmentDepth || 'screening',
+        answered_total: Object.keys(state.responses).length,
+      });
+      // Nie zapisujemy diagnoz 17/35 do tabel używanych przez benchmark pełnego audytu.
+      // Konwersję etapów mierzą osobne zdarzenia GA.
+      if (state.assessmentDepth === 'full' && state.profile?.industry && state.profile?.size) {
+        scheduleSubmit();
+        scheduleBenchmark();
+      }
     },
     'download-pdf': () => {
       const state = getState();
@@ -333,6 +404,13 @@ function handleChange(event) {
     const questionId = input.dataset.questionId;
     const optionIndex = Number(input.dataset.optionIndex);
     saveResponse(questionId, optionIndex);
+    const state = getState();
+    const stage = getFunnelStageForIndex(state.currentQuestionIndex);
+    trackEvent('assessment_question_answered', {
+      question_id: questionId,
+      stage: stage?.id,
+      position: state.currentQuestionIndex + 1,
+    });
   }
   if (input.matches('input[type="radio"][data-awareness-question-id]')) {
     const questionId = input.dataset.awarenessQuestionId;
@@ -341,7 +419,7 @@ function handleChange(event) {
   }
   if (input.matches('[data-domain-input]')) {
     const status = mainEl.querySelector('[data-domain-status]');
-    const submitBtn = mainEl.querySelector('[data-action="submit-profile-domain"]');
+    const submitBtn = mainEl.querySelector('[data-action="submit-profiling"], [data-action="submit-profile-domain"]');
     const normalized = normalizeDomain(input.value);
     if (!input.value.trim()) {
       if (status) { status.textContent = ''; status.removeAttribute('data-state'); }
@@ -386,8 +464,10 @@ async function scheduleSubmit() {
     if (result.ok) {
       setState({ submittedAt: new Date().toISOString() });
       trackEvent('assessment_completed', {
-        score: scoringResult.totalScore,
-        level: scoringResult.maturityLevel,
+        score: scoringResult.overall.percentage,
+        level: scoringResult.maturity.key,
+        depth: state.assessmentDepth || 'screening',
+        answered_total: Object.keys(state.responses).length,
         industry: state.profile?.industry,
         size: state.profile?.size,
       });
@@ -439,41 +519,7 @@ function isValidDomain(d) {
   return true;
 }
 
-function showScanOverlay() {
-  const existing = document.querySelector('.samoocena-scan-overlay');
-  if (existing) existing.remove();
-  const overlay = document.createElement('div');
-  overlay.className = 'samoocena-scan-overlay';
-  overlay.innerHTML = `
-    <div class="samoocena-scan-overlay-inner">
-      <div class="samoocena-scan-overlay-title">Skanujemy publiczne rekordy DNS</div>
-      <ul class="samoocena-scan-overlay-list">
-        <li data-step="dns" class="is-active">subdomeny i adresy IP</li>
-        <li data-step="email">konfiguracja email security (SPF/DMARC)</li>
-        <li data-step="parse">analiza i interpretacja</li>
-      </ul>
-      <div class="samoocena-scan-overlay-meta">~5 sekund · pasywnie</div>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-  // Sequencjne podświetlanie kroków — czysto dekoracyjne, nie real progress
-  setTimeout(() => {
-    overlay.querySelector('[data-step="dns"]')?.classList.replace('is-active', 'is-done');
-    overlay.querySelector('[data-step="email"]')?.classList.add('is-active');
-  }, 1500);
-  setTimeout(() => {
-    overlay.querySelector('[data-step="email"]')?.classList.replace('is-active', 'is-done');
-    overlay.querySelector('[data-step="parse"]')?.classList.add('is-active');
-  }, 3000);
-  return overlay;
-}
-
-function hideScanOverlay() {
-  document.querySelector('.samoocena-scan-overlay')?.remove();
-}
-
-async function runScanFlow(domain) {
-  const overlay = showScanOverlay();
+async function runScanInBackground(domain) {
   try {
     const result = await scanDomain(domain);
     // Zapisz cokolwiek dostaliśmy — `ok: true` z data lub `ok: false` z error.
@@ -492,9 +538,6 @@ async function runScanFlow(domain) {
       data: null,
       error: err.message || 'unknown',
     });
-  } finally {
-    hideScanOverlay();
-    setState({ step: 'awareness-quiz', currentAwarenessIndex: 0 });
   }
 }
 
@@ -504,11 +547,6 @@ function handleSubmit(event) {
   event.preventDefault();
 
   if (form.dataset.form === 'profiling') {
-    const formData = new FormData(form);
-    const industry = formData.get('industry');
-    const size = formData.get('size');
-    if (!industry || !size) return;
-    setProfile({ industry, size });
-    setState({ step: 'profile-domain' });
+    mainEl.querySelector('[data-action="submit-profiling"]')?.click();
   }
 }

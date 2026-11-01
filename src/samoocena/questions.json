@@ -136,12 +136,12 @@
       "category": "B",
       "weight": 2.0,
       "critical": true,
-      "text": "Czy firma ma kopie zapasowe kluczowych danych przechowywane poza siecią firmową (offline lub w chmurze z immutability)?",
+      "text": "Czy firma ma kopie zapasowe kluczowych danych poza siecią firmową — offline lub zabezpieczone przed usunięciem i nadpisaniem?",
       "options": [
         { "label": "Nie wiem / nie jestem pewny.", "score": 0 },
         { "label": "Nie robimy backupu albo backup jest na pendrive lub dysku stale podpiętym do komputera.", "score": 0 },
         { "label": "Backup robi się automatycznie, ale nigdy nie testowaliśmy odtworzenia.", "score": 1 },
-        { "label": "Backup zgodny z regułą 3-2-1 (3 kopie, 2 media, 1 offsite) + regularne testy odtwarzania.", "score": 3 }
+        { "label": "Backup zgodny z regułą 3-2-1: 3 kopie, 2 różne nośniki i 1 kopia poza siecią firmową + regularne testy odtwarzania.", "score": 3 }
       ],
       "mapping": "CIS Control 11.1 / NIST PR.DS-01"
     },

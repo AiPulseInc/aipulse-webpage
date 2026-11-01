@@ -24,7 +24,10 @@ const SIZE_LABELS = {
 
 export function renderManagementResults(ctx) {
   const { scoringResult, responses, profile, awarenessAnswers } = ctx;
-  const benchmark = ctx.benchmark || FALLBACK_BENCHMARK;
+  const answeredCount = Object.keys(responses).length;
+  const isFullAssessment = ctx.assessmentDepth === 'full' || answeredCount === 35;
+  const hasProfile = !!(profile?.industry && profile?.size);
+  const benchmark = isFullAssessment && hasProfile ? (ctx.benchmark || FALLBACK_BENCHMARK) : null;
   const topRecs = topRecommendations(scoringResult, responses, 5);
   const topGaps = topRecommendations(scoringResult, responses, 3);
   const categoriesMeta = getCategoriesMeta();
@@ -34,12 +37,12 @@ export function renderManagementResults(ctx) {
 
   return `
     <article class="samoocena-report">
-      ${renderReportCover(scoringResult, today, profile)}
-      ${renderExecutiveSummary(scoringResult, topGaps)}
+      ${renderReportCover(scoringResult, today, profile, answeredCount, isFullAssessment)}
+      ${renderExecutiveSummary(scoringResult, topGaps, answeredCount, isFullAssessment)}
       ${awareness ? renderAwarenessSection(awareness) : ''}
-      ${renderCategoryAnalysis(scoringResult, categoriesMeta, profile, benchmark)}
+      ${renderCategoryAnalysis(scoringResult, categoriesMeta, benchmark, answeredCount)}
       ${renderTopRecommendations(topRecs)}
-      ${renderUpsellSection()}
+      ${renderUpsellSection(isFullAssessment, hasProfile)}
       ${renderReportCTA()}
       <footer class="samoocena-report-restart">
         <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="restart">Zacznij nową samoocenę</button>
@@ -119,7 +122,7 @@ function formatExplanation(text) {
   return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 
-function renderReportCover(scoringResult, date, profile) {
+function renderReportCover(scoringResult, date, profile, answeredCount, isFullAssessment) {
   const pct = scoringResult.overall.percentage;
   const sizeLabel = SIZE_LABELS[profile.size] || profile.size || '—';
   return `
@@ -131,7 +134,7 @@ function renderReportCover(scoringResult, date, profile) {
         </div>
       </div>
 
-      <p class="samoocena-kicker samoocena-report-label">// Raport samooceny cyberbezpieczeństwa</p>
+      <p class="samoocena-kicker samoocena-report-label">// ${isFullAssessment ? 'Pełna samoocena cyberbezpieczeństwa' : 'Diagnoza przesiewowa cyberbezpieczeństwa'}</p>
       <h1 class="samoocena-report-cover-title">Twój<br>wynik</h1>
 
       <div class="samoocena-report-score-block">
@@ -144,14 +147,15 @@ function renderReportCover(scoringResult, date, profile) {
 
       <div class="samoocena-report-cover-meta">
         <span>Data: ${date}</span>
-        <span>Wersja: 2026-01</span>
-        <span>Profil: ${escapeHtml(profile.industry || '—')} · ${escapeHtml(sizeLabel)}</span>
+        <span>Wersja: 2026-02</span>
+        <span>Zakres: ${answeredCount}/35 kontroli</span>
+        <span>Profil: ${escapeHtml(profile.industry || 'anonimowy')} · ${escapeHtml(sizeLabel)}</span>
       </div>
     </section>
   `;
 }
 
-function renderExecutiveSummary(scoringResult, topGaps) {
+function renderExecutiveSummary(scoringResult, topGaps, answeredCount, isFullAssessment) {
   const pct = scoringResult.overall.percentage;
   const maturity = scoringResult.maturity;
   const risk = getRiskStatement(maturity.key);
@@ -161,12 +165,21 @@ function renderExecutiveSummary(scoringResult, topGaps) {
       <h2 class="samoocena-report-h2">Jedna strona, którą musi przeczytać właściciel firmy</h2>
 
       ${
+        !isFullAssessment
+          ? `<div class="samoocena-guardrail-callout">
+               <p class="samoocena-guardrail-label">Wynik przesiewowy · ${answeredCount}/35 kontroli</p>
+               <p>To wiarygodny sygnał z pięciu obszarów, ale nie pełny audyt zgodności. Wynik i rekomendacje odnoszą się wyłącznie do udzielonych odpowiedzi.</p>
+             </div>`
+          : ''
+      }
+
+      ${
         scoringResult.guardrailTriggered
           ? `
         <div class="samoocena-guardrail-callout">
           <p class="samoocena-guardrail-label">⚠ Wynik ograniczony</p>
           <p>
-            Twój wynik jest ograniczony do <strong>"Developing"</strong> niezależnie od pozostałych odpowiedzi, ponieważ brak MFA oraz brak testowanego backupu to <strong>warunki minimalne</strong> w certyfikacjach CIS Controls v8 i większości polis cyber insurance. Bez tych dwóch elementów żadne inne zabezpieczenia nie kompensują ryzyka paraliżu działalności po incydencie ransomware.
+            Twój wynik jest ograniczony do <strong>"Developing"</strong> niezależnie od pozostałych odpowiedzi, ponieważ brak MFA oraz brak bezpiecznej kopii danych poza siecią firmową to <strong>warunki minimalne</strong> w certyfikacjach CIS Controls v8 i większości polis cyber insurance. Bez tych dwóch elementów żadne inne zabezpieczenia nie kompensują ryzyka paraliżu działalności po incydencie ransomware.
           </p>
         </div>
       `
@@ -205,36 +218,42 @@ function renderExecutiveSummary(scoringResult, topGaps) {
   `;
 }
 
-function renderCategoryAnalysis(scoringResult, categoriesMeta, profile, benchmark) {
+function renderCategoryAnalysis(scoringResult, categoriesMeta, benchmark, answeredCount) {
+  const hasBenchmark = !!benchmark;
   const entries = categoriesMeta.map((cat) => ({
     id: cat.id,
     name: cat.name,
     pct: scoringResult.categories[cat.id]?.percentage ?? 0,
-    benchmark: Math.round(benchmark[cat.id] ?? 50),
+    answered: scoringResult.categories[cat.id]?.answered ?? 0,
+    benchmark: hasBenchmark ? Math.round(benchmark[cat.id] ?? 50) : null,
   }));
-  const above = entries.filter((e) => e.pct > e.benchmark);
-  const below = entries.filter((e) => e.pct < e.benchmark);
-  const equal = entries.filter((e) => e.pct === e.benchmark);
-  const isFallback = benchmark.scope === 'fallback';
+  const above = hasBenchmark ? entries.filter((e) => e.pct > e.benchmark) : [];
+  const below = hasBenchmark ? entries.filter((e) => e.pct < e.benchmark) : [];
+  const equal = hasBenchmark ? entries.filter((e) => e.pct === e.benchmark) : [];
+  const isFallback = benchmark?.scope === 'fallback';
   const scopeNote = {
     industry_size: 'dokładna kohorta (Twoja branża + rozmiar)',
     size_only: 'kohorta po rozmiarze firmy (wszystkie branże)',
     all_smb: 'wszystkie MŚP z próby',
     fallback: 'szacunek wstępny z bazy wiedzy (realne dane spłyną wraz z kolejnymi samoocenami)',
-  }[benchmark.scope] || 'kohorta';
+  }[benchmark?.scope] || 'kohorta';
   return `
     <section class="samoocena-report-section">
       <p class="samoocena-kicker">// Analiza kategorii</p>
       <h2 class="samoocena-report-h2">Gdzie jesteś mocny, gdzie słaby</h2>
       <p class="samoocena-report-paragraph samoocena-report-muted">
-        Pionowy znacznik = średnia dla ${escapeHtml(benchmark.cohortLabel)} (n=${benchmark.sampleSize}).${isFallback ? ' <em>Realne dane podłączą się automatycznie, gdy próba osiągnie wystarczający rozmiar.</em>' : ''}
+        ${
+          hasBenchmark
+            ? `Pionowy znacznik = średnia dla ${escapeHtml(benchmark.cohortLabel)} (n=${benchmark.sampleSize}).${isFallback ? ' <em>Realne dane podłączą się automatycznie, gdy próba osiągnie wystarczający rozmiar.</em>' : ''}`
+            : `Wyniki kategorii policzone z ${answeredCount} udzielonych odpowiedzi. Benchmark pokazujemy dopiero dla pełnej samooceny z profilem firmy, żeby nie porównywać niepełnych zakresów.`
+        }
       </p>
 
       <div class="samoocena-report-bars">
-        ${entries.map((e) => renderReportBar(e)).join('')}
+        ${entries.map((e) => renderReportBar(e, hasBenchmark)).join('')}
       </div>
 
-      <div class="samoocena-exec-box">
+      ${hasBenchmark ? `<div class="samoocena-exec-box">
         <h3>Co mówi benchmark</h3>
         ${
           above.length
@@ -258,21 +277,21 @@ function renderCategoryAnalysis(scoringResult, categoriesMeta, profile, benchmar
         <p class="samoocena-report-footnote">
           Próba: ${benchmark.sampleSize} firm z kohorty „${escapeHtml(benchmark.cohortLabel)}" — ${escapeHtml(scopeNote)}. Kwestionariusz 2026-01.
         </p>
-      </div>
+      </div>` : ''}
     </section>
   `;
 }
 
-function renderReportBar(e) {
+function renderReportBar(e, hasBenchmark) {
   const levelClass = pctToLevelClass(e.pct);
   return `
     <div class="samoocena-report-bar ${levelClass}">
       <div class="samoocena-report-bar-label">${escapeHtml(e.name)}</div>
       <div class="samoocena-report-bar-track">
         <div class="samoocena-report-bar-fill" style="width: ${e.pct}%"></div>
-        <div class="samoocena-report-bar-benchmark" style="left: ${e.benchmark}%" title="Średnia branży: ${e.benchmark}"></div>
+        ${hasBenchmark ? `<div class="samoocena-report-bar-benchmark" style="left: ${e.benchmark}%" title="Średnia branży: ${e.benchmark}"></div>` : ''}
       </div>
-      <div class="samoocena-report-bar-value">${e.pct}</div>
+      <div class="samoocena-report-bar-value">${e.pct}<small>% · ${e.answered} odp.</small></div>
     </div>
   `;
 }
@@ -311,7 +330,30 @@ function renderReportRec(rec, num) {
   `;
 }
 
-function renderUpsellSection() {
+function renderUpsellSection(isFullAssessment, hasProfile) {
+  if (!isFullAssessment) {
+    return `
+      <section class="samoocena-report-upsell">
+        <p class="samoocena-kicker">// Następny krok</p>
+        <h2 class="samoocena-report-h2">Potrzebujesz wyniku audytowego?</h2>
+        <p class="samoocena-report-paragraph samoocena-report-muted">
+          Diagnoza przesiewowa wskazuje priorytety. Pełna samoocena obejmuje 35 kontroli CIS/NIST i jest właściwą podstawą do szczegółowego raportu dla zarządu lub ubezpieczyciela.
+        </p>
+        <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="restart">Uruchom pełną ścieżkę od nowa</button>
+      </section>
+    `;
+  }
+
+  if (!hasProfile) {
+    return `
+      <section class="samoocena-report-upsell">
+        <p class="samoocena-kicker">// Raport szczegółowy</p>
+        <h2 class="samoocena-report-h2">Raport PDF wymaga profilu firmy</h2>
+        <p class="samoocena-report-paragraph samoocena-report-muted">Branża i wielkość firmy są potrzebne do poprawnej interpretacji pełnego wyniku. Nie wymagamy nazwy firmy na tym etapie.</p>
+      </section>
+    `;
+  }
+
   return `
     <section class="samoocena-report-upsell">
       <p class="samoocena-kicker">// Pełny raport audytowy</p>

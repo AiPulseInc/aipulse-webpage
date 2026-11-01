@@ -11,6 +11,8 @@ const INITIAL_STATE = {
   awarenessAnswers: {},
   currentAwarenessIndex: 0,
   dnsScan: null,
+  assessmentDepth: 'screening',
+  profileSkipped: false,
 };
 
 let state = loadState();

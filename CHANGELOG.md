@@ -2,7 +2,18 @@
 
 Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.587] — 2026-11-01
 
+**Samoocena — progresywny lejek konwersji:**
+
+- Claim zmieniony z „10 minut / 35 pytań” na „pierwszy wynik w 2 minuty”; opcjonalny ekran kontekstu można pominąć jednym kliknięciem.
+- Ankieta podzielona na etapy **3 → 4 → 10 pytań**, z natychmiastowym wynikiem i najważniejszą rekomendacją po każdym etapie.
+- Po 17 odpowiedziach użytkownik może zakończyć z diagnozą przesiewową albo dobrowolnie pogłębić ją o 18 pytań do pełnej samooceny 35/35.
+- Opcjonalny profil jest przed pytaniami na jednym ekranie: domena, branża i wielkość firmy. Skan DNS działa w tle i nie blokuje rozpoczęcia ankiety; benchmark nie jest pokazywany dla niepełnego zakresu.
+- Scoring częściowy liczy wyłącznie udzielone odpowiedzi, a rekomendacje nie traktują pytań pominiętych jako luk.
+- Dodane zdarzenia GA dla startu, ukończenia i kontynuacji etapów oraz wyboru głębokości ankiety.
+- Checkpoint pokazuje najważniejszy nowy sygnał tylko z właśnie ukończonego etapu, dzięki czemu nie powtarza stale tej samej rekomendacji; usunięto techniczny jargon „immutability”.
+- Dodany deterministyczny test konfiguracji lejka (`npm run test:funnel`) i poprawka przepełnienia poziomego CTA na mobile.
 
 ## [0.586] — 2026-07-24
 

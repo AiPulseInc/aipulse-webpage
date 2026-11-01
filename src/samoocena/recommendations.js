@@ -52,7 +52,7 @@ const RECOMMENDATION_LIBRARY = {
   },
   B1: {
     title: 'Wdroż backup zgodny z regułą 3-2-1',
-    action: '3 kopie danych, 2 różne media, 1 offsite (najlepiej immutable cloud — np. Veeam, Backblaze B2 z object lock).',
+    action: 'Utrzymuj 3 kopie danych na 2 różnych nośnikach, w tym 1 poza siecią firmową i z blokadą usunięcia lub nadpisania.',
     cost: 'Od 100 zł/mies. dla MŚP',
     effort: '2-3 tygodnie',
     impact: 'Ransomware = 80% firm bez backupu upada w 6 miesięcy.',
@@ -255,6 +255,7 @@ export function topRecommendations(scoringResult, responses, limit = 3) {
 export function allGaps(responses) {
   const categoriesMeta = getCategoriesMeta();
   return getQuestions()
+    .filter((q) => responses[q.id] !== undefined && responses[q.id] !== null)
     .map((q) => buildGap(q, responses))
     .filter((g) => g.severity > 0)
     .sort((a, b) => b.severity - a.severity)

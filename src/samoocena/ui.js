@@ -1,7 +1,14 @@
-import { getQuestions, getCategoriesMeta } from './scoring.js';
+import { getCategoriesMeta } from './scoring.js';
 import { getAwarenessQuestions, getAwarenessMeta, scoreAwareness, getBridgeComment } from './awareness.js';
 import { renderProgressBar, escapeHtml } from './charts.js';
 import { renderManagementResults } from './results-management.js';
+import {
+  getFunnelQuestions,
+  getFunnelStageForIndex,
+  getScreeningQuestionCount,
+  getFullQuestionCount,
+} from './funnel.js';
+import { topRecommendations } from './recommendations.js';
 
 const INDUSTRIES = [
   'Produkcja',
@@ -41,33 +48,33 @@ export function renderLanding(ctx) {
         <p class="samoocena-landing-eyebrow">// Audyt wstępny</p>
 
         <h1 class="samoocena-display">Samoocena<br>cyberbezpieczeństwa</h1>
-        <p class="samoocena-display-sub">35 pytań · 5 kategorii · 10 minut · Bezpłatnie</p>
+        <p class="samoocena-display-sub">Pierwszy wynik w 2 minuty · Bez maila · Bezpłatnie</p>
 
         <p class="samoocena-hero-lead">
-          Włamanie do firmy rzadko zaczyna się od hakera w bluzie. Częściej od <strong>jednego maila, niezaktualizowanej kopii zapasowej albo tego samego hasła w pięciu miejscach</strong>. Sprawdź w 10 minut, ile takich furtek masz u siebie — i co zamknąć w pierwszej kolejności.
+          Zacznij od <strong>3 najważniejszych pytań</strong> o MFA, backup i reakcję na incydent. Od razu zobaczysz pierwszy sygnał ryzyka. Potem sam zdecydujesz, czy chcesz doprecyzować wynik.
         </p>
       </div>
 
       <div class="samoocena-stats" aria-label="Statystyki samooceny">
         <div class="samoocena-stat">
-          <span class="samoocena-stat-kicker">// Zakres</span>
-          <span class="samoocena-stat-num">35<em>pytań</em></span>
-          <span class="samoocena-stat-label">W 5 kategoriach (CIS + NIST)</span>
+          <span class="samoocena-stat-kicker">// Start</span>
+          <span class="samoocena-stat-num">3<em>pytania</em></span>
+          <span class="samoocena-stat-label">Pierwszy sygnał ryzyka od razu</span>
         </div>
         <div class="samoocena-stat">
-          <span class="samoocena-stat-kicker">// Czas</span>
-          <span class="samoocena-stat-num">10<em>min</em></span>
-          <span class="samoocena-stat-label">Średnio do ukończenia</span>
+          <span class="samoocena-stat-kicker">// Krok 2</span>
+          <span class="samoocena-stat-num">+4<em>pytania</em></span>
+          <span class="samoocena-stat-label">Dokładniejszy obraz codziennej praktyki</span>
         </div>
         <div class="samoocena-stat">
-          <span class="samoocena-stat-kicker">// Koszt</span>
-          <span class="samoocena-stat-num">0<em>zł</em></span>
-          <span class="samoocena-stat-label">Raport z samooceny jest bezpłatny</span>
+          <span class="samoocena-stat-kicker">// Diagnoza</span>
+          <span class="samoocena-stat-num">+10<em>pytań</em></span>
+          <span class="samoocena-stat-label">Rekomendacje z 5 obszarów bezpieczeństwa</span>
         </div>
         <div class="samoocena-stat">
-          <span class="samoocena-stat-kicker">// Dane</span>
-          <span class="samoocena-stat-num">1<em>adres www</em></span>
-          <span class="samoocena-stat-label">Do weryfikacji podatności strony www</span>
+          <span class="samoocena-stat-kicker">// Decyzja</span>
+          <span class="samoocena-stat-num">Ty<em>wybierasz</em></span>
+          <span class="samoocena-stat-label">Kończysz z wynikiem albo pogłębiasz audyt</span>
         </div>
       </div>
 
@@ -80,25 +87,25 @@ export function renderLanding(ctx) {
           <li class="samoocena-deliverable">
             <span class="samoocena-deliverable-index">01</span>
             <div class="samoocena-deliverable-body">
-              <h3>Wynik dojrzałości</h3>
-              <p>Wynik 0–100 + benchmark na tle firm z Twojej branży i rozmiaru. Cztery poziomy dojrzałości: Wstępny, Rozwijający się, Zarządzany, Zoptymalizowany.</p>
-              <span class="samoocena-deliverable-meta">// Per kategoria · Per pytanie krytyczne</span>
+              <h3>Pierwszy sygnał po 3 pytaniach</h3>
+              <p>Bez obowiązkowego formularza i bez adresu e-mail. Opcjonalny profil firmy możesz pominąć jednym kliknięciem.</p>
+              <span class="samoocena-deliverable-meta">// MFA · Backup · Reakcja na incydent</span>
             </div>
           </li>
           <li class="samoocena-deliverable">
             <span class="samoocena-deliverable-index">02</span>
             <div class="samoocena-deliverable-body">
-              <h3>Top 3 luki do załatania</h3>
-              <p>Konkretne działania z szacowanym kosztem i nakładem. "Wdroż MFA w M365" a nie "rozważ poprawę uwierzytelniania".</p>
+              <h3>Diagnoza przesiewowa</h3>
+              <p>Po 17 odpowiedziach zobaczysz wynik 0–100, najsłabsze obszary i konkretne działania — bez obowiązku wypełniania pełnego audytu.</p>
               <span class="samoocena-deliverable-meta">// Koszt · Nakład · Impact</span>
             </div>
           </li>
           <li class="samoocena-deliverable">
             <span class="samoocena-deliverable-index">03</span>
             <div class="samoocena-deliverable-body">
-              <h3>Raport szczegółowy (PDF)</h3>
-              <p>Dokument gotowy do wysłania zarządowi, ubezpieczycielowi albo audytorowi NIS2. Wersja audytowa, ponad 15 stron.</p>
-              <span class="samoocena-deliverable-meta">// 99 zł netto · early adopter price (149 zł docelowo)</span>
+              <h3>Opcjonalne pogłębienie</h3>
+              <p>Jeśli potrzebujesz materiału dla zarządu, ubezpieczyciela lub audytora, możesz rozszerzyć diagnozę do pełnych 35 pytań.</p>
+              <span class="samoocena-deliverable-meta">// Bez restartu · Twoje odpowiedzi zostają</span>
             </div>
           </li>
         </ol>
@@ -114,7 +121,7 @@ export function renderLanding(ctx) {
                  </button>
                  <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="restart">Zacznij od nowa</button>`
               : `<button type="button" class="samoocena-cta samoocena-cta-primary" data-action="start">
-                   <span class="samoocena-cta-label">Rozpocznij audyt</span>
+                   <span class="samoocena-cta-label">Sprawdź 3 najważniejsze rzeczy</span>
                    <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
                  </button>
                  <a class="samoocena-cta samoocena-cta-ghost" href="#jak-to-dziala">Jak to działa</a>`
@@ -124,7 +131,7 @@ export function renderLanding(ctx) {
 
       <footer class="samoocena-landing-footer">
         <p class="samoocena-landing-smallprint">
-          Sama samoocena (35 pytań) jest anonimowa i służy do zagregowanych benchmarków. Pobranie raportu PDF wymaga nazwy firmy i adresu email — wyłącznie do dostarczenia raportu i ewentualnej komunikacji marketingowej za Twoją zgodą.
+          Odpowiedzi są zapisywane lokalnie w przeglądarce. Nie prosimy o e-mail, żeby pokazać wynik. Domenę, branżę i wielkość firmy możesz podać opcjonalnie przed pytaniami albo pominąć cały krok.
           <a href="/polityka-cookies/">Polityka prywatności</a>.
         </p>
         <div class="samoocena-landing-credits">
@@ -142,14 +149,30 @@ export function renderLanding(ctx) {
 
 export function renderProfiling(ctx) {
   const { profile } = ctx;
+  const prefilledDomain = profile?.companyDomain || '';
   return `
     <section class="samoocena-profiling">
-      <p class="samoocena-kicker">// Krok 1 z 2</p>
-      <h1>Powiedz coś o swojej firmie</h1>
+      <p class="samoocena-kicker">// Opcjonalny krok · przed pytaniami</p>
+      <h1>Dodaj kontekst do wyniku</h1>
       <p class="samoocena-lead">
-        Potrzebujemy tego, żeby pokazać Ci benchmark z podobnych firm. Nie zbieramy nazwy firmy ani danych identyfikacyjnych.
+        Pasywnie sprawdzimy publiczne rekordy DNS domeny, a profil firmy doda kontekst do wyniku. Po pełnej samoocenie pozwoli też dopasować porównanie z podobnymi firmami. Skan uruchomimy w tle, kiedy Ty będziesz odpowiadać na pytania — bez logowania i bez ingerencji w systemy firmy.
       </p>
       <form class="samoocena-form" data-form="profiling">
+        <label class="samoocena-field">
+          <span class="samoocena-field-label">Domena firmy</span>
+          <input
+            type="text"
+            name="domain"
+            value="${escapeHtml(prefilledDomain)}"
+            placeholder="np. firma.pl"
+            autocomplete="off"
+            spellcheck="false"
+            data-domain-input
+            required
+          />
+          <span class="samoocena-field-status" data-domain-status></span>
+          <span class="samoocena-field-help">Sprawdzamy wyłącznie publicznie dostępne informacje: zabezpieczenia poczty oraz widoczne subdomeny.</span>
+        </label>
         <label class="samoocena-field">
           <span class="samoocena-field-label">Branża</span>
           <select name="industry" required>
@@ -174,11 +197,11 @@ export function renderProfiling(ctx) {
           </select>
         </label>
         <div class="samoocena-form-actions">
-          <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="back-to-landing">Wstecz</button>
-          <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="submit-profiling">
-            <span class="samoocena-cta-label">Rozpocznij audyt</span>
+          <button type="button" class="samoocena-cta samoocena-cta-primary" data-action="submit-profiling" disabled>
+            <span class="samoocena-cta-label">Zapisz kontekst i zacznij</span>
             <span class="samoocena-cta-arrow" aria-hidden="true">→</span>
           </button>
+          <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="skip-profiling">Pomiń ten krok i przejdź do pytań</button>
         </div>
       </form>
     </section>
@@ -194,7 +217,7 @@ export function renderProfileDomain(ctx) {
       <p class="samoocena-lead">
         Sprawdzimy <strong>pasywnie</strong> co publiczny internet wie o Twojej infrastrukturze:
         widoczne subdomeny i konfigurację bezpieczeństwa email (SPF/DMARC).
-        Bez logowania, bez zgody firmy — tylko publiczne rekordy DNS. ~5 sekund.
+        Bez logowania i bez ingerencji w systemy firmy — tylko publiczne rekordy DNS. ~5 sekund.
       </p>
       <form class="samoocena-form" data-form="profile-domain">
         <label class="samoocena-field">
@@ -237,20 +260,22 @@ export function renderProfileDomain(ctx) {
 
 export function renderQuestion(ctx) {
   const { currentIndex, responses } = ctx;
-  const questions = getQuestions();
+  const questions = getFunnelQuestions();
   const question = questions[currentIndex];
+  const stage = getFunnelStageForIndex(currentIndex);
   const categoriesMeta = getCategoriesMeta();
   const category = categoriesMeta.find((c) => c.id === question.category);
   const currentResponse = responses[question.id];
-  const isFirst = currentIndex === 0;
+  const isFirst = stage.localIndex === 0;
   const isLast = currentIndex === questions.length - 1;
-  const progressNum = currentIndex + 1;
+  const isStageEnd = currentIndex === stage.endIndex;
+  const progressNum = stage.localIndex + 1;
 
   return `
     <section class="samoocena-question-shell">
-      ${renderProgressBar(progressNum, questions.length, category.name)}
+      ${renderProgressBar(progressNum, stage.questionIds.length, stage.title)}
       <div class="samoocena-question-category">
-        <span class="samoocena-kicker">${escapeHtml(category.subtitle)}</span>
+        <span class="samoocena-kicker">// ${escapeHtml(stage.eyebrow)} · ${escapeHtml(category.name)}</span>
       </div>
       <article class="samoocena-question">
         <h2 class="samoocena-question-text">${escapeHtml(question.text)}</h2>
@@ -268,18 +293,72 @@ export function renderQuestion(ctx) {
             )
             .join('')}
         </div>
-        <p class="samoocena-question-meta">${escapeHtml(question.mapping)}</p>
       </article>
-      <footer class="samoocena-question-nav">
-        <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="prev-question"${
-          isFirst ? ' disabled' : ''
-        }>← Poprzednie</button>
-        <button type="button" class="samoocena-btn samoocena-btn-primary" data-action="${
-          isLast ? 'finish' : 'next-question'
-        }"${currentResponse === undefined ? ' disabled' : ''}>
-          ${isLast ? 'Zakończ i pokaż wynik' : 'Następne →'}
-        </button>
+      <footer class="samoocena-question-footer">
+        <div class="samoocena-question-nav">
+          <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="prev-question"${
+            isFirst ? ' disabled' : ''
+          }>← Poprzednie</button>
+          <button type="button" class="samoocena-btn samoocena-btn-primary" data-action="${
+            isLast ? 'finish' : isStageEnd ? 'stage-checkpoint' : 'next-question'
+          }"${currentResponse === undefined ? ' disabled' : ''}>
+            ${isLast ? 'Zakończ pełną samoocenę' : isStageEnd ? 'Pokaż mój wynik →' : 'Następne →'}
+          </button>
+        </div>
+        <p class="samoocena-question-meta">${escapeHtml(question.mapping)}</p>
       </footer>
+    </section>
+  `;
+}
+
+export function renderStageCheckpoint(ctx) {
+  const { currentIndex, responses, scoringResult } = ctx;
+  const stage = getFunnelStageForIndex(currentIndex);
+  const answered = Object.keys(responses).length;
+  const score = scoringResult.overall.percentage;
+  const stageResponses = Object.fromEntries(
+    stage.questionIds
+      .filter((questionId) => responses[questionId] !== undefined)
+      .map((questionId) => [questionId, responses[questionId]])
+  );
+  const topGap = topRecommendations(scoringResult, stageResponses, 1)[0];
+  const isDiagnosis = stage.id === 'diagnosis';
+  const signalLabel = score < 26 ? 'Wysokie ryzyko' : score < 51 ? 'Podstawy wymagają wzmocnienia' : score < 76 ? 'Solidna baza' : 'Dobra gotowość';
+
+  return `
+    <section class="samoocena-checkpoint">
+      <p class="samoocena-kicker">// ${escapeHtml(stage.title)} · ${answered} odpowiedzi</p>
+      <div class="samoocena-checkpoint-grid">
+        <div>
+          <p class="samoocena-checkpoint-label">Twój aktualny wynik</p>
+          <div class="samoocena-checkpoint-score">${score}<span>/100</span></div>
+          <h1>${escapeHtml(signalLabel)}</h1>
+          <p class="samoocena-lead">
+            ${escapeHtml(stage.checkpointCopy)}
+          </p>
+        </div>
+        <aside class="samoocena-checkpoint-gap">
+          <span>// Najważniejszy nowy sygnał z tego etapu</span>
+          <strong>${escapeHtml(topGap?.title || 'Brak krytycznych luk w tej części')}</strong>
+          <p>${escapeHtml(topGap?.action || 'Kontynuuj, aby sprawdzić pozostałe obszary.')}</p>
+        </aside>
+      </div>
+
+      <div class="samoocena-checkpoint-actions">
+        ${
+          isDiagnosis
+            ? `<button type="button" class="samoocena-cta samoocena-cta-primary" data-action="show-screening-profile">
+                 <span class="samoocena-cta-label">Zobacz rekomendacje</span><span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+               </button>
+               <button type="button" class="samoocena-cta samoocena-cta-ghost" data-action="continue-full">
+                 Pełna samoocena — jeszcze ${getFullQuestionCount() - getScreeningQuestionCount()} pytań
+               </button>`
+            : `<button type="button" class="samoocena-cta samoocena-cta-primary" data-action="continue-stage">
+                 <span class="samoocena-cta-label">${escapeHtml(stage.nextLabel)}</span><span class="samoocena-cta-arrow" aria-hidden="true">→</span>
+               </button>
+               <p class="samoocena-checkpoint-time">${escapeHtml(stage.timeLabel)} · odpowiedzi zostają zapisane</p>`
+        }
+      </div>
     </section>
   `;
 }
@@ -316,17 +395,19 @@ export function renderAwarenessQuestion(ctx) {
             )
             .join('')}
         </div>
-        <p class="samoocena-question-meta">${escapeHtml(question.reference)}</p>
       </article>
-      <footer class="samoocena-question-nav">
-        <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="prev-awareness"${
-          isFirst ? ' disabled' : ''
-        }>← Poprzednie</button>
-        <button type="button" class="samoocena-btn samoocena-btn-primary" data-action="next-awareness"${
-          currentAnswer === undefined ? ' disabled' : ''
-        }>
-          ${isLast ? 'Przejdź do samooceny →' : 'Następne →'}
-        </button>
+      <footer class="samoocena-question-footer">
+        <div class="samoocena-question-nav">
+          <button type="button" class="samoocena-btn samoocena-btn-ghost" data-action="prev-awareness"${
+            isFirst ? ' disabled' : ''
+          }>← Poprzednie</button>
+          <button type="button" class="samoocena-btn samoocena-btn-primary" data-action="next-awareness"${
+            currentAnswer === undefined ? ' disabled' : ''
+          }>
+            ${isLast ? 'Przejdź do samooceny →' : 'Następne →'}
+          </button>
+        </div>
+        <p class="samoocena-question-meta">${escapeHtml(question.reference)}</p>
       </footer>
     </section>
   `;
@@ -454,7 +535,7 @@ export function renderCategoryIntro(ctx) {
 }
 
 export function renderThankYou(ctx) {
-  const { profile, responses, startedAt, completedAt } = ctx;
+  const { responses, startedAt, completedAt, scoringResult, assessmentDepth } = ctx;
   const answered = Object.keys(responses).length;
   const durationMinutes =
     startedAt && completedAt
@@ -462,16 +543,16 @@ export function renderThankYou(ctx) {
       : null;
   return `
     <section class="samoocena-thank-you">
-      <p class="samoocena-kicker">// Ukończono samoocenę</p>
-      <h1 class="samoocena-thank-you-title">Dziękujemy.<br>Raport jest gotowy.</h1>
+      <p class="samoocena-kicker">// ${assessmentDepth === 'full' ? 'Pełna samoocena ukończona' : 'Diagnoza przesiewowa ukończona'}</p>
+      <h1 class="samoocena-thank-you-title">Twój wynik: ${scoringResult?.overall?.percentage ?? 0}/100.<br>Rekomendacje są gotowe.</h1>
       <p class="samoocena-thank-you-lead">
-        Odpowiedzi zapisane lokalnie — żadne dane nie zostały wysłane poza Twoją przeglądarkę. Kliknij niżej, żeby zobaczyć pełny wynik z rekomendacjami.
+        Kliknij niżej, żeby zobaczyć najsłabsze obszary i konkretne działania w kolejności od najważniejszych.
       </p>
 
       <dl class="samoocena-thank-you-stats">
         <div><dt>Odpowiedzi</dt><dd>${answered}</dd></div>
         <div><dt>Czas</dt><dd>${durationMinutes ? `${durationMinutes} min` : '—'}</dd></div>
-        <div><dt>Kategorii</dt><dd>5/5</dd></div>
+        <div><dt>Zakres</dt><dd>${assessmentDepth === 'full' ? 'pełny' : 'przesiewowy'}</dd></div>
       </dl>
 
       <div class="samoocena-thank-you-actions">

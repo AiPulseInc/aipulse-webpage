@@ -1,12 +1,13 @@
 {
   "name": "aipulse-webpage",
   "private": true,
-  "version": "0.586",
+  "version": "0.587",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test:funnel": "node scripts/validate-assessment-funnel.mjs",
     "generate-images": "node scripts/generate-images.mjs",
     "blog:build": "node scripts/build-security-blog.mjs"
   },

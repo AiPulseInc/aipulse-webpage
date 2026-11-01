@@ -6,7 +6,7 @@ import { getSupabaseBrowser } from '../lib/supabase-browser.js';
 import { getQuestions } from './scoring.js';
 import { scoreAwareness } from './awareness.js';
 
-const QUESTIONNAIRE_VERSION = '2026-01';
+const QUESTIONNAIRE_VERSION = '2026-02-progressive';
 
 // Kategoria frontend (A-E) → kolumna schema (score_*)
 const CATEGORY_TO_COLUMN = {

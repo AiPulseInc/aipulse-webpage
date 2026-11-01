@@ -1,0 +1,31 @@
+{
+  "version": "2026-02-progressive",
+  "stages": [
+    {
+      "id": "signal",
+      "title": "Pierwszy sygnał",
+      "eyebrow": "3 najważniejsze zabezpieczenia",
+      "questionIds": ["C1", "B1", "D2"],
+      "nextLabel": "Doprecyzuj wynik — jeszcze 4 pytania",
+      "checkpointCopy": "To wstępny sygnał oparty na trzech krytycznych obszarach. Kolejne cztery pytania pokażą, czy problemy są punktowe, czy dotyczą codziennej praktyki firmy.",
+      "timeLabel": "~1 min"
+    },
+    {
+      "id": "precision",
+      "title": "Doprecyzowanie",
+      "eyebrow": "Codzienna praktyka",
+      "questionIds": ["A2", "A3", "B2", "E1"],
+      "nextLabel": "Pogłęb diagnozę — jeszcze 10 pytań",
+      "checkpointCopy": "Wynik obejmuje już siedem kluczowych kontroli. Ostatni krótki etap sprawdzi wszystkie pięć obszarów i zamieni ocenę w konkretne rekomendacje.",
+      "timeLabel": "~2 min"
+    },
+    {
+      "id": "diagnosis",
+      "title": "Diagnoza przesiewowa",
+      "eyebrow": "Przekrój przez 5 obszarów",
+      "questionIds": ["A1", "A4", "B3", "B4", "C2", "C3", "C7", "D4", "D6", "E3"],
+      "checkpointCopy": "Masz już przekrojową diagnozę z pięciu obszarów. Możesz przejść do rekomendacji albo pogłębić wynik do pełnej samooceny.",
+      "timeLabel": "wynik gotowy"
+    }
+  ]
+}

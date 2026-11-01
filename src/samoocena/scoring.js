@@ -8,10 +8,12 @@ export function scoreAssessment(responses) {
   const categoryScores = {};
 
   for (const [categoryId, categoryQuestions] of Object.entries(byCategory)) {
-    const { earned, max } = sumCategory(categoryQuestions, responses);
+    const { earned, max, answered, totalQuestions } = sumCategory(categoryQuestions, responses);
     categoryScores[categoryId] = {
       earned,
       max,
+      answered,
+      totalQuestions,
       percentage: max > 0 ? Math.round((earned / max) * 100) : 0,
     };
   }
@@ -52,16 +54,18 @@ function groupByCategory(questions) {
 function sumCategory(questions, responses) {
   let earned = 0;
   let max = 0;
+  let answered = 0;
   for (const q of questions) {
     const response = responses[q.id];
-    const maxScore = Math.max(...q.options.map((o) => o.score));
-    max += maxScore * q.weight;
     if (response === undefined || response === null) continue;
     const option = q.options[response];
     if (!option) continue;
+    const maxScore = Math.max(...q.options.map((o) => o.score));
+    max += maxScore * q.weight;
     earned += option.score * q.weight;
+    answered += 1;
   }
-  return { earned, max };
+  return { earned, max, answered, totalQuestions: questions.length };
 }
 
 function deriveMaturity(percentage) {

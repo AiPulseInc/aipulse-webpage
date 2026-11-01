@@ -6,6 +6,7 @@ body {
 
 .samoocena-shell {
   min-height: 100vh;
+  overflow-x: clip;
   background: #000;
   color: #fff;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -22,6 +23,118 @@ body {
 
 .samoocena-shell * {
   font-family: inherit;
+}
+
+/* PROGRESSIVE FUNNEL CHECKPOINTS */
+
+.samoocena-checkpoint {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: clamp(1rem, 4vw, 3rem) 0;
+}
+
+.samoocena-checkpoint-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: end;
+}
+
+.samoocena-checkpoint-label {
+  margin: 0 0 0.4rem;
+  color: var(--samoocena-muted);
+  font: 700 0.72rem/1 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.samoocena-checkpoint-score {
+  margin: 0 0 1rem;
+  color: var(--samoocena-accent);
+  font: 800 clamp(4.5rem, 12vw, 8rem)/0.9 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.06em;
+}
+
+.samoocena-checkpoint-score span {
+  margin-left: 0.4rem;
+  color: var(--samoocena-muted);
+  font-size: 0.2em;
+  letter-spacing: 0;
+}
+
+.samoocena-checkpoint h1 {
+  margin: 0 0 1rem;
+  font: 800 clamp(2rem, 5vw, 3.4rem)/1 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.samoocena-checkpoint-gap {
+  padding: 1.5rem;
+  border: 1px solid var(--samoocena-border);
+  border-left: 4px solid var(--samoocena-accent-deep);
+  background: var(--samoocena-card-bg);
+}
+
+.samoocena-checkpoint-gap span {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--samoocena-accent);
+  font: 700 0.68rem/1 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.samoocena-checkpoint-gap strong {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.samoocena-checkpoint-gap p {
+  margin: 0;
+  color: var(--samoocena-muted);
+  font-size: 0.9rem;
+}
+
+.samoocena-checkpoint-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: clamp(2rem, 5vw, 4rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--samoocena-border);
+}
+
+.samoocena-checkpoint-time {
+  margin: 0;
+  color: var(--samoocena-muted);
+  font: 500 0.75rem/1.4 'Space Grotesk', 'Inter', sans-serif;
+}
+
+.samoocena-report-bar-value small {
+  display: block;
+  color: var(--samoocena-muted);
+  font: 500 0.62rem/1.2 'Space Grotesk', 'Inter', sans-serif;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .samoocena-checkpoint-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .samoocena-checkpoint-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .samoocena-checkpoint-actions .samoocena-cta {
+    width: 100%;
+  }
 }
 
 .samoocena-shell h1,
@@ -384,6 +497,8 @@ body {
 }
 
 .samoocena-cta {
+  box-sizing: border-box;
+  max-width: 100%;
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
@@ -2345,6 +2460,12 @@ body {
   color: #fff;
 }
 
+.samoocena-field-help {
+  color: var(--samoocena-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .samoocena-field select,
 .samoocena-field input[type="text"],
 .samoocena-field input[type="email"],
@@ -2528,7 +2649,7 @@ body {
 }
 
 .samoocena-question-meta {
-  margin: 1.2rem 0 0;
+  margin: 0.85rem 0 0;
   color: var(--samoocena-muted);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
@@ -2536,32 +2657,24 @@ body {
   text-transform: uppercase;
 }
 
+.samoocena-question-footer {
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .samoocena-question-nav {
-  position: sticky;
-  bottom: 0;
+  position: relative;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin: auto -1rem 0;
-  padding: 1rem 1rem 0.8rem;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.9) 25%,
-    #000 60%
-  );
-  z-index: 10;
+  margin: 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--samoocena-card-border);
 }
 
 .samoocena-question-nav::before {
-  content: '';
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  top: 0.85rem;
-  height: 1px;
-  background: var(--samoocena-card-border);
+  content: none;
 }
 
 /* RESULTS */
