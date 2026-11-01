@@ -11,6 +11,8 @@ const admin = createClient(base, env.SUPABASE_SECRET_KEY, { auth: { persistSessi
 const id = randomUUID();
 const checks = [];
 function check(name, ok, status) { checks.push({ name, ok, ...(status ? { status } : {}) }); console.log(JSON.stringify(checks.at(-1))); }
+// PostgREST maps insufficient_privilege to 401 for anon and 403 for authenticated.
+const denied = result => [401, 403].includes(result.status) && result.data?.code === '42501';
 async function api(path, method = 'GET', body) {
   const r = await fetch(base + path, { method, headers: { apikey: publicKey, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
   const text = await r.text();
@@ -27,11 +29,13 @@ try {
   let result = await rpc();
   check('live_unpaid_rpc_denied', result.status === 200 && result.data === null, result.status);
   result = await api('/rest/v1/assessments?select=report_payload&id=eq.' + id);
-  check('live_original_direct_read_exploit_blocked', result.status === 403, result.status);
+  check('live_original_direct_read_exploit_blocked', denied(result), result.status);
   result = await api('/rest/v1/assessments?select=id&limit=0');
-  check('live_table_listing_blocked', result.status === 403, result.status);
+  check('live_table_listing_blocked', denied(result), result.status);
   result = await api('/rest/v1/assessments?id=eq.' + id, 'PATCH', { report_status: 'paid' });
-  check('live_anonymous_payment_status_tampering_blocked', result.status === 403, result.status);
+  check('live_anonymous_payment_status_tampering_blocked', denied(result), result.status);
+  result = await api('/rest/v1/payments', 'POST', { assessment_id: id, provider: 'qa_forged', status: 'completed', amount_minor: 12177, currency: 'pln' });
+  check('live_anonymous_payment_proof_forgery_blocked', denied(result), result.status);
   result = await api('/functions/v1/send-report', 'POST', { assessmentId: id, email: 'delivered@resend.dev', payload: { marker: 'forged' } });
   check('live_legacy_report_overwrite_blocked', result.status === 410, result.status);
   await admin.from('assessments').update({ report_status: 'paid' }).eq('id', id);
@@ -43,7 +47,7 @@ try {
   result = await rpc();
   check('live_paid_report_link_works', result.status === 200 && result.data?.marker === id);
   result = await api('/rest/v1/assessments?select=report_payload&id=eq.' + id);
-  check('live_paid_report_cannot_be_listed_or_read_as_table', result.status === 403);
+  check('live_paid_report_cannot_be_listed_or_read_as_table', denied(result), result.status);
   await admin.from('payments').update({ status: 'refunded' }).eq('assessment_id', id);
   result = await rpc();
   check('live_refunded_report_denied', result.status === 200 && result.data === null);

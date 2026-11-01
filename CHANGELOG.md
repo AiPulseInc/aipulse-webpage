@@ -2,6 +2,11 @@
 
 Log zmian w projekcie Ai Pulse. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/).
 
+## [0.589] — 2026-11-01
+
+- Test produkcyjny rozpoznaje odmowę uprawnień PostgREST `42501` z HTTP 401 dla anon i 403 dla authenticated.
+- Dodatkowy test blokady sfałszowania ukończonej płatności przez publiczne API.
+
 ## [0.588] — 2026-11-01
 
 **Samoocena — dostęp do płatnego raportu:**
